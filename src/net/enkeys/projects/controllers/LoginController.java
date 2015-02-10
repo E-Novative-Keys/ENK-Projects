@@ -1,5 +1,6 @@
-package net.enkeys;
+package net.enkeys.projects.controllers;
 
+import net.enkeys.projects.views.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.enkeys.framework.components.EApplication;
@@ -7,12 +8,13 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EDataException;
 import net.enkeys.framework.exceptions.EHttpRequestException;
+import net.enkeys.projects.models.Requester;
 
-public class RequesterController extends EController
+public class LoginController extends EController
 {
-    private final RequesterView view = (RequesterView)super.view;
+    private final LoginView view = (LoginView)super.view;
     
-    public RequesterController(EApplication app, EView view)
+    public LoginController(EApplication app, EView view)
     {
         super(app, view);
         addModel(new Requester());

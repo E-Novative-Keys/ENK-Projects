@@ -1,4 +1,4 @@
-package net.enkeys;
+package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 
-public class RequesterView extends EView
+public class LoginView extends EView
 {
     private final JLabel keyLabel = new JLabel("Data key: ");
     private final JTextField keyField = new JTextField(20);
@@ -33,7 +33,7 @@ public class RequesterView extends EView
     private final JTextArea terminal = new JTextArea();
     private final JScrollPane terminalScroller = new JScrollPane(terminal);
     
-    public RequesterView()
+    public LoginView()
     {
         super();
         

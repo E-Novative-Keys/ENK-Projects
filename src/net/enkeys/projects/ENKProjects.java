@@ -1,10 +1,10 @@
-package net.enkeys;
+package net.enkeys.projects;
 
 import net.enkeys.framework.components.EApplication;
 
-public class Main extends EApplication
+public class ENKProjects extends EApplication
 {
-    public Main(String name, String version, String dev, String contact, String[] args)
+    public ENKProjects(String name, String version, String dev, String contact, String[] args)
     {
         super(name, version, dev, contact, args);
         
@@ -20,6 +20,6 @@ public class Main extends EApplication
     
     public static void main(String[] args)
     {
-        new Main("Java HTTP(S) Requester", "0.1", "Valentin Fries", "contact@fries.io", args).run();
+        new ENKProjects("ENK-Projects", "0.1", "E-Novative Keys", "contact@enkeys.net", args).run();
     }
 }

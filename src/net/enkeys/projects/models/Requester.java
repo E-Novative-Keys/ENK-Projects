@@ -1,4 +1,4 @@
-package net.enkeys;
+package net.enkeys.projects.models;
 
 import java.util.Map;
 import net.enkeys.framework.components.EModel;

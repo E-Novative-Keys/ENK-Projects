@@ -1,5 +1,7 @@
-package net.enkeys;
+package net.enkeys.projects;
 
+import net.enkeys.projects.controllers.LoginController;
+import net.enkeys.projects.views.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -16,7 +18,7 @@ public class MainFrame extends EFrame
         super(app, title, width, height);
         setMinimumSize(width, height);
         
-        setContent(new RequesterController(getApp(), new RequesterView()));
+        setContent(new LoginController(getApp(), new LoginView()));
     }
 
     @Override
@@ -42,11 +44,5 @@ public class MainFrame extends EFrame
     public void onWindowClosing(WindowEvent we)
     {
         close();
-    }
-
-    @Override
-    public void onWindowClosed(WindowEvent we)
-    {
-        app.getLogger().info("Good bye!");
     }
 }
