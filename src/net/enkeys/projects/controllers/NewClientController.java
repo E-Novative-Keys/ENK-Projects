@@ -9,6 +9,7 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
+import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
 import net.enkeys.projects.views.HomeView;
@@ -48,12 +49,16 @@ public class NewClientController extends EController
             client.addData("data[Client][enterprise]", view.getEnterprise().getText());
             client.addData("data[Client][address]", view.getAddress().getText());
             client.addData("data[Client][siret]", view.getSiret().getText());
+            client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
+            client.addData("data[Token][fields]", app.getToken());
         
             try
             {
                 if(client.validate(client.getData(), errors))
                 {
-                    Map<String, String> values = client.execute();
+                    System.out.println(client.getJsonData());
+                    Map<String, String> values = client.execute("INSERT");
+                    System.out.println(values);
                 }
                 else
                 {
