@@ -1,6 +1,7 @@
 package net.enkeys.projects.controllers;
 
 
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -30,13 +31,20 @@ public class ListClientsController extends EController
     private void initView()
     {
         Client client = (Client)getModel("Client");
+        Map<String, String> errors = new HashMap<>();
         Map<String, String> values;
         
         client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
         client.addData("data[Token][fields]", app.getToken());
         
-        values = client.execute("SELECT");
-        System.out.println(values);
+        if(client.validate("SELECT", client.getData(), errors))
+        {
+            values = client.execute("SELECT", errors);
+            System.out.println(values);
+            System.err.println(errors);
+        }
+        else
+            System.err.println(errors);       
     }
     
     private TableModelListener dataTableListener()

@@ -82,6 +82,9 @@ public abstract class EModel
     {
         Object o = data.get("data");
         
+        if(rules.containsKey("!" + action))
+            return true;
+        
         if(errors == null)
             errors = new HashMap<>();
         
@@ -95,17 +98,6 @@ public abstract class EModel
             {
                 String ruleKey = (String)ruleEntry.getKey();
                 Rule[] rulesValue = (Rule[])ruleEntry.getValue();
-                
-                if(ruleKey.startsWith("!"))
-                {
-                    if(ruleKey.substring(1).equalsIgnoreCase(action))
-                    {
-                        errors.clear();
-                        return true;
-                    }
-                    else
-                        continue;
-                }
 
                 for(Rule rule : rulesValue)
                 {
@@ -239,6 +231,7 @@ public abstract class EModel
     
     public final Map<String, String> execute(String action) throws EDataException, EHttpRequestException
     {
+        System.out.println("First: " + action);
         return execute(action, "POST", null);
     }
     
@@ -263,12 +256,12 @@ public abstract class EModel
     public final Map<String, String> execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
         EHttpRequest request;
-        String url;
+        String url, actionURL;
         
-        if((action = this.actions.get(action)) == null)
+        if((actionURL = this.actions.get(action)) == null)
             throw new EDataException("Invalid action specified");
         
-        url = SERVICE_URL + this.getName().toLowerCase() + "s" + ((!action.isEmpty()) ? "/" + action : "");
+        url = SERVICE_URL + this.getName().toLowerCase() + "s" + ((!actionURL.isEmpty()) ? "/" + actionURL : "");
         
         try
         {
@@ -282,7 +275,7 @@ public abstract class EModel
             throw new EDataException("An error occured while initializing request", e);
         }
         
-        if(this.validate(action, data, errors))
+        if(validate(action, data, errors))
         {
             String value;
             
