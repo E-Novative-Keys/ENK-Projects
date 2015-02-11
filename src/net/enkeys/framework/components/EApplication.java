@@ -197,7 +197,7 @@ public abstract class EApplication implements Runnable
      * @param frame
      * @return 
      */
-    protected final boolean removeFrame(EFrame frame)
+    public final boolean removeFrame(EFrame frame)
     {
         return frames.remove(frame);
     }
@@ -208,7 +208,7 @@ public abstract class EApplication implements Runnable
      * @param i
      * @return 
      */
-    protected final boolean removeFrame(int i)
+    public final boolean removeFrame(int i)
     {
         EFrame frame = frames.get(i);
         
@@ -223,7 +223,7 @@ public abstract class EApplication implements Runnable
      * @param name
      * @return 
      */
-    protected final EFrame getFrame(String name)
+    public final EFrame getFrame(String name)
     {
         for(EFrame frame : frames)
         {
@@ -239,7 +239,7 @@ public abstract class EApplication implements Runnable
      * @param i
      * @return 
      */
-    protected final EFrame getFrame(int i)
+    public final EFrame getFrame(int i)
     {
         return frames.get(i);
     }

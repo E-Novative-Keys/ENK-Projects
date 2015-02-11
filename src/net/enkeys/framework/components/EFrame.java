@@ -53,7 +53,6 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
             this.pack = false;
         }
         
-        getGlassPane().setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
@@ -102,6 +101,7 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
     @Override
     public final void setCursor(Cursor cursor)
     {
+        getGlassPane().setVisible(true);
         getGlassPane().setCursor(cursor);
     }
     

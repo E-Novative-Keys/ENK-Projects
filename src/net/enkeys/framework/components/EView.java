@@ -1,12 +1,12 @@
 package net.enkeys.framework.components;
 
-import java.awt.GridBagConstraints;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
-public abstract class EView extends ETable
+public abstract class EView extends JPanel
 {
     public EView()
     {
-        super();
-        getConstraints().fill = GridBagConstraints.BOTH;
+        super(new BorderLayout());
     }
 }

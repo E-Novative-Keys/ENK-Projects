@@ -44,6 +44,11 @@ public class EHttpRequest
         this(url, params, "application/x-www-form-urlencoded", returnError);
     }
     
+    public EHttpRequest(URL url, Map<String, Object> params, String contentType)
+    {
+        this(url, EHttpRequest.formatParams(params), contentType, false);
+    }
+    
     public EHttpRequest(URL url, Map<String, Object> params, String contentType, boolean returnError)
     {
         this(url, EHttpRequest.formatParams(params), contentType, returnError);
@@ -52,6 +57,11 @@ public class EHttpRequest
     public EHttpRequest(URL url, String data)
     {
         this(url, data, "application/x-www-form-urlencoded", false);
+    }
+    
+    public EHttpRequest(URL url, String data, String contentType)
+    {
+        this(url, data, contentType, false);
     }
     
     public EHttpRequest(URL url, String data, boolean returnError)

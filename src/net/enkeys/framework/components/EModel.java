@@ -8,6 +8,8 @@ import net.enkeys.framework.components.rules.Rule;
 import net.enkeys.framework.exceptions.EDataException;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.JsonSyntaxException;
+import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.EHttpRequest;
 
 public abstract class EModel
@@ -15,7 +17,7 @@ public abstract class EModel
     /**
      * URL du WebService utilisé par le Modèle.
      */
-    protected String SERVICE_URL = "http://reverie.loc/post.php";
+    protected String SERVICE_URL = "http://enkwebservice.com/";
     /**
      * Actions pouvant être effectuées par le WebService.
      */
@@ -104,7 +106,7 @@ public abstract class EModel
         return addData(null, key, null);
     }
     
-    public final Map<String, Object> addData(String key, String value)
+    public final Map<String, Object> addData(String key, Object value)
     {
         return addData(null, key, value);
     }
@@ -167,7 +169,7 @@ public abstract class EModel
         data.clear();
     }
     
-    public final String execute() throws EDataException, EHttpRequestException
+    public final Map<String, String> execute() throws EDataException, EHttpRequestException
     {
         Object[] o = actions.keySet().toArray();
         
@@ -177,17 +179,17 @@ public abstract class EModel
             throw new EDataException("Model has no action");
     }
     
-    public final String execute(String action) throws EDataException, EHttpRequestException
+    public final Map<String, String> execute(String action) throws EDataException, EHttpRequestException
     {
         return execute(action, "POST", null);
     }
     
-    public final String execute(String action, String method) throws EDataException, EHttpRequestException
+    public final Map<String, String> execute(String action, String method) throws EDataException, EHttpRequestException
     {
         return execute(action, method, null);
     }
     
-    public final String execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
+    public final Map<String, String> execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
         return execute(action, "POST", errors);
     }
@@ -200,7 +202,7 @@ public abstract class EModel
      * @return
      * @throws EDataException, EHttpRequestException
      */
-    public final String execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
+    public final Map<String, String> execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
         EHttpRequest request;
         String url;
@@ -213,7 +215,7 @@ public abstract class EModel
         try
         {
             request = new EHttpRequest(
-                new URL(/*url*/SERVICE_URL),
+                new URL(url),
                 "data=" + this.getJsonData()
             );
         }
@@ -224,12 +226,26 @@ public abstract class EModel
         
         if(this.validate(data, errors))
         {
+            String value;
+            
             if(method.equalsIgnoreCase("GET"))
-                return request.get();
+                value = request.get();
             else if(method.equalsIgnoreCase("POST"))
-                return request.post();
+                value =  request.post();
             else
                 throw new EHttpRequestException("Invalid method specified");
+            
+            try
+            {
+                if(value != null && !value.isEmpty())
+                    return new Gson().fromJson(value, new TypeToken<HashMap<String, String>>(){}.getType());
+                else
+                    return null;
+            }
+            catch(JsonSyntaxException e)
+            {
+                return null;
+            }
         }
         else
             throw new EDataException(this.getName() + " data could not be validated");

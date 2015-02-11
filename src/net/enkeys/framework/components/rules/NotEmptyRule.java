@@ -14,6 +14,8 @@ public class NotEmptyRule extends Rule
     {
         if(object instanceof String)
             return !((String)object).isEmpty();
+        else if(object instanceof char[])
+            return ((char[])object).length > 0;
         else
             throw new ERuleException("Unsupported object");
     }
