@@ -99,12 +99,15 @@ public abstract class EModel
                 String ruleKey = (String)ruleEntry.getKey();
                 Rule[] rulesValue = (Rule[])ruleEntry.getValue();
 
-                for(Rule rule : rulesValue)
+                if(rulesValue != null)
                 {
-                    if(data.get(ruleKey) == null)
-                        errors.put(ruleKey + "/" + rule.getName(), "Is not set");
-                    else if(!rule.validate(data.get(ruleKey)))
-                        errors.put(ruleKey + "/" + rule.getName(), rule.getMessage());
+                    for(Rule rule : rulesValue)
+                    {
+                        if(data.get(ruleKey) == null)
+                            errors.put(ruleKey + "/" + rule.getName(), "Is not set");
+                        else if(!rule.validate(data.get(ruleKey)))
+                            errors.put(ruleKey + "/" + rule.getName(), rule.getMessage());
+                    }
                 }
             }
 
