@@ -9,6 +9,8 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
+import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
@@ -57,7 +59,9 @@ public class NewClientController extends EController
                 if(client.validate("INSERT", client.getData(), errors))
                 {
                     System.out.println(client.getJsonData());
-                    Map<String, String> values = client.execute("INSERT");
+                    String json = client.execute("INSERT");
+                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                    
                     System.out.println(values);
                 }
                 else

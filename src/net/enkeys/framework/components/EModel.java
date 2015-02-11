@@ -219,7 +219,7 @@ public abstract class EModel
         data.clear();
     }
     
-    public final Map<String, String> execute() throws EDataException, EHttpRequestException
+    public final String execute() throws EDataException, EHttpRequestException
     {
         Object[] o = actions.keySet().toArray();
         
@@ -229,18 +229,18 @@ public abstract class EModel
             throw new EDataException("Model has no action");
     }
     
-    public final Map<String, String> execute(String action) throws EDataException, EHttpRequestException
+    public final String execute(String action) throws EDataException, EHttpRequestException
     {
         System.out.println("First: " + action);
         return execute(action, "POST", null);
     }
     
-    public final Map<String, String> execute(String action, String method) throws EDataException, EHttpRequestException
+    public final String execute(String action, String method) throws EDataException, EHttpRequestException
     {
         return execute(action, method, null);
     }
     
-    public final Map<String, String> execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
+    public final String execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
         return execute(action, "POST", errors);
     }
@@ -253,7 +253,7 @@ public abstract class EModel
      * @return
      * @throws EDataException, EHttpRequestException
      */
-    public final Map<String, String> execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
+    public final String execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
         EHttpRequest request;
         String url, actionURL;
@@ -289,7 +289,7 @@ public abstract class EModel
             try
             {
                 if(value != null && !value.isEmpty())
-                    return new Gson().fromJson(value, new TypeToken<HashMap<String, String>>(){}.getType());
+                    return value;
                 else
                     return null;
             }

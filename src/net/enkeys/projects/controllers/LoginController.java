@@ -13,6 +13,8 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
+import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.MainFrame;
 import net.enkeys.projects.models.User;
@@ -63,7 +65,8 @@ public class LoginController extends EController
             {
                 if(user.validate("login", user.getData(), errors))
                 {
-                    Map<String, String> values = user.execute();
+                    String json = user.execute();
+                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
                     
                     if(values != null)
                     {

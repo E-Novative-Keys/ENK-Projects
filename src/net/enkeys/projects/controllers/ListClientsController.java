@@ -8,6 +8,8 @@ import javax.swing.event.TableModelListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
+import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
@@ -32,14 +34,14 @@ public class ListClientsController extends EController
     {
         Client client = (Client)getModel("Client");
         Map<String, String> errors = new HashMap<>();
-        Map<String, String> values;
         
         client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
         client.addData("data[Token][fields]", app.getToken());
         
         if(client.validate("SELECT", client.getData(), errors))
         {
-            values = client.execute("SELECT", errors);
+            String json = client.execute("SELECT", errors);
+            Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType());
             System.out.println(values);
             System.err.println(errors);
         }
