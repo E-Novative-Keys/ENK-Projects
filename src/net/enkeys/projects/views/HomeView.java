@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
@@ -34,6 +35,19 @@ public class HomeView extends EView
         
         constraints.fill = GridBagConstraints.BOTH;
         constraints.insets = new Insets(15, 15, 15, 15);
+        
+        newClientButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newClientButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        listClientsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        listClientsButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        currentProjectsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        currentProjectsButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        newProjectButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newProjectButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        listProjectsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        listProjectsButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        configButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        configButton.setHorizontalTextPosition(SwingConstants.CENTER);
         
         table.add(newClientButton, constraints, 0, 0);
         table.add(listClientsButton, constraints, 1, 0);
