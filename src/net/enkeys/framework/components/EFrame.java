@@ -167,7 +167,7 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
      */
     public final EApplication getApp()
     {
-        return app;
+        return this.app;
     }
     
     /**

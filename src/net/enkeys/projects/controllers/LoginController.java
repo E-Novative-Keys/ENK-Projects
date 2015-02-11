@@ -13,12 +13,13 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
-import net.enkeys.framework.gson.Gson;
-import net.enkeys.framework.gson.reflect.TypeToken;
+import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.User;
+import net.enkeys.projects.views.HomeView;
 
 public class LoginController extends EController
 {
+    private final ENKProjects app = (ENKProjects)super.app;
     private final LoginView view = (LoginView)super.view;
     
     public LoginController(EApplication app, EView view)
@@ -65,12 +66,14 @@ public class LoginController extends EController
                     
                     if(values != null)
                     {
-                        if(values.get("login") != null && values.get("login").equalsIgnoreCase("false"))
+                        if(values.get("login") == null || (values.get("login") != null && values.get("login").equalsIgnoreCase("false")))
                             setError("Identifiants invalides");
                         else
                         {
-                            //Login successfull
-                            setError(values.get("login"));
+                            app.setAuth(view.getEmailField().getText(), values.get("login"));
+                            
+                            app.getFrame(0).setSize(940, 580);
+                            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
                         }
                     }
                     else
