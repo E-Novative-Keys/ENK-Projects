@@ -14,6 +14,7 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
 import net.enkeys.projects.ENKProjects;
+import net.enkeys.projects.MainFrame;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
 
@@ -60,7 +61,7 @@ public class LoginController extends EController
             
             try
             {
-                if(user.validate(user.getData(), errors))
+                if(user.validate("login", user.getData(), errors))
                 {
                     Map<String, String> values = user.execute();
                     
@@ -70,10 +71,13 @@ public class LoginController extends EController
                             setError("Identifiants invalides");
                         else
                         {
+                            MainFrame frame = (MainFrame)app.getFrame(0);
+                            
                             app.setAuth(view.getEmailField().getText(), values.get("login"));
                             
-                            app.getFrame(0).setSize(940, 580);
-                            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                            frame.setSize(940, 580);
+                            frame.setLocationRelativeTo(null);
+                            frame.setContent(new HomeController(app, new HomeView()));
                         }
                     }
                     else

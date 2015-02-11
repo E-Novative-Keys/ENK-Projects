@@ -30,6 +30,7 @@ public class ENKProjects extends EApplication
         return (auth != null) ? auth.getUserName() : null;
     }
     
+    //SI AUTRE CONNEXION ET TOKEN RESET, DECONNECTER L'UTILISATEUR
     public String getToken()
     {
         return (auth != null) ? new String(auth.getPassword()) : null;

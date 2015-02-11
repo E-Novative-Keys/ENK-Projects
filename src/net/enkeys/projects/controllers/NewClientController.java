@@ -54,7 +54,7 @@ public class NewClientController extends EController
         
             try
             {
-                if(client.validate(client.getData(), errors))
+                if(client.validate("INSERT", client.getData(), errors))
                 {
                     System.out.println(client.getJsonData());
                     Map<String, String> values = client.execute("INSERT");

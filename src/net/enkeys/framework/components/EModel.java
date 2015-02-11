@@ -53,21 +53,32 @@ public abstract class EModel
     
     public final boolean validate()
     {
-        return validate(this.data, null);
+        Object[] o = actions.keySet().toArray();
+        
+        if(o.length > 0)
+            return validate(o[0].toString(), this.data, null);
+        else
+            throw new EDataException("Model has no action");
     }
     
-    public final boolean validate(Map<String, Object> data)
+    public final boolean validate(String action)
     {
-        return validate(data, null);
+        return validate(action, this.data, null);
+    }
+    
+    public final boolean validate(String action, Map<String, Object> data)
+    {
+        return validate(action, data, null);
     }
     
     /**
      * Validation des données du Modèle en fonction des Rule configurées.
+     * @param action
      * @param data
      * @param errors
      * @return
      */
-    public final boolean validate(Map<String, Object> data, Map<String, String> errors)
+    public final boolean validate(String action, Map<String, Object> data, Map<String, String> errors)
     {
         Object o = data.get("data");
         
@@ -84,6 +95,17 @@ public abstract class EModel
             {
                 String ruleKey = (String)ruleEntry.getKey();
                 Rule[] rulesValue = (Rule[])ruleEntry.getValue();
+                
+                if(ruleKey.startsWith("!"))
+                {
+                    if(ruleKey.substring(1).equalsIgnoreCase(action))
+                    {
+                        errors.clear();
+                        return true;
+                    }
+                    else
+                        continue;
+                }
 
                 for(Rule rule : rulesValue)
                 {
@@ -161,6 +183,42 @@ public abstract class EModel
         return data;
     }
     
+    public final Object getData(String key)
+    {
+        return getData(null, key);
+    }
+    
+    public final Object getData(Map<String, Object> data, String key)
+    {
+        if(data == null)
+            data = this.data;
+        
+        if(key.contains("["))
+        {
+            StringBuilder nextKeys = new StringBuilder();
+            String firstKey = key.substring(0, key.indexOf("["));
+            
+            nextKeys.append(key.substring(key.indexOf("[")+1, key.indexOf("]")));
+            nextKeys.append(key.substring(key.indexOf("]")+1));
+            
+            if(data.containsKey(firstKey))
+            {
+                Object o = data.get(firstKey);
+                
+                if(!(o instanceof Map<?,?>))
+                    return null;
+                else
+                    getData((Map<String, Object>)o, nextKeys.toString()); 
+            }
+            else
+                return null;
+        }
+        else
+            return data.get(key);
+        
+        return null;
+    }
+    
     /**
      * Vide le contenu de la Map de données du Modèle.
      */
@@ -224,7 +282,7 @@ public abstract class EModel
             throw new EDataException("An error occured while initializing request", e);
         }
         
-        if(this.validate(data, errors))
+        if(this.validate(action, data, errors))
         {
             String value;
             

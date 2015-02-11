@@ -11,25 +11,27 @@ import net.enkeys.framework.components.rules.Rule;
 
 public class Client extends EModel
 {
-
     @Override
     protected void initRules(Map<String, Rule[]> rules)
     {
+        rules.put("!SELECT", null);
+        rules.put("!DELETE", null);
+        
         rules.put("firstname", new Rule[]{
-           new NotEmptyRule("Veuillez saisir un prénom"),
-           new MaxRule(30, "Prénom trop long (30 caractères max)"),
-           new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Prénom non valide") 
+            new NotEmptyRule("Veuillez saisir un prénom"),
+            new MaxRule(30, "Prénom trop long (30 caractères max)"),
+            new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Prénom non valide") 
         });
         
         rules.put("lastname", new Rule[]{
-           new NotEmptyRule("Veuillez saisir un nom"),
-           new MaxRule(30, "Nom trop long (30 caractères max)"),
-           new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom non valide") 
+            new NotEmptyRule("Veuillez saisir un nom"),
+            new MaxRule(30, "Nom trop long (30 caractères max)"),
+            new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom non valide") 
         });
         
         rules.put("phonenumber", new Rule[]{
-           new NotEmptyRule("Veuillez saisir un numéro de téléphone"),
-           new PhoneNumberRule("Veuillez saisir un numéro de téléphone valide")
+            new NotEmptyRule("Veuillez saisir un numéro de téléphone"),
+            new PhoneNumberRule("Veuillez saisir un numéro de téléphone valide")
         });
         
         rules.put("email", new Rule[]{
@@ -51,6 +53,5 @@ public class Client extends EModel
             new NotEmptyRule("Veuillez saisir un siret"),
             new RegexRule("[0-9]{3}?[0-9]{3}?[0-9]{3}?[0-9]{5}", "Siret non valide")
         });
-    }
-        
+    }    
 }
