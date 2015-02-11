@@ -1,6 +1,7 @@
 package net.enkeys.projects.controllers;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.event.TableModelEvent;
@@ -41,9 +42,13 @@ public class ListClientsController extends EController
         if(client.validate("SELECT", client.getData(), errors))
         {
             String json = client.execute("SELECT", errors);
-            Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType());
-            System.out.println(values);
-            System.err.println(errors);
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            if(values != null && values.get("clients") != null)
+            {
+                ArrayList<HashMap<String, String>> clients = values.get("clients");
+                for(HashMap<String, String> c : clients)
+                    view.getDataTable().addClient(c);
+            }
         }
         else
             System.err.println(errors);       
