@@ -1,6 +1,7 @@
 package net.enkeys.framework.components;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -11,6 +12,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public abstract class EApplication implements Runnable
 {
+    public static final int CONFIRM_YES = JOptionPane.YES_OPTION;
+    public static final int CONFIRM_NO = JOptionPane.NO_OPTION;
+    public static final int CONFIRM_CANCEL = JOptionPane.CANCEL_OPTION;
+    
     protected final String name; //Le nom de l'application
     protected final String version; //La version actuelle de l'application
     protected final String dev; //Les noms des développeurs de l'application
@@ -242,6 +247,90 @@ public abstract class EApplication implements Runnable
     public final EFrame getFrame(int i)
     {
         return frames.get(i);
+    }
+    
+    public final void message(EFrame frame, String msg)
+    {
+        this.message(frame, msg, frame.getName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg)
+    {
+        this.message(null, msg, getName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg, int type)
+    {
+        this.message(null, msg, getName(), type);
+    }
+    
+    public final void message(String msg, String title)
+    {
+        this.message(null, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg, String title, int type)
+    {
+        this.message(null, msg, title, type);
+    }
+    
+    public final void message(EFrame frame, String msg, String title)
+    {
+        this.message(frame, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue contenant un message simple.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param type 
+     */
+    public final void message(EFrame frame, String msg, String title, int type)
+    {
+        JOptionPane.showMessageDialog(frame, msg, title, type);
+    }
+    
+    public final int confirm(EFrame frame, String msg)
+    {
+        return this.confirm(frame, msg, frame.getName(), JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg)
+    {
+        return this.confirm(null, msg, getName(), JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg, int options)
+    {
+        return this.confirm(null, msg, getName(), options);
+    }
+    
+    public final int confirm(String msg, String title)
+    {
+        return this.confirm(null, msg, title, JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg, String title, int options)
+    {
+        return this.confirm(null, msg, title, options);
+    }
+    
+    public final int confirm(EFrame frame, String msg, String title)
+    {
+        return this.confirm(frame, msg, title, JOptionPane.YES_NO_OPTION);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue contenant un message simple.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param options 
+     */
+    public final int confirm(EFrame frame, String msg, String title, int options)
+    {
+        return JOptionPane.showConfirmDialog(frame, msg, title, options);
     }
     
     /**

@@ -9,7 +9,6 @@ import net.enkeys.framework.exceptions.EDataException;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.JsonSyntaxException;
-import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.EHttpRequest;
 
 public abstract class EModel
@@ -234,7 +233,6 @@ public abstract class EModel
     
     public final String execute(String action) throws EDataException, EHttpRequestException
     {
-        System.out.println("First: " + action);
         return execute(action, "POST", null);
     }
     

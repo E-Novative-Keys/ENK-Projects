@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ClientTable extends AbstractTableModel
 {
+    private final String[] keys = new String[] {"lastname", "firstname", "phonenumber", "email", "enterprise", "siret", "address"};
     private final String[] columns = new String[] {"Nom", "Prénom", "Téléphone", "Email", "Entreprise", "SIRET", "Adresse"};
     private final ArrayList<HashMap<String, String>> clients = new ArrayList<>();
     
@@ -29,27 +30,12 @@ public class ClientTable extends AbstractTableModel
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) throws IllegalArgumentException
-    {
-        switch(columnIndex)
-        {
-            case 0:
-                return clients.get(rowIndex).get("lastname");
-            case 1:
-                return clients.get(rowIndex).get("firstname");
-            case 2:
-                return clients.get(rowIndex).get("phonenumber");
-            case 3:
-                return clients.get(rowIndex).get("email");
-            case 4:
-                return clients.get(rowIndex).get("enterprise");
-            case 5:
-                return clients.get(rowIndex).get("siret");
-            case 6:
-                return clients.get(rowIndex).get("address");
-            default:
-                throw new IllegalArgumentException();
-        }
-    }  
+    {        
+        if(columnIndex > -1 && columnIndex < keys.length)
+            return clients.get(rowIndex).get(keys[columnIndex]);
+        else
+            throw new IllegalArgumentException();
+    }
     
     @Override
     public Class<?> getColumnClass(int columnIndex)
@@ -66,6 +52,7 @@ public class ClientTable extends AbstractTableModel
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex)
     {
+        clients.get(rowIndex).put(keys[columnIndex], (String)value);
         fireTableCellUpdated(rowIndex, columnIndex);
     }
     
@@ -73,14 +60,25 @@ public class ClientTable extends AbstractTableModel
     {
         boolean flag =  clients.add(client);
         
-        fireTableCellUpdated(clients.size(), 0);
+        fireTableRowsInserted(clients.size()-1, clients.size()-1);
         return flag;
     }
-    public boolean removeClient(HashMap<String, String> client)
+    
+    public boolean removeClient(int index)
     {
-        boolean flag =  clients.remove(client);
+        boolean flag = (clients.remove(index) != null);
         
-        fireTableCellUpdated(clients.size(), 1);
+        fireTableRowsDeleted(index, index);
         return flag;
+    }
+    
+    public HashMap<String, String> getClient(int i)
+    {
+        return clients.get(i);
+    }
+    
+    public ArrayList<HashMap<String, String>> getClients()
+    {
+        return clients;
     }
 }

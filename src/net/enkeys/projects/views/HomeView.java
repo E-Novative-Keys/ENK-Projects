@@ -13,12 +13,12 @@ import net.enkeys.framework.utils.EResources;
 
 public class HomeView extends EView
 {
-    private final JButton newClientButton = new JButton(" Nouveau Client", EResources.loadImageIcon("profile.png"));
-    private final JButton listClientsButton = new JButton(" Liste Clients", EResources.loadImageIcon("profile.png"));
-    private final JButton currentProjectsButton = new JButton(" Projets en cours", EResources.loadImageIcon("profile.png"));
-    private final JButton newProjectButton = new JButton(" Nouveau Projet", EResources.loadImageIcon("profile.png"));
-    private final JButton listProjectsButton = new JButton(" Liste Projets", EResources.loadImageIcon("profile.png"));
-    private final JButton configButton = new JButton(" Configuration", EResources.loadImageIcon("profile.png"));
+    private final JButton newClientButton = new JButton("Nouveau Client", EResources.loadImageIcon("profile.png"));
+    private final JButton listClientsButton = new JButton("Liste des Clients", EResources.loadImageIcon("profile.png"));
+    private final JButton currentProjectsButton = new JButton("Projets en cours", EResources.loadImageIcon("profile.png"));
+    private final JButton newProjectButton = new JButton("Nouveau Projet", EResources.loadImageIcon("profile.png"));
+    private final JButton listProjectsButton = new JButton("Liste des Projets", EResources.loadImageIcon("profile.png"));
+    private final JButton configButton = new JButton("Configuration", EResources.loadImageIcon("profile.png"));
     
     public HomeView()
     {

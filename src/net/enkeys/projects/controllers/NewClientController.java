@@ -27,11 +27,11 @@ public class NewClientController extends EController
         super(app, view);
         addModel(new Client());
         
-        this.view.getExit().addActionListener(exitButtonListener());
+        this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
     }
     
-    private ActionListener exitButtonListener()
+    private ActionListener backButtonListener()
     {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new HomeController(app, new HomeView()));
@@ -58,21 +58,49 @@ public class NewClientController extends EController
             {
                 if(client.validate("INSERT", client.getData(), errors))
                 {
-                    System.out.println(client.getJsonData());
                     String json = client.execute("INSERT");
-                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
                     
-                    System.out.println(values);
+                    if(json.contains("error"))
+                    {
+                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        
+                        if((errors = values.get("error")) != null)
+                            setError(errors.get(errors.keySet().toArray()[0].toString()));
+                        else
+                            setError("Une erreur inattendue est survenue");
+                    }
+                    else if(json.contains("clients"))
+                    {
+                        //Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
+                        
+                        if(view.getNewProject().isSelected())
+                            setError("Nouveau Projet non implémenté");
+                        else
+                            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        
+                        app.message("Le client a été correctement créé");
+                    }
+                    else
+                    {
+                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                        setError(values.get(values.keySet().toArray()[0].toString()));
+                    }
                 }
                 else
-                {
-                    System.out.println(errors.get(errors.keySet().toArray()[0].toString()));
-                }
+                    setError(errors.get(errors.keySet().toArray()[0].toString()));
             }
             catch(ERuleException | EHttpRequestException ex)
             {
-                System.out.println(ex.getMessage());
+                setError(ex.getMessage());
             }
         };
+    }
+    
+    private void setError(String err)
+    {
+        view.getErrorLabel().setText(err);
+        
+        if(!err.isEmpty())
+            app.getLogger().warning(err);
     }
 }

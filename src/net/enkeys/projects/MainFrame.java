@@ -30,6 +30,7 @@ public class MainFrame extends EFrame
         JMenuItem disconnect = new JMenuItem("Déconnexion");
         JMenuItem exit = new JMenuItem("Quitter");
         
+        disconnect.addActionListener(fileDisconnectListener());
         exit.addActionListener(fileExitListener());
         
         file.add(disconnect);
@@ -37,6 +38,19 @@ public class MainFrame extends EFrame
         
         menuBar.add(file);
     }
+    
+   private ActionListener fileDisconnectListener()
+   {
+       return (ActionEvent e) -> {
+            if(app.getUser() != null)
+            {
+                app.resetAuth();
+                setSize(440, 380);
+                setLocationRelativeTo(null);
+                setContent(new LoginController(app, new LoginView()));
+            }
+       };
+   }
     
     private ActionListener fileExitListener()
     {
