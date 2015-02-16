@@ -26,9 +26,12 @@ public class ListClientsController extends EController
     private final ENKProjects app = (ENKProjects)super.app;
     private final ListClientsView view = (ListClientsView)super.view;
     
+    private final ArrayList<Integer> updated;
+    
     public ListClientsController(EApplication app, EView view)
     {
         super(app, view);
+        this.updated = new ArrayList<>();
         addModel(new Client());
         
         this.view.getDataTable().addTableModelListener(dataTableListener());
@@ -58,7 +61,7 @@ public class ListClientsController extends EController
                 for(HashMap<String, String> c : clients)
                     view.getDataTable().addClient(c);
                 
-                //Non triable car ne met pas à jour l'ordre des lignes et bug les id lors de la suppression
+                //Non triable car ne met pas à jour l'ordre des lignes et bug les id lors de la suppression ou la modification d'informations
                 //view.getListClients().setAutoCreateRowSorter(true);
             }
         }
@@ -76,10 +79,9 @@ public class ListClientsController extends EController
                     
                 case TableModelEvent.UPDATE:
                     int row = e.getFirstRow();
-                    int column = e.getColumn();
-                    String columnName = view.getDataTable().getColumnName(column);
-                    String data = (String)view.getDataTable().getValueAt(row, column);
-                    System.out.println(columnName + ": row " + row + ", col " + column + ", value = " + data);
+                    
+                    if(!updated.contains(row))
+                        updated.add(row);
                     break;
                     
                 case TableModelEvent.DELETE:
@@ -135,38 +137,43 @@ public class ListClientsController extends EController
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
-            Client client = (Client)getModel("Client");
-            
-            client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-            client.addData("data[Token][fields]", app.getToken());
-            
-            if(app.confirm("Appliquer toutes les modifications ?") == ENKProjects.CONFIRM_YES)
+            if(updated.size() > 0)
             {
-                for(Map<String, String> c : view.getDataTable().getClients())
+                Client client = (Client)getModel("Client");
+
+                client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
+                client.addData("data[Token][fields]", app.getToken());
+
+                if(app.confirm("Appliquer toutes les modifications ?") == ENKProjects.CONFIRM_YES)
                 {
-                    client.addData("data[Client][id]", c.get("id"));
-                    client.addData("data[Client][firstname]", c.get("firstname"));
-                    client.addData("data[Client][lastname]", c.get("lastname"));
-                    client.addData("data[Client][phonenumber]", c.get("phonenumber"));
-                    client.addData("data[Client][email]", c.get("email"));
-                    client.addData("data[Client][enterprise]", c.get("enterprise"));
-                    client.addData("data[Client][siret]", c.get("siret"));
-                    client.addData("data[Client][address]", c.get("address"));
-                    System.out.println(client.getData());
-
-                    try
+                    for(int i : updated)
                     {
-                        if(client.validate("UPDATE"))
+                        Map<String, String> c = view.getDataTable().getClient(i);
+                        
+                        client.addData("data[Client][id]", c.get("id"));
+                        client.addData("data[Client][firstname]", c.get("firstname"));
+                        client.addData("data[Client][lastname]", c.get("lastname"));
+                        client.addData("data[Client][phonenumber]", c.get("phonenumber"));
+                        client.addData("data[Client][email]", c.get("email"));
+                        client.addData("data[Client][enterprise]", c.get("enterprise"));
+                        client.addData("data[Client][siret]", c.get("siret"));
+                        client.addData("data[Client][address]", c.get("address"));
+                        System.out.println(client.getData());
+                        
+                        try
                         {
-                            String json = client.execute("UPDATE");
+                            if(client.validate("UPDATE"))
+                            {
+                                String json = client.execute("UPDATE");
 
-                            if(!json.contains("clients"))
-                                app.getLogger().warning("Error: " + json);
+                                if(!json.contains("clients"))
+                                    app.getLogger().warning("Error: " + json);
+                            }
                         }
-                    }
-                    catch(ERuleException | EHttpRequestException ex)
-                    {
-                        app.getLogger().warning(ex.getMessage());
+                        catch(ERuleException | EHttpRequestException ex)
+                        {
+                            app.getLogger().warning(ex.getMessage());
+                        }
                     }
                 }
             }
