@@ -35,7 +35,7 @@ public class NewClientView extends EView
     private final JTextField address        = new JTextField(20);
     private final JLabel siretLabel         = new JLabel("Siret : ");
     private final JTextField siret          = new JTextField(20);
-    private final JButton save              = new JButton("Enregistrer");
+    private final JButton save              = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JCheckBox newProject      = new JCheckBox("Créer un nouveau projet");
     private final JLabel errorLabel         = new JLabel("");
     
@@ -98,7 +98,11 @@ public class NewClientView extends EView
         table.add(errorLabel, constraints, 0, 0, 0);
         panel.add(table, "Center");
         
-        save.setPreferredSize(new Dimension(150, 20));
+        save.setBorderPainted(false);
+        save.setContentAreaFilled(false);
+        save.setFocusPainted(false);
+        save.setOpaque(false);
+        save.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(save, "East");
         
         return panel;

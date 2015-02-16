@@ -22,7 +22,7 @@ public class LoginView extends EView
     private final JLabel passwordLabel = new JLabel("Mot de passe :");
     private final JPasswordField passwordField = new JPasswordField(20);
     private final JLabel forgotLabel = new JLabel("Mot de passe oublié ?");
-    private final JButton loginButton = new JButton("Connexion");
+    private final JButton loginButton = new JButton(EResources.loadImageIcon("bouton_connexion.png", 225, 50));
     private final JLabel errorLabel = new JLabel();
 
     public LoginView()
@@ -43,6 +43,12 @@ public class LoginView extends EView
         forgotLabel.setForeground(Color.blue);
         forgotLabel.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         errorLabel.setForeground(Color.red);
+        
+        loginButton.setBorderPainted(false);
+        loginButton.setContentAreaFilled(false);
+        loginButton.setFocusPainted(false);
+        loginButton.setOpaque(false);
+        loginButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         
         panel.add(new JLabel(logo), constraints, 0, 0, 0);
         panel.add(emailLabel, constraints, 0, 1);
