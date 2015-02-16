@@ -13,12 +13,12 @@ import net.enkeys.framework.utils.EResources;
 
 public class HomeView extends EView
 {
-    private final JButton newClientButton = new JButton("Nouveau Client", EResources.loadImageIcon("profile.png"));
-    private final JButton listClientsButton = new JButton("Liste des Clients", EResources.loadImageIcon("profile.png"));
-    private final JButton currentProjectsButton = new JButton("Projets en cours", EResources.loadImageIcon("profile.png"));
-    private final JButton newProjectButton = new JButton("Nouveau Projet", EResources.loadImageIcon("profile.png"));
-    private final JButton listProjectsButton = new JButton("Liste des Projets", EResources.loadImageIcon("profile.png"));
-    private final JButton configButton = new JButton("Configuration", EResources.loadImageIcon("profile.png"));
+    private final JButton newClientButton = new JButton(EResources.loadImageIcon("newClient.png"));
+    private final JButton listClientsButton = new JButton(EResources.loadImageIcon("listClients.png"));
+    private final JButton currentProjectsButton = new JButton(EResources.loadImageIcon("currentProjects.png"));
+    private final JButton newProjectButton = new JButton(EResources.loadImageIcon("newProject.png"));
+    private final JButton listProjectsButton = new JButton(EResources.loadImageIcon("listProjects.png"));
+    private final JButton configButton = new JButton(EResources.loadImageIcon("configurations.png"));
     
     public HomeView()
     {
@@ -35,19 +35,6 @@ public class HomeView extends EView
         
         constraints.fill = GridBagConstraints.BOTH;
         constraints.insets = new Insets(15, 15, 15, 15);
-        
-        newClientButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newClientButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        listClientsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        listClientsButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        currentProjectsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        currentProjectsButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newProjectButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newProjectButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        listProjectsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        listProjectsButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        configButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        configButton.setHorizontalTextPosition(SwingConstants.CENTER);
         
         table.add(newClientButton, constraints, 0, 0);
         table.add(listClientsButton, constraints, 1, 0);
