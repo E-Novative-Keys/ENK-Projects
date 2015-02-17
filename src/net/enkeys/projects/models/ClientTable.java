@@ -6,8 +6,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class ClientTable extends AbstractTableModel
 {
-    private final String[] keys = new String[] {"lastname", "firstname", "phonenumber", "email", "enterprise", "siret", "address"};
-    private final String[] columns = new String[] {"Nom", "Prénom", "Téléphone", "Email", "Entreprise", "SIRET", "Adresse"};
+    private final String[] keys = new String[] {"id", "lastname", "firstname", "phonenumber", "email", "enterprise", "siret", "address"};
+    private final String[] columns = new String[] {"#", "Nom", "Prénom", "Téléphone", "Email", "Entreprise", "SIRET", "Adresse"};
+    private final ArrayList<HashMap<String, String>> origin = new ArrayList<>();
     private final ArrayList<HashMap<String, String>> clients = new ArrayList<>();
     
     @Override
@@ -56,9 +57,14 @@ public class ClientTable extends AbstractTableModel
         fireTableCellUpdated(rowIndex, columnIndex);
     }
     
+    public boolean addOrigin(HashMap<String, String> client)
+    {
+        return origin.add(client);
+    }
+    
     public boolean addClient(HashMap<String, String> client)
     {
-        boolean flag =  clients.add(client);
+        boolean flag = clients.add(client);
         
         fireTableRowsInserted(clients.size()-1, clients.size()-1);
         return flag;
@@ -72,13 +78,34 @@ public class ClientTable extends AbstractTableModel
         return flag;
     }
     
+    public void clear()
+    {
+        fireTableRowsDeleted(0, clients.size()-1);
+        clients.clear();
+    }
+    
     public HashMap<String, String> getClient(int i)
     {
         return clients.get(i);
     }
     
+    public HashMap<String, String> getClientByID(int id)
+    {
+        for(HashMap<String, String> c : clients)
+        {
+            if(Integer.parseInt(c.get("id")) == id)
+                return c;
+        }
+        return null;
+    }
+    
     public ArrayList<HashMap<String, String>> getClients()
     {
         return clients;
+    }
+    
+    public ArrayList<HashMap<String, String>> getOrigin()
+    {
+        return origin;
     }
 }

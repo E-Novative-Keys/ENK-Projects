@@ -12,9 +12,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public abstract class EApplication implements Runnable
 {
-    public static final int CONFIRM_YES = JOptionPane.YES_OPTION;
-    public static final int CONFIRM_NO = JOptionPane.NO_OPTION;
-    public static final int CONFIRM_CANCEL = JOptionPane.CANCEL_OPTION;
+    public static final int YES = JOptionPane.YES_OPTION;
+    public static final int NO = JOptionPane.NO_OPTION;
+    public static final int CANCEL = JOptionPane.CANCEL_OPTION;
+    public static final int YES_NO = JOptionPane.YES_NO_OPTION;
+    public static final int YES_NO_CANCEL = JOptionPane.YES_NO_CANCEL_OPTION;
     
     protected final String name; //Le nom de l'application
     protected final String version; //La version actuelle de l'application

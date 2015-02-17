@@ -3,6 +3,9 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +41,7 @@ public class ListClientsController extends EController
         this.view.getBackButton().addActionListener(backButtonListener());
         this.view.getDeleteButton().addActionListener(deleteButtonListener());
         this.view.getSaveButton().addActionListener(saveButtonListener());
+        this.view.getSearchField().addKeyListener(searchFieldListener());
         
         initView();
     }
@@ -58,11 +62,13 @@ public class ListClientsController extends EController
             if(values != null && values.get("clients") != null)
             {
                 ArrayList<HashMap<String, String>> clients = values.get("clients");
-                for(HashMap<String, String> c : clients)
-                    view.getDataTable().addClient(c);
                 
-                //Non triable car ne met pas à jour l'ordre des lignes et bug les id lors de la suppression ou la modification d'informations
-                //view.getListClients().setAutoCreateRowSorter(true);
+                for(HashMap<String, String> c : clients)
+                {
+                    view.getDataTable().addClient(c);
+                    view.getDataTable().addOrigin(c);
+                }
+                view.getListClients().setAutoCreateRowSorter(true);
             }
         }
         else
@@ -78,10 +84,10 @@ public class ListClientsController extends EController
                     break;
                     
                 case TableModelEvent.UPDATE:
-                    int row = e.getFirstRow();
+                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(e.getFirstRow(), 0));
                     
-                    if(!updated.contains(row))
-                        updated.add(row);
+                    if(!updated.contains(id))
+                        updated.add(id);
                     break;
                     
                 case TableModelEvent.DELETE:
@@ -93,7 +99,25 @@ public class ListClientsController extends EController
     private ActionListener backButtonListener()
     {
         return (ActionEvent e) -> {
-            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+            if(updated.size() > 0)
+            {
+                switch(app.confirm("Souhaitez-vous appliquer les modifications effectuées ?", ENKProjects.YES_NO_CANCEL))
+                {
+                    case ENKProjects.YES:
+                        saveUpdatedClients();
+                        app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        break;
+                        
+                    case ENKProjects.NO:
+                        app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        break;
+                        
+                    case ENKProjects.CANCEL:
+                        break;
+                }
+            }
+            else
+                app.getFrame(0).setContent(new HomeController(app, new HomeView()));
         };
     }
     
@@ -104,14 +128,17 @@ public class ListClientsController extends EController
             int[] rows = view.getListClients().getSelectedRows();
             
             if(rows.length > 0
-            && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ?") == ENKProjects.CONFIRM_YES)
-            {
+            && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ?") == ENKProjects.YES)
+            {                
                 client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
                 client.addData("data[Token][fields]", app.getToken());
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
-                    client.addData("data[Client][id]", view.getDataTable().getClient(rows[i]-i).get("id"));
+                    int modelID = view.getListClients().convertRowIndexToModel(rows[i]-i);
+                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                    
+                    client.addData("data[Client][id]", id);
                 
                     try
                     {
@@ -120,7 +147,7 @@ public class ListClientsController extends EController
                             String json = client.execute("DELETE");
 
                             if(json.contains("clients"))
-                                view.getDataTable().removeClient(rows[i]-i);
+                                view.getDataTable().removeClient(modelID);
                             else
                                 app.getLogger().warning("Error: " + json);
                         }
@@ -137,45 +164,80 @@ public class ListClientsController extends EController
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
-            if(updated.size() > 0)
+            if(updated.size() > 0 &&app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
+                saveUpdatedClients();
+        };
+    }
+    
+    private void saveUpdatedClients()
+    {
+        Client client = (Client)getModel("Client");
+
+        client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
+        client.addData("data[Token][fields]", app.getToken());
+                
+        for(int i : updated)
+        {
+            Map<String, String> c = view.getDataTable().getClientByID(i);
+
+            if(c != null)
             {
-                Client client = (Client)getModel("Client");
+                client.addData("data[Client][id]", c.get("id"));
+                client.addData("data[Client][firstname]", c.get("firstname"));
+                client.addData("data[Client][lastname]", c.get("lastname"));
+                client.addData("data[Client][phonenumber]", c.get("phonenumber"));
+                client.addData("data[Client][email]", c.get("email"));
+                client.addData("data[Client][enterprise]", c.get("enterprise"));
+                client.addData("data[Client][siret]", c.get("siret"));
+                client.addData("data[Client][address]", c.get("address"));
 
-                client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-                client.addData("data[Token][fields]", app.getToken());
-
-                if(app.confirm("Appliquer toutes les modifications ?") == ENKProjects.CONFIRM_YES)
+                try
                 {
-                    for(int i : updated)
+                    if(client.validate("UPDATE"))
                     {
-                        Map<String, String> c = view.getDataTable().getClient(i);
-                        
-                        client.addData("data[Client][id]", c.get("id"));
-                        client.addData("data[Client][firstname]", c.get("firstname"));
-                        client.addData("data[Client][lastname]", c.get("lastname"));
-                        client.addData("data[Client][phonenumber]", c.get("phonenumber"));
-                        client.addData("data[Client][email]", c.get("email"));
-                        client.addData("data[Client][enterprise]", c.get("enterprise"));
-                        client.addData("data[Client][siret]", c.get("siret"));
-                        client.addData("data[Client][address]", c.get("address"));
-                        System.out.println(client.getData());
-                        
-                        try
-                        {
-                            if(client.validate("UPDATE"))
-                            {
-                                String json = client.execute("UPDATE");
+                        String json = client.execute("UPDATE");
 
-                                if(!json.contains("clients"))
-                                    app.getLogger().warning("Error: " + json);
-                            }
-                        }
-                        catch(ERuleException | EHttpRequestException ex)
-                        {
-                            app.getLogger().warning(ex.getMessage());
-                        }
+                        if(!json.contains("clients"))
+                            app.getLogger().warning("Error: " + json);
                     }
                 }
+                catch(ERuleException | EHttpRequestException ex)
+                {
+                    app.getLogger().warning(ex.getMessage());
+                }
+            }
+        }
+    }
+    
+    private KeyListener searchFieldListener()
+    {
+        return new KeyAdapter()
+        {
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                String search = view.getSearchField().getText().toLowerCase();
+                
+                if(view.getListClients().getAutoCreateRowSorter())
+                    view.getListClients().setAutoCreateRowSorter(false);
+                if(view.getDataTable().getClients().size() > 0)
+                    view.getDataTable().clear();
+                
+                for(HashMap<String, String> c : view.getDataTable().getOrigin())
+                {
+                    if(c.get("id").toLowerCase().contains(search)
+                    || c.get("firstname").toLowerCase().contains(search)
+                    || c.get("lastname").toLowerCase().contains(search)
+                    || c.get("phonenumber").toLowerCase().contains(search)
+                    || c.get("email").toLowerCase().contains(search)
+                    || c.get("enterprise").toLowerCase().contains(search)
+                    || c.get("siret").toLowerCase().contains(search)
+                    || c.get("address").toLowerCase().contains(search))
+                        view.getDataTable().addClient(c);
+                }
+                
+                if(view.getDataTable().getClients().size() > 0)
+                    view.getListClients().setAutoCreateRowSorter(true);
             }
         };
     }

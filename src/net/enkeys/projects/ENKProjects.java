@@ -23,6 +23,7 @@ public class ENKProjects extends EApplication
     {
         resetAuth();
         auth = new PasswordAuthentication(user, password.toCharArray());
+        ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(true);
     }
     
     public String getUser()
@@ -39,6 +40,7 @@ public class ENKProjects extends EApplication
     public void resetAuth()
     {
         auth = null;
+        ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
     }
 
     @Override

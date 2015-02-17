@@ -14,6 +14,7 @@ import net.enkeys.framework.components.EFrame;
 public class MainFrame extends EFrame
 {
     private final ENKProjects app = (ENKProjects)super.app;
+    private JMenuItem disconnect;
     
     public MainFrame(EApplication app, String title, int width, int height)
     {
@@ -27,10 +28,11 @@ public class MainFrame extends EFrame
     protected void initMenu(JMenuBar menuBar)
     {
         JMenu file = new JMenu("Fichier");
-        JMenuItem disconnect = new JMenuItem("Déconnexion");
+        disconnect = new JMenuItem("Déconnexion");
         JMenuItem exit = new JMenuItem("Quitter");
         
         disconnect.addActionListener(fileDisconnectListener());
+        disconnect.setVisible(false);
         exit.addActionListener(fileExitListener());
         
         file.add(disconnect);
@@ -69,5 +71,10 @@ public class MainFrame extends EFrame
     public void onWindowClosed(WindowEvent we)
     {
         ((ENKProjects)app).resetAuth();
+    }
+    
+    public JMenuItem getDisconnectItem()
+    {
+        return disconnect;
     }
 }

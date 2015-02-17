@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -18,6 +20,8 @@ public class ListClientsView extends EView
     private final ClientTable dataTable = new ClientTable();
     private final JTable listClients = new JTable(dataTable);
     private final JScrollPane listScroller = new JScrollPane(listClients);
+    private final JLabel searchLabel = new JLabel("Recherche :");
+    private final JTextField searchField = new JTextField(20);
     private final JButton backButton = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JButton deleteButton = new JButton("Supprimer la sélection");
     private final JButton saveButton = new JButton("Enregistrer les modifications");
@@ -27,14 +31,14 @@ public class ListClientsView extends EView
         super();
         
         add(listScroller, "Center");
-        add(buttonsPanel(), "South");
+        add(bottomPanel(), "South");
     }
 
-    private JPanel buttonsPanel()
+    private JPanel bottomPanel()
     {
         JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable buttons = new ETable();
+        GridBagConstraints constraints = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -43,9 +47,11 @@ public class ListClientsView extends EView
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
         
-        table.add(deleteButton, constraints, 1, 0);
-        table.add(saveButton, constraints, 2, 0);
-        panel.add(table, "East");
+        buttons.add(searchLabel, constraints, 0, 0);
+        buttons.add(searchField, constraints, 1, 0);
+        buttons.add(deleteButton, constraints, 2, 0);
+        buttons.add(saveButton, constraints, 3, 0);
+        panel.add(buttons, "East");
        
         return panel; 
     }
@@ -73,5 +79,10 @@ public class ListClientsView extends EView
     public JButton getSaveButton()
     {
         return saveButton;
+    }
+    
+    public JTextField getSearchField()
+    {
+        return searchField;
     }
 }
