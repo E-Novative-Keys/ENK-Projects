@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import net.enkeys.framework.components.EApplication;
@@ -179,6 +180,7 @@ public class ListClientsController extends EController
         for(int i : updated)
         {
             Map<String, String> c = view.getDataTable().getClientByID(i);
+            Map<String, String> errors = new HashMap<>();
 
             if(c != null)
             {
@@ -193,12 +195,28 @@ public class ListClientsController extends EController
 
                 try
                 {
-                    if(client.validate("UPDATE"))
+                    if(client.validate("UPDATE", client.getData(), errors))
                     {
-                        String json = client.execute("UPDATE");
+                        String json = client.execute("UPDATE", errors);
 
-                        if(!json.contains("clients"))
-                            app.getLogger().warning("Error: " + json);
+                        if(json != null && !json.isEmpty())
+                        {
+                            if(!json.contains("clients"))
+                            {
+                                setError("#" + i + " : " + json);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                        break;
                     }
                 }
                 catch(ERuleException | EHttpRequestException ex)
@@ -240,5 +258,14 @@ public class ListClientsController extends EController
                     view.getListClients().setAutoCreateRowSorter(true);
             }
         };
+    }
+    
+    private void setError(String err)
+    {
+        //view.getErrorLabel().setText(err);
+        app.message(err, JOptionPane.ERROR_MESSAGE);
+        
+        if(!err.isEmpty())
+            app.getLogger().warning(err);
     }
 }
