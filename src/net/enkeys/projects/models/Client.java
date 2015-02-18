@@ -2,6 +2,7 @@ package net.enkeys.projects.models;
 
 import java.util.Map;
 import net.enkeys.framework.components.EModel;
+import net.enkeys.framework.components.rules.BetweenRule;
 import net.enkeys.framework.components.rules.EmailRule;
 import net.enkeys.framework.components.rules.MaxRule;
 import net.enkeys.framework.components.rules.NotEmptyRule;
@@ -19,13 +20,13 @@ public class Client extends EModel
         
         rules.put("firstname", new Rule[]{
             new NotEmptyRule("Veuillez saisir un prénom"),
-            new MaxRule(30, "Prénom trop long (30 caractères max)"),
+            new BetweenRule(3, 30, "Prénom trop long (30 caractères max)"),
             new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Prénom non valide") 
         });
         
         rules.put("lastname", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom"),
-            new MaxRule(30, "Nom trop long (30 caractères max)"),
+            new BetweenRule(2, 30, "Nom trop long (30 caractères max)"),
             new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom non valide") 
         });
         
@@ -41,7 +42,8 @@ public class Client extends EModel
         
         rules.put("enterprise", new Rule[]{
             new NotEmptyRule("Veuillez saisir le nom d'une entreprise"),
-            new MaxRule(100, "Nom d'entreprise trop long (100 caractères max)")
+            new MaxRule(100, "Nom d'entreprise trop long (100 caractères max)"),
+            new RegexRule("([a-zA-Z0-9&àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom non valide") 
         });
         
         rules.put("address", new Rule[]{

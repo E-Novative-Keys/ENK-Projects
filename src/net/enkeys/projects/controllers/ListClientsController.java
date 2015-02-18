@@ -105,8 +105,8 @@ public class ListClientsController extends EController
                 switch(app.confirm("Souhaitez-vous appliquer les modifications effectuées ?", ENKProjects.YES_NO_CANCEL))
                 {
                     case ENKProjects.YES:
-                        saveUpdatedClients();
-                        app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        if(saveUpdatedClients())
+                            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
                         break;
                         
                     case ENKProjects.NO:
@@ -170,7 +170,7 @@ public class ListClientsController extends EController
         };
     }
     
-    private void saveUpdatedClients()
+    private boolean saveUpdatedClients()
     {
         Client client = (Client)getModel("Client");
 
@@ -201,7 +201,9 @@ public class ListClientsController extends EController
 
                         if(json != null && !json.isEmpty())
                         {
-                            if(!json.contains("clients"))
+                            if(json.contains("clients"))
+                                return true;
+                            else
                             {
                                 setError("#" + i + " : " + json);
                                 break;
@@ -225,6 +227,8 @@ public class ListClientsController extends EController
                 }
             }
         }
+        
+        return false;
     }
     
     private KeyListener searchFieldListener()
@@ -262,7 +266,6 @@ public class ListClientsController extends EController
     
     private void setError(String err)
     {
-        //view.getErrorLabel().setText(err);
         app.message(err, JOptionPane.ERROR_MESSAGE);
         
         if(!err.isEmpty())
