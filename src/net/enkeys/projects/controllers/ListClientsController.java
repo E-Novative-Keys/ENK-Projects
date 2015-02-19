@@ -238,28 +238,38 @@ public class ListClientsController extends EController
             @Override
             public void keyReleased(KeyEvent e)
             {
-                String search = view.getSearchField().getText().toLowerCase();
-                
-                if(view.getListClients().getAutoCreateRowSorter())
-                    view.getListClients().setAutoCreateRowSorter(false);
-                if(view.getDataTable().getClients().size() > 0)
-                    view.getDataTable().clear();
-                
-                for(HashMap<String, String> c : view.getDataTable().getOrigin())
+                try
                 {
-                    if(c.get("id").toLowerCase().contains(search)
-                    || c.get("firstname").toLowerCase().contains(search)
-                    || c.get("lastname").toLowerCase().contains(search)
-                    || c.get("phonenumber").toLowerCase().contains(search)
-                    || c.get("email").toLowerCase().contains(search)
-                    || c.get("enterprise").toLowerCase().contains(search)
-                    || c.get("siret").toLowerCase().contains(search)
-                    || c.get("address").toLowerCase().contains(search))
-                        view.getDataTable().addClient(c);
+                    String search = view.getSearchField().getText().toLowerCase();
+
+                    if(view.getListClients().getAutoCreateRowSorter())
+                    {
+                        view.getListClients().setAutoCreateRowSorter(false);
+                        view.getListClients().setRowSorter(null);
+                    }
+                    if(view.getDataTable().getClients().size() > 0)
+                        view.getDataTable().clear();
+
+                    for(HashMap<String, String> c : view.getDataTable().getOrigin())
+                    {
+                        if(c.get("id").toLowerCase().contains(search)
+                        || c.get("firstname").toLowerCase().contains(search)
+                        || c.get("lastname").toLowerCase().contains(search)
+                        || c.get("phonenumber").toLowerCase().contains(search)
+                        || c.get("email").toLowerCase().contains(search)
+                        || c.get("enterprise").toLowerCase().contains(search)
+                        || c.get("siret").toLowerCase().contains(search)
+                        || c.get("address").toLowerCase().contains(search))
+                            view.getDataTable().addClient(c);
+                    }
+
+                    if(view.getDataTable().getClients().size() > 0)
+                        view.getListClients().setAutoCreateRowSorter(true);
                 }
-                
-                if(view.getDataTable().getClients().size() > 0)
-                    view.getListClients().setAutoCreateRowSorter(true);
+                catch(IndexOutOfBoundsException ex)
+                {
+                    app.getLogger().warning(ex.getMessage());
+                }
             }
         };
     }
