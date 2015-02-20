@@ -203,6 +203,16 @@ public class ListClientsController extends EController
                         {
                             if(json.contains("clients"))
                                 return true;
+                            else if(json.contains("error"))
+                            {
+                                Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+
+                                if((errors = values.get("error")) != null)
+                                    setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                                else
+                                    setError("Une erreur inattendue est survenue");
+                                break;
+                            }
                             else
                             {
                                 setError("#" + i + " : " + json);

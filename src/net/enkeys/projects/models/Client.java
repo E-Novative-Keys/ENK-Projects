@@ -43,7 +43,7 @@ public class Client extends EModel
         rules.put("enterprise", new Rule[]{
             new NotEmptyRule("Veuillez saisir le nom d'une entreprise"),
             new MaxRule(100, "Nom d'entreprise trop long (100 caractères max)"),
-            new RegexRule("([a-zA-Z0-9&àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom d'entreprise non valide") 
+            new RegexRule("([\\.a-zA-Z0-9&àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom d'entreprise non valide") 
         });
         
         rules.put("address", new Rule[]{
