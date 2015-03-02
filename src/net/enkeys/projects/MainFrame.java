@@ -46,7 +46,7 @@ public class MainFrame extends EFrame
        return (ActionEvent e) -> {
             if(app.getUser() != null)
             {
-                app.resetAuth();
+                app.resetUser();
                 setSize(440, 380);
                 setLocationRelativeTo(null);
                 setContent(new LoginController(app, new LoginView()));
@@ -70,7 +70,7 @@ public class MainFrame extends EFrame
     @Override
     public void onWindowClosed(WindowEvent we)
     {
-        ((ENKProjects)app).resetAuth();
+        ((ENKProjects)app).resetUser();
     }
     
     public JMenuItem getDisconnectItem()

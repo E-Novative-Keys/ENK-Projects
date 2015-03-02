@@ -1,6 +1,6 @@
 package net.enkeys.projects;
 
-import java.net.PasswordAuthentication;
+import java.util.Map;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.utils.EResources;
 
@@ -9,7 +9,7 @@ public class ENKProjects extends EApplication
     public static final String SALT = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
     public static final String PEPPER = "kwl:mxn+>Du2g}mXH$Yq|V{G-uo5yAY-:!%3G.38vR-Z<Rq@K/H-73SV>T RWFQK";
     
-    private PasswordAuthentication auth;
+    private Map<String, String> user = null;
     
     public ENKProjects(String name, String version, String dev, String contact, String[] args)
     {
@@ -19,28 +19,22 @@ public class ENKProjects extends EApplication
         addFrame(new MainFrame(this, getName(), 440, 380));
     }
     
-    public void setAuth(String user, String password)
+    public void setUser(Map<String, String> user)
     {
-        resetAuth();
-        auth = new PasswordAuthentication(user, password.toCharArray());
+        resetUser();
+        this.user = user;
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(true);
     }
     
-    public String getUser()
+    public void resetUser()
     {
-        return (auth != null) ? auth.getUserName() : null;
-    }
-    
-    //SI AUTRE CONNEXION ET TOKEN RESET, DECONNECTER L'UTILISATEUR
-    public String getToken()
-    {
-        return (auth != null) ? new String(auth.getPassword()) : null;
-    }
-    
-    public void resetAuth()
-    {
-        auth = null;
+        user = null;
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
+    }
+    
+    public Map<String, String> getUser()
+    {
+        return user;
     }
 
     @Override

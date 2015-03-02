@@ -52,8 +52,8 @@ public class ListClientsController extends EController
         Client client = (Client)getModel("Client");
         Map<String, String> errors = new HashMap<>();
         
-        client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-        client.addData("data[Token][fields]", app.getToken());
+        client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        client.addData("data[Token][fields]", app.getUser().get("token"));
         
         if(client.validate("SELECT", client.getData(), errors))
         {
@@ -71,6 +71,8 @@ public class ListClientsController extends EController
                 }
                 view.getListClients().setAutoCreateRowSorter(true);
             }
+            else
+                System.err.println(json);
         }
         else
             System.err.println(errors);       
@@ -131,8 +133,8 @@ public class ListClientsController extends EController
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ?") == ENKProjects.YES)
             {                
-                client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-                client.addData("data[Token][fields]", app.getToken());
+                client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                client.addData("data[Token][fields]", app.getUser().get("email"));
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
@@ -174,8 +176,8 @@ public class ListClientsController extends EController
     {
         Client client = (Client)getModel("Client");
 
-        client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-        client.addData("data[Token][fields]", app.getToken());
+        client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        client.addData("data[Token][fields]", app.getUser().get("token"));
                 
         for(int i : updated)
         {
@@ -202,7 +204,10 @@ public class ListClientsController extends EController
                         if(json != null && !json.isEmpty())
                         {
                             if(json.contains("clients"))
+                            {
+                                updated.clear();
                                 return true;
+                            }
                             else if(json.contains("error"))
                             {
                                 Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());

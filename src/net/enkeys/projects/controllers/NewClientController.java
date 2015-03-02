@@ -51,8 +51,8 @@ public class NewClientController extends EController
             client.addData("data[Client][enterprise]", view.getEnterprise().getText());
             client.addData("data[Client][address]", view.getAddress().getText());
             client.addData("data[Client][siret]", view.getSiret().getText());
-            client.addData("data[Token][link]", ECrypto.base64(app.getUser()));
-            client.addData("data[Token][fields]", app.getToken());
+            client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            client.addData("data[Token][fields]", app.getUser().get("token"));
         
             try
             {
@@ -82,8 +82,9 @@ public class NewClientController extends EController
                     }
                     else
                     {
-                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
-                        setError(values.get(values.keySet().toArray()[0].toString()));
+                        /*Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                        setError(values.get(values.keySet().toArray()[0].toString()));*/
+                        setError(json);
                     }
                 }
                 else

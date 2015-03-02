@@ -287,17 +287,10 @@ public abstract class EModel
             else
                 throw new EHttpRequestException("Invalid method specified");
             
-            try
-            {
-                if(value != null && !value.isEmpty())
-                    return value;
-                else
-                    return null;
-            }
-            catch(JsonSyntaxException e)
-            {
+            if(value != null && !value.isEmpty())
+                return value;
+            else
                 return null;
-            }
         }
         else
             throw new EDataException(this.getName() + " data could not be validated");

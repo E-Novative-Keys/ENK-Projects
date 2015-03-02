@@ -66,22 +66,32 @@ public class LoginController extends EController
                 if(user.validate("login", user.getData(), errors))
                 {
                     String json = user.execute();
-                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
                     
-                    if(values != null)
+                    if(json.contains("user"))
                     {
-                        if(values.get("login") == null || (values.get("login") != null && values.get("login").equalsIgnoreCase("false")))
-                            setError("Identifiants invalides");
-                        else
+                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+
+                        if(values != null)
                         {
-                            MainFrame frame = (MainFrame)app.getFrame(0);
+                            Map<String, String> data = null;
                             
-                            app.setAuth(view.getEmailField().getText(), values.get("login"));
-                            
-                            frame.setSize(940, 580);
-                            frame.setLocationRelativeTo(null);
-                            frame.setContent(new HomeController(app, new HomeView()));
+                            if(values.get("user") == null || (data = values.get("user")) == null)
+                                setError("Identifiants invalides");
+                            else if(data.get("role").equalsIgnoreCase("client"))
+                                setError("Vous n'êtes pas autorisé à accéder à " + app.getName());
+                            else
+                            {
+                                MainFrame frame = (MainFrame)app.getFrame(0);
+
+                                app.setUser(data);
+
+                                frame.setSize(940, 580);
+                                frame.setLocationRelativeTo(null);
+                                frame.setContent(new HomeController(app, new HomeView()));
+                            }
                         }
+                        else
+                            setError("Identifiants invalides");
                     }
                     else
                         setError("Identifiants invalides");
