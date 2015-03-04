@@ -19,5 +19,4 @@ public class NotEmptyRule extends Rule
         else
             throw new ERuleException("Unsupported object");
     }
-    
 }

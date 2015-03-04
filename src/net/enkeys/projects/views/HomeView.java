@@ -25,7 +25,7 @@ public class HomeView extends EView
         add(homePanel());
     }
     
-    private JPanel homePanel()
+    private ETable homePanel()
     {
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();

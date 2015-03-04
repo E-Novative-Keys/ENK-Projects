@@ -13,20 +13,20 @@ import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
-import net.enkeys.projects.models.ClientTable;
+import net.enkeys.projects.models.UserTable;
 
-public class ListClientsView extends EView
+public class ListUsersView extends EView
 {
-    private final ClientTable dataTable = new ClientTable();
-    private final JTable listClients = new JTable(dataTable);
-    private final JScrollPane listScroller = new JScrollPane(listClients);
+    private final UserTable dataTable = new UserTable();
+    private final JTable listUsers = new JTable(dataTable);
+    private final JScrollPane listScroller = new JScrollPane(listUsers);
     private final JLabel searchLabel = new JLabel("Recherche :");
     private final JTextField searchField = new JTextField(20);
     private final JButton backButton = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JButton deleteButton = new JButton("Supprimer la sélection");
     private final JButton saveButton = new JButton("Enregistrer les modifications");
     
-    public ListClientsView()
+    public ListUsersView()
     {
         super();
         
@@ -56,14 +56,14 @@ public class ListClientsView extends EView
         return panel; 
     }
 
-    public ClientTable getDataTable()
+    public UserTable getDataTable()
     {
         return dataTable;
     }
     
     public JTable getListClients()
     {
-        return listClients;
+        return listUsers;
     }
 
     public JButton getBackButton()

@@ -66,7 +66,7 @@ public class ListClientsController extends EController
                 
                 for(HashMap<String, String> c : clients)
                 {
-                    view.getDataTable().addClient(c);
+                    view.getDataTable().addValue(c);
                     view.getDataTable().addOrigin(c);
                 }
                 view.getListClients().setAutoCreateRowSorter(true);
@@ -150,7 +150,7 @@ public class ListClientsController extends EController
                             String json = client.execute("DELETE");
 
                             if(json.contains("clients"))
-                                view.getDataTable().removeClient(modelID);
+                                view.getDataTable().removeValue(modelID);
                             else
                                 app.getLogger().warning("Error: " + json);
                         }
@@ -262,7 +262,7 @@ public class ListClientsController extends EController
                         view.getListClients().setAutoCreateRowSorter(false);
                         view.getListClients().setRowSorter(null);
                     }
-                    if(view.getDataTable().getClients().size() > 0)
+                    if(view.getDataTable().getValues().size() > 0)
                         view.getDataTable().clear();
 
                     for(HashMap<String, String> c : view.getDataTable().getOrigin())
@@ -275,10 +275,10 @@ public class ListClientsController extends EController
                         || c.get("enterprise").toLowerCase().contains(search)
                         || c.get("siret").toLowerCase().contains(search)
                         || c.get("address").toLowerCase().contains(search))
-                            view.getDataTable().addClient(c);
+                            view.getDataTable().addValue(c);
                     }
 
-                    if(view.getDataTable().getClients().size() > 0)
+                    if(view.getDataTable().getValues().size() > 0)
                         view.getListClients().setAutoCreateRowSorter(true);
                 }
                 catch(IndexOutOfBoundsException ex)

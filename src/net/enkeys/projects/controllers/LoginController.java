@@ -14,6 +14,7 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
 import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.JsonSyntaxException;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.MainFrame;
@@ -69,29 +70,38 @@ public class LoginController extends EController
                     
                     if(json.contains("user"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
-
-                        if(values != null)
+                        try
                         {
-                            Map<String, String> data = null;
-                            
-                            if(values.get("user") == null || (data = values.get("user")) == null)
-                                setError("Identifiants invalides");
-                            else if(data.get("role").equalsIgnoreCase("client"))
-                                setError("Vous n'êtes pas autorisé à accéder à " + app.getName());
-                            else
+                            Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+
+                            if(values != null)
                             {
-                                MainFrame frame = (MainFrame)app.getFrame(0);
+                                Map<String, String> data = null;
 
-                                app.setUser(data);
+                                if(values.get("user") == null || (data = values.get("user")) == null)
+                                    setError("Identifiants invalides");
+                                else if(data.get("role") == null || data.get("role").equalsIgnoreCase("client")
+                                     || data.get("validated") == null || data.get("validated").equalsIgnoreCase("0"))
+                                    setError("Vous n'êtes pas autorisé à accéder à " + app.getName());
+                                else
+                                {
+                                    MainFrame frame = (MainFrame)app.getFrame(0);
 
-                                frame.setSize(940, 580);
-                                frame.setLocationRelativeTo(null);
-                                frame.setContent(new HomeController(app, new HomeView()));
+                                    app.setUser(data);
+
+                                    frame.setSize(940, 580);
+                                    frame.setLocationRelativeTo(null);
+                                    frame.setContent(new HomeController(app, new HomeView()));
+                                }
                             }
+                            else
+                                setError("Identifiants invalides");
+                        
                         }
-                        else
+                        catch(JsonSyntaxException ex)
+                        {
                             setError("Identifiants invalides");
+                        }
                     }
                     else
                         setError("Identifiants invalides");
