@@ -23,7 +23,7 @@ public class HomeController extends EController
         
         this.view.getNewClientButton().addActionListener(newClientListener());
         this.view.getListClientsButton().addActionListener(listClientsListener());
-        this.view.getConfigButton().addActionListener(configListener());
+        this.view.getListUserButton().addActionListener(listUserListener());
     }
     
     private ActionListener newClientListener()
@@ -40,7 +40,7 @@ public class HomeController extends EController
         };
     }
 
-    private ActionListener configListener()
+    private ActionListener listUserListener()
     {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ListUsersController(app, new ListUsersView()));

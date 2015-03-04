@@ -28,6 +28,7 @@ public class User extends EModel
     protected void initActions(Map<String, String> actions)
     {
         actions.put("LOGIN", "login");
+        actions.put("SELECT", "");
     }
     
     public String password(String pass) throws ECryptoException
