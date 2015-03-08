@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
+import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
@@ -24,6 +25,9 @@ public class HomeController extends EController
         this.view.getNewClientButton().addActionListener(newClientListener());
         this.view.getListClientsButton().addActionListener(listClientsListener());
         this.view.getUsersManagerButton().addActionListener(UsersManagerListener());
+        
+        if(!this.app.getUser().get("role").equals("admin"))
+            this.view.getUsersManagerButton().setEnabled(false);
     }
     
     private ActionListener newClientListener()

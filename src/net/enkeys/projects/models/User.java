@@ -14,6 +14,8 @@ public class User extends EModel
     @Override
     protected void initRules(Map<String, Rule[]> rules)
     {
+        rules.put("!VERIFY", null);
+        rules.put("!INSERT", null);
         rules.put("!SELECT", null);
         rules.put("!UPDATE", null);
         rules.put("!DELETE", null);
@@ -32,7 +34,9 @@ public class User extends EModel
     protected void initActions(Map<String, String> actions)
     {
         actions.put("LOGIN", "login");
+        actions.put("VERIFY", "verify");
         actions.put("SELECT", "");
+        actions.put("INSERT", "add");
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
     }

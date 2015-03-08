@@ -20,6 +20,7 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.MainFrame;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
+import net.enkeys.projects.views.NewUserView;
 
 public class LoginController extends EController
 {
@@ -34,6 +35,35 @@ public class LoginController extends EController
         this.view.getEmailField().addKeyListener(fieldReturnListener());
         this.view.getPasswordField().addKeyListener(fieldReturnListener());
         this.view.getLoginButton().addActionListener(loginButtonListener());
+        
+        initView();
+    }
+    
+    private void initView()
+    {
+        User user = (User)getModel("User");
+        
+        try
+        {
+            user.addData("data[User][link]", "test");
+            String json = user.execute("VERIFY");
+            System.out.println(json);
+            
+            if(json != null && json.contains("link"))
+            {
+                //MainFrame frame = (MainFrame)app.getFrame(0);
+                
+                /*app.setUser(null);
+
+                frame.setSize(940, 580);
+                frame.setLocationRelativeTo(null);
+                frame.setContent(new NewUserController(app, new NewUserView()));*/
+            }
+        }
+        catch(ERuleException | EHttpRequestException ex)
+        {
+            setError(ex.getMessage());
+        }
     }
     
     private KeyListener fieldReturnListener()

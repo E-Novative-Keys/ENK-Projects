@@ -9,6 +9,7 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.UsersManagerView;
 import net.enkeys.projects.views.ListUsersView;
+import net.enkeys.projects.views.NewUserView;
 
 
 public class UsersManagerController extends EController
@@ -28,7 +29,7 @@ public class UsersManagerController extends EController
     private ActionListener newUserListener()
     {
         return (ActionEvent e) -> {
-            
+            app.getFrame(0).setContent(new NewUserController(app, new NewUserView()));
         };
     }
 

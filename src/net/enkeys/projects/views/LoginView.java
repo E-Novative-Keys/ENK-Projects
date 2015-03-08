@@ -16,14 +16,14 @@ import net.enkeys.framework.utils.ESystem;
 
 public class LoginView extends EView
 {
-    private final ImageIcon logo = EResources.loadImageIcon("logo.png", 340, 100);
-    private final JLabel emailLabel = new JLabel("E-Mail :");
-    private final JTextField emailField = new JTextField(20);
-    private final JLabel passwordLabel = new JLabel("Mot de passe :");
-    private final JPasswordField passwordField = new JPasswordField(20);
-    private final JLabel forgotLabel = new JLabel("Mot de passe oublié ?");
-    private final JButton loginButton = new JButton(EResources.loadImageIcon("bouton_connexion.png", 225, 50));
-    private final JLabel errorLabel = new JLabel();
+    private final ImageIcon logo                = EResources.loadImageIcon("logo.png", 340, 100);
+    private final JLabel emailLabel             = new JLabel("E-Mail :");
+    private final JTextField emailField         = new JTextField(20);
+    private final JLabel passwordLabel          = new JLabel("Mot de passe :");
+    private final JPasswordField passwordField  = new JPasswordField(20);
+    private final JLabel forgotLabel            = new JLabel("Mot de passe oublié ?");
+    private final JButton loginButton           = new JButton(EResources.loadImageIcon("bouton_connexion.png", 225, 50));
+    private final JLabel errorLabel             = new JLabel();
 
     public LoginView()
     {
@@ -36,9 +36,9 @@ public class LoginView extends EView
         ETable panel = new ETable();
         GridBagConstraints constraints;
         
-        constraints = panel.getConstraints();
-        constraints.insets = new Insets(5, 10, 5, 5);
-        constraints.fill = GridBagConstraints.CENTER;
+        constraints         = panel.getConstraints();
+        constraints.insets  = new Insets(5, 10, 5, 5);
+        constraints.fill    = GridBagConstraints.CENTER;
         
         forgotLabel.setForeground(Color.blue);
         forgotLabel.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));

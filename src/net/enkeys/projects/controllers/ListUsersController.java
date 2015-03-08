@@ -148,7 +148,7 @@ public class ListUsersController extends EController
                         if(user.validate("DELETE"))
                         {
                             String json = user.execute("DELETE");
-                            System.out.println(json);
+                            
                             if(json.contains("users"))
                                 view.getDataTable().removeValue(modelID);
                             else
@@ -186,7 +186,7 @@ public class ListUsersController extends EController
 
             if(u != null)
             {
-                DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 
                 user.addData("data[User][id]", u.get("id"));
                 user.addData("data[User][firstname]", u.get("firstname"));

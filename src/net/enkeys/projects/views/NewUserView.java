@@ -3,14 +3,15 @@ package net.enkeys.projects.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
@@ -18,69 +19,68 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
-public class NewClientView extends EView
+public class NewUserView extends EView
 {
-    private final JButton back              = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JLabel lastnameLabel      = new JLabel("Nom de famille : ");
     private final JTextField lastname       = new JTextField(20);
     private final JLabel firstnameLabel     = new JLabel("Prénom : ");
     private final JTextField firstname      = new JTextField(20);
-    private final JLabel phonenumberLabel   = new JLabel("Téléphone : ");
-    private final JTextField phonenumber    = new JTextField(20);
     private final JLabel emailLabel         = new JLabel("Email : ");
     private final JTextField email          = new JTextField(20);
-    private final JLabel enterpriseLabel    = new JLabel("Entreprise : ");
-    private final JTextField enterprise     = new JTextField(20);
-    private final JLabel addressLabel       = new JLabel("Adresse de l'entreprise : ");
-    private final JTextField address        = new JTextField(20);
-    private final JLabel siretLabel         = new JLabel("Siret : ");
-    private final JTextField siret          = new JTextField(20);
+    private final JLabel passwordLabel      = new JLabel("Mot de passe : ");
+    private final JPasswordField password   = new JPasswordField(20);
+    private final JLabel confirmLabel       = new JLabel("Confirmation : ");
+    private final JPasswordField confirm    = new JPasswordField(20);
+    private final JLabel roleLabel          = new JLabel("Rôle : ");
+    private final JComboBox role            = new JComboBox(new String[]{"employee", "trainee", "developer","leaddev", "admin"});
+    private final JCheckBox validated       = new JCheckBox("Validé ? ");
     private final JButton save              = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
-    private final JCheckBox newProject      = new JCheckBox("Créer un nouveau projet");
+    private final JButton back              = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JLabel errorLabel         = new JLabel("");
     
-    public NewClientView() 
+    public NewUserView()
     {
         super();
         
-        add(newClientTable(), "Center");
-        add(buttonsPanel(), "South");
-        setBorder(new TitledBorder(new EtchedBorder(), "Nouveau Client"));
+        add(newUserTable(), "Center");
+        add(backPanel(),    "South");
+        setBorder(new TitledBorder(new EtchedBorder(), "Nouvel Utilisateur"));
     }
     
-    private ETable newClientTable()
+    private ETable newUserTable()
     {
         ETable panel = new ETable();
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();
-       
-        constraints.fill    = GridBagConstraints.CENTER;
-        constraints.insets  = new Insets(15, 15, 15, 15);
+        
+        constraints.fill = GridBagConstraints.CENTER;
+        constraints.insets = new Insets(15, 15, 15, 15);
         
         table.add(lastnameLabel, constraints, 0, 0);
         table.add(lastname, constraints, 1, 0);
         table.add(firstnameLabel, constraints, 0, 1);
         table.add(firstname, constraints, 1, 1);
-        table.add(phonenumberLabel, constraints, 0, 2);
-        table.add(phonenumber, constraints, 1, 2);
-        table.add(emailLabel, constraints, 0, 3);
-        table.add(email, constraints, 1, 3);
-        table.add(enterpriseLabel, constraints, 2, 0);
-        table.add(enterprise, constraints, 3, 0);
-        table.add(addressLabel, constraints, 2, 1);
-        table.add(address, constraints, 3, 1);
-        table.add(siretLabel, constraints, 2, 2);
-        table.add(siret, constraints, 3, 2);
-        table.add(newProject, constraints, 2, 3, 0);
+        table.add(roleLabel, constraints, 0, 2);
+        table.add(role, constraints, 1, 2);
         
-        constraints         = panel.getConstraints();
-        constraints.fill    = GridBagConstraints.CENTER;
+        validated.setSelected(true);
+        table.add(validated, constraints, 0, 3, 0);
+        
+        table.add(emailLabel, constraints, 2, 0);
+        table.add(email, constraints, 3, 0);
+        table.add(passwordLabel, constraints, 2, 1);
+        table.add(password, constraints, 3, 1);
+        table.add(confirmLabel, constraints, 2, 2);
+        table.add(confirm, constraints, 3, 2);
+        
+        constraints = panel.getConstraints();
+        constraints.fill = GridBagConstraints.CENTER;
         panel.add(table, constraints, 0, 0);
         
         return panel;
     }
     
-    private JPanel buttonsPanel()
+    private JPanel backPanel()
     {
         JPanel panel = new JPanel(new BorderLayout());
         ETable table = new ETable();
@@ -108,9 +108,9 @@ public class NewClientView extends EView
         return panel;
     }
 
-    public JButton getBack()
+    public JLabel getLastnameLabel()
     {
-        return back;
+        return lastnameLabel;
     }
 
     public JTextField getLastname()
@@ -118,14 +118,19 @@ public class NewClientView extends EView
         return lastname;
     }
 
+    public JLabel getFirstnameLabel()
+    {
+        return firstnameLabel;
+    }
+
     public JTextField getFirstname()
     {
         return firstname;
     }
 
-    public JTextField getPhonenumber()
+    public JLabel getEmailLabel()
     {
-        return phonenumber;
+        return emailLabel;
     }
 
     public JTextField getEmail()
@@ -133,19 +138,39 @@ public class NewClientView extends EView
         return email;
     }
 
-    public JTextField getEnterprise()
+    public JLabel getPasswordLabel()
     {
-        return enterprise;
+        return passwordLabel;
     }
 
-    public JTextField getAddress()
+    public JPasswordField getPassword()
     {
-        return address;
+        return password;
     }
 
-    public JTextField getSiret()
+    public JLabel getConfirmLabel()
     {
-        return siret;
+        return confirmLabel;
+    }
+
+    public JPasswordField getConfirm()
+    {
+        return confirm;
+    }
+
+    public JLabel getRoleLabel()
+    {
+        return roleLabel;
+    }
+
+    public JComboBox getRole()
+    {
+        return role;
+    }
+
+    public JCheckBox getValidated()
+    {
+        return validated;
     }
 
     public JButton getSave()
@@ -153,13 +178,14 @@ public class NewClientView extends EView
         return save;
     }
 
-    public JCheckBox getNewProject()
+    public JButton getBack()
     {
-        return newProject;
+        return back;
     }
-    
+
     public JLabel getErrorLabel()
     {
         return errorLabel;
     }
+    
 }

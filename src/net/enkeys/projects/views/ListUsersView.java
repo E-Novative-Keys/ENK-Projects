@@ -17,14 +17,14 @@ import net.enkeys.projects.models.UserTable;
 
 public class ListUsersView extends EView
 {
-    private final UserTable dataTable = new UserTable();
-    private final JTable listUsers = new JTable(dataTable);
-    private final JScrollPane listScroller = new JScrollPane(listUsers);
-    private final JLabel searchLabel = new JLabel("Recherche :");
-    private final JTextField searchField = new JTextField(20);
-    private final JButton backButton = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JButton deleteButton = new JButton("Supprimer la sélection");
-    private final JButton saveButton = new JButton("Enregistrer les modifications");
+    private final UserTable dataTable       = new UserTable();
+    private final JTable listUsers          = new JTable(dataTable);
+    private final JScrollPane listScroller  = new JScrollPane(listUsers);
+    private final JLabel searchLabel        = new JLabel("Recherche :");
+    private final JTextField searchField    = new JTextField(20);
+    private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JButton deleteButton      = new JButton("Supprimer la sélection");
+    private final JButton saveButton        = new JButton("Enregistrer les modifications");
     
     public ListUsersView()
     {
@@ -36,8 +36,8 @@ public class ListUsersView extends EView
 
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable buttons = new ETable();
+        JPanel panel    = new JPanel(new BorderLayout());
+        ETable buttons  = new ETable();
         GridBagConstraints constraints = buttons.getConstraints();
         
         backButton.setBorderPainted(false);

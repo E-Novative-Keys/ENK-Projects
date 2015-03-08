@@ -32,8 +32,8 @@ public class HomeView extends EView
         
         table.setBorder(new TitledBorder(new EtchedBorder(), "Home"));
         
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.insets = new Insets(15, 15, 15, 15);
+        constraints.fill    = GridBagConstraints.BOTH;
+        constraints.insets  = new Insets(15, 15, 15, 15);
         
         table.add(newClientButton, constraints, 0, 0);
         table.add(listClientsButton, constraints, 1, 0);

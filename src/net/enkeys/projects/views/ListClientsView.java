@@ -17,14 +17,14 @@ import net.enkeys.projects.models.ClientTable;
 
 public class ListClientsView extends EView
 {
-    private final ClientTable dataTable = new ClientTable();
-    private final JTable listClients = new JTable(dataTable);
-    private final JScrollPane listScroller = new JScrollPane(listClients);
-    private final JLabel searchLabel = new JLabel("Recherche :");
-    private final JTextField searchField = new JTextField(20);
-    private final JButton backButton = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JButton deleteButton = new JButton("Supprimer la sélection");
-    private final JButton saveButton = new JButton("Enregistrer les modifications");
+    private final ClientTable dataTable     = new ClientTable();
+    private final JTable listClients        = new JTable(dataTable);
+    private final JScrollPane listScroller  = new JScrollPane(listClients);
+    private final JLabel searchLabel        = new JLabel("Recherche :");
+    private final JTextField searchField    = new JTextField(20);
+    private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JButton deleteButton      = new JButton("Supprimer la sélection");
+    private final JButton saveButton        = new JButton("Enregistrer les modifications");
     
     public ListClientsView()
     {

@@ -15,13 +15,14 @@ import net.enkeys.framework.utils.ESystem;
 
 public class UsersManagerView extends EView
 {
-    private final JButton newUserButton = new JButton(EResources.loadImageIcon("newClient.png"));
-    private final JButton listUsersButton = new JButton(EResources.loadImageIcon("listClients.png"));
-    private final JButton backButton = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JButton newUserButton     = new JButton(EResources.loadImageIcon("newClient.png"));
+    private final JButton listUsersButton   = new JButton(EResources.loadImageIcon("listClients.png"));
+    private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     
     public UsersManagerView()
     {
         super();
+        
         add(UsersManagerPanel(), "Center");
         add(backPanel(), "South");
     }
@@ -33,8 +34,8 @@ public class UsersManagerView extends EView
         
         table.setBorder(new TitledBorder(new EtchedBorder(), "Users Manager"));
         
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.insets = new Insets(15, 15, 15, 15);
+        constraints.fill    = GridBagConstraints.BOTH;
+        constraints.insets  = new Insets(15, 15, 15, 15);
  
         table.add(newUserButton, constraints, 0, 0);
         table.add(listUsersButton, constraints, 1, 0);
@@ -57,15 +58,18 @@ public class UsersManagerView extends EView
         return panel;
     }
 
-    public JButton getNewUserButton() {
+    public JButton getNewUserButton()
+    {
         return newUserButton;
     }
 
-    public JButton getListUsersButton() {
+    public JButton getListUsersButton()
+    {
         return listUsersButton;
     }
 
-    public JButton getBackButton() {
+    public JButton getBackButton()
+    {
         return backButton;
     }
 }
