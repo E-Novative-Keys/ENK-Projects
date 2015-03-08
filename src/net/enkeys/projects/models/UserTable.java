@@ -7,19 +7,19 @@ public class UserTable extends TableModel
     @Override
     protected String[] setKeys()
     {
-        return new String[] {"id", "lastname", "firstname", "email", "role"};
+        return new String[] {"id", "lastname", "firstname", "email", "role", "validated", "lastlogin", "lastip"};
     }
     
     @Override
     protected String[] setColumns()
     {
-        return new String[] {"#", "Nom", "Prénom", "Email", "Rôle"};
+        return new String[] {"#", "Nom", "Prénom", "Email", "Rôle", "Validé", "Dernière connexion", "Dernière IP"};
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
-        return false;
+        return (columnIndex != 0 && columnIndex != 6 && columnIndex != 7);
     }
     
     public HashMap<String, String> getUserByID(int id)

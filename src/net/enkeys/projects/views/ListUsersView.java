@@ -61,7 +61,7 @@ public class ListUsersView extends EView
         return dataTable;
     }
     
-    public JTable getListClients()
+    public JTable getListUsers()
     {
         return listUsers;
     }

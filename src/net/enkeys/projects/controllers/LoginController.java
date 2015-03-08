@@ -64,9 +64,9 @@ public class LoginController extends EController
             
             try
             {
-                if(user.validate("login", user.getData(), errors))
+                if(user.validate("LOGIN", user.getData(), errors))
                 {
-                    String json = user.execute();
+                    String json = user.execute("LOGIN", errors);
                     
                     if(json.contains("user"))
                     {

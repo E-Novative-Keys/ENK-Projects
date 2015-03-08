@@ -17,7 +17,7 @@ public class HomeView extends EView
     private final JButton currentProjectsButton = new JButton(EResources.loadImageIcon("currentProjects.png"));
     private final JButton newProjectButton = new JButton(EResources.loadImageIcon("newProject.png"));
     private final JButton listProjectsButton = new JButton(EResources.loadImageIcon("listProjects.png"));
-    private final JButton listUserButton = new JButton(EResources.loadImageIcon("configurations.png"));
+    private final JButton usersManagerButton = new JButton(EResources.loadImageIcon("configurations.png"));
     
     public HomeView()
     {
@@ -37,7 +37,7 @@ public class HomeView extends EView
         
         table.add(newClientButton, constraints, 0, 0);
         table.add(listClientsButton, constraints, 1, 0);
-        table.add(listUserButton, constraints, 2, 0);
+        table.add(usersManagerButton, constraints, 2, 0);
         table.add(newProjectButton, constraints, 0, 1);
         table.add(listProjectsButton, constraints, 1, 1);
         table.add(currentProjectsButton, constraints, 2, 1);
@@ -70,8 +70,8 @@ public class HomeView extends EView
         return listProjectsButton;
     }
 
-    public JButton getListUserButton()
+    public JButton getUsersManagerButton()
     {
-        return listUserButton;
+        return usersManagerButton;
     }
 }

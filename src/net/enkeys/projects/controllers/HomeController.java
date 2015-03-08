@@ -9,8 +9,8 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
-import net.enkeys.projects.views.ListUsersView;
 import net.enkeys.projects.views.NewClientView;
+import net.enkeys.projects.views.UsersManagerView;
 
 public class HomeController extends EController
 {
@@ -23,7 +23,7 @@ public class HomeController extends EController
         
         this.view.getNewClientButton().addActionListener(newClientListener());
         this.view.getListClientsButton().addActionListener(listClientsListener());
-        this.view.getListUserButton().addActionListener(listUserListener());
+        this.view.getUsersManagerButton().addActionListener(UsersManagerListener());
     }
     
     private ActionListener newClientListener()
@@ -40,10 +40,10 @@ public class HomeController extends EController
         };
     }
 
-    private ActionListener listUserListener()
+    private ActionListener UsersManagerListener()
     {
         return (ActionEvent e) -> {
-            app.getFrame(0).setContent(new ListUsersController(app, new ListUsersView()));
+            app.getFrame(0).setContent(new UsersManagerController(app, new UsersManagerView()));
         };
     }
 }

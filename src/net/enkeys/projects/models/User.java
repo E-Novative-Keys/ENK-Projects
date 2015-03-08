@@ -14,8 +14,12 @@ public class User extends EModel
     @Override
     protected void initRules(Map<String, Rule[]> rules)
     {
+        rules.put("!SELECT", null);
+        rules.put("!UPDATE", null);
+        rules.put("!DELETE", null);
+        
         rules.put("email", new Rule[] {
-            new NotEmptyRule("Veuillez saisr une adresse e-mail"),
+            new NotEmptyRule("Veuillez saisir une adresse e-mail"),
             new EmailRule("Veuillez saisir une adresse e-mail valide")
         });
         
@@ -29,6 +33,8 @@ public class User extends EModel
     {
         actions.put("LOGIN", "login");
         actions.put("SELECT", "");
+        actions.put("UPDATE", "edit");
+        actions.put("DELETE", "delete");
     }
     
     public String password(String pass) throws ECryptoException

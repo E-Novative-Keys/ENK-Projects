@@ -134,7 +134,7 @@ public class ListClientsController extends EController
             && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ?") == ENKProjects.YES)
             {                
                 client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                client.addData("data[Token][fields]", app.getUser().get("email"));
+                client.addData("data[Token][fields]", app.getUser().get("token"));
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
