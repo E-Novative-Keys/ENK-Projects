@@ -49,7 +49,8 @@ public class ListUsersController extends EController
         initView();
     }
     
-    private void initView() {
+    private void initView() 
+    {
         User user = (User)getModel("User");
         Map<String, String> errors = new HashMap<>();
         
@@ -125,7 +126,8 @@ public class ListUsersController extends EController
         };
     }
     
-    private ActionListener deleteButtonListener() {
+    private ActionListener deleteButtonListener() 
+    {
         return (ActionEvent e) -> {
             User user = (User)getModel("User");
             int[] rows = view.getListUsers().getSelectedRows();
@@ -247,7 +249,8 @@ public class ListUsersController extends EController
         return false;
     }
 
-    private KeyListener searchFieldListener() {
+    private KeyListener searchFieldListener() 
+    {
         return new KeyAdapter()
         {
             @Override

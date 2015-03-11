@@ -36,8 +36,8 @@ public class ListClientsView extends EView
 
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable buttons = new ETable();
+        JPanel panel    = new JPanel(new BorderLayout());
+        ETable buttons  = new ETable();
         GridBagConstraints constraints = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
