@@ -9,10 +9,8 @@ import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.projects.controllers.LoginController;
-import net.enkeys.projects.controllers.NewUserController;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.LoginView;
-import net.enkeys.projects.views.NewUserView;
 
 public class ENKProjects extends EApplication
 {

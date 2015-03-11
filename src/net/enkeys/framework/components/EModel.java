@@ -8,7 +8,6 @@ import net.enkeys.framework.components.rules.Rule;
 import net.enkeys.framework.exceptions.EDataException;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.gson.Gson;
-import net.enkeys.framework.gson.JsonSyntaxException;
 import net.enkeys.framework.utils.EHttpRequest;
 
 public abstract class EModel
@@ -102,10 +101,18 @@ public abstract class EModel
                 {
                     for(Rule rule : rulesValue)
                     {
-                        if(data.get(ruleKey) == null)
-                            errors.put(ruleKey + "/" + rule.getName(), "Is not set");
-                        else if(!rule.validate(data.get(ruleKey)))
-                            errors.put(ruleKey + "/" + rule.getName(), rule.getMessage());
+                        if(rule.getClass().getSimpleName().equals("EscapeRule"))
+                        {
+                            if(rule.validate(action))
+                                break;
+                        }
+                        else
+                        {
+                            if(data.get(ruleKey) == null)
+                                errors.put(ruleKey + "/" + rule.getName(), "Is not set");
+                            else if(!rule.validate(data.get(ruleKey)))
+                                errors.put(ruleKey + "/" + rule.getName(), rule.getMessage());
+                        }
                     }
                 }
             }
