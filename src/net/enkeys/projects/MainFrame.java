@@ -20,8 +20,6 @@ public class MainFrame extends EFrame
     {
         super(app, title, width, height);
         setResizable(false);
-        
-        setContent(new LoginController(getApp(), new LoginView()));
     }
 
     @Override

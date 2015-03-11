@@ -1,8 +1,18 @@
 package net.enkeys.projects;
 
+import java.util.HashMap;
 import java.util.Map;
 import net.enkeys.framework.components.EApplication;
+import net.enkeys.framework.exceptions.EHttpRequestException;
+import net.enkeys.framework.exceptions.ERuleException;
+import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.EResources;
+import net.enkeys.projects.controllers.LoginController;
+import net.enkeys.projects.controllers.NewUserController;
+import net.enkeys.projects.models.User;
+import net.enkeys.projects.views.LoginView;
+import net.enkeys.projects.views.NewUserView;
 
 public class ENKProjects extends EApplication
 {
@@ -41,7 +51,29 @@ public class ENKProjects extends EApplication
     public void run()
     {
         logger.log(getName() + " v" + getVersion());
-        getFrame(getName()).setVisible(true);
+        User user = new User();
+        MainFrame frame = (MainFrame)getFrame(0);
+        
+        frame.setContent(new LoginController(this, new LoginView()));
+        frame.setVisible(true);
+        
+        try
+        {
+            user.addData("data[User][link]", "test");
+            String json = user.execute("VERIFY");
+            System.out.println(json);
+            
+            if(json != null && json.contains("error"))
+            {
+                Map<String, String> value = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                message(value.get("error"));
+            }               
+        }
+        catch(ERuleException | EHttpRequestException ex)
+        {
+            getLogger().warning(ex.getMessage());
+        }
+        
     }
     
     public static void main(String[] args)
