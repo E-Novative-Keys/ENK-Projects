@@ -3,6 +3,7 @@ package net.enkeys.projects.models;
 import java.util.Map;
 import net.enkeys.framework.components.EModel;
 import net.enkeys.framework.components.rules.EmailRule;
+import net.enkeys.framework.components.rules.EscapeRule;
 import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.Rule;
 import net.enkeys.framework.exceptions.ECryptoException;
@@ -18,14 +19,15 @@ public class User extends EModel
         rules.put("!INSERT", null);
         rules.put("!SELECT", null);
         rules.put("!UPDATE", null);
-        rules.put("!DELETE", null);
         
         rules.put("email", new Rule[] {
+            new EscapeRule("DELETE"),
             new NotEmptyRule("Veuillez saisir une adresse e-mail"),
             new EmailRule("Veuillez saisir une adresse e-mail valide")
         });
         
         rules.put("password", new Rule[] {
+            new EscapeRule("DELETE"),
             new NotEmptyRule("Veuillez saisir votre mot de passe")
         });
     }

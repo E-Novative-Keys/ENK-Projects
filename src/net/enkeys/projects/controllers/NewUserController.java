@@ -51,7 +51,7 @@ public class NewUserController extends EController
             if(!new String(view.getPassword().getPassword()).equals(new String(view.getConfirm().getPassword())))
                 setError("Mot de passe et confirmation différents"); 
             
-            user.addData("data[User][password]", view.getPassword().getPassword());
+            user.addData("data[User][password]", user.password(new String(view.getPassword().getPassword())));
             user.addData("data[User][firstname]", view.getFirstname().getText().substring(0, 1).toUpperCase()
                                                 + view.getFirstname().getText().substring(1));
             user.addData("data[User][lastname]", view.getLastname().getText().toUpperCase());

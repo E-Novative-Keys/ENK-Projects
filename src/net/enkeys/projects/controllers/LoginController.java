@@ -20,7 +20,6 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.MainFrame;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
-import net.enkeys.projects.views.NewUserView;
 
 public class LoginController extends EController
 {
