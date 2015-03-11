@@ -59,7 +59,6 @@ public class ENKProjects extends EApplication
         {
             user.addData("data[User][link]", "test");
             String json = user.execute("VERIFY");
-            System.out.println(json);
             
             if(json != null && json.contains("error"))
             {
