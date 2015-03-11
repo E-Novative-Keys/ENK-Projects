@@ -167,7 +167,7 @@ public class ListClientsController extends EController
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
-            if(updated.size() > 0 &&app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
+            if(updated.size() > 0 && app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
                 saveUpdatedClients();
         };
     }

@@ -1,0 +1,311 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package net.enkeys.projects.controllers;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import net.enkeys.framework.components.EApplication;
+import net.enkeys.framework.components.EController;
+import net.enkeys.framework.components.EView;
+import net.enkeys.framework.exceptions.EHttpRequestException;
+import net.enkeys.framework.exceptions.ERuleException;
+import net.enkeys.framework.gson.Gson;
+import net.enkeys.framework.gson.reflect.TypeToken;
+import net.enkeys.framework.utils.ECrypto;
+import net.enkeys.projects.ENKProjects;
+import net.enkeys.projects.models.Project;
+import net.enkeys.projects.views.HomeView;
+import net.enkeys.projects.views.ListProjectsView;
+
+/**
+ *
+ * @author Worker
+ */
+public class ListProjectsController extends EController
+{
+    private final ENKProjects app = (ENKProjects)super.app;
+    private final ListProjectsView view = (ListProjectsView)super.view;
+    
+    private final ArrayList<Integer> updated;
+    
+    public ListProjectsController(EApplication app, EView view)
+    {
+        super(app, view);
+        this.updated = new ArrayList<>();
+        addModel(new Project());
+        
+        this.view.getDataTable().addTableModelListener(dataTableListener());
+        this.view.getBackButton().addActionListener(backButtonListener());
+        this.view.getDeleteButton().addActionListener(deleteButtonListener());
+        this.view.getSaveButton().addActionListener(saveButtonListener());
+        this.view.getSearchField().addKeyListener(searchFieldListener());
+        
+        initView();
+    }
+    
+    private void initView() 
+    {
+        Project project = (Project)getModel("Project");
+        Map<String, String> errors = new HashMap<>();
+        
+        project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        project.addData("data[Token][fields]", app.getUser().get("token"));
+        
+        if(project.validate("SELECT", project.getData(), errors))
+        {
+            String json = project.execute("SELECT", errors);
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            
+            if(values != null && values.get("projects") != null)
+            {
+                ArrayList<HashMap<String, String>> projects = values.get("projects");
+                
+                for(HashMap<String, String> p : projects)
+                {
+                    view.getDataTable().addValue(p);
+                    view.getDataTable().addOrigin(p);
+                }
+                view.getListProjects().setAutoCreateRowSorter(true);
+            }
+            else
+                System.err.println(json);
+        }
+        else
+            System.err.println(errors);
+    }
+
+    private TableModelListener dataTableListener()
+    {
+        return (TableModelEvent e) -> {            
+            switch(e.getType())
+            {
+                case TableModelEvent.INSERT:
+                    break;
+                    
+                case TableModelEvent.UPDATE:
+                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(e.getFirstRow(), 0));
+                    
+                    if(!updated.contains(id))
+                        updated.add(id);
+                    break;
+                    
+                case TableModelEvent.DELETE:
+                    break;
+            }
+        };
+    }
+
+    private ActionListener backButtonListener() 
+    {
+        return (ActionEvent e) -> {
+            if(updated.size() > 0)
+            {
+                switch(app.confirm("Souhaitez-vous appliquer les modifications effectuées ?", ENKProjects.YES_NO_CANCEL))
+                {
+                    case ENKProjects.YES:
+                        if(saveUpdatedProjects())
+                            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        break;
+                        
+                    case ENKProjects.NO:
+                        app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+                        break;
+                        
+                    case ENKProjects.CANCEL:
+                        break;
+                }
+            }
+            else
+                app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+        };
+    }
+
+    private ActionListener deleteButtonListener() 
+    {
+        return (ActionEvent e) -> {
+            Project project = (Project)getModel("Project");
+            int[] rows = view.getListProjects().getSelectedRows();
+            
+            if(rows.length > 0
+            && app.confirm("Êtes-vous certain de vouloir supprimer les projets sélectionnés ?") == ENKProjects.YES)
+            {                
+                project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                project.addData("data[Token][fields]", app.getUser().get("token"));
+                        
+                for(int i = 0 ; i < rows.length ; i++)
+                {
+                    int modelID = view.getListProjects().convertRowIndexToModel(rows[i]-i);
+                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                    
+                    project.addData("data[Project][id]", id);
+                
+                    try
+                    {
+                        if(project.validate("DELETE"))
+                        {
+                            String json = project.execute("DELETE");
+
+                            if(json.contains("projects"))
+                                view.getDataTable().removeValue(modelID);
+                            else
+                                app.getLogger().warning("Error: " + json);
+                        }
+                    }
+                    catch(ERuleException | EHttpRequestException ex)
+                    {
+                        app.getLogger().warning(ex.getMessage());
+                    }
+                }
+            }
+        };
+    }
+
+    private ActionListener saveButtonListener() 
+    {
+        return (ActionEvent e) -> {
+            if(updated.size() > 0 && app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
+                saveUpdatedProjects();
+        };
+    }
+
+    private boolean saveUpdatedProjects() 
+    {
+        Project project = (Project)getModel("Project");
+
+        project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        project.addData("data[Token][fields]", app.getUser().get("token"));
+                
+        for(int i : updated)
+        {
+            Map<String, String> p = view.getDataTable().getProjectByID(i);
+            Map<String, String> errors = new HashMap<>();
+
+            if(p != null)
+            {
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                
+                project.addData("data[Project][client_id]",    p.get("client_id"));
+                project.addData("data[Project][name]",         p.get("name"));
+                project.addData("data[Project][description]",  p.get("description"));
+                project.addData("data[Project][deadline]",     p.get("deadline"));
+                project.addData("data[Project][estimation]",   p.get("estimation"));
+                project.addData("data[Project][budget]",       p.get("budget"));
+                project.addData("data[Project][discount]",     p.get("discount"));
+                project.addData("data[Project][updated]",   df.format(new Date()));
+
+                try
+                {
+                    if(project.validate("UPDATE", project.getData(), errors))
+                    {
+                        String json = project.execute("UPDATE", errors);
+
+                        if(json != null && !json.isEmpty())
+                        {
+                            if(json.contains("projects"))
+                            {
+                                updated.clear();
+                                return true;
+                            }
+                            else if(json.contains("error"))
+                            {
+                                Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+
+                                if((errors = values.get("error")) != null)
+                                    setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                                else
+                                    setError("Une erreur inattendue est survenue");
+                                break;
+                            }
+                            else
+                            {
+                                setError("#" + i + " : " + json);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                        break;
+                    }
+                }
+                catch(ERuleException | EHttpRequestException ex)
+                {
+                    app.getLogger().warning(ex.getMessage());
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private KeyListener searchFieldListener() 
+    {
+        return new KeyAdapter()
+        {
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                try
+                {
+                    String search = view.getSearchField().getText().toLowerCase();
+
+                    if(view.getListProjects().getAutoCreateRowSorter())
+                    {
+                        view.getListProjects().setAutoCreateRowSorter(false);
+                        view.getListProjects().setRowSorter(null);
+                    }
+                    if(view.getDataTable().getValues().size() > 0)
+                        view.getDataTable().clear();
+
+                    for(HashMap<String, String> p : view.getDataTable().getOrigin())
+                    {
+                        if(p.get("client_id").toLowerCase().contains(search)
+                        || p.get("name").toLowerCase().contains(search)
+                        || p.get("description").toLowerCase().contains(search)
+                        || p.get("deadline").toLowerCase().contains(search)
+                        || p.get("estimation").toLowerCase().contains(search)
+                        || p.get("budget").toLowerCase().contains(search)
+                        || p.get("discount").toLowerCase().contains(search))
+                            view.getDataTable().addValue(p);
+                    }
+
+                    if(view.getDataTable().getValues().size() > 0)
+                        view.getListProjects().setAutoCreateRowSorter(true);
+                }
+                catch(IndexOutOfBoundsException ex)
+                {
+                    app.getLogger().warning(ex.getMessage());
+                }
+            }
+        };
+    }
+
+    private void setError(String err) 
+    {
+        app.message(err, JOptionPane.ERROR_MESSAGE);
+        
+        if(!err.isEmpty())
+            app.getLogger().warning(err);
+    }
+}

@@ -56,25 +56,25 @@ public class NewUserView extends EView
         constraints.fill = GridBagConstraints.CENTER;
         constraints.insets = new Insets(15, 15, 15, 15);
         
-        table.add(lastnameLabel, constraints, 0, 0);
-        table.add(lastname, constraints, 1, 0);
-        table.add(firstnameLabel, constraints, 0, 1);
-        table.add(firstname, constraints, 1, 1);
-        table.add(roleLabel, constraints, 0, 2);
-        table.add(role, constraints, 1, 2);
+        table.add(lastnameLabel,    constraints, 0, 0);
+        table.add(lastname,         constraints, 1, 0);
+        table.add(firstnameLabel,   constraints, 0, 1);
+        table.add(firstname,        constraints, 1, 1);
+        table.add(roleLabel,        constraints, 0, 2);
+        table.add(role,             constraints, 1, 2);
         
         validated.setSelected(true);
-        table.add(validated, constraints, 0, 3, 0);
+        table.add(validated,        constraints, 0, 3, 0);
         
-        table.add(emailLabel, constraints, 2, 0);
-        table.add(email, constraints, 3, 0);
-        table.add(passwordLabel, constraints, 2, 1);
-        table.add(password, constraints, 3, 1);
-        table.add(confirmLabel, constraints, 2, 2);
-        table.add(confirm, constraints, 3, 2);
+        table.add(emailLabel,       constraints, 2, 0);
+        table.add(email,            constraints, 3, 0);
+        table.add(passwordLabel,    constraints, 2, 1);
+        table.add(password,         constraints, 3, 1);
+        table.add(confirmLabel,     constraints, 2, 2);
+        table.add(confirm,          constraints, 3, 2);
         
-        constraints = panel.getConstraints();
-        constraints.fill = GridBagConstraints.CENTER;
+        constraints         = panel.getConstraints();
+        constraints.fill    = GridBagConstraints.CENTER;
         panel.add(table, constraints, 0, 0);
         
         return panel;

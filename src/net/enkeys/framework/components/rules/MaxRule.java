@@ -39,7 +39,7 @@ public class MaxRule extends Rule
         {
             return ((String)object).length() < max;
         }
-        else
+        else 
             throw new ERuleException("Unsupported object");
     }
 }
