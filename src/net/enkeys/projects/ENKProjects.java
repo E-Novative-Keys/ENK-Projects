@@ -12,6 +12,14 @@ import net.enkeys.projects.controllers.LoginController;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.LoginView;
 
+/**
+ * @todo
+ * Changer regex project name par regex enterprise
+ * Discount pourcentage à virgule
+ * Édition multiples lignes dans JTable
+ * Forgot Password
+ * Changer images gestion utilisateurs
+ */
 public class ENKProjects extends EApplication
 {
     public static final String SALT = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
@@ -70,7 +78,6 @@ public class ENKProjects extends EApplication
         {
             getLogger().warning(ex.getMessage());
         }
-        
     }
     
     public static void main(String[] args)
