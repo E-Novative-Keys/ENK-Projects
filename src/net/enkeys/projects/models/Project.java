@@ -13,6 +13,7 @@ public class Project extends EModel
     protected void initRules(Map<String, Rule[]> rules) {
         rules.put("!SELECT", null);
         rules.put("!DELETE", null);
+        rules.put("!CURRENT", null);
         
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de projet"),
@@ -33,5 +34,15 @@ public class Project extends EModel
             new NotEmptyRule("Veuillez saisir une remise (0 si aucune)"),
             new RegexRule("([0-9]?[0-9][\\.]?[0-9]{0,2})", "Remise non valide (valeur entre 0 et 99 nécessaire)")
         });
-    }  
+    }
+    
+    @Override
+    protected void initActions(Map<String, String> actions)
+    {
+        actions.put("SELECT", "");
+        actions.put("INSERT", "add");
+        actions.put("UPDATE", "edit");
+        actions.put("DELETE", "delete");
+        actions.put("CURRENT", "current");
+    }
 }
