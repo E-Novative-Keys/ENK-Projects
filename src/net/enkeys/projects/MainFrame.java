@@ -10,11 +10,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EFrame;
+import net.enkeys.projects.controllers.HomeController;
+import net.enkeys.projects.views.HomeView;
 
 public class MainFrame extends EFrame
 {
     private final ENKProjects app = (ENKProjects)super.app;
     private JMenuItem disconnect;
+    private JMenuItem home;
     
     public MainFrame(EApplication app, String title, int width, int height)
     {
@@ -27,12 +30,16 @@ public class MainFrame extends EFrame
     {
         JMenu file = new JMenu("Fichier");
         disconnect = new JMenuItem("Déconnexion");
+        home = new JMenuItem("Accueil");
         JMenuItem exit = new JMenuItem("Quitter");
         
+        home.addActionListener(fileHomeListener());
+        home.setVisible(false);
         disconnect.addActionListener(fileDisconnectListener());
         disconnect.setVisible(false);
         exit.addActionListener(fileExitListener());
         
+        file.add(home);
         file.add(disconnect);
         file.add(exit);
         
@@ -58,6 +65,14 @@ public class MainFrame extends EFrame
             close();
         };
     }
+    
+    private ActionListener fileHomeListener()
+    {
+        return (ActionEvent e) -> {
+            if(app.getUser() != null)
+                setContent(new HomeController(app, new HomeView()));
+        };
+    }
 
     @Override
     public void onWindowClosing(WindowEvent we)
@@ -74,5 +89,10 @@ public class MainFrame extends EFrame
     public JMenuItem getDisconnectItem()
     {
         return disconnect;
+    }
+    
+    public JMenuItem getHomeItem()
+    {
+        return home;
     }
 }
