@@ -17,7 +17,6 @@ import net.enkeys.projects.views.LoginView;
  * @todo
  * Création des dossiers locaux au WebService à la création d'un projet
  * Suppression des dossiers locaux au WebService à la suppression d'un projet
- * Forgot Password
  * Vue projets en cours
  * Vue de détails du projet (Gestion de projet, à définir...)
  */
