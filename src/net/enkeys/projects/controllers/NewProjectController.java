@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import net.enkeys.framework.components.EApplication;
@@ -126,6 +127,12 @@ public class NewProjectController extends EController
             Project project     = (Project) getModel("Project");
             DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors = new HashMap<>();
+            
+            if(view.getDeadline().getDate().getTime() <= new Date().getTime())
+            {
+                setError("Veuillez saisir une deadlin ne précédant pas la date actuelle");
+                return;
+            }
                       
             project.addData("data[Project][client_name]", view.getClient().getSelectedItem());
             project.addData("data[Project][name]", view.getProjectName().getText());
@@ -135,6 +142,7 @@ public class NewProjectController extends EController
             project.addData("data[Project][estimation]", view.getEstimation().getText());
             project.addData("data[Project][budget]", view.getBudget().getText());
             project.addData("data[Project][discount]", view.getDiscount().getText());
+            project.addData("data[Project][created]", df.format(new Date()));
             
             project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             project.addData("data[Token][fields]", app.getUser().get("token"));

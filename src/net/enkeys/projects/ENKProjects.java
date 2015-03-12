@@ -15,8 +15,6 @@ import net.enkeys.projects.views.LoginView;
 /**
  * @todo
  * Édition multiples lignes dans JTable
- * Changer regex project name par regex enterprise
- * Discount pourcentage à virgule
  * Forgot Password
  */
 public class ENKProjects extends EApplication

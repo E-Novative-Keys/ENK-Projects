@@ -11,10 +11,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -27,7 +26,6 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.models.User;
-import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
@@ -163,6 +161,7 @@ class EditProjectController extends EController {
             project.addData("data[Project][estimation]", view.getEstimation().getText());
             project.addData("data[Project][budget]", view.getBudget().getText());
             project.addData("data[Project][discount]", view.getDiscount().getText());
+            project.addData("data[Project][updated]", df.format(new Date()));
             
             project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             project.addData("data[Token][fields]", app.getUser().get("token"));
