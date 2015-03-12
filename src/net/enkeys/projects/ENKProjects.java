@@ -40,12 +40,14 @@ public class ENKProjects extends EApplication
         resetUser();
         this.user = user;
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(true);
+        ((MainFrame)getFrame(0)).getHomeItem().setVisible(true);
     }
     
     public void resetUser()
     {
         user = null;
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
+        ((MainFrame)getFrame(0)).getHomeItem().setVisible(false);
     }
     
     public Map<String, String> getUser()
