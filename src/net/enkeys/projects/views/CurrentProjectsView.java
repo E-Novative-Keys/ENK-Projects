@@ -1,47 +1,74 @@
 package net.enkeys.projects.views;
 
+import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
+import net.enkeys.framework.utils.EResources;
+import net.enkeys.framework.utils.ESystem;
 
 public class CurrentProjectsView extends EView
 {
-    private ArrayList<JButton> listCurrentProjectsButton = new ArrayList<>();
+    private final ArrayList<JButton> listCurrentProjectsButton = new ArrayList<>();
+    private final ETable panel          = new ETable();
+    private final JScrollPane scroller  = new JScrollPane(panel);
+    private final JButton backButton    = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     
     public CurrentProjectsView()
     {
         super();
-        add(listProjectsPanel());
+        scroller.setBorder(new TitledBorder(new EtchedBorder(), "Liste des Projets"));
+        add(scroller, "Center");
+        add(bottomPanel(), "South");
     }
     
-    private ETable listProjectsPanel()
+    public void buildlistProjectsPanel()
     {
         byte j = 0;
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
-        
-        table.setBorder(new TitledBorder(new EtchedBorder(), "Current Projects"));
-        
-        constraints.fill    = GridBagConstraints.BOTH;
-        constraints.insets  = new Insets(15, 15, 15, 15);
+        GridBagConstraints constraints = panel.getConstraints();
+               
+        constraints.fill    = GridBagConstraints.CENTER;
+        constraints.insets  = new Insets(12, 15, 12, 15);
         
         for(int i = 0; i < listCurrentProjectsButton.size(); i++)
         {
             if(i % 3 == 0 && i != 0)
                 j++;
-            table.add(listCurrentProjectsButton.get(i), constraints, i, j);
+            listCurrentProjectsButton.get(i).setPreferredSize(new Dimension(250, 200));
+            panel.add(listCurrentProjectsButton.get(i), constraints, i % 3, j, 1, 1, 1, GridBagConstraints.FIRST_LINE_START);
         }
-            
-        return table;
+    }
+    
+    private JPanel bottomPanel()
+    {
+        JPanel panel    = new JPanel(new BorderLayout());
+        
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
+        backButton.setOpaque(false);
+        backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
+        panel.add(backButton, "West");   
+        
+        return panel; 
     }
 
     public ArrayList<JButton> getListCurrentProjectsButton()
     {
         return listCurrentProjectsButton;
+    }
+
+    public JButton getBackButton()
+    {
+        return backButton;
     }
 }
