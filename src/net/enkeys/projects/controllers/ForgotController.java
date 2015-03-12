@@ -107,7 +107,7 @@ public class ForgotController extends EController
                     {
                         String json = user.execute("VALIDATE", errors);
                         
-                        if(json.contains("user"))
+                        if(json != null && json.contains("user"))
                         {
                             Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
                             
@@ -145,7 +145,7 @@ public class ForgotController extends EController
                                 setError("Une erreur inattendue est survenue");
                         }
                         else
-                            setError(errors.toString());
+                            setError("Le code de sécurité est invalide");
                     }
                     else
                         setError("Données non valides");
