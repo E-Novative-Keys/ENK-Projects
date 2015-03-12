@@ -16,19 +16,19 @@ public class ProjectTable extends TableModel
     @Override
     protected String[] setKeys() 
     {
-        return new String[] {"client_id", "name", "description", "deadline", "estimation", "budget", "discount"};
+        return new String[] {"id", "client_id", "name", "deadline", "estimation", "budget", "discount", "created"};
     }
 
     @Override
     protected String[] setColumns() 
     {
-        return new String[] {"#Client", "Nom", "Description", "Deadline", "Estimation", "Budget", "Remise (%)"};
+        return new String[] {"#", "#Client", "Nom", "Deadline", "Estimation", "Budget", "Remise (%)", "Créé le"};
     }
     
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
-        return (columnIndex > 0);
+        return false;
     }
     
     public HashMap<String, String> getProjectByID(int id)

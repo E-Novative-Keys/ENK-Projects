@@ -20,20 +20,23 @@ public class Project extends EModel
 {
     @Override
     protected void initRules(Map<String, Rule[]> rules) {
+        rules.put("!SELECT", null);
+        rules.put("!DELETE", null);
+        
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de projet"),
             new BetweenRule(3, 30, "Nom incorrect (3 à 30 caractères)"),
-            new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Prénom non valide") 
+            new RegexRule("([a-zA-Z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom de projet non valide") 
         });
         
         rules.put("estimation", new Rule[]{
             new RegexRule("([0-9]*[,\\.]?[0-9]{0,3})", "Estimation non valide")
         });
         
-        /*rules.put("budget", new Rule[]{
+        rules.put("budget", new Rule[]{
             new NotEmptyRule("Veuillez préciser un budget alloué"),
             new RegexRule("([0-9]*[,\\.]?[0-9]{0,3})", "Budget non valide")
-        });*/
+        });
         
         rules.put("discount", new Rule[]{
             new NotEmptyRule("Veuillez saisir une remise (0 si aucune)"),
