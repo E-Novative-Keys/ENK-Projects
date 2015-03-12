@@ -82,6 +82,7 @@ class EditProjectController extends EController {
                     if(c.get("id").equals(this.data.get("client_id")))
                     {
                         view.getClient().setSelectedIndex(view.getClient().getItemCount()-1);
+                        view.getClient().setEnabled(false);
                     }
                 }
             }
