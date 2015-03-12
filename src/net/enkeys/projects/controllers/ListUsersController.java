@@ -176,6 +176,7 @@ public class ListUsersController extends EController
     
     private boolean saveUpdatedUsers()
     {
+        boolean success = false;
         User user = (User)getModel("User");
 
         user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
@@ -207,10 +208,7 @@ public class ListUsersController extends EController
                         if(json != null && !json.isEmpty())
                         {
                             if(json.contains("users"))
-                            {
-                                updated.clear();
-                                return true;
-                            }
+                                success = true;
                             else if(json.contains("error"))
                             {
                                 Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
@@ -219,23 +217,27 @@ public class ListUsersController extends EController
                                     setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
                                 else
                                     setError("Une erreur inattendue est survenue");
+                                success = false;
                                 break;
                             }
                             else
                             {
                                 setError("#" + i + " : " + json);
+                                success = false;
                                 break;
                             }
                         }
                         else
                         {
                             setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                            success = false;
                             break;
                         }
                     }
                     else
                     {
                         setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                        success = false;
                         break;
                     }
                 }
@@ -246,7 +248,9 @@ public class ListUsersController extends EController
             }
         }
         
-        return false;
+        if(success)
+            updated.clear();
+        return success;
     }
 
     private KeyListener searchFieldListener() 

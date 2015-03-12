@@ -1,9 +1,9 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-public interface EMouseListener
+public interface EMouseEvent
 {
     public default void onMouseEntered(MouseEvent me){}
     public default void onMouseExited(MouseEvent me){}

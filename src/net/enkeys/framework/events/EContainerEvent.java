@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.ContainerEvent;
 
-public interface EContainerListener
+public interface EContainerEvent
 {
     public default void onComponentAdded(ContainerEvent ce){}
     public default void onComponentRemoved(ContainerEvent ce){}

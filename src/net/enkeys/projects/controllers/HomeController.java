@@ -30,7 +30,8 @@ public class HomeController extends EController
         this.view.getNewProjectButton().addActionListener(newProjectListener());
         this.view.getListProjectsButton().addActionListener(listProjectsListener());
         
-        if(!this.app.getUser().get("role").equals("admin"))
+        if(!this.app.getUser().get("role").equalsIgnoreCase("admin") && 
+           !this.app.getUser().get("role").equalsIgnoreCase("leaddev"))
             this.view.getUsersManagerButton().setEnabled(false);
     }
     

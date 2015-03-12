@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.beans.PropertyChangeEvent;
 
-public interface EPropertyListener
+public interface EPropertyEvent
 {
     public default void onPropertyChange(PropertyChangeEvent pce){}
 }

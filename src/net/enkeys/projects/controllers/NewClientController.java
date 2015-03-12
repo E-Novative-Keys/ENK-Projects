@@ -2,6 +2,7 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import net.enkeys.framework.components.EApplication;
@@ -16,6 +17,7 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewClientView;
+import net.enkeys.projects.views.NewProjectView;
 
 public class NewClientController extends EController
 {
@@ -71,14 +73,17 @@ public class NewClientController extends EController
                     }
                     else if(json.contains("clients"))
                     {
-                        //Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
-                        
-                        if(view.getNewProject().isSelected())
-                            setError("Nouveau Projet non implémenté");
+                        if(view.getNewProject().isSelected() && json.contains("newClient"))
+                        {
+                            String newClient = "{" + json.substring(json.indexOf("\"newClient\""));
+                            Map<String, Map<String, String>> values = new Gson().fromJson(newClient, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                            app.getFrame(0).setContent(new NewProjectController(app, new NewProjectView(), Integer.parseInt(values.get("newClient").get("id"))));
+                        }
                         else
+                        {
                             app.getFrame(0).setContent(new HomeController(app, new HomeView()));
-                        
-                        app.message("Le client a été correctement créé");
+                            app.message("Le client a été correctement créé");
+                        }
                     }
                     else
                     {

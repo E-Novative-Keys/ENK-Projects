@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.ItemEvent;
 
-public interface EItemListener
+public interface EItemEvent
 {
     public default void onItemStateChanged(ItemEvent ie){}
 }

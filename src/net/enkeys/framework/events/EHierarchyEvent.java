@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.HierarchyEvent;
 
-public interface EHierarchyListener
+public interface EHierarchyEvent
 {
     public default void onAncestorMoved(HierarchyEvent he){}
     public default void onAncestorResized(HierarchyEvent he){}

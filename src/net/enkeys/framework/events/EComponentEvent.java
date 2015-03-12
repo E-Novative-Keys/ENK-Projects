@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.ComponentEvent;
 
-public interface EComponentListener
+public interface EComponentEvent
 {
     public default void onComponentResized(ComponentEvent ce){}
     public default void onComponentMoved(ComponentEvent ce){}

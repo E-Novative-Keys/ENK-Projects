@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import javax.swing.event.AncestorEvent;
 
-public interface EAncestorListener
+public interface EAncestorEvent
 {
     public default void onAncestorAdded(AncestorEvent ae){}
     public default void onAncestorRemoved(AncestorEvent ae){}

@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.WindowEvent;
 
-public interface EWindowListener
+public interface EWindowEvent
 {
     public default void onWindowOpened(WindowEvent we){}
     public default void onWindowClosing(WindowEvent we){}

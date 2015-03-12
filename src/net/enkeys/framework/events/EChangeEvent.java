@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import javax.swing.event.ChangeEvent;
 
-public interface EChangeListener
+public interface EChangeEvent
 {
     public default void onStateChanged(ChangeEvent ce){}
 }

@@ -1,10 +1,10 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 
-public interface EDropTargetListener
+public interface EDropTargetEvent
 {
     public default void onDragEnter(DropTargetDragEvent dtde){}
     public default void onDragOver(DropTargetDragEvent dtde){}

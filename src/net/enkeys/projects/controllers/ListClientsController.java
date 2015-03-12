@@ -176,6 +176,7 @@ public class ListClientsController extends EController
     
     private boolean saveUpdatedClients()
     {
+        boolean success = false;
         Client client = (Client)getModel("Client");
 
         client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
@@ -206,10 +207,7 @@ public class ListClientsController extends EController
                         if(json != null && !json.isEmpty())
                         {
                             if(json.contains("clients"))
-                            {
-                                updated.clear();
-                                return true;
-                            }
+                                success = true;
                             else if(json.contains("error"))
                             {
                                 Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
@@ -218,23 +216,27 @@ public class ListClientsController extends EController
                                     setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
                                 else
                                     setError("Une erreur inattendue est survenue");
+                                success = false;
                                 break;
                             }
                             else
                             {
                                 setError("#" + i + " : " + json);
+                                success = false;
                                 break;
                             }
                         }
                         else
                         {
                             setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                            success = false;
                             break;
                         }
                     }
                     else
                     {
                         setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
+                        success = false;
                         break;
                     }
                 }
@@ -245,7 +247,9 @@ public class ListClientsController extends EController
             }
         }
         
-        return false;
+        if(success)
+            updated.clear();
+        return success;
     }
     
     private KeyListener searchFieldListener()

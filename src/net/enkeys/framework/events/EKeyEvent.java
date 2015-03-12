@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.KeyEvent;
 
-public interface EKeyListener
+public interface EKeyEvent
 {
     public default void onKeyPressed(KeyEvent ke){}
     public default void onKeyReleased(KeyEvent ke){}

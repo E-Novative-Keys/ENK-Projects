@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,21 +23,24 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewProjectView;
 
-/**
- *
- * @author Worker
- */
 public class NewProjectController extends EController 
 {
     private final ENKProjects app = (ENKProjects) super.app;
     private final NewProjectView view = (NewProjectView) super.view;
+    private final int id;
     
     public NewProjectController(EApplication app, EView view) 
+    {
+        this(app, view, -1);
+    }
+    
+    public NewProjectController(EApplication app, EView view, int id) 
     {
         super(app, view);
         addModel(new Project());
         addModel(new Client());
         addModel(new User());
+        this.id = id;
         
         this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
@@ -76,6 +73,12 @@ public class NewProjectController extends EController
                 for(HashMap<String, String> c : clients)
                 {
                     view.getClient().addItem(c.get("firstname") + " " + c.get("lastname") + " [" + c.get("enterprise") + "]" );
+                
+                    if(this.id != -1 && Integer.parseInt(c.get("id")) == (this.id))
+                    {
+                        view.getClient().setSelectedIndex(view.getClient().getItemCount()-1);
+                        view.getClient().setEnabled(false);
+                    }
                 }
             }
             else
@@ -117,7 +120,8 @@ public class NewProjectController extends EController
     private ActionListener backButtonListener()
     {
         return (ActionEvent e) -> {
-            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+            if(this.id == -1 || app.confirm("Êtes-vous certain de vouloir annuler la création du projet pour ce nouveau client ?") == ENKProjects.YES)
+                app.getFrame(0).setContent(new HomeController(app, new HomeView()));
         };
     }
     
@@ -130,7 +134,7 @@ public class NewProjectController extends EController
             
             if(view.getDeadline().getDate().getTime() <= new Date().getTime())
             {
-                setError("Veuillez saisir une deadlin ne précédant pas la date actuelle");
+                setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
             }
                       
@@ -156,7 +160,11 @@ public class NewProjectController extends EController
                     if(json.contains("projects"))
                     {
                         app.getFrame(0).setContent(new HomeController(app, new HomeView()));
-                        app.message("Le projet a été correctement créé");
+                        
+                        if(this.id == -1)
+                            app.message("Le projet a été correctement créé");
+                        else
+                            app.message("Le client et son projet ont été correctement créés");
                     }
                     else if(json.contains("error"))
                     {

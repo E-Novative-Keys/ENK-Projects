@@ -17,15 +17,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import net.enkeys.framework.listeners.EComponentListener;
-import net.enkeys.framework.listeners.EContainerListener;
-import net.enkeys.framework.listeners.EFocusListener;
-import net.enkeys.framework.listeners.EKeyListener;
-import net.enkeys.framework.listeners.EMouseListener;
-import net.enkeys.framework.listeners.EWindowListener;
+import net.enkeys.framework.events.EComponentEvent;
+import net.enkeys.framework.events.EContainerEvent;
+import net.enkeys.framework.events.EFocusEvent;
+import net.enkeys.framework.events.EKeyEvent;
+import net.enkeys.framework.events.EMouseEvent;
+import net.enkeys.framework.events.EWindowEvent;
 import net.enkeys.framework.utils.EResources;
 
-public abstract class EFrame extends JFrame implements EWindowListener, EMouseListener, EKeyListener, EComponentListener, EContainerListener, EFocusListener
+public abstract class EFrame extends JFrame implements EWindowEvent, EMouseEvent, EKeyEvent, EComponentEvent, EContainerEvent, EFocusEvent
 {
     protected final EApplication app;
     protected final String name;

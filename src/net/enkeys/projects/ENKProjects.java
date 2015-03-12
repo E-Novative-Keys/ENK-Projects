@@ -2,6 +2,7 @@ package net.enkeys.projects;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
@@ -14,8 +15,9 @@ import net.enkeys.projects.views.LoginView;
 
 /**
  * @todo
- * Édition multiples lignes dans JTable
  * Forgot Password
+ * Vue projets en cours
+ * Vue de détails du projet (Gestion de projet, à définir...)
  */
 public class ENKProjects extends EApplication
 {
@@ -69,11 +71,13 @@ public class ENKProjects extends EApplication
             {
                 Map<String, String> value = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
                 message(value.get("error"));
-            }               
+            }
         }
         catch(ERuleException | EHttpRequestException ex)
         {
             getLogger().warning(ex.getMessage());
+            message("Une erreur survenue lors de la connexion au serveur.", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
     }
     

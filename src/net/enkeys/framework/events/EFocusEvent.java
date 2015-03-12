@@ -1,8 +1,8 @@
-package net.enkeys.framework.listeners;
+package net.enkeys.framework.events;
 
 import java.awt.event.FocusEvent;
 
-public interface EFocusListener
+public interface EFocusEvent
 {
     public default void onFocusGained(FocusEvent fe){}
     public default void onFocusLost(FocusEvent fe){}
