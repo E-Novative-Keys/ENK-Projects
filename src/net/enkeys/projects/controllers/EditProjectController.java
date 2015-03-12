@@ -7,12 +7,14 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -26,32 +28,34 @@ import net.enkeys.projects.models.Client;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
+import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
 /**
  *
  * @author Worker
  */
-public class NewProjectController extends EController 
-{
+class EditProjectController extends EController {
+
     private final ENKProjects app = (ENKProjects) super.app;
     private final NewProjectView view = (NewProjectView) super.view;
+    private final HashMap<String, String> data;
     
-    public NewProjectController(EApplication app, EView view) 
+    public EditProjectController(EApplication app, EView view, HashMap<String, String> data) 
     {
         super(app, view);
         addModel(new Project());
-        addModel(new Client());
         addModel(new User());
+        addModel(new Client());
+        this.data = data;
         
         this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
         
         initView();
     }
-    
-    private void initView()
-    {
+
+    private void initView() {
         Client client = (Client)getModel("Client");
         User user = (User)getModel("User");
         Map<String, String> errors = new HashMap<>();
@@ -75,6 +79,12 @@ public class NewProjectController extends EController
                 for(HashMap<String, String> c : clients)
                 {
                     view.getClient().addItem(c.get("firstname") + " " + c.get("lastname") + " [" + c.get("enterprise") + "]" );
+                
+                    //Si le référent du projet est cet utilisateur
+                    if(c.get("id").equals(this.data.get("client_id")))
+                    {
+                        view.getClient().setSelectedIndex(view.getClient().getItemCount()-1);
+                    }
                 }
             }
             else
@@ -103,6 +113,13 @@ public class NewProjectController extends EController
                     for(HashMap<String, String> u : users)
                     {
                         view.getLead().addItem(u.get("firstname") + " " + u.get("lastname"));
+                        
+                        //Si le référent du projet est cet utilisateur
+                        if(u.get("id").equals(this.data.get("lead_id")))
+                        {
+                            view.getLead().setSelectedIndex(view.getLead().getItemCount()-1);
+                        }
+                            
                     }
                 }
                 else
@@ -111,22 +128,33 @@ public class NewProjectController extends EController
             else
                 System.err.println(errors);
         }
+        
+        //Remplissage informations récupérées
+        view.getProjectName().setText(this.data.get("name"));
+        view.getDescription().setText(this.data.get("description"));
+        view.getBudget().setText(this.data.get("budget"));
+        try {
+            view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
+        } catch (ParseException ex) {
+            app.getLogger().warning(ex.getMessage());
+        }
+        view.getEstimation().setText(this.data.get("estimation"));
+        view.getDiscount().setText(this.data.get("discount"));
     }
-    
-    private ActionListener backButtonListener()
-    {
+
+    private ActionListener backButtonListener() {
         return (ActionEvent e) -> {
-            app.getFrame(0).setContent(new HomeController(app, new HomeView()));
+            app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
         };
     }
-    
-    private ActionListener saveButtonListener()
-    {
+
+    private ActionListener saveButtonListener() {
         return (ActionEvent e) -> {
             Project project     = (Project) getModel("Project");
             DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors = new HashMap<>();
                       
+            project.addData("data[Project][id]", this.data.get("id"));
             project.addData("data[Project][client_name]", view.getClient().getSelectedItem());
             project.addData("data[Project][name]", view.getProjectName().getText());
             project.addData("data[Project][description]", view.getDescription().getText());
@@ -141,14 +169,14 @@ public class NewProjectController extends EController
             
             try
             {
-                if(project.validate("INSERT", project.getData(), errors))
+                if(project.validate("UPDATE", project.getData(), errors))
                 {
-                    String json = project.execute("INSERT");
+                    String json = project.execute("UPDATE");
                     
                     if(json.contains("projects"))
                     {
-                        app.getFrame(0).setContent(new HomeController(app, new HomeView()));
-                        app.message("Le projet a été correctement créé");
+                        app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
+                        app.message("Le projet a été correctement mis à jour");
                     }
                     else if(json.contains("error"))
                     {
@@ -171,9 +199,8 @@ public class NewProjectController extends EController
             }
         };
     }
-    
-    private void setError(String err)
-    {
+
+    private void setError(String err) {
         view.getErrorLabel().setText(err);
         
         if(!err.isEmpty())

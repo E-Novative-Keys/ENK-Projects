@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import net.enkeys.framework.components.EComboBox;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -31,7 +32,7 @@ public class NewProjectView extends EView
 {
     //Colonne gauche
     private final JLabel clientLabel            = new JLabel("Client : ");
-    private final JComboBox client              = new JComboBox();
+    private final EComboBox client              = new EComboBox();
     private final JLabel projectNameLabel       = new JLabel("Nom du projet : ");
     private final JTextField projectName        = new JTextField(20);
     private final JLabel descriptionLabel       = new JLabel("Description");
@@ -40,7 +41,7 @@ public class NewProjectView extends EView
     
     //Colonne droite
     private final JLabel leadLabel              = new JLabel("Référent : ");
-    private final JComboBox lead                = new JComboBox();
+    private final EComboBox lead                = new EComboBox();
     private final JLabel deadlineLabel          = new JLabel("Deadline : ");
     private final JDateChooser deadline         = new JDateChooser();
     private final JLabel estimationLabel        = new JLabel("Estimation : "); 

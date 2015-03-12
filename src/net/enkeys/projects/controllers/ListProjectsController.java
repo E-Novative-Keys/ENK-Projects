@@ -31,11 +31,8 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListProjectsView;
+import net.enkeys.projects.views.NewProjectView;
 
-/**
- *
- * @author Worker
- */
 public class ListProjectsController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -52,7 +49,7 @@ public class ListProjectsController extends EController
         this.view.getDataTable().addTableModelListener(dataTableListener());
         this.view.getBackButton().addActionListener(backButtonListener());
         this.view.getDeleteButton().addActionListener(deleteButtonListener());
-        this.view.getSaveButton().addActionListener(saveButtonListener());
+        this.view.getEditButton().addActionListener(editButtonListener());
         this.view.getSearchField().addKeyListener(searchFieldListener());
         
         initView();
@@ -113,6 +110,7 @@ public class ListProjectsController extends EController
     private ActionListener backButtonListener() 
     {
         return (ActionEvent e) -> {
+            /*
             if(updated.size() > 0)
             {
                 switch(app.confirm("Souhaitez-vous appliquer les modifications effectuées ?", ENKProjects.YES_NO_CANCEL))
@@ -131,10 +129,11 @@ public class ListProjectsController extends EController
                 }
             }
             else
+            */
                 app.getFrame(0).setContent(new HomeController(app, new HomeView()));
         };
     }
-
+    
     private ActionListener deleteButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -174,15 +173,20 @@ public class ListProjectsController extends EController
             }
         };
     }
-
-    private ActionListener saveButtonListener() 
+    
+    private ActionListener editButtonListener() 
     {
         return (ActionEvent e) -> {
-            if(updated.size() > 0 && app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
-                saveUpdatedProjects();
+            if(view.getListProjects().getSelectedRow() > -1) 
+            {
+                int modelID = view.getListProjects().convertRowIndexToModel(view.getListProjects().getSelectedRow());
+                int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                
+                app.getFrame(0).setContent(new EditProjectController(app, new NewProjectView(), view.getDataTable().getProjectByID(id)));
+            }
         };
     }
-
+    /*
     private boolean saveUpdatedProjects() 
     {
         Project project = (Project)getModel("Project");
@@ -199,14 +203,14 @@ public class ListProjectsController extends EController
             {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 
+                project.addData("data[Project][id]",           p.get("id"));
                 project.addData("data[Project][client_id]",    p.get("client_id"));
                 project.addData("data[Project][name]",         p.get("name"));
-                project.addData("data[Project][description]",  p.get("description"));
                 project.addData("data[Project][deadline]",     p.get("deadline"));
                 project.addData("data[Project][estimation]",   p.get("estimation"));
                 project.addData("data[Project][budget]",       p.get("budget"));
                 project.addData("data[Project][discount]",     p.get("discount"));
-                project.addData("data[Project][updated]",   df.format(new Date()));
+                project.addData("data[Project][updated]",      df.format(new Date()));
 
                 try
                 {
@@ -258,7 +262,7 @@ public class ListProjectsController extends EController
         
         return false;
     }
-    
+    */
     private KeyListener searchFieldListener() 
     {
         return new KeyAdapter()

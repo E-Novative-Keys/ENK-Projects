@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -34,12 +35,13 @@ public class ListProjectsView extends EView
     private final JTextField searchField    = new JTextField(20);
     private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JButton deleteButton      = new JButton("Supprimer la sélection");
-    private final JButton saveButton        = new JButton("Enregistrer les modifications");
+    private final JButton editButton        = new JButton("Modifier le projet");
     
     public ListProjectsView()
     {
         super();
         
+        //listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         add(listScroller, "Center");
         add(bottomPanel(), "South");
     }
@@ -60,7 +62,7 @@ public class ListProjectsView extends EView
         buttons.add(searchLabel, constraints, 0, 0);
         buttons.add(searchField, constraints, 1, 0);
         buttons.add(deleteButton, constraints, 2, 0);
-        buttons.add(saveButton, constraints, 3, 0);
+        buttons.add(editButton, constraints, 3, 0);
         panel.add(buttons, "East");
        
         return panel;
@@ -101,8 +103,8 @@ public class ListProjectsView extends EView
         return deleteButton;
     }
 
-    public JButton getSaveButton() 
+    public JButton getEditButton() 
     {
-        return saveButton;
+        return editButton;
     }
 }
