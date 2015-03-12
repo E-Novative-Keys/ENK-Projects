@@ -133,7 +133,7 @@ public class ListClientsController extends EController
             int[] rows = view.getListClients().getSelectedRows();
             
             if(rows.length > 0
-            && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ?") == ENKProjects.YES)
+            && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ? Vous allez supprimer les projets associés.") == ENKProjects.YES)
             {                
                 client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                 client.addData("data[Token][fields]", app.getUser().get("token"));
@@ -150,6 +150,7 @@ public class ListClientsController extends EController
                         if(client.validate("DELETE"))
                         {
                             String json = client.execute("DELETE");
+                            System.out.println(json);
 
                             if(json.contains("clients"))
                                 view.getDataTable().removeValue(modelID);
