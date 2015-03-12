@@ -8,6 +8,7 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.ENKProjects;
+import net.enkeys.projects.views.CurrentProjectsView;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
 import net.enkeys.projects.views.ListProjectsView;
@@ -29,6 +30,7 @@ public class HomeController extends EController
         this.view.getUsersManagerButton().addActionListener(UsersManagerListener());
         this.view.getNewProjectButton().addActionListener(newProjectListener());
         this.view.getListProjectsButton().addActionListener(listProjectsListener());
+        this.view.getCurrentProjectsButton().addActionListener(currentProjectsListener());
         
         if(!this.app.getUser().get("role").equalsIgnoreCase("admin") && 
            !this.app.getUser().get("role").equalsIgnoreCase("leaddev"))
@@ -66,6 +68,12 @@ public class HomeController extends EController
     private ActionListener listProjectsListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
+        };
+    }
+    
+    private ActionListener currentProjectsListener() {
+        return (ActionEvent e) -> {
+            app.getFrame(0).setContent(new CurrentProjectsController(app, new CurrentProjectsView()));
         };
     }
 }
