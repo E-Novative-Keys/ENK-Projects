@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import net.enkeys.projects.views.LoginView;
@@ -19,6 +22,7 @@ import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.MainFrame;
 import net.enkeys.projects.models.User;
+import net.enkeys.projects.views.ForgotView;
 import net.enkeys.projects.views.HomeView;
 
 public class LoginController extends EController
@@ -34,6 +38,7 @@ public class LoginController extends EController
         this.view.getEmailField().addKeyListener(fieldReturnListener());
         this.view.getPasswordField().addKeyListener(fieldReturnListener());
         this.view.getLoginButton().addActionListener(loginButtonListener());
+        this.view.getForgotLabel().addMouseListener(forgotLabelListener());
     }
     
     private KeyListener fieldReturnListener()
@@ -114,6 +119,17 @@ public class LoginController extends EController
             catch(ERuleException | EHttpRequestException ex)
             {
                 setError(ex.getMessage());
+            }
+        };
+    }
+    
+    private MouseListener forgotLabelListener()
+    {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                app.getFrame(0).setContent(new ForgotController(app, new ForgotView()));
             }
         };
     }

@@ -27,7 +27,7 @@ public class User extends EModel
         });
         
         rules.put("password", new Rule[] {
-            new EscapeRule("DELETE"),
+            new EscapeRule("DELETE, TOKEN"),
             new NotEmptyRule("Veuillez saisir votre mot de passe")
         });
     }
@@ -41,6 +41,8 @@ public class User extends EModel
         actions.put("INSERT", "add");
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
+        actions.put("TOKEN", "token");
+        actions.put("VALIDATE", "validate");
     }
     
     public String password(String pass) throws ECryptoException

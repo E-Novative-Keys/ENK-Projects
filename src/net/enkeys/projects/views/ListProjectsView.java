@@ -6,7 +6,6 @@
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
