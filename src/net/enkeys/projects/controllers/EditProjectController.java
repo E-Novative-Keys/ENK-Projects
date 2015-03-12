@@ -26,6 +26,7 @@ import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.models.User;
+import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
@@ -38,14 +39,21 @@ class EditProjectController extends EController {
     private final ENKProjects app = (ENKProjects) super.app;
     private final NewProjectView view = (NewProjectView) super.view;
     private final HashMap<String, String> data;
+    private final boolean flag; //False si atteint depuis la liste des projets, true si depuis le Manager du projet
     
-    public EditProjectController(EApplication app, EView view, HashMap<String, String> data) 
+    public EditProjectController(EApplication app, EView view, HashMap<String, String> data)
+    {
+        this(app, view, data, false);
+    }
+    
+    public EditProjectController(EApplication app, EView view, HashMap<String, String> data, boolean flag) 
     {
         super(app, view);
         addModel(new Project());
         addModel(new User());
         addModel(new Client());
         this.data = data;
+        this.flag = flag;
         
         this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
@@ -143,7 +151,10 @@ class EditProjectController extends EController {
 
     private ActionListener backButtonListener() {
         return (ActionEvent e) -> {
-            app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
+            if(this.flag)
+                app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.data));
+            else
+                app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));                
         };
     }
 
@@ -175,7 +186,11 @@ class EditProjectController extends EController {
                     
                     if(json.contains("projects"))
                     {
-                        app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
+                        if(this.flag)
+                            app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.data));
+                        else
+                            app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));  
+                        
                         app.message("Le projet a été correctement mis à jour");
                     }
                     else if(json.contains("error"))

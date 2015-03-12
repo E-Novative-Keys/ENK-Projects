@@ -44,29 +44,33 @@ public class CurrentProjectManagerView extends EView
         return table;
     }
     
-    public JButton getScheduleButton() {
+    public JButton getScheduleButton()
+    {
         return scheduleButton;
     }
 
-    public JButton getMessengerButton() {
+    public JButton getMessengerButton()
+    {
         return messengerButton;
     }
 
-    public JButton getCloudButton() {
+    public JButton getCloudButton()
+    {
         return cloudButton;
     }
 
-    public JButton getDeveloppersButton() {
+    public JButton getDeveloppersButton()
+    {
         return developpersButton;
     }
 
-    public JButton getQuotationButton() {
+    public JButton getQuotationButton()
+    {
         return quotationButton;
     }
 
-    public JButton getEditProjectButton() {
+    public JButton getEditProjectButton()
+    {
         return editProjectButton;
     }
-    
-    
 }

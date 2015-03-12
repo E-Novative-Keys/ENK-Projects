@@ -24,7 +24,7 @@ public class CurrentProjectsController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
     private final CurrentProjectsView view = (CurrentProjectsView)super.view;
-    private ArrayList<Map<String, String>> projectData = new ArrayList<>();
+    private ArrayList<HashMap<String, String>> projectData = new ArrayList<>();
     
     public CurrentProjectsController(EApplication app, EView view)
     {
