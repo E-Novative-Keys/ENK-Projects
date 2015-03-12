@@ -15,8 +15,8 @@ import net.enkeys.framework.utils.ESystem;
 
 public class UsersManagerView extends EView
 {
-    private final JButton newUserButton     = new JButton(EResources.loadImageIcon("newClient.png"));
-    private final JButton listUsersButton   = new JButton(EResources.loadImageIcon("listClients.png"));
+    private final JButton newUserButton     = new JButton(EResources.loadImageIcon("nouvelUtilisateur.png"));
+    private final JButton listUsersButton   = new JButton(EResources.loadImageIcon("listeUtilisateurs.png"));
     private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     
     public UsersManagerView()

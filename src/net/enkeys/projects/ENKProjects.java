@@ -14,11 +14,10 @@ import net.enkeys.projects.views.LoginView;
 
 /**
  * @todo
+ * Édition multiples lignes dans JTable
  * Changer regex project name par regex enterprise
  * Discount pourcentage à virgule
- * Édition multiples lignes dans JTable
  * Forgot Password
- * Changer images gestion utilisateurs
  */
 public class ENKProjects extends EApplication
 {

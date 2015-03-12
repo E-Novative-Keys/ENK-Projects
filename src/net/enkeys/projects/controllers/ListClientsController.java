@@ -90,7 +90,9 @@ public class ListClientsController extends EController
                     int id = Integer.parseInt((String)view.getDataTable().getValueAt(e.getFirstRow(), 0));
                     
                     if(!updated.contains(id))
+                    {
                         updated.add(id);
+                    }
                     break;
                     
                 case TableModelEvent.DELETE:

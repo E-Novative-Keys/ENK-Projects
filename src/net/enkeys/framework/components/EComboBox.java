@@ -12,10 +12,11 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-public class EComboBox extends JComboBox //implements JComboBox.KeySelectionManager
+public class EComboBox extends JComboBox
 {
     private String searchFor;
     private long lap;
+    private final int graceTime = 1000;
     
     public class CBDocument extends PlainDocument
     {
@@ -64,7 +65,7 @@ public class EComboBox extends JComboBox //implements JComboBox.KeySelectionMana
                         searchFor = searchFor.substring(0, searchFor.length()-1);
                     else
                     {
-                        if(lap + 1000 < now)
+                        if(lap + graceTime < now)
                             searchFor = "" + key;
                         else
                             searchFor += key;
@@ -92,7 +93,7 @@ public class EComboBox extends JComboBox //implements JComboBox.KeySelectionMana
                     if(current.toLowerCase().contains(searchFor.toLowerCase())) 
                     {
                         tf.setText(current);
-                        tf.setSelectionStart(current.toLowerCase().indexOf(searchFor.toLowerCase()) + searchFor.length());
+                        tf.setSelectionStart(current.toLowerCase().indexOf(searchFor.toLowerCase()) + searchFor.length() + 1);
                         tf.setSelectionEnd(current.length()); 
                         break;
                     }

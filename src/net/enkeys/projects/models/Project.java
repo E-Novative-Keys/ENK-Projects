@@ -30,17 +30,17 @@ public class Project extends EModel
         });
         
         rules.put("estimation", new Rule[]{
-            new RegexRule("([0-9]*[,\\.]?[0-9]{0,3})", "Estimation non valide")
+            new RegexRule("([0-9]*[\\.]?[0-9]{0,3})", "Estimation non valide")
         });
         
         rules.put("budget", new Rule[]{
             new NotEmptyRule("Veuillez préciser un budget alloué"),
-            new RegexRule("([0-9]*[,\\.]?[0-9]{0,3})", "Budget non valide")
+            new RegexRule("([0-9]*[\\.]?[0-9]{0,3})", "Budget non valide")
         });
         
         rules.put("discount", new Rule[]{
             new NotEmptyRule("Veuillez saisir une remise (0 si aucune)"),
-            new RegexRule("([0-9]?[0-9])", "Remise non valide (valeur entre 0 et 99 nécessaire)")
+            new RegexRule("([0-9]?[0-9][\\.]?[0-9]{0,2})", "Remise non valide (valeur entre 0 et 99 nécessaire)")
         });
     }  
 }

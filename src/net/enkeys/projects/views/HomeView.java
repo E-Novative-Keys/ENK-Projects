@@ -17,7 +17,7 @@ public class HomeView extends EView
     private final JButton currentProjectsButton = new JButton(EResources.loadImageIcon("currentProjects.png"));
     private final JButton newProjectButton = new JButton(EResources.loadImageIcon("newProject.png"));
     private final JButton listProjectsButton = new JButton(EResources.loadImageIcon("listProjects.png"));
-    private final JButton usersManagerButton = new JButton(EResources.loadImageIcon("configurations.png"));
+    private final JButton usersManagerButton = new JButton(EResources.loadImageIcon("gestionUtilisateurs.png"));
     
     public HomeView()
     {
