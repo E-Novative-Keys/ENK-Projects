@@ -156,7 +156,6 @@ public class NewProjectController extends EController
                 if(project.validate("INSERT", project.getData(), errors))
                 {
                     String json = project.execute("INSERT");
-                    System.out.println(json);
                     
                     if(json.contains("projects"))
                     {

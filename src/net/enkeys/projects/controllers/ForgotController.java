@@ -62,7 +62,7 @@ public class ForgotController extends EController
                 {
                     String json = user.execute("TOKEN");
                     
-                    if(json.contains("token"))
+                    if(json != null && json.contains("token"))
                     {
                         view.getPasswordField().setEnabled(true);
                         view.getConfirmField().setEnabled(true);
@@ -71,9 +71,9 @@ public class ForgotController extends EController
                         view.getEmailField().setEnabled(false);
                         view.getTokenButton().setEnabled(false);
         
-                        //TEST
+                        /*/TEST
                         Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
-                        view.getTokenField().setText(values.get("token"));
+                        view.getTokenField().setText(values.get("token"));//*/
                         setError("");
                     }
                     else
