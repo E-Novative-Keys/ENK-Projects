@@ -41,14 +41,14 @@ public class ETable extends JPanel
         add(component, constraints, x, y, width, height, 1, GridBagConstraints.CENTER, constraints.insets);
     }
     
-    public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int heigth, int weight)
+    public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int height, int weight)
     {
-        add(component, constraints, x, y, width, heigth, weight, GridBagConstraints.CENTER, constraints.insets);
+        add(component, constraints, x, y, width, height, weight, GridBagConstraints.CENTER, constraints.insets);
     }
     
-    public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int heigth, int weight, Insets insets)
+    public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int height, int weight, Insets insets)
     {
-        add(component, constraints, x, y, width, heigth, weight, GridBagConstraints.CENTER, insets);
+        add(component, constraints, x, y, width, height, weight, GridBagConstraints.CENTER, insets);
     }
     
     public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int height, int weight, int anchor)
@@ -75,9 +75,9 @@ public class ETable extends JPanel
         addEmpty(constraints, x, y, 1);
     }
     
-    public void addEmpty(GridBagConstraints constraints, int x, int y, int weigth)
+    public void addEmpty(GridBagConstraints constraints, int x, int y, int weight)
     {
-        add(new JLabel(), constraints, x, y, 1, 1, weigth);
+        add(new JLabel(), constraints, x, y, 1, 1, weight);
     }
     
     public GridBagConstraints getConstraints()

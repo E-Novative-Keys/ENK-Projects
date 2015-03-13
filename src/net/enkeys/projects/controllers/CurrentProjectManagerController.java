@@ -8,6 +8,7 @@ import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.views.CurrentProjectManagerView;
+import net.enkeys.projects.views.DeveloppersView;
 import net.enkeys.projects.views.NewProjectView;
 
 public class CurrentProjectManagerController extends EController
@@ -22,6 +23,8 @@ public class CurrentProjectManagerController extends EController
         this.project = project;
         
         this.view.getEditProjectButton().addActionListener(editProjectListener());
+        this.view.getDeveloppersButton().addActionListener(developpersListener());
+        
     }
     
     private ActionListener editProjectListener()
@@ -30,4 +33,11 @@ public class CurrentProjectManagerController extends EController
             app.getFrame(0).setContent(new EditProjectController(app, new NewProjectView(), this.project, true));
         };
     }
+    
+    private ActionListener developpersListener()
+    {
+        return (ActionEvent e) -> {
+            app.getFrame(0).setContent(new DeveloppersController(app, new DeveloppersView(), this.project));
+        };
+    } 
 }
