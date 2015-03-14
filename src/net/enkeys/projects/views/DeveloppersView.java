@@ -10,6 +10,7 @@ import javax.swing.JList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
@@ -49,6 +50,7 @@ public class DeveloppersView extends EView
         
         usersList.setLayoutOrientation(JList.VERTICAL);
         usersList.setVisibleRowCount(-1);
+        
         devList.setLayoutOrientation(JList.VERTICAL);
         devList.setVisibleRowCount(-1);
         

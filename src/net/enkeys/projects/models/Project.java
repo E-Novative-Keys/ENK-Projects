@@ -14,6 +14,8 @@ public class Project extends EModel
         rules.put("!SELECT", null);
         rules.put("!DELETE", null);
         rules.put("!CURRENT", null);
+        rules.put("!AFFECT", null);
+        rules.put("!DISAFFECT", null);
         
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de projet"),
@@ -44,5 +46,7 @@ public class Project extends EModel
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
         actions.put("CURRENT", "current");
+        actions.put("AFFECT", "affect");
+        actions.put("DISAFFECT", "disaffect");
     }
 }
