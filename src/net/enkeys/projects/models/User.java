@@ -35,14 +35,16 @@ public class User extends EModel
     @Override
     protected void initActions(Map<String, String> actions)
     {
-        actions.put("LOGIN", "login");
-        actions.put("VERIFY", "verify");
-        actions.put("SELECT", "");
-        actions.put("INSERT", "add");
-        actions.put("UPDATE", "edit");
-        actions.put("DELETE", "delete");
-        actions.put("TOKEN", "token");
+        actions.put("LOGIN",    "login");
+        actions.put("VERIFY",   "verify");
         actions.put("VALIDATE", "validate");
+        
+        actions.put("SELECT",   "");
+        actions.put("INSERT",   "new");
+        actions.put("UPDATE",   "edit");
+        actions.put("DELETE",   "delete");
+        actions.put("TOKEN",    "token");
+        
     }
     
     public String password(String pass) throws ECryptoException

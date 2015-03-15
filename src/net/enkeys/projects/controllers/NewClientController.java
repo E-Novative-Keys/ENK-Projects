@@ -53,6 +53,7 @@ public class NewClientController extends EController
             client.addData("data[Client][enterprise]", view.getEnterprise().getText());
             client.addData("data[Client][address]", view.getAddress().getText());
             client.addData("data[Client][siret]", view.getSiret().getText());
+            
             client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             client.addData("data[Token][fields]", app.getUser().get("token"));
         

@@ -150,7 +150,6 @@ public class ListClientsController extends EController
                         if(client.validate("DELETE"))
                         {
                             String json = client.execute("DELETE");
-                            System.out.println(json);
 
                             if(json.contains("clients"))
                                 view.getDataTable().removeValue(modelID);

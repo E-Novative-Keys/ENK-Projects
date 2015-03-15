@@ -42,7 +42,7 @@ public class Project extends EModel
     protected void initActions(Map<String, String> actions)
     {
         actions.put("SELECT", "");
-        actions.put("INSERT", "add");
+        actions.put("INSERT", "new");
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
         actions.put("CURRENT", "current");

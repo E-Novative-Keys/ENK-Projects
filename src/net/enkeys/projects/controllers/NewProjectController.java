@@ -146,7 +146,6 @@ public class NewProjectController extends EController
             project.addData("data[Project][estimation]", view.getEstimation().getText());
             project.addData("data[Project][budget]", view.getBudget().getText());
             project.addData("data[Project][discount]", view.getDiscount().getText());
-            project.addData("data[Project][created]", df.format(new Date()));
             
             project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             project.addData("data[Token][fields]", app.getUser().get("token"));
