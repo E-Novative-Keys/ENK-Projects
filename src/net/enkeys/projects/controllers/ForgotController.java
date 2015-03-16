@@ -70,10 +70,7 @@ public class ForgotController extends EController
                         view.getSendButton().setEnabled(true);
                         view.getEmailField().setEnabled(false);
                         view.getTokenButton().setEnabled(false);
-        
-                        /*/TEST
-                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
-                        view.getTokenField().setText(values.get("token"));//*/
+       
                         setError("");
                     }
                     else

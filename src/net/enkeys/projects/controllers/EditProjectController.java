@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
@@ -14,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -30,12 +26,8 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
-/**
- *
- * @author Worker
- */
-class EditProjectController extends EController {
-
+class EditProjectController extends EController
+{
     private final ENKProjects app = (ENKProjects) super.app;
     private final NewProjectView view = (NewProjectView) super.view;
     private final HashMap<String, String> data;
@@ -140,16 +132,20 @@ class EditProjectController extends EController {
         view.getProjectName().setText(this.data.get("name"));
         view.getDescription().setText(this.data.get("description"));
         view.getBudget().setText(this.data.get("budget"));
-        try {
+        try
+        {
             view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
-        } catch (ParseException ex) {
+        }
+        catch (ParseException ex)
+        {
             app.getLogger().warning(ex.getMessage());
         }
         view.getEstimation().setText(this.data.get("estimation"));
         view.getDiscount().setText(this.data.get("discount"));
     }
 
-    private ActionListener backButtonListener() {
+    private ActionListener backButtonListener()
+    {
         return (ActionEvent e) -> {
             if(this.flag)
                 app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.data));
@@ -158,7 +154,8 @@ class EditProjectController extends EController {
         };
     }
 
-    private ActionListener saveButtonListener() {
+    private ActionListener saveButtonListener()
+    {
         return (ActionEvent e) -> {
             Project project     = (Project) getModel("Project");
             DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -186,11 +183,37 @@ class EditProjectController extends EController {
                     if(json.contains("projects"))
                     {
                         if(this.flag)
-                            app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.data));
+                        {
+                            //On récupère et on réenregistre les nouvelles données du projet
+                            HashMap<String, ArrayList<HashMap<String, String>>> dataProjects = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+                            
+                            if(dataProjects != null && dataProjects.get("projects") != null)
+                            {
+                                ArrayList<HashMap<String, String>> projects = dataProjects.get("projects");
+                                
+                                for(HashMap<String, String> p : projects)
+                                {
+                                    if(p.get("id").equals(this.data.get("id")))
+                                    {
+                                        for(Entry<String, String> entry : p.entrySet())
+                                        {
+                                            String key = entry.getKey();
+                                            this.data.put(key, p.get(key));
+                                        }
+                                        break;
+                                    }
+                                }
+                                
+                                app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.data));
+                            }
+                            else
+                                setError("Les nouvelles données n'ont pas été correctement réceptionnées");
+                        }
                         else
-                            app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));  
-                        
-                        app.message("Le projet a été correctement mis à jour");
+                        {
+                            app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView())); 
+                            app.message("Le projet a été correctement mis à jour");
+                        }
                     }
                     else if(json.contains("error"))
                     {

@@ -16,6 +16,11 @@ import net.enkeys.projects.views.LoginView;
 /**
  * @todo
  * Planification : tâches...
+ * Si un utilisateur modifie ses propres données, mettre à jour les data dans ENKProjects
+ * Si token invalide, déconnexion de l'utilisateur
+ * ForgotPassword : EmailField pété
+ * Graphique revoir
+ * ListProjectsController : editProject -> si non adminn ou référent, ne peut pas modifier les données d'un projet (voir deleteProject)
  */
 public class ENKProjects extends EApplication
 {
