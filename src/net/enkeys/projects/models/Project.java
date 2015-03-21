@@ -46,7 +46,7 @@ public class Project extends EModel
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
         actions.put("CURRENT", "current");
-        actions.put("AFFECT", "affect");
-        actions.put("DISAFFECT", "disaffect");
+        actions.put("AFFECT", "assign");
+        actions.put("DISAFFECT", "unassign");
     }
 }
