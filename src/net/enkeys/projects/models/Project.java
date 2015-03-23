@@ -36,6 +36,11 @@ public class Project extends EModel
             new NotEmptyRule("Veuillez saisir une remise (0 si aucune)"),
             new RegexRule("([0-9]?[0-9][\\.]?[0-9]{0,2})", "Remise non valide (valeur entre 0 et 99 nécessaire)")
         });
+        /*
+        rules.put("deadline", new Rule[]{
+            new NotEmptyRule("Veuillez saisir une deadline")
+        });
+        */
     }
     
     @Override
@@ -46,7 +51,7 @@ public class Project extends EModel
         actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
         actions.put("CURRENT", "current");
-        actions.put("AFFECT", "affect");
-        actions.put("DISAFFECT", "disaffect");
+        actions.put("AFFECT", "assign");
+        actions.put("DISAFFECT", "unassign");
     }
 }

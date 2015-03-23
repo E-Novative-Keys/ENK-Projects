@@ -233,24 +233,29 @@ public abstract class EModel
         Object[] o = actions.keySet().toArray();
         
         if(o.length > 0)
-            return execute(o[0].toString(), "POST", null);
+            return execute(o[0].toString(), "POST", null, false);
         else
             throw new EDataException("Model has no action");
     }
     
     public final String execute(String action) throws EDataException, EHttpRequestException
     {
-        return execute(action, "POST", null);
+        return execute(action, "POST", null, false);
     }
     
     public final String execute(String action, String method) throws EDataException, EHttpRequestException
     {
-        return execute(action, method, null);
+        return execute(action, method, null, false);
     }
     
     public final String execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
-        return execute(action, "POST", errors);
+        return execute(action, "POST", errors, false);
+    }
+    
+    public final String execute(String action, Map<String, String> errors, boolean escape) throws EDataException, EHttpRequestException
+    {
+        return execute(action, "POST", errors, escape);
     }
     
     /**
@@ -261,7 +266,7 @@ public abstract class EModel
      * @return
      * @throws EDataException, EHttpRequestException
      */
-    public final String execute(String action, String method, Map<String, String> errors) throws EDataException, EHttpRequestException
+    public final String execute(String action, String method, Map<String, String> errors, boolean escape) throws EDataException, EHttpRequestException
     {
         EHttpRequest request;
         String url, actionURL;
@@ -269,7 +274,7 @@ public abstract class EModel
         if((actionURL = this.actions.get(action)) == null)
             throw new EDataException("Invalid action specified");
         
-        url = SERVICE_URL + this.getName().toLowerCase() + "s" + ((!actionURL.isEmpty()) ? "/" + actionURL : "");
+        url = SERVICE_URL + ((escape) ? this.getName().toLowerCase() : this.getName().toLowerCase() + "s") + ((!actionURL.isEmpty()) ? "/" + actionURL : "");
 
         try
         {
