@@ -10,7 +10,6 @@ import javax.swing.JList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
@@ -80,23 +79,28 @@ public class DeveloppersView extends EView
         return panel;
     }
 
-    public DefaultListModel getUsersData() {
+    public DefaultListModel getUsersData()
+    {
         return usersData;
     }
 
-    public DefaultListModel getDevData() {
+    public DefaultListModel getDevData()
+    {
         return devData;
     }
 
-    public JList getUsersList() {
+    public JList getUsersList()
+    {
         return usersList;
     }
 
-    public JList getDevList() {
+    public JList getDevList()
+    {
         return devList;
     }
 
-    public JScrollPane getUserScroller() {
+    public JScrollPane getUserScroller()
+    {
         return userScroller;
     }
 
@@ -104,15 +108,18 @@ public class DeveloppersView extends EView
         return devScroller;
     }
 
-    public JButton getAdddev() {
+    public JButton getAdddev()
+    {
         return adddev;
     }
 
-    public JButton getDeldev() {
+    public JButton getDeldev()
+    {
         return deldev;
     }
 
-    public JButton getBackButton() {
+    public JButton getBackButton()
+    {
         return backButton;
     }
 }
