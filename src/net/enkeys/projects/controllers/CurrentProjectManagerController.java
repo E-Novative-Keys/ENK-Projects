@@ -27,7 +27,6 @@ public class CurrentProjectManagerController extends EController
         
         this.view.getEditProjectButton().addActionListener(editProjectListener());
         this.view.getDeveloppersButton().addActionListener(developpersListener());
-
         this.view.getScheduleButton().addActionListener(scheduleListener());
         this.view.getCloudButton().addActionListener(cloudListener());
     }
