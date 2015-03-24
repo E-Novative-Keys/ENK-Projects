@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.enkeys.projects.views;
 
 import com.toedter.calendar.JDateChooser;
@@ -24,10 +19,6 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
-/**
- *
- * @author Worker
- */
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
@@ -115,55 +106,68 @@ public class NewMacrotaskView extends EView
         return panel;
     }
      
-    public JLabel getMacrotaskNameLabel() {
+    public JLabel getMacrotaskNameLabel()
+    {
         return macrotaskNameLabel;
     }
 
-    public JTextField getMacrotaskName() {
+    public JTextField getMacrotaskName()
+    {
         return macrotaskName;
     }
 
-    public JButton getAddDeveloperButton() {
+    public JButton getAddDeveloperButton()
+    {
         return addDeveloperButton;
     }
 
-    public EComboBox getDevelopers() {
+    public EComboBox getDevelopers()
+    {
         return developers;
     }
 
-    public JLabel getSelectedDevLabel() {
+    public JLabel getSelectedDevLabel()
+    {
         return selectedDevLabel;
     }
 
-    public JLabel getDeadlineLabel() {
+    public JLabel getDeadlineLabel()
+    {
         return deadlineLabel;
     }
 
-    public JDateChooser getDeadline() {
+    public JDateChooser getDeadline()
+    {
         return deadline;
     }
 
-    public JButton getAddMicrotaskButton() {
+    public JButton getAddMicrotaskButton()
+    {
         return addMicrotaskButton;
     }
 
-    public JTextField getMicrotaskName() {
+    public JTextField getMicrotaskName()
+    {
         return microtaskName;
     }
 
-    public JLabel getSelectedMicrotasksLabel() {
+    public JLabel getSelectedMicrotasksLabel() 
+    {
         return selectedMicrotasksLabel;
     }
 
-    public JButton getSave() {
+    public JButton getSave()
+    {
         return save;
     }
 
-    public JButton getBack() {
+    public JButton getBack()
+    {
         return back;
     }
 
-    public JLabel getErrorLabel() {
+    public JLabel getErrorLabel()
+    {
         return errorLabel;
     }
 }

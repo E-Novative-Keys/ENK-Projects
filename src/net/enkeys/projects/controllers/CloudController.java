@@ -2,9 +2,12 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -30,7 +33,9 @@ public class CloudController extends EController
         this.project = project;
         
         this.view.getBackButton().addActionListener(backListener());
-
+        this.view.getClientsList().addListSelectionListener(clientsListener());
+        this.view.getDevList().addListSelectionListener(devListener());
+        
         initView();
     }
     
@@ -82,5 +87,34 @@ public class CloudController extends EController
         }
         else
             System.err.println(errors);
+    }
+    
+    private ListSelectionListener clientsListener()
+    {
+        return (ListSelectionEvent e) -> {
+            if(!e.getValueIsAdjusting())
+            {
+                System.out.println(view.getClientsList().getSelectedValue());
+                /*if(new File((String) view.getClientsList().getSelectedValue()).isDirectory())
+                    System.out.println("folder");
+                else
+                    System.out.println("file");*/
+            }
+                
+        };
+    }
+    
+    private ListSelectionListener devListener()
+    {
+        return (ListSelectionEvent e) -> {
+            if(!e.getValueIsAdjusting())
+            {
+                System.out.println(view.getDevList().getSelectedValue());
+                /*if(new File((String) view.getDevList().getSelectedValue()).isDirectory())
+                    System.out.println("folder");
+                else
+                    System.out.println("file");*/
+            }
+        };
     }
 }
