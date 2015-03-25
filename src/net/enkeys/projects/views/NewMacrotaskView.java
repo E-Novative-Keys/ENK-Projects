@@ -57,7 +57,7 @@ public class NewMacrotaskView extends EView
         setBorder(new TitledBorder(new EtchedBorder(), "Nouveau Projet"));
     }
 
-    private Component newMacrotaskTable() {
+    private ETable newMacrotaskTable() {
         ETable panel = new ETable();
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();
@@ -88,7 +88,7 @@ public class NewMacrotaskView extends EView
         return panel;
     }
 
-    private Component buttonsPanel() {
+    private JPanel buttonsPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();
