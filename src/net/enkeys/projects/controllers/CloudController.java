@@ -2,7 +2,12 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +28,9 @@ public class CloudController extends EController
 {
     private final ENKProjects app   = (ENKProjects)super.app;
     private final CloudView view    = (CloudView)super.view;
+    private boolean[][] directories;
     private final HashMap<String, String> project;
+    
     
     public CloudController(EApplication app, EView view, HashMap<String, String> project)
     {
@@ -33,8 +40,8 @@ public class CloudController extends EController
         this.project = project;
         
         this.view.getBackButton().addActionListener(backListener());
-        this.view.getClientsList().addListSelectionListener(clientsListener());
-        this.view.getDevList().addListSelectionListener(devListener());
+        this.view.getClientsList().addKeyListener(clientsKeyListener());
+        this.view.getClientsList().addMouseListener(clientsMouseListener());
         
         initView();
     }
@@ -88,33 +95,32 @@ public class CloudController extends EController
         else
             System.err.println(errors);
     }
-    
-    private ListSelectionListener clientsListener()
+        
+    private KeyListener clientsKeyListener()
     {
-        return (ListSelectionEvent e) -> {
-            if(!e.getValueIsAdjusting())
+        return new KeyAdapter() {
+            
+            @Override
+            public void keyReleased(KeyEvent e)
             {
-                System.out.println(view.getClientsList().getSelectedValue());
-                /*if(new File((String) view.getClientsList().getSelectedValue()).isDirectory())
-                    System.out.println("folder");
-                else
-                    System.out.println("file");*/
-            }
-                
+                if(e.getExtendedKeyCode() == KeyEvent.VK_DELETE)
+                    System.out.println("supp listener");
+            }      
         };
     }
     
-    private ListSelectionListener devListener()
+    private MouseListener clientsMouseListener()
     {
-        return (ListSelectionEvent e) -> {
-            if(!e.getValueIsAdjusting())
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e)
             {
-                System.out.println(view.getDevList().getSelectedValue());
-                /*if(new File((String) view.getDevList().getSelectedValue()).isDirectory())
-                    System.out.println("folder");
-                else
-                    System.out.println("file");*/
-            }
+                super.mouseClicked(e);
+                if(e.getButton() == 1)
+                    System.out.println("left");
+                else if(e.getButton() == 3)
+                    System.out.println("right");
+            } 
         };
     }
 }
