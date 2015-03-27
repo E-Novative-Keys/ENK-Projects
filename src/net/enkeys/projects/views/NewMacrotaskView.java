@@ -7,9 +7,12 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -27,13 +30,19 @@ public class NewMacrotaskView extends EView
     private final JButton addDeveloperButton        = new JButton("Ajouter un développeur");
     private final EComboBox developers              = new EComboBox();  
     private final JLabel selectedDevLabel           = new JLabel("Développeurs sélectionnés");
+    private final DefaultListModel selectedDevData  = new DefaultListModel();
+    private final JList selectedDevList             = new JList(selectedDevData);
+    private final JScrollPane selectedDevScroller   = new JScrollPane(selectedDevList);
     
     //Colonne droite
     private final JLabel deadlineLabel              = new JLabel("Deadline : ");
     private final JDateChooser deadline             = new JDateChooser();
     private final JButton addMicrotaskButton        = new JButton("Ajouter une sous-tâche");
     private final JTextField microtaskName          = new JTextField(20);
-    private final JLabel selectedMicrotasksLabel    = new JLabel("Liste sous-tâches");
+    private final JLabel selectedTaskLabel          = new JLabel("Liste sous-tâches");
+    private final DefaultListModel selectedTaskData = new DefaultListModel();
+    private final JList selectedTaskList            = new JList(selectedTaskData);
+    private final JScrollPane selectedTaskScroller  = new JScrollPane(selectedTaskList);
     
     private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
@@ -63,14 +72,15 @@ public class NewMacrotaskView extends EView
         developers.setEditable(true);
         table.add(developers,               constraints, 1, 1);
         table.add(selectedDevLabel,         constraints, 0, 2);
+        table.add(selectedDevScroller,      constraints, 1, 2, 1, 1, 1);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 0);
         table.add(deadline,                 constraints, 3, 0);
         table.add(addMicrotaskButton,       constraints, 2, 1);
         table.add(microtaskName,            constraints, 3, 1);
-        table.add(selectedMicrotasksLabel,  constraints, 2, 2);
-        
+        table.add(selectedTaskLabel,        constraints, 2, 2);
+        table.add(selectedTaskScroller,     constraints, 3, 2, 1, 1, 1);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
@@ -153,7 +163,7 @@ public class NewMacrotaskView extends EView
 
     public JLabel getSelectedMicrotasksLabel() 
     {
-        return selectedMicrotasksLabel;
+        return selectedTaskLabel;
     }
 
     public JButton getSave()
@@ -169,5 +179,33 @@ public class NewMacrotaskView extends EView
     public JLabel getErrorLabel()
     {
         return errorLabel;
+    }
+
+    public DefaultListModel getSelectedDevData() {
+        return selectedDevData;
+    }
+
+    public JList getSelectedDevList() {
+        return selectedDevList;
+    }
+
+    public JScrollPane getSelectedDevScroller() {
+        return selectedDevScroller;
+    }
+
+    public JLabel getSelectedTaskLabel() {
+        return selectedTaskLabel;
+    }
+
+    public DefaultListModel getSelectedTaskData() {
+        return selectedTaskData;
+    }
+
+    public JList getSelectedTaskList() {
+        return selectedTaskList;
+    }
+
+    public JScrollPane getSelectedTaskScroller() {
+        return selectedTaskScroller;
     }
 }
