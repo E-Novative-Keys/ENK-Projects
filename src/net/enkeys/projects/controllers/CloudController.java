@@ -11,8 +11,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -28,7 +26,7 @@ public class CloudController extends EController
 {
     private final ENKProjects app   = (ENKProjects)super.app;
     private final CloudView view    = (CloudView)super.view;
-    private boolean[][] directories;
+    private Map<String, String> directories;
     private final HashMap<String, String> project;
     
     
@@ -117,7 +115,9 @@ public class CloudController extends EController
             {
                 super.mouseClicked(e);
                 if(e.getButton() == 1)
-                    System.out.println("left");
+                {
+                    
+                }
                 else if(e.getButton() == 3)
                     System.out.println("right");
             } 
