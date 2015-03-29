@@ -75,22 +75,22 @@ public class NewMacrotaskView extends EView
         //Gauche
         table.add(macrotaskNameLabel,       constraints, 0, 0);
         table.add(macrotaskName,            constraints, 1, 0);
-        table.add(addDeveloperButton,       constraints, 1, 3);
-        developers.setEditable(true);
-        table.add(developersLabel,          constraints, 0, 2);
-        table.add(developers,               constraints, 1, 2);
         table.add(selectedDevLabel,         constraints, 0, 1);
         table.add(selectedDevScroller,      constraints, 1, 1, 1, 1, 1);
+        table.add(developersLabel,          constraints, 0, 2);
+        developers.setEditable(true);
+        table.add(developers,               constraints, 1, 2);
+        table.add(addDeveloperButton,       constraints, 1, 3);
         table.add(supprDeveloperButton,     constraints, 1, 4);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 0);
         table.add(deadline,                 constraints, 3, 0);
-        table.add(addMicrotaskButton,       constraints, 3, 3);
-        table.add(taskLabel,                constraints, 2, 2);
-        table.add(microtaskName,            constraints, 3, 2);
         table.add(selectedTaskLabel,        constraints, 2, 1);
         table.add(selectedTaskScroller,     constraints, 3, 1, 1, 1, 1);
+        table.add(taskLabel,                constraints, 2, 2);
+        table.add(microtaskName,            constraints, 3, 2);
+        table.add(addMicrotaskButton,       constraints, 3, 3);
         table.add(supprMicrotaskButton,     constraints, 3, 4);
         
         constraints         = panel.getConstraints();
@@ -226,5 +226,21 @@ public class NewMacrotaskView extends EView
 
     public JButton getSupprMicrotaskButton() {
         return supprMicrotaskButton;
+    }
+
+    public JLabel getDevelopersLabel() {
+        return developersLabel;
+    }
+
+    public JLabel getPriorityLabel() {
+        return priorityLabel;
+    }
+
+    public JComboBox getPriority() {
+        return priority;
+    }
+
+    public JLabel getTaskLabel() {
+        return taskLabel;
     }
 }

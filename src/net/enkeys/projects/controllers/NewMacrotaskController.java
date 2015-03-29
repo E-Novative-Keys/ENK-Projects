@@ -30,7 +30,11 @@ import net.enkeys.projects.views.ScheduleView;
  * Changer add&suppr microtask --/--
  * Régler le problème de la priority sur la Macrotâche ET sur le Tâche
  *      --> Peut-être une nouvelle vue pour la tâche à part entière ?
- * @author Worker
+ * Créer les routes dans WebService
+ *      --> Creer macrotache dans /projects/?
+ *      --> Ajout/suppr dev dans /projects?? /macrotask serrai mieux ?
+ *      --> Ajout/suppr tache dans /tasks/new && tasks/delete
+ * Créer les doigts dans le Model correspondant (Macrotask ?)
  */
 public class NewMacrotaskController extends EController
 {
