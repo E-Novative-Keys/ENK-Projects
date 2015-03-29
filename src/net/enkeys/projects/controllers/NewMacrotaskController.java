@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
@@ -24,7 +25,11 @@ import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
 /**
- *
+ * TODO LIST
+ * Changer add&suppr developer en se calquant sur DevelopersController (dynamisme)
+ * Changer add&suppr microtask --/--
+ * Régler le problème de la priority sur la Macrotâche ET sur le Tâche
+ *      --> Peut-être une nouvelle vue pour la tâche à part entière ?
  * @author Worker
  */
 public class NewMacrotaskController extends EController
@@ -41,7 +46,12 @@ public class NewMacrotaskController extends EController
         this.project = project;
         
         this.view.getBack().addActionListener(backButtonListener());
+        
         this.view.getAddDeveloperButton().addActionListener(addDeveloperListener());
+        this.view.getSupprDeveloperButton().addActionListener(supprDeveloperListener());
+        
+        this.view.getAddMicrotaskButton().addActionListener(addTaskListener());
+        this.view.getSupprMicrotaskButton().addActionListener(supprTaskListener());
         
         initView();
     }
@@ -67,7 +77,6 @@ public class NewMacrotaskController extends EController
             if(user.validate("SELECT", user.getData(), errors))
             {
                 String json = user.execute("SELECT", errors);
-                System.out.println(json);
                 Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
 
                 if(values != null && values.get("users") != null)
@@ -86,7 +95,6 @@ public class NewMacrotaskController extends EController
                 System.err.println(errors);
         }
     }
-    
 
     private ActionListener backButtonListener() {
         return (ActionEvent e) -> {
@@ -96,7 +104,39 @@ public class NewMacrotaskController extends EController
 
     private ActionListener addDeveloperListener() {
         return (ActionEvent e) -> {
-            this.view.getSelectedDevData().addElement(this.view.getDevelopers().getSelectedItem());
+            if(!this.view.getSelectedDevData().contains(this.view.getDevelopers().getSelectedItem()))
+                this.view.getSelectedDevData().addElement(this.view.getDevelopers().getSelectedItem());
         };
+    }
+
+    private ActionListener addTaskListener() 
+    {
+        return (ActionEvent e) -> {
+            this.view.getSelectedTaskData().addElement(this.view.getMicrotaskName().getText());
+        };
+    }
+
+    private ActionListener supprDeveloperListener() 
+    {
+        return (ActionEvent e) -> {
+            List selection = view.getSelectedDevList().getSelectedValuesList();
+            
+            for(int i = 0; i < selection.size(); i++)
+            {
+                view.getSelectedDevData().remove(view.getSelectedDevData().indexOf(selection.get(i)));
+            }
+        };
+    }
+
+    private ActionListener supprTaskListener() 
+    {
+        return (ActionEvent e) -> {
+            List selection = view.getSelectedTaskList().getSelectedValuesList();
+            
+            for(int i = 0; i < selection.size(); i++)
+            {
+                view.getSelectedTaskData().remove(view.getSelectedTaskData().indexOf(selection.get(i)));
+            }
+        };    
     }
 }
