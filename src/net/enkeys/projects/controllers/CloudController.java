@@ -50,8 +50,8 @@ public class CloudController extends EController
         this.directories.add(new ArrayList<>());
         this.directories.add(new ArrayList<>());
         
-        //this.view.getDevList().addKeyListener(devKeyListener());
-        //this.view.getDevList().addMouseListener(devMouseListener());
+        this.view.getDevList().addKeyListener(devKeyListener());
+        this.view.getDevList().addMouseListener(devMouseListener());
         this.view.getClientsList().addKeyListener(clientsKeyListener());
         this.view.getClientsList().addMouseListener(clientsMouseListener());
         this.view.getBackButton().addActionListener(backListener());
@@ -119,7 +119,7 @@ public class CloudController extends EController
             System.err.println(errors);
     }
     
-    /*private KeyListener devKeyListener()
+    private KeyListener devKeyListener()
     {
         return new KeyAdapter() {
 
@@ -130,7 +130,7 @@ public class CloudController extends EController
                     System.out.println("supp listener");
             } 
         };
-    }*/
+    }
         
     private KeyListener clientsKeyListener()
     {
@@ -145,7 +145,7 @@ public class CloudController extends EController
         };
     }
     
-    /*private MouseListener devMouseListener()
+    private MouseListener devMouseListener()
     {
         return new MouseAdapter() {
             Cloud cloud                 = (Cloud)getModel("Cloud");
@@ -163,7 +163,7 @@ public class CloudController extends EController
                 if(e.getButton() == 1 && e.getClickCount() == 2)
                 {
                     // Si l'élément sélectionné est un répertoire
-                    if(directories.get(0).get(view.getClientsList().getSelectedIndex()))
+                    if(directories.get(0).get(view.getDevList().getSelectedIndex()))
                     {
                         path[0].append(view.getDevList().getSelectedValue() + "/");
                         cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
@@ -179,12 +179,12 @@ public class CloudController extends EController
                             {
                                 ArrayList<HashMap<String, String>> files = values.get("content");
                                 
-                                view.getClientsData().clear();
+                                view.getDevData().clear();
                                 directories.get(0).clear();
                                 
                                 for(Map<String, String> f : files)
                                 {
-                                    view.getClientsData().addElement(f.get("filename"));
+                                    view.getDevData().addElement(f.get("filename"));
                                     directories.get(0).add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
                                 }
                             }
@@ -192,7 +192,7 @@ public class CloudController extends EController
                                 System.err.println(json);
                         }
                         else
-                            setError(errors);
+                            setError("Not validated !");
                     }
                     else
                     {
@@ -230,7 +230,7 @@ public class CloudController extends EController
                 }
             }
         };
-    }*/
+    }
     
     private MouseListener clientsMouseListener()
     {
@@ -280,7 +280,7 @@ public class CloudController extends EController
                                 System.err.println(json);
                         }
                         else
-                            setError(errors);
+                            setError("Not validated !");
                     }
                     else
                     {
