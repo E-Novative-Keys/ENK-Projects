@@ -1,5 +1,6 @@
 package net.enkeys.framework.components;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -233,29 +234,29 @@ public abstract class EModel
         Object[] o = actions.keySet().toArray();
         
         if(o.length > 0)
-            return execute(o[0].toString(), "POST", null, false);
+            return execute(o[0].toString(), "POST", null, false, null);
         else
             throw new EDataException("Model has no action");
     }
     
     public final String execute(String action) throws EDataException, EHttpRequestException
     {
-        return execute(action, "POST", null, false);
+        return execute(action, "POST", null, false, null);
     }
     
     public final String execute(String action, String method) throws EDataException, EHttpRequestException
     {
-        return execute(action, method, null, false);
+        return execute(action, method, null, false, null);
     }
     
     public final String execute(String action, Map<String, String> errors) throws EDataException, EHttpRequestException
     {
-        return execute(action, "POST", errors, false);
+        return execute(action, "POST", errors, false, null);
     }
     
     public final String execute(String action, Map<String, String> errors, boolean escape) throws EDataException, EHttpRequestException
     {
-        return execute(action, "POST", errors, escape);
+        return execute(action, "POST", errors, escape, null);
     }
     
     /**
@@ -266,7 +267,7 @@ public abstract class EModel
      * @return
      * @throws EDataException, EHttpRequestException
      */
-    public final String execute(String action, String method, Map<String, String> errors, boolean escape) throws EDataException, EHttpRequestException
+    public final String execute(String action, String method, Map<String, String> errors, boolean escape, File file) throws EDataException, EHttpRequestException
     {
         EHttpRequest request;
         String url, actionURL;
@@ -295,7 +296,7 @@ public abstract class EModel
             if(method.equalsIgnoreCase("GET"))
                 value = request.get();
             else if(method.equalsIgnoreCase("POST"))
-                value =  request.post();
+                value = request.post();
             else
                 throw new EHttpRequestException("Invalid method specified");
             
