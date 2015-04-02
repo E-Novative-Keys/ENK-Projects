@@ -1,11 +1,13 @@
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +27,7 @@ public class CloudView extends EView
     private final JScrollPane clientsScroller   = new JScrollPane(clientsList);
     private final JScrollPane devScroller       = new JScrollPane(devList);
     private final JButton backButton            = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JLabel errorLabel             = new JLabel("");
     
     public CloudView()
     {
@@ -68,6 +71,9 @@ public class CloudView extends EView
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
         
+        errorLabel.setForeground(Color.red);
+        panel.add(errorLabel, "Center");
+        
         return panel;
     }
 
@@ -105,6 +111,10 @@ public class CloudView extends EView
     {
         return backButton;
     }
-    
+
+    public JLabel getErrorLabel()
+    {
+        return errorLabel;
+    }
     
 }

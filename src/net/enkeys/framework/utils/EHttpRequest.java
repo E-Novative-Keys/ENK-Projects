@@ -1,7 +1,11 @@
 package net.enkeys.framework.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,6 +28,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import net.enkeys.framework.exceptions.EHttpRequestException;
+import net.enkeys.framework.exceptions.ESystemException;
 
 public class EHttpRequest
 {
@@ -57,6 +62,11 @@ public class EHttpRequest
     public EHttpRequest(URL url, String data)
     {
         this(url, data, "application/x-www-form-urlencoded", false);
+    }
+    
+    public EHttpRequest(URL url)
+    {
+        this(url, "", "application/x-www-form-urlencoded", false);
     }
     
     public EHttpRequest(URL url, String data, String contentType)
@@ -243,6 +253,96 @@ public class EHttpRequest
         catch(IOException e)
         {
             throw new EHttpRequestException("An error occured while processing POST request", e);
+        }
+    }
+    
+    public boolean download(String path) throws EHttpRequestException, ESystemException
+    {
+        String line;
+        File file;
+        FileOutputStream output = null;
+        InputStream input = null;
+        StringBuilder response = new StringBuilder();
+        URL getURL = concatenateURL();
+        HttpURLConnection connection;
+                
+        try
+        {            
+            if(url.getProtocol().equalsIgnoreCase("HTTPS"))
+            {
+                connection = (proxy == null) ? (HttpsURLConnection)getURL.openConnection() : (HttpsURLConnection)getURL.openConnection(proxy);
+                
+                if(this.sslHostnameVerifier != null)
+                    ((HttpsURLConnection)connection).setHostnameVerifier(sslHostnameVerifier);
+                if(this.sslContext != null)
+                    ((HttpsURLConnection)connection).setSSLSocketFactory(sslContext.getSocketFactory());
+            }
+            else
+                connection = (proxy == null) ? (HttpURLConnection)getURL.openConnection() : (HttpURLConnection)getURL.openConnection(proxy);
+            
+            connection.setRequestMethod("GET");
+
+            if(connection.getResponseCode()/100 == 2)
+            {
+                String filename = connection.getHeaderField("Content-Disposition");
+                
+                if(filename != null)
+                {
+                    int index = filename.indexOf("filename=");
+                    if(index > 0)
+                        filename = filename.substring(index + 10, filename.length() - 2);
+                }
+                else
+                    return false;
+                
+                file = new File(path + File.separator + filename);
+            
+                if(!file.exists())
+                {
+                    if(!file.getParentFile().exists())
+                        file.mkdirs();
+                    
+                    file.createNewFile();
+                }
+                   
+                try
+                {
+                    output = new FileOutputStream(file);
+                    input  = connection.getInputStream();
+                }
+                catch (IOException e)
+                {
+                    if(returnError)
+                        return false;
+                    else
+                        throw new EHttpRequestException("An error occured while connecting to data stream", e);
+                }
+
+                int bytesRead = -1;
+                byte[] buffer = new byte[4096];
+                
+                while((bytesRead = input.read(buffer)) != -1)
+                    output.write(buffer, 0, bytesRead);
+                
+                input.close();
+                output.close();
+                
+                ESystem.open(path + File.separator + filename);
+                return true;
+            }
+            else
+            {
+                String error = "Bad reponse code received: HTTP " + connection.getResponseCode() + "/" + connection.getResponseMessage();
+                
+                if(returnError)
+                    return false;
+                else
+                    throw new EHttpRequestException(error);
+            }
+        }
+        catch(IOException e)
+        {
+            throw new EHttpRequestException("An error occured while processing GET request", e);
         }
     }
     
