@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -35,6 +37,7 @@ public class CloudController extends EController
     private StringBuilder path[]    = new StringBuilder[2];
     private ArrayList<ArrayList<Boolean>> directories;
     private final HashMap<String, String> project;
+    private JMenu cloudMenu;
     
     public CloudController(EApplication app, EView view, HashMap<String, String> project)
     {
@@ -72,6 +75,8 @@ public class CloudController extends EController
     private ActionListener backListener()
     {
         return (ActionEvent e) -> {
+            app.getFrame(0).getJMenuBar().remove(cloudMenu);
+            app.getFrame(0).setJMenuBar(app.getFrame(0).getJMenuBar());
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
     }
@@ -79,7 +84,13 @@ public class CloudController extends EController
     private void initView()
     {
         Cloud cloud = (Cloud)getModel("Cloud");
-                
+        
+        cloudMenu           = new JMenu("Cloud");
+        JMenuItem refresh   = new JMenuItem("Rafraichir");
+        refresh.addActionListener(refreshListener());
+        cloudMenu.add(refresh);
+        app.getFrame(0).getJMenuBar().add(cloudMenu);
+        
         cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
         cloud.addData("data[Token][fields]", app.getUser().get("token"));
         
@@ -88,6 +99,19 @@ public class CloudController extends EController
         
         listFiles(cloud, 0);
         listFiles(cloud, 1);
+    }
+    
+    private ActionListener refreshListener()
+    {
+        return (ActionEvent e) -> {
+            Cloud cloud = (Cloud)getModel("Cloud");
+            
+            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            
+            listFiles(cloud, 0);
+            listFiles(cloud, 1);
+        };
     }
     
     private KeyListener devKeyListener()
