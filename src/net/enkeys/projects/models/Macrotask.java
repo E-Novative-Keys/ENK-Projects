@@ -10,23 +10,21 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
-public class Task extends EModel
+public class Macrotask extends EModel 
 {
     @Override
     protected void initRules(Map<String, Rule[]> rules) 
     {
-        /*
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
-            new BetweenRule(3, 100, "Nom de tâche mauvais format (3 à 100 caractères)"),
-            new RegexRule("([a-zA-Z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom de tâche non valide") 
+            new BetweenRule(3, 100, "Nom de macrotâche mauvais format (3 à 100 caractères)"),
+            new RegexRule("([a-zA-Z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom de macrotâche non valide") 
         });
         
         rules.put("priority", new Rule[]{
-            new MinRule(1, "Priorité inférieure à 1 impossible"),
+            new MinRule(0, "Priorité inférieure à 1 impossible"),
             new MaxRule(100, "Priorité supérieure à 100 impossible")
         });
-        */
     }
     
     @Override

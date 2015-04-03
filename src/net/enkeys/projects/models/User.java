@@ -43,8 +43,7 @@ public class User extends EModel
         actions.put("INSERT",   "new");
         actions.put("UPDATE",   "edit");
         actions.put("DELETE",   "delete");
-        actions.put("TOKEN",    "token");
-        
+        actions.put("TOKEN",    "token");      
     }
     
     public String password(String pass) throws ECryptoException

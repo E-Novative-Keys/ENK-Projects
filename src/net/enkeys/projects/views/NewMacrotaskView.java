@@ -14,7 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.EComboBox;
@@ -26,30 +28,34 @@ import net.enkeys.framework.utils.ESystem;
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
-    private final JLabel developersLabel            = new JLabel("Développeur ->");
-    private final JLabel macrotaskNameLabel         = new JLabel("Nom de la macrotâche : ");
-    private final JTextField macrotaskName          = new JTextField(20);  
-    private final JButton addDeveloperButton        = new JButton("Ajouter un développeur");
-    private final EComboBox developers              = new EComboBox();  
-    private final JLabel selectedDevLabel           = new JLabel("Développeurs sélectionnés");
-    private final DefaultListModel selectedDevData  = new DefaultListModel();
-    private final JList selectedDevList             = new JList(selectedDevData);
-    private final JScrollPane selectedDevScroller   = new JScrollPane(selectedDevList);
-    private final JButton supprDeveloperButton      = new JButton("Supprimer la sélection");
+    private final JLabel priorityLabel                  = new JLabel("Priorité :");
+    private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
+    private final JSpinner priority                     = new JSpinner(prioritySpinner);
+    private final JLabel developersLabel                = new JLabel("Développeur ->");
+    private final JLabel macrotaskNameLabel             = new JLabel("Nom de la macrotâche : ");
+    private final JTextField macrotaskName              = new JTextField(20);  
+    private final JButton addDeveloperButton            = new JButton("Ajouter un développeur");
+    private final EComboBox developers                  = new EComboBox();  
+    private final JLabel selectedDevLabel               = new JLabel("Développeurs sélectionnés");
+    private final DefaultListModel selectedDevData      = new DefaultListModel();
+    private final JList selectedDevList                 = new JList(selectedDevData);
+    private final JScrollPane selectedDevScroller       = new JScrollPane(selectedDevList);
+    private final JButton supprDeveloperButton          = new JButton("Supprimer la sélection");
     
     //Colonne droite
-    private final JLabel priorityLabel              = new JLabel("Priorité :");
-    private final JComboBox priority                = new JComboBox(new String[]{"1", "2"});
-    private final JLabel taskLabel                  = new JLabel("Nouvelle tâche :");
-    private final JLabel deadlineLabel              = new JLabel("Deadline : ");
-    private final JDateChooser deadline             = new JDateChooser();
-    private final JButton addMicrotaskButton        = new JButton("Ajouter une sous-tâche");
-    private final JTextField microtaskName          = new JTextField(20);
-    private final JLabel selectedTaskLabel          = new JLabel("Liste sous-tâches");
-    private final DefaultListModel selectedTaskData = new DefaultListModel();
-    private final JList selectedTaskList            = new JList(selectedTaskData);
-    private final JScrollPane selectedTaskScroller  = new JScrollPane(selectedTaskList);
-    private final JButton supprMicrotaskButton      = new JButton("Supprimer les tâches");
+    private final JLabel priorityTaskLabel                  = new JLabel("Priorité :");
+    private final SpinnerNumberModel priorityTaskSpinner    = new SpinnerNumberModel(10, 1, 100, 1);
+    private final JSpinner priorityTask                     = new JSpinner(priorityTaskSpinner);
+    private final JLabel taskLabel                          = new JLabel("Nouvelle tâche :");
+    private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
+    private final JDateChooser deadline                     = new JDateChooser();
+    private final JButton addMicrotaskButton                = new JButton("Ajouter une sous-tâche");
+    private final JTextField microtaskName                  = new JTextField(20);
+    private final JLabel selectedTaskLabel                  = new JLabel("Liste sous-tâches");
+    private final DefaultListModel selectedTaskData         = new DefaultListModel();
+    private final JList selectedTaskList                    = new JList(selectedTaskData);
+    private final JScrollPane selectedTaskScroller          = new JScrollPane(selectedTaskList);
+    private final JButton supprMicrotaskButton              = new JButton("Supprimer les tâches");
     
     private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
@@ -69,29 +75,33 @@ public class NewMacrotaskView extends EView
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();
        
-        constraints.fill    = GridBagConstraints.HORIZONTAL;
-        constraints.insets  = new Insets(15, 15, 15, 15);
+        constraints.fill    = GridBagConstraints.BOTH;
+        constraints.insets  = new Insets(10, 15, 10, 15);
         
         //Gauche
         table.add(macrotaskNameLabel,       constraints, 0, 0);
         table.add(macrotaskName,            constraints, 1, 0);
-        table.add(selectedDevLabel,         constraints, 0, 1);
-        table.add(selectedDevScroller,      constraints, 1, 1, 1, 1, 1);
-        table.add(developersLabel,          constraints, 0, 2);
+        table.add(priorityLabel,            constraints, 0, 1);
+        table.add(priority,                 constraints, 1, 1);
+        table.add(selectedDevLabel,         constraints, 0, 2);
+        table.add(selectedDevScroller,      constraints, 1, 2, 1, 1, 1);
+        table.add(developersLabel,          constraints, 0, 3);
         developers.setEditable(true);
-        table.add(developers,               constraints, 1, 2);
-        table.add(addDeveloperButton,       constraints, 1, 3);
-        table.add(supprDeveloperButton,     constraints, 1, 4);
+        table.add(developers,               constraints, 1, 3);
+        table.add(addDeveloperButton,       constraints, 1, 4);
+        table.add(supprDeveloperButton,     constraints, 1, 5);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 0);
         table.add(deadline,                 constraints, 3, 0);
-        table.add(selectedTaskLabel,        constraints, 2, 1);
-        table.add(selectedTaskScroller,     constraints, 3, 1, 1, 1, 1);
-        table.add(taskLabel,                constraints, 2, 2);
-        table.add(microtaskName,            constraints, 3, 2);
-        table.add(addMicrotaskButton,       constraints, 3, 3);
-        table.add(supprMicrotaskButton,     constraints, 3, 4);
+        table.add(taskLabel,                constraints, 2, 1);
+        table.add(microtaskName,            constraints, 3, 1);
+        table.add(selectedTaskLabel,        constraints, 2, 2);
+        table.add(selectedTaskScroller,     constraints, 3, 2, 1, 1, 1);
+        table.add(priorityTaskLabel,        constraints, 2, 3);
+        table.add(priorityTask,             constraints, 3, 3);
+        table.add(addMicrotaskButton,       constraints, 3, 4);
+        table.add(supprMicrotaskButton,     constraints, 3, 5);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
@@ -236,11 +246,27 @@ public class NewMacrotaskView extends EView
         return priorityLabel;
     }
 
-    public JComboBox getPriority() {
+    public JSpinner getPriority() {
         return priority;
     }
 
     public JLabel getTaskLabel() {
         return taskLabel;
+    }
+
+    public SpinnerNumberModel getPrioritySpinner() {
+        return prioritySpinner;
+    }
+
+    public JLabel getPriorityTaskLabel() {
+        return priorityTaskLabel;
+    }
+
+    public SpinnerNumberModel getPriorityTaskSpinner() {
+        return priorityTaskSpinner;
+    }
+
+    public JSpinner getPriorityTask() {
+        return priorityTask;
     }
 }

@@ -275,7 +275,7 @@ public abstract class EModel
             throw new EDataException("Invalid action specified");
         
         url = SERVICE_URL + ((escape) ? this.getName().toLowerCase() : this.getName().toLowerCase() + "s") + ((!actionURL.isEmpty()) ? "/" + actionURL : "");
-
+        System.out.println(url);
         try
         {
             request = new EHttpRequest(

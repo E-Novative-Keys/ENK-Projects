@@ -21,6 +21,7 @@ import net.enkeys.projects.views.LoginView;
  * ForgotPassword : EmailField pété
  * Graphique revoir
  * ListProjectsController : editProject -> si non adminn ou référent, ne peut pas modifier les données d'un projet (voir deleteProject)
+ * Débuguer deadline pour pouvoir rentrer vide et affichage erreur newproject && newmacrotask)
  */
 public class ENKProjects extends EApplication
 {
