@@ -32,10 +32,9 @@ public class CloudController extends EController
 {
     private final ENKProjects app   = (ENKProjects)super.app;
     private final CloudView view    = (CloudView)super.view;
+    private StringBuilder path[]    = new StringBuilder[2];
     private ArrayList<ArrayList<Boolean>> directories;
     private final HashMap<String, String> project;
-    private StringBuilder path[] = new StringBuilder[2];
-    
     
     public CloudController(EApplication app, EView view, HashMap<String, String> project)
     {
@@ -59,6 +58,9 @@ public class CloudController extends EController
         
         this.view.getUploadDevButton().addActionListener(UploadDevListener());
         this.view.getUploadClientButton().addActionListener(UploadClientListener());
+        
+        this.view.getFolderDevButton().addActionListener(FolderDevListener());
+        this.view.getFolderClientButton().addActionListener(FolderClientListener());
         
         this.view.getPrevDevButton().addActionListener(PrevDevListener());
         this.view.getPrevClientButton().addActionListener(PrevClientListener());
@@ -135,7 +137,7 @@ public class CloudController extends EController
     private MouseListener devMouseListener()
     {
         return new MouseAdapter() {
-            Cloud cloud                 = (Cloud)getModel("Cloud");
+            Cloud cloud = (Cloud)getModel("Cloud");
             
             @Override
             public void mouseClicked(MouseEvent e)
@@ -204,19 +206,71 @@ public class CloudController extends EController
         };
     }
     
+    private ActionListener FolderDevListener()
+    {
+        return (ActionEvent e) -> {
+            createFolder(0);
+        };
+    }
+    
+    private ActionListener FolderClientListener()
+    {
+        return (ActionEvent e) -> {
+            createFolder(1);
+        };
+    }
+    
     private ActionListener PrevDevListener()
     {
         return (ActionEvent e) -> {
-            System.out.println(path[0].toString().split("/"));
-            //path[0].substring(0, path[0].length()-1);
-            //System.out.println(path[0].substring(0, path[0].length()-1).toString());
+            Cloud cloud         = (Cloud)getModel("Cloud");
+            String[] explode    = path[0].substring(1).split("/");
+            
+            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            
+            if(explode.length == 0 || explode.length == 1)
+                path[0].replace(0, path[0].length(), "/");
+            else
+            {
+                StringBuilder str = new StringBuilder();
+                
+                for(int i = 0; i < explode.length - 1; i++)
+                {
+                    str.append("/");
+                    str.append(explode[i]);
+                }
+                
+                path[0].replace(0, path[0].length(), str.toString());
+            }
+            listFiles(cloud, 0);
         };
     }
     
     private ActionListener PrevClientListener()
     {
         return (ActionEvent e) -> {
-            System.out.println(path[1].toString());
+            Cloud cloud         = (Cloud)getModel("Cloud");
+            String[] explode    = path[1].substring(1).split("/");
+            
+            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            
+            if(explode.length == 0 || explode.length == 1)
+                path[1].replace(0, path[1].length(), "/");
+            else
+            {
+                StringBuilder str = new StringBuilder();
+                
+                for(int i = 0; i < explode.length - 1; i++)
+                {
+                    str.append("/");
+                    str.append(explode[i]);
+                }
+                
+                path[1].replace(0, path[1].length(), str.toString());
+            }
+            listFiles(cloud, 1);
         };
     }
     private void listFiles(Cloud cloud, int index)
@@ -391,6 +445,44 @@ public class CloudController extends EController
             {
                 setError("Upload failed !");
             }    
+        }
+    }
+    
+    private void createFolder(int index)
+    {
+        Cloud cloud                 = (Cloud)getModel("Cloud");
+        Map<String, String> errors  = new HashMap<>();
+        String[] users              = new String[]{"dev", "client"};
+        String dir;
+        
+        if((dir = app.input("Entrez un nom de dossier")) != null)
+        {
+            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+
+            cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
+            cloud.addData("data[Cloud][directory]", ECrypto.base64(path[index].toString()));
+            cloud.addData("data[Cloud][name]", dir);
+            cloud.addData("data[Cloud][user]", users[index]);
+
+            if(cloud.validate("ADD_FOLDER", cloud.getData(), errors))
+            {
+                String json = cloud.execute("ADD_FOLDER", errors, true);
+                HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+
+                if(values != null && values.get("addFolder") != null)
+                {
+                    if(index == 0)
+                        view.getDevData().addElement(dir);
+                    else
+                        view.getClientsData().addElement(dir);
+                    directories.get(index).add(Boolean.TRUE);
+                }
+                else if(values != null && values.get("error") != null)
+                    setError(values.get("error"));
+                else
+                    System.err.println(json);
+            }
         }
     }
     

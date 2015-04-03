@@ -29,6 +29,8 @@ public class CloudView extends EView
     private final JButton backButton            = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JButton uploadDevButton       = new JButton("Upload");
     private final JButton uploadClientButton    = new JButton("Upload");
+    private final JButton folderDevButton       = new JButton("Nouveau dossier");
+    private final JButton folderClientButton    = new JButton("Nouveau dossier");
     private final JButton prevDevButton         = new JButton("Précédent");
     private final JButton prevClientButton      = new JButton("Précédent");
     private final JLabel errorLabel             = new JLabel("");
@@ -57,14 +59,16 @@ public class CloudView extends EView
         devList.setLayoutOrientation(JList.VERTICAL);
         devList.setVisibleRowCount(-1);
         
-        table.add(devScroller, constraints, 0, 0, 1, 1, 1);
-        table.add(clientsScroller, constraints, 1, 0, 1, 1, 1);
+        table.add(devScroller,          constraints, 0, 0, 1, 1, 1);
+        table.add(clientsScroller,      constraints, 1, 0, 1, 1, 1);
         panel.add(table, "Center");
         
-        buttons.add(uploadDevButton, constraints, 0, 1);
-        buttons.add(prevDevButton, constraints, 1, 1);
-        buttons.add(uploadClientButton, constraints, 2, 1);
-        buttons.add(prevClientButton, constraints, 3, 1);
+        buttons.add(uploadDevButton,    constraints, 0, 1);
+        buttons.add(folderDevButton,    constraints, 1, 1);
+        buttons.add(prevDevButton,      constraints, 2, 1);
+        buttons.add(uploadClientButton, constraints, 3, 1);
+        buttons.add(folderClientButton, constraints, 4, 1);
+        buttons.add(prevClientButton,   constraints, 5, 1);
         panel.add(buttons, "South");
         
         return panel;
@@ -132,6 +136,16 @@ public class CloudView extends EView
         return uploadClientButton;
     }
 
+    public JButton getFolderDevButton()
+    {
+        return folderDevButton;
+    }
+
+    public JButton getFolderClientButton()
+    {
+        return folderClientButton;
+    }
+    
     public JButton getPrevDevButton()
     {
         return prevDevButton;
