@@ -1,11 +1,13 @@
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +27,11 @@ public class CloudView extends EView
     private final JScrollPane clientsScroller   = new JScrollPane(clientsList);
     private final JScrollPane devScroller       = new JScrollPane(devList);
     private final JButton backButton            = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JButton uploadDevButton       = new JButton("Upload");
+    private final JButton uploadClientButton    = new JButton("Upload");
+    private final JButton prevDevButton         = new JButton("Précédent");
+    private final JButton prevClientButton      = new JButton("Précédent");
+    private final JLabel errorLabel             = new JLabel("");
     
     public CloudView()
     {
@@ -37,10 +44,10 @@ public class CloudView extends EView
     {
         JPanel panel = new JPanel(new BorderLayout());
         ETable table = new ETable();
-        //ETable buttons = new ETable();
+        ETable buttons = new ETable();
         GridBagConstraints constraints = table.getConstraints();
         
-        table.setBorder(new TitledBorder(new EtchedBorder(), "Cloud"));
+        panel.setBorder(new TitledBorder(new EtchedBorder(), "Cloud"));
         constraints.fill    = GridBagConstraints.BOTH;
         constraints.insets  = new Insets(0, 10, 0, 10);
         
@@ -53,6 +60,12 @@ public class CloudView extends EView
         table.add(devScroller, constraints, 0, 0, 1, 1, 1);
         table.add(clientsScroller, constraints, 1, 0, 1, 1, 1);
         panel.add(table, "Center");
+        
+        buttons.add(uploadDevButton, constraints, 0, 1);
+        buttons.add(prevDevButton, constraints, 1, 1);
+        buttons.add(uploadClientButton, constraints, 2, 1);
+        buttons.add(prevClientButton, constraints, 3, 1);
+        panel.add(buttons, "South");
         
         return panel;
     }
@@ -67,6 +80,9 @@ public class CloudView extends EView
         backButton.setOpaque(false);
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
+        
+        errorLabel.setForeground(Color.red);
+        panel.add(errorLabel, "Center");
         
         return panel;
     }
@@ -105,6 +121,30 @@ public class CloudView extends EView
     {
         return backButton;
     }
+
+    public JButton getUploadDevButton()
+    {
+        return uploadDevButton;
+    }
+
+    public JButton getUploadClientButton()
+    {
+        return uploadClientButton;
+    }
+
+    public JButton getPrevDevButton()
+    {
+        return prevDevButton;
+    }
+
+    public JButton getPrevClientButton()
+    {
+        return prevClientButton;
+    }
     
+    public JLabel getErrorLabel()
+    {
+        return errorLabel;
+    }
     
 }
