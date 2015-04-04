@@ -322,7 +322,7 @@ public class CloudController extends EController
                     view.getClientsData().clear();
 
                 for(Map<String, String> f : files)
-                {
+                { 
                     if(index == 0)
                         view.getDevData().addElement(f.get("filename"));
                     else
