@@ -25,7 +25,7 @@ import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Client;
 import net.enkeys.projects.models.Macrotask;
-import net.enkeys.projects.models.MacrotaskUser;
+import net.enkeys.projects.models.MacrotasksUser;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.models.Task;
 import net.enkeys.projects.models.User;
@@ -49,7 +49,7 @@ public class NewMacrotaskController extends EController
         addModel(new User());
         addModel(new Task());
         addModel(new Macrotask());
-        addModel(new MacrotaskUser());
+        addModel(new MacrotasksUser());
       
         this.project = project;
         
@@ -137,15 +137,14 @@ public class NewMacrotaskController extends EController
                 if(macrotask.validate("INSERT", macrotask.getData(), errors))
                 {
                     String json = macrotask.execute("INSERT");
-                    //System.out.println("Json : "+json);
-
+                    
                     if(json.contains("macrotask"))
                     {
                         //La macrotache est bien crée, il faut récupérer son id et 
                         // hydrater le reste en fonction de l'id trouvée
                         Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
                         Task task                       = (Task)getModel("Task");
-                        MacrotaskUser macrotaskUser     = (MacrotaskUser)getModel("MacrotaskUser");
+                        MacrotasksUser macrotaskUser    = (MacrotasksUser)getModel("MacrotasksUser");
                         String macrotask_id             = values.get("macrotask_id").get(0).get("id");
                         
                         //Ajouter les tasks ajoutées à la macrotache
@@ -153,7 +152,7 @@ public class NewMacrotaskController extends EController
                         
                         //Ajouter les développeurs ajoutés a la macrotache
                         int numDevelopers = view.getSelectedDevData().getSize();
-                    /*
+                    
                         for(int i = 0; i < numTasks; i++)
                         {
                             //Ajouter les taches ajoutées a la macrotache
@@ -191,15 +190,15 @@ public class NewMacrotaskController extends EController
                             else 
                                 setError(errors.get(errors.keySet().toArray()[0].toString()));
                         }
-                    */
+                    
                         for(int i = 0; i < numDevelopers; i++)
                         {
                             //Ajouter les développeurs affectés à une macrotâche
                             String developersSelection = view.getSelectedDevData().get(i).toString();
                             System.out.println(developersSelection);
                             macrotaskUser.clearData();
-                            macrotaskUser.addData("data[MacrotaskUser][macrotask_id]", macrotask_id);
-                            macrotaskUser.addData("data[MacrotaskUser][user_name]", developersSelection);
+                            macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
+                            macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
                             macrotaskUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                             macrotaskUser.addData("data[Token][fields]", app.getUser().get("token"));
                             
@@ -207,7 +206,7 @@ public class NewMacrotaskController extends EController
                             {
                                 String jsonUser = macrotaskUser.execute("INSERT");
                                 System.out.println("jsonUser: "+jsonUser);
-                                if(json.contains("macrotaskUser"))
+                                if(json.contains("macrotasksUser"))
                                 {
                                     System.out.println("Datas macrotaskUser bien rentrées en bdd");
                                 }

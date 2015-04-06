@@ -15,7 +15,6 @@ public class Task extends EModel
     @Override
     protected void initRules(Map<String, Rule[]> rules) 
     {
-        /*
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
             new BetweenRule(3, 100, "Nom de tâche mauvais format (3 à 100 caractères)"),
@@ -24,9 +23,8 @@ public class Task extends EModel
         
         rules.put("priority", new Rule[]{
             new MinRule(1, "Priorité inférieure à 1 impossible"),
-            new MaxRule(100, "Priorité supérieure à 100 impossible")
+            new MaxRule(101, "Priorité supérieure à 100 impossible")
         });
-        */
     }
     
     @Override

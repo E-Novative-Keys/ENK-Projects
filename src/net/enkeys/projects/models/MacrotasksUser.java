@@ -8,7 +8,7 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
-public class MacrotaskUser extends EModel
+public class MacrotasksUser extends EModel
 {
     @Override
     protected void initRules(Map<String, Rule[]> rules) 
