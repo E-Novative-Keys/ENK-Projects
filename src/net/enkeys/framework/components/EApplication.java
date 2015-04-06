@@ -335,6 +335,43 @@ public abstract class EApplication implements Runnable
         return JOptionPane.showConfirmDialog(frame, msg, title, options);
     }
     
+    public final String input(EFrame frame, String msg)
+    {
+        return this.input(frame, msg, frame.getName(), JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg)
+    {
+        return this.input(null, msg, getName(), JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg, String title)
+    {
+        return this.input(null, msg, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg, String title, int options)
+    {
+        return this.input(null, msg, title, options);
+    }
+    
+    public final String input(EFrame frame, String msg, String title)
+    {
+        return this.input(frame, msg, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue contenant un champs de texte.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param type
+     */
+    public final String input(EFrame frame, String msg, String title, int type)
+    {
+        return JOptionPane.showInputDialog(frame, msg, title, type);
+    }
+    
     /**
      * Renvoie le nom de l'application.
      * @return 

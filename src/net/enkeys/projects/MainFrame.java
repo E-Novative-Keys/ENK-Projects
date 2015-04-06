@@ -69,6 +69,8 @@ public class MainFrame extends EFrame
     private ActionListener fileHomeListener()
     {
         return (ActionEvent e) -> {
+            if(app.getFrame(0).getJMenuBar().getMenuCount() == 2)
+                app.getFrame(0).getJMenuBar().remove(1);
             if(app.getUser() != null)
                 setContent(new HomeController(app, new HomeView()));
         };
