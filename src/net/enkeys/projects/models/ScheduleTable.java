@@ -7,20 +7,17 @@ package net.enkeys.projects.models;
 
 import java.util.HashMap;
 
-/**
- *
- * @author Worker
- */
 public class ScheduleTable extends TableModel 
 {
-
     @Override
-    protected String[] setKeys() {
-        return new String[] {"id", "name", "state"};
+    protected String[] setKeys() 
+    {
+        return new String[] {"id", "name", "progress"};
     }
 
     @Override
-    protected String[] setColumns() {
+    protected String[] setColumns() 
+    {
         return new String[] {"#", "Nom Projet", "Avancement"};
     }
     
@@ -30,7 +27,7 @@ public class ScheduleTable extends TableModel
         return false;
     }
     
-    public HashMap<String, String> getMicrotaskByID(int id)
+    public HashMap<String, String> getMacrotaskByID(int id)
     {
         for(HashMap<String, String> m : values)
         {

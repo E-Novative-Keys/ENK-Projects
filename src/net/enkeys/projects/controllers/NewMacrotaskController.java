@@ -23,20 +23,13 @@ import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
-import net.enkeys.projects.models.Client;
 import net.enkeys.projects.models.Macrotask;
 import net.enkeys.projects.models.MacrotasksUser;
-import net.enkeys.projects.models.Project;
 import net.enkeys.projects.models.Task;
 import net.enkeys.projects.models.User;
-import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
-/**
- * TODO LIST
- * Ajouter Heures/Minutes en dessous de deadline
- */
 public class NewMacrotaskController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -129,6 +122,8 @@ public class NewMacrotaskController extends EController
             macrotask.addData("data[Macrotask][name]", view.getMacrotaskName().getText());
             macrotask.addData("data[Macrotask][deadline]", df.format(view.getDeadline().getDate()));
             macrotask.addData("data[Macrotask][priority]", view.getPriority().getValue());
+            macrotask.addData("data[Macrotask][hour]", view.getHours().getValue());
+            macrotask.addData("data[Macrotask][minute]", view.getMinutes().getValue());
             macrotask.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             macrotask.addData("data[Token][fields]", app.getUser().get("token"));
            
@@ -217,6 +212,9 @@ public class NewMacrotaskController extends EController
                             else
                                 setError(errors.get(errors.keySet().toArray()[0].toString()));
                         }
+                        
+                        app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
+                        app.message("La macrotâche a été correctement créée");
                     } //End if(json.contains("macrotask"))
                     else if(json.contains("error"))
                     {

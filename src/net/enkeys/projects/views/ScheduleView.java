@@ -19,10 +19,6 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ScheduleTable;
 
-/**
- *
- * @author Worker
- */
 public class ScheduleView extends EView
 {
     private final ScheduleTable dataTable   = new ScheduleTable();

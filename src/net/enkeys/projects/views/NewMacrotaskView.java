@@ -3,13 +3,11 @@ package net.enkeys.projects.views;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -28,7 +26,10 @@ import net.enkeys.framework.utils.ESystem;
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
-    private final JLabel priorityLabel                  = new JLabel("Priorité :");
+    private final JLabel hoursLabel                     = new JLabel("Heures : ");
+    private final SpinnerNumberModel hoursSpinner       = new SpinnerNumberModel(10, 0, 24, 1);
+    private final JSpinner hours                        = new JSpinner(hoursSpinner);
+    private final JLabel priorityLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
     private final JSpinner priority                     = new JSpinner(prioritySpinner);
     private final JLabel developersLabel                = new JLabel("Développeur ->");
@@ -43,19 +44,22 @@ public class NewMacrotaskView extends EView
     private final JButton supprDeveloperButton          = new JButton("Supprimer la sélection");
     
     //Colonne droite
-    private final JLabel priorityTaskLabel                  = new JLabel("Priorité :");
+    private final JLabel minutesLabel                       = new JLabel("Minutes : ");
+    private final SpinnerNumberModel minutesSpinner         = new SpinnerNumberModel(42, 0, 60, 1);
+    private final JSpinner minutes                          = new JSpinner(minutesSpinner);
+    private final JLabel priorityTaskLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel priorityTaskSpinner    = new SpinnerNumberModel(10, 1, 100, 1);
     private final JSpinner priorityTask                     = new JSpinner(priorityTaskSpinner);
     private final JLabel taskLabel                          = new JLabel("Nouvelle tâche :");
     private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
     private final JDateChooser deadline                     = new JDateChooser();
-    private final JButton addMicrotaskButton                = new JButton("Ajouter une sous-tâche");
+    private final JButton addMicrotaskButton                = new JButton("Ajouter une tâche");
     private final JTextField microtaskName                  = new JTextField(20);
-    private final JLabel selectedTaskLabel                  = new JLabel("Liste sous-tâches");
+    private final JLabel selectedTaskLabel                  = new JLabel("Liste des tâches");
     private final DefaultListModel selectedTaskData         = new DefaultListModel();
     private final JList selectedTaskList                    = new JList(selectedTaskData);
     private final JScrollPane selectedTaskScroller          = new JScrollPane(selectedTaskList);
-    private final JButton supprMicrotaskButton              = new JButton("Supprimer les tâches");
+    private final JButton supprMicrotaskButton              = new JButton("Supprimer la selection");
     
     private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
@@ -76,32 +80,36 @@ public class NewMacrotaskView extends EView
         GridBagConstraints constraints = table.getConstraints();
        
         constraints.fill    = GridBagConstraints.BOTH;
-        constraints.insets  = new Insets(10, 15, 10, 15);
+        constraints.insets  = new Insets(10, 10, 10, 10);
         
         //Gauche
         table.add(macrotaskNameLabel,       constraints, 0, 0);
         table.add(macrotaskName,            constraints, 1, 0);
-        table.add(priorityLabel,            constraints, 0, 1);
-        table.add(priority,                 constraints, 1, 1);
-        table.add(selectedDevLabel,         constraints, 0, 2);
-        table.add(selectedDevScroller,      constraints, 1, 2, 1, 1, 1);
-        table.add(developersLabel,          constraints, 0, 3);
+        table.add(hoursLabel,               constraints, 0, 1);
+        table.add(hours,                    constraints, 1, 1);
+        table.add(priorityLabel,            constraints, 0, 2);
+        table.add(priority,                 constraints, 1, 2);
+        table.add(selectedDevLabel,         constraints, 0, 3);
+        table.add(selectedDevScroller,      constraints, 1, 3, 1, 1, 1);
+        table.add(developersLabel,          constraints, 0, 4);
         developers.setEditable(true);
-        table.add(developers,               constraints, 1, 3);
-        table.add(addDeveloperButton,       constraints, 1, 4);
-        table.add(supprDeveloperButton,     constraints, 1, 5);
+        table.add(developers,               constraints, 1, 4);
+        table.add(addDeveloperButton,       constraints, 1, 5);
+        table.add(supprDeveloperButton,     constraints, 1, 6);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 0);
         table.add(deadline,                 constraints, 3, 0);
-        table.add(taskLabel,                constraints, 2, 1);
-        table.add(microtaskName,            constraints, 3, 1);
-        table.add(selectedTaskLabel,        constraints, 2, 2);
-        table.add(selectedTaskScroller,     constraints, 3, 2, 1, 1, 1);
-        table.add(priorityTaskLabel,        constraints, 2, 3);
-        table.add(priorityTask,             constraints, 3, 3);
-        table.add(addMicrotaskButton,       constraints, 3, 4);
-        table.add(supprMicrotaskButton,     constraints, 3, 5);
+        table.add(minutesLabel,             constraints, 2, 1);
+        table.add(minutes,                  constraints, 3, 1);
+        table.add(taskLabel,                constraints, 2, 2);
+        table.add(microtaskName,            constraints, 3, 2);
+        table.add(selectedTaskLabel,        constraints, 2, 3);
+        table.add(selectedTaskScroller,     constraints, 3, 3, 1, 1, 1);
+        table.add(priorityTaskLabel,        constraints, 2, 4);
+        table.add(priorityTask,             constraints, 3, 4);
+        table.add(addMicrotaskButton,       constraints, 3, 5);
+        table.add(supprMicrotaskButton,     constraints, 3, 6);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
@@ -269,4 +277,29 @@ public class NewMacrotaskView extends EView
     public JSpinner getPriorityTask() {
         return priorityTask;
     }
+
+    public JLabel getHoursLabel() {
+        return hoursLabel;
+    }
+
+    public JLabel getMinutesLabel() {
+        return minutesLabel;
+    }
+
+    public SpinnerNumberModel getHoursSpinner() {
+        return hoursSpinner;
+    }
+
+    public JSpinner getHours() {
+        return hours;
+    }
+
+    public SpinnerNumberModel getMinutesSpinner() {
+        return minutesSpinner;
+    }
+
+    public JSpinner getMinutes() {
+        return minutes;
+    }
+    
 }

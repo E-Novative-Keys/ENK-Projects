@@ -15,6 +15,9 @@ public class Macrotask extends EModel
     @Override
     protected void initRules(Map<String, Rule[]> rules) 
     {
+        rules.put("!SELECT", null);
+        rules.put("!DELETE", null);
+        
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
             new BetweenRule(3, 100, "Nom de macrotâche mauvais format (3 à 100 caractères)"),
@@ -23,13 +26,25 @@ public class Macrotask extends EModel
         
         rules.put("priority", new Rule[]{
             new MinRule(0, "Priorité inférieure à 1 impossible"),
-            new MaxRule(100, "Priorité supérieure à 100 impossible")
+            new MaxRule(101, "Priorité supérieure à 100 impossible")
+        });
+        
+        rules.put("hour", new Rule[]{
+            new MinRule(-1, "Heures inférieures à 0 impossible"),
+            new MaxRule(25, "Heures supérieures à 24 impossible")
+        });
+        
+        rules.put("minute", new Rule[]{
+            new MinRule(-1, "Minutes inférieures à 0 impossible"),
+            new MaxRule(61, "Minutes supérieures à 60 impossible")
         });
     }
     
     @Override
     protected void initActions(Map<String, String> actions)
     {
+        actions.put("SELECT", "");
         actions.put("INSERT", "new");
+        actions.put("DELETE", "delete");
     }
 }
