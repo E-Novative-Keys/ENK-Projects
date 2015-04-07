@@ -17,15 +17,15 @@ public class Task extends EModel
     {
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
-            new BetweenRule(3, 100, "Nom de tâche mauvais format (3 à 100 caractères)"),
+            new BetweenRule(2, 100, "Nom de tâche mauvais format (2 à 100 caractères)"),
             new RegexRule("([a-zA-Z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom de tâche non valide") 
         });
-        
+    /*    
         rules.put("priority", new Rule[]{
             new MinRule(1, "Priorité inférieure à 1 impossible"),
             new MaxRule(101, "Priorité supérieure à 100 impossible")
         });
-    }
+    */}
     
     @Override
     protected void initActions(Map<String, String> actions)

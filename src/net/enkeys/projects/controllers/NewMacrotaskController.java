@@ -171,11 +171,7 @@ public class NewMacrotaskController extends EController
                             {
                                 String jsonTask = task.execute("INSERT");
                                 
-                                if(json.contains("task"))
-                                {
-                                    System.out.println("Datas task bien rentrées en bdd");
-                                }
-                                else if(json.contains("error"))
+                                if(json.contains("error"))
                                 {
                                     Map<String, Map<String, String>> newValues = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
 
@@ -195,7 +191,7 @@ public class NewMacrotaskController extends EController
                         {
                             //Ajouter les développeurs affectés à une macrotâche
                             String developersSelection = view.getSelectedDevData().get(i).toString();
-                            System.out.println(developersSelection);
+                            
                             macrotaskUser.clearData();
                             macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
                             macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
@@ -205,12 +201,8 @@ public class NewMacrotaskController extends EController
                             if(macrotaskUser.validate("INSERT", macrotaskUser.getData(), errors))
                             {
                                 String jsonUser = macrotaskUser.execute("INSERT");
-                                System.out.println("jsonUser: "+jsonUser);
-                                if(json.contains("macrotasksUser"))
-                                {
-                                    System.out.println("Datas macrotaskUser bien rentrées en bdd");
-                                }
-                                else if(json.contains("error"))
+                                
+                                if(json.contains("error"))
                                 {
                                     Map<String, Map<String, String>> newDevValues = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
 
