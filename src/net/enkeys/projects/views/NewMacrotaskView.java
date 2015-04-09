@@ -26,39 +26,40 @@ import net.enkeys.framework.utils.ESystem;
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
+    
+    private final JLabel macrotaskNameLabel             = new JLabel("Nom de la macrotâche : ");
+    private final JTextField macrotaskName              = new JTextField(20);
     private final JLabel hoursLabel                     = new JLabel("Heures : ");
     private final SpinnerNumberModel hoursSpinner       = new SpinnerNumberModel(10, 0, 23, 1);
     private final JSpinner hours                        = new JSpinner(hoursSpinner);
     private final JLabel priorityLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
     private final JSpinner priority                     = new JSpinner(prioritySpinner);
-    private final JLabel developersLabel                = new JLabel("Développeur ->");
-    private final JLabel macrotaskNameLabel             = new JLabel("Nom de la macrotâche : ");
-    private final JTextField macrotaskName              = new JTextField(20);  
-    private final JButton addDeveloperButton            = new JButton("Ajouter un développeur");
-    private final EComboBox developers                  = new EComboBox();  
     private final JLabel selectedDevLabel               = new JLabel("Développeurs sélectionnés");
     private final DefaultListModel selectedDevData      = new DefaultListModel();
     private final JList selectedDevList                 = new JList(selectedDevData);
     private final JScrollPane selectedDevScroller       = new JScrollPane(selectedDevList);
+    private final EComboBox developers                  = new EComboBox();  
+    private final JLabel developersLabel                = new JLabel("Développeur ->");
+    private final JButton addDeveloperButton            = new JButton("Ajouter un développeur");
     private final JButton supprDeveloperButton          = new JButton("Supprimer la sélection");
     
     //Colonne droite
+    private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
+    private final JDateChooser deadline                     = new JDateChooser();
     private final JLabel minutesLabel                       = new JLabel("Minutes : ");
     private final SpinnerNumberModel minutesSpinner         = new SpinnerNumberModel(42, 0, 59, 1);
     private final JSpinner minutes                          = new JSpinner(minutesSpinner);
-    private final JLabel priorityTaskLabel                  = new JLabel("Priorité : ");
-    private final SpinnerNumberModel priorityTaskSpinner    = new SpinnerNumberModel(10, 1, 100, 1);
-    private final JSpinner priorityTask                     = new JSpinner(priorityTaskSpinner);
     private final JLabel taskLabel                          = new JLabel("Nouvelle tâche :");
-    private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
-    private final JDateChooser deadline                     = new JDateChooser();
-    private final JButton addMicrotaskButton                = new JButton("Ajouter une tâche");
     private final JTextField microtaskName                  = new JTextField(20);
     private final JLabel selectedTaskLabel                  = new JLabel("Liste des tâches");
     private final DefaultListModel selectedTaskData         = new DefaultListModel();
     private final JList selectedTaskList                    = new JList(selectedTaskData);
     private final JScrollPane selectedTaskScroller          = new JScrollPane(selectedTaskList);
+    private final JLabel priorityTaskLabel                  = new JLabel("Priorité : ");
+    private final SpinnerNumberModel priorityTaskSpinner    = new SpinnerNumberModel(10, 1, 100, 1);
+    private final JSpinner priorityTask                     = new JSpinner(priorityTaskSpinner);
+    private final JButton addMicrotaskButton                = new JButton("Ajouter une tâche");
     private final JButton supprMicrotaskButton              = new JButton("Supprimer la selection");
     
     private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
