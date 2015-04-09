@@ -31,12 +31,12 @@ public class Macrotask extends EModel
         
         rules.put("hour", new Rule[]{
             new MinRule(-1, "Heures inférieures à 0 impossible"),
-            new MaxRule(25, "Heures supérieures à 24 impossible")
+            new MaxRule(25, "Heures supérieures à 23 impossible")
         });
         
         rules.put("minute", new Rule[]{
             new MinRule(-1, "Minutes inférieures à 0 impossible"),
-            new MaxRule(61, "Minutes supérieures à 60 impossible")
+            new MaxRule(61, "Minutes supérieures à 59 impossible")
         });
     }
     
@@ -45,6 +45,7 @@ public class Macrotask extends EModel
     {
         actions.put("SELECT", "");
         actions.put("INSERT", "new");
+        actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
     }
 }

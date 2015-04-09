@@ -27,7 +27,7 @@ public class NewMacrotaskView extends EView
 {
     //Colonne gauche
     private final JLabel hoursLabel                     = new JLabel("Heures : ");
-    private final SpinnerNumberModel hoursSpinner       = new SpinnerNumberModel(10, 0, 24, 1);
+    private final SpinnerNumberModel hoursSpinner       = new SpinnerNumberModel(10, 0, 23, 1);
     private final JSpinner hours                        = new JSpinner(hoursSpinner);
     private final JLabel priorityLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
@@ -45,7 +45,7 @@ public class NewMacrotaskView extends EView
     
     //Colonne droite
     private final JLabel minutesLabel                       = new JLabel("Minutes : ");
-    private final SpinnerNumberModel minutesSpinner         = new SpinnerNumberModel(42, 0, 60, 1);
+    private final SpinnerNumberModel minutesSpinner         = new SpinnerNumberModel(42, 0, 59, 1);
     private final JSpinner minutes                          = new JSpinner(minutesSpinner);
     private final JLabel priorityTaskLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel priorityTaskSpinner    = new SpinnerNumberModel(10, 1, 100, 1);

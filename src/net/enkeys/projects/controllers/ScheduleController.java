@@ -7,6 +7,9 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +23,10 @@ import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
+import net.enkeys.projects.models.Cloud;
 import net.enkeys.projects.models.Macrotask;
 import net.enkeys.projects.views.CurrentProjectManagerView;
+import net.enkeys.projects.views.EditMacrotaskView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
@@ -29,7 +34,13 @@ import net.enkeys.projects.views.ScheduleView;
  * TODO LIST
  * Revoir model Macrotask (min && max -> chiffre compris ou non ?)
  * + revoir les models Task && MacrotasksUser (tests uni)
+ * 
  * Delete macrotask -> contraintes sur clé étrangères à regarder
+ * 
+ * EditMacrotaskController ->
+ *  Empêcher la modification de plusieurs tâches en même temps
+ *  Régler le souci sur la deadline (setter + bdd)
+ *  Améliorer le front
  */
 public class ScheduleController extends EController
 {
@@ -47,6 +58,8 @@ public class ScheduleController extends EController
         this.view.getEditButton().addActionListener(editButtonListener());
         this.view.getDeleteButton().addActionListener(deleteButtonListener());
         this.view.getBackButton().addActionListener(backButtonListener());
+        
+        this.view.getListMacrotasks().addMouseListener(taskMouseListener());
         
         initView();
     }
@@ -84,31 +97,35 @@ public class ScheduleController extends EController
             System.err.println(errors);
     }
 
-    private ActionListener backButtonListener() {
+    private ActionListener backButtonListener() 
+    {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
     }
     
-    private ActionListener addButtonListener() {
+    private ActionListener addButtonListener() 
+    {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new NewMacrotaskController(app, new NewMacrotaskView(), this.project));
         };
     }
 
-    private ActionListener editButtonListener() {
+    private ActionListener editButtonListener() 
+    {
         return (ActionEvent e) -> {
             if(view.getListMacrotasks().getSelectedRow() > -1) 
             {
                 int modelID = view.getListMacrotasks().convertRowIndexToModel(view.getListMacrotasks().getSelectedRow());
                 int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
                 
-                app.getFrame(0).setContent(new EditMacrotaskController(app, new NewMacrotaskView(), this.project, view.getDataTable().getMacrotaskByID(id)));
+                app.getFrame(0).setContent(new EditMacrotaskController(app, new EditMacrotaskView(), this.project, view.getDataTable().getMacrotaskByID(id)));
             }
         };
     }
 
-    private ActionListener deleteButtonListener() {
+    private ActionListener deleteButtonListener() 
+    {
         return (ActionEvent e) -> {
             Macrotask macrotask = (Macrotask)getModel("Macrotask");
             int[] rows = view.getListMacrotasks().getSelectedRows();
@@ -152,5 +169,34 @@ public class ScheduleController extends EController
                 }
             }
         };
-    }    
+    }
+    
+    private MouseListener taskMouseListener()
+    {
+        return new MouseAdapter() {
+            //Cloud cloud = (Cloud)getModel("Cloud");
+            
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                //cloud.clearData();
+                
+                //cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                //cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                
+                // Si double click gauche de la souris
+                if(e.getButton() == 1 && e.getClickCount() == 2)
+                {
+                    // Si l'élément sélectionné est un répertoire
+                    if(/*directories.get(0).get(view.getDevList().getSelectedIndex())*/true)
+                    {
+                        //path[0].append(view.getDevList().getSelectedValue() + "/");
+                        //listFiles(cloud, 0);
+                    }
+                    else return;
+                        //downloadFile(cloud, 0);
+                }
+            }
+        };
+    }
 }
