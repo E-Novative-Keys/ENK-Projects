@@ -4,6 +4,7 @@ package net.enkeys.projects.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,11 +48,18 @@ class EditMacrotaskController extends EController
     private void initView() 
     {
         System.out.println(data.toString());
-        this.view.setMacrotaskName(data.get("name"));
-        this.view.setMacrotaskHour(data.get("hour"));
-        this.view.setMacrotaskMinute(data.get("minute"));
-        this.view.setMacrotaskPriority(data.get("priority"));
-        //this.view.setMacrotaskDeadline(data.get("deadline"));
+        this.view.setMacrotaskName(this.data.get("name"));
+        this.view.setMacrotaskHour(this.data.get("hour"));
+        this.view.setMacrotaskMinute(this.data.get("minute"));
+        this.view.setMacrotaskPriority(this.data.get("priority"));
+        try
+        {
+            view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
+        }
+        catch (ParseException ex)
+        {
+            app.getLogger().warning(ex.getMessage());
+        }
     }
     
     private ActionListener backButtonListener() 
