@@ -16,6 +16,7 @@ public class Task extends EModel
     protected void initRules(Map<String, Rule[]> rules) 
     {
         rules.put("!SELECT", null);
+        rules.put("!UPDATE", null);
         
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
@@ -34,6 +35,7 @@ public class Task extends EModel
     {
         actions.put("SELECT", "");
         actions.put("INSERT", "new");
+        actions.put("UPDATE",   "edit");
         actions.put("DELETE", "delete");
     }
 }

@@ -34,8 +34,8 @@ public class EditTasksView extends EView
     private final JSpinner priorityTask                     = new JSpinner(priorityTaskSpinner);
     private final JButton deleteButton                      = new JButton("Supprimer la sélection");
     private final JButton addButton                         = new JButton("Ajouter");
-    private final JButton saveButton                        = new JButton(" Enregistrer la mise à jour");
-    private final JButton backButton                        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JButton saveButton                        = new JButton(" Enregistrer");
+    private final JButton backButton                        = new JButton("", EResources.loadImageIcon("back_dark.png"));
     private final JLabel errorLabel                         = new JLabel("");
     
     public EditTasksView() 
@@ -109,5 +109,21 @@ public class EditTasksView extends EView
 
     public JButton getDeleteButton() {
         return deleteButton;
+    }
+
+    public JLabel getPriorityTaskLabel() {
+        return priorityTaskLabel;
+    }
+
+    public SpinnerNumberModel getPriorityTaskSpinner() {
+        return priorityTaskSpinner;
+    }
+
+    public JSpinner getPriorityTask() {
+        return priorityTask;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
     }
 }

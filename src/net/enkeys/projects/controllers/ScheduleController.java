@@ -48,7 +48,8 @@ import net.enkeys.projects.views.ScheduleView;
  * EditTaskController ->
  *  Revoir model task/taskTable pour les modifications directes
  *  Ajuster le front (nom)
- *  Enregistrer toutes les modifications 
+ *  Exception sur double click sur colonne id
+ *  Ajout des tasks ajoutées en plus sur (et pas seulement des modifications)
  */
 public class ScheduleController extends EController
 {
