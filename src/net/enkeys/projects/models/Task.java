@@ -15,6 +15,8 @@ public class Task extends EModel
     @Override
     protected void initRules(Map<String, Rule[]> rules) 
     {
+        rules.put("!SELECT", null);
+        
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
             new BetweenRule(2, 100, "Nom de tâche mauvais format (2 à 100 caractères)"),
@@ -30,6 +32,8 @@ public class Task extends EModel
     @Override
     protected void initActions(Map<String, String> actions)
     {
+        actions.put("SELECT", "");
         actions.put("INSERT", "new");
+        actions.put("DELETE", "delete");
     }
 }

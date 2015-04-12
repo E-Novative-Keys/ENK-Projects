@@ -27,6 +27,7 @@ public class ScheduleView extends EView
     private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     private final JButton deleteButton      = new JButton("Supprimer la sélection");
     private final JButton editButton        = new JButton("Modifier une macrotâche");
+    private final JButton editTaskButton    = new JButton("Modifier les sous-tâches");
     private final JButton addButton         = new JButton("Ajouter une macrotâche");
     
     public ScheduleView()
@@ -52,38 +53,51 @@ public class ScheduleView extends EView
         
         buttons.add(addButton, constraints, 0, 0);
         buttons.add(editButton, constraints, 1, 0);
-        buttons.add(deleteButton, constraints, 2, 0);
+        buttons.add(editTaskButton, constraints, 2, 0);
+        buttons.add(deleteButton, constraints, 3, 0);
         panel.add(buttons, "East");
        
         return panel;
     }
     
     
-    public ScheduleTable getDataTable() {
+    public ScheduleTable getDataTable()
+    {
         return dataTable;
     }
 
-    public JTable getListMacrotasks() {
+    public JTable getListMacrotasks()
+    {
         return listMacrotasks;
     }
 
-    public JScrollPane getListScroller() {
+    public JScrollPane getListScroller()
+    {
         return listScroller;
     }
 
-    public JButton getBackButton() {
+    public JButton getBackButton()
+    {
         return backButton;
     }
 
-    public JButton getDeleteButton() {
+    public JButton getDeleteButton()
+    {
         return deleteButton;
     }
 
-    public JButton getEditButton() {
+    public JButton getEditButton()
+    {
         return editButton;
     }
 
-    public JButton getAddButton() {
+    public JButton getAddButton()
+    {
         return addButton;
+    }
+
+    public JButton getEditTaskButton()
+    {
+        return editTaskButton;
     }
 }

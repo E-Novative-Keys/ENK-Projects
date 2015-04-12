@@ -23,10 +23,11 @@ import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
-import net.enkeys.projects.models.Cloud;
 import net.enkeys.projects.models.Macrotask;
+import net.enkeys.projects.models.Task;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.EditMacrotaskView;
+import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
@@ -35,12 +36,19 @@ import net.enkeys.projects.views.ScheduleView;
  * Revoir model Macrotask (min && max -> chiffre compris ou non ?)
  * + revoir les models Task && MacrotasksUser (tests uni)
  * 
+ * /!\ Set json error dans newMacrotaskController & editMacrotaskController à revoir
+ * 
  * Delete macrotask -> contraintes sur clé étrangères à regarder
  * 
  * EditMacrotaskController ->
  *  Empêcher la modification de plusieurs tâches en même temps
- *  Régler le souci sur la deadline (setter + bdd)
- *  Améliorer le front
+ *  Deadline ok ? Tester
+ *  Améliorer le front (colonnes ok, taille de la liste des devs associés a la macrotask)
+ * 
+ * EditTaskController ->
+ *  Revoir model task/taskTable pour les modifications directes
+ *  Ajuster le front (nom)
+ *  Enregistrer toutes les modifications 
  */
 public class ScheduleController extends EController
 {
@@ -51,15 +59,15 @@ public class ScheduleController extends EController
     public ScheduleController(EApplication app, EView view, HashMap<String, String> project) {
         super(app, view);
         addModel(new Macrotask());
+        addModel(new Task());
         
         this.project = project;
         
         this.view.getAddButton().addActionListener(addButtonListener());
         this.view.getEditButton().addActionListener(editButtonListener());
+        this.view.getEditTaskButton().addActionListener(editTaskButtonListener());
         this.view.getDeleteButton().addActionListener(deleteButtonListener());
         this.view.getBackButton().addActionListener(backButtonListener());
-        
-        this.view.getListMacrotasks().addMouseListener(taskMouseListener());
         
         initView();
     }
@@ -123,6 +131,19 @@ public class ScheduleController extends EController
             }
         };
     }
+    
+    private ActionListener editTaskButtonListener()
+    {
+        return (ActionEvent e) -> {
+            if(view.getListMacrotasks().getSelectedRow() > -1) 
+            {
+                int modelID = view.getListMacrotasks().convertRowIndexToModel(view.getListMacrotasks().getSelectedRow());
+                int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                
+                app.getFrame(0).setContent(new EditTasksController(app, new EditTasksView(), this.project, view.getDataTable().getMacrotaskByID(id)));
+            }
+        };    
+    }
 
     private ActionListener deleteButtonListener() 
     {
@@ -166,35 +187,6 @@ public class ScheduleController extends EController
                     }
                     else
                         app.message("Vous n'êtes pas autorisé à supprimer la macrotâche " + dataMacrotask.get("name"), JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        };
-    }
-    
-    private MouseListener taskMouseListener()
-    {
-        return new MouseAdapter() {
-            //Cloud cloud = (Cloud)getModel("Cloud");
-            
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                //cloud.clearData();
-                
-                //cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                //cloud.addData("data[Token][fields]", app.getUser().get("token"));
-                
-                // Si double click gauche de la souris
-                if(e.getButton() == 1 && e.getClickCount() == 2)
-                {
-                    // Si l'élément sélectionné est un répertoire
-                    if(/*directories.get(0).get(view.getDevList().getSelectedIndex())*/true)
-                    {
-                        //path[0].append(view.getDevList().getSelectedValue() + "/");
-                        //listFiles(cloud, 0);
-                    }
-                    else return;
-                        //downloadFile(cloud, 0);
                 }
             }
         };
