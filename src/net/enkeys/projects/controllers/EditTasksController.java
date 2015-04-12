@@ -98,7 +98,10 @@ public class EditTasksController extends EController
     {
         return (ActionEvent e) -> {
             if(updated.size() > 0 && app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
+            {
                 saveUpdatedTasks();
+                app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
+            }
         };
     }
     
