@@ -18,7 +18,7 @@ public class ScheduleTable extends TableModel
     @Override
     protected String[] setColumns() 
     {
-        return new String[] {"#", "Nom Projet", "Avancement (%)"};
+        return new String[] {"#", "Nom macrotâche", "Avancement (%)"};
     }
     
     @Override

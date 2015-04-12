@@ -22,7 +22,6 @@ import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Task;
-import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.ScheduleView;
 
@@ -107,6 +106,7 @@ public class EditTasksController extends EController
     
     private boolean saveUpdatedTasks()
     {
+        System.out.println("Tryin to save");
         boolean success = false;
         Task task = (Task)getModel("Task");
 
@@ -124,6 +124,8 @@ public class EditTasksController extends EController
                 task.addData("data[Task][priority]", t.get("priority"));
                 task.addData("data[Task][name]", t.get("name"));
                 task.addData("data[Task][progress]", t.get("progress"));
+                
+                System.out.println("id task : "+t.get("id"));
 
                 try
                 {
@@ -201,6 +203,7 @@ public class EditTasksController extends EController
                     {
                         if(task.validate("DELETE"))
                         {
+                            System.out.println("Before execute");
                             String json = task.execute("DELETE");
                             System.out.println("json : "+json);
                             

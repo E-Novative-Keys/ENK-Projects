@@ -41,15 +41,15 @@ import net.enkeys.projects.views.ScheduleView;
  * Delete macrotask -> contraintes sur clé étrangères à regarder
  * 
  * EditMacrotaskController ->
- *  Empêcher la modification de plusieurs tâches en même temps
- *  Deadline ok ? Tester
+ *  Empêcher la modification de plusieurs tâches en même temps ok ?
+ *  Deadline ok ?
  *  Améliorer le front (colonnes ok, taille de la liste des devs associés a la macrotask)
  * 
  * EditTaskController ->
  *  Revoir model task/taskTable pour les modifications directes
  *  Ajuster le front (nom)
  *  Exception sur double click sur colonne id
- *  Ajout des tasks ajoutées en plus sur (et pas seulement des modifications)
+ *  Ajout des tasks ajoutées en plus sur bdd (et pas seulement des modifications)
  */
 public class ScheduleController extends EController
 {

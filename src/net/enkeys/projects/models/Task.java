@@ -17,6 +17,7 @@ public class Task extends EModel
     {
         rules.put("!SELECT", null);
         rules.put("!UPDATE", null);
+        rules.put("!DELETE", null);
         
         rules.put("name", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom de tâche"),
@@ -35,7 +36,7 @@ public class Task extends EModel
     {
         actions.put("SELECT", "");
         actions.put("INSERT", "new");
-        actions.put("UPDATE",   "edit");
+        actions.put("UPDATE", "edit");
         actions.put("DELETE", "delete");
     }
 }
