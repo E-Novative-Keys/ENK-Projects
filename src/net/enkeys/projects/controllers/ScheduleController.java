@@ -29,15 +29,10 @@ import net.enkeys.projects.views.ScheduleView;
  * Revoir model Macrotask (min && max -> chiffre compris ou non ?)
  * + revoir les models Task && MacrotasksUser (tests uni)
  * 
- * Delete macrotask -> contraintes sur clé étrangères à regarder
- * 
  * EditTaskController ->
- *  Ajout des tasks ajoutées en plus sur bdd (et pas seulement des modifications)
- *      -> ajout dynamique des nouvelles tasks en bdd
- *      -> suppression dynamique des tasks en général
- * 
- * EditMacrotaskController ->
- *  Ajout des développeurs déjà selectionnés
+ *      Ajout des heures travaillées
+ * Macrotâche -> 
+ *      Ajouter boolean terminé ou non
  */
 public class ScheduleController extends EController
 {
@@ -163,7 +158,7 @@ public class ScheduleController extends EController
                             {
                                 String json = macrotask.execute("DELETE");
 
-                                if(json.contains("macrotasks"))
+                                if(json.contains("listMacrotasks"))
                                     view.getDataTable().removeValue(modelID);
                                 else
                                     app.getLogger().warning("Error: " + json);

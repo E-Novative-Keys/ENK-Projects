@@ -36,7 +36,6 @@ public class EditTasksController extends EController
         super(app, view);
         this.updated = new ArrayList<>();
         addModel(new Task());
-        //addModel(new User());
         
         this.project = project;
         this.data = data;
@@ -97,8 +96,7 @@ public class EditTasksController extends EController
             {
                 saveUpdatedTasks();
                 app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
-            }
-            
+            }  
         };
     }
     
@@ -119,12 +117,10 @@ public class EditTasksController extends EController
             if(t != null)
             {
                 task.addData("data[Task][id]", t.get("id"));
-                task.addData("data[Task][priority]", t.get("priority"));
+                task.addData("data[Task][priority]", Integer.parseInt(t.get("priority")));
                 task.addData("data[Task][name]", t.get("name"));
                 task.addData("data[Task][progress]", t.get("progress"));
                 
-                System.out.println("id task : "+t.get("id"));
-
                 try
                 {
                     if(task.validate("UPDATE", task.getData(), errors))
@@ -201,9 +197,7 @@ public class EditTasksController extends EController
                     {
                         if(task.validate("DELETE"))
                         {
-                            System.out.println("Before execute");
                             String json = task.execute("DELETE");
-                            System.out.println("json : "+json);
                             
                             if(json.contains("tasks"))
                                 view.getDataTable().removeValue(modelID);
@@ -244,26 +238,41 @@ public class EditTasksController extends EController
     private ActionListener addTaskButtonListener()
     {
         return (ActionEvent e) -> {
-            String newName = this.view.getNameField().getText();
-            String newPriority = this.view.getPriorityTask().getValue().toString();
-            String newProgress = "0";
-            System.out.println("New task : "+newName+" "+newPriority+" "+newProgress);
+            Task task = (Task)getModel("Task");
+            Map<String, String> errors = new HashMap<>();
             
-            HashMap<String, String> newTask = new HashMap<>();
-            newTask.put("name", newName);
-            newTask.put("priority", newPriority);
-            newTask.put("progress", newProgress);
-            newTask.put("id", "//");
-
-            ArrayList<HashMap<String, String>> tasks = new ArrayList<HashMap<String, String>>();
-            tasks.add(newTask);
-
-            for(HashMap<String, String> t : tasks)
+            task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            task.addData("data[Token][fields]", app.getUser().get("token"));
+            task.addData("data[Task][name]", view.getNameField().getText());
+            task.addData("data[Task][priority]", (Integer)view.getPriorityTask().getValue());
+            task.addData("data[Task][progress]", "0");
+            task.addData("data[Task][macrotask_id]", data.get("id"));
+            
+            try
             {
-                view.getDataTable().addValue(t);
-                view.getDataTable().addOrigin(t);
+                if(task.validate("INSERT", task.getData(), errors))
+                {
+                    String json = task.execute("INSERT", errors);
+                   
+                    HashMap<String, HashMap<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType());
+
+                    if(values != null && values.get("task") != null)
+                    {
+                        HashMap<String, String> t = values.get("task");
+
+                        view.getDataTable().addValue(t);
+                        view.getDataTable().addOrigin(t);
+                    }
+                    else
+                        System.err.println(json);
+                }
+                else
+                    System.err.println(errors);
             }
-            view.getListTasks().setAutoCreateRowSorter(true);  
+            catch(ERuleException | EHttpRequestException ex)
+            {
+                app.getLogger().warning(ex.getMessage());
+            }
         }; 
     }
     
