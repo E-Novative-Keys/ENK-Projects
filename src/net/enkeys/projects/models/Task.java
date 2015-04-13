@@ -33,6 +33,14 @@ public class Task extends EModel
             new MinRule(1, "Priorité inférieure à 1 impossible (tâche)"),
             new MaxRule(100, "Priorité supérieure à 100 impossible (tâche)")
         });
+        /*
+        rules.put("!INSERT", null);
+        
+        rules.put("hours", new Rule[]{
+            new MinRule(0, "Heures travaillées négatives impossible"),
+            new RegexRule("[0-9]+", "Seuls des chiffres sont attendus pour les heures") 
+        });
+        */
     }
     
     @Override

@@ -94,15 +94,14 @@ public class EditTasksController extends EController
         return (ActionEvent e) -> {
             if(updated.size() > 0 && app.confirm("Appliquer toutes les modifications ?") == ENKProjects.YES)
             {
-                saveUpdatedTasks();
-                app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
+                if(saveUpdatedTasks())
+                    app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
             }  
         };
     }
     
     private boolean saveUpdatedTasks()
     {
-        System.out.println("Tryin to save");
         boolean success = false;
         Task task = (Task)getModel("Task");
 
@@ -116,10 +115,11 @@ public class EditTasksController extends EController
 
             if(t != null)
             {
-                task.addData("data[Task][id]", t.get("id"));
+                task.addData("data[Task][id]",       t.get("id"));
                 task.addData("data[Task][priority]", Integer.parseInt(t.get("priority")));
-                task.addData("data[Task][name]", t.get("name"));
+                task.addData("data[Task][name]",     t.get("name"));
                 task.addData("data[Task][progress]", t.get("progress"));
+                task.addData("data[Task][hours]",    Integer.parseInt(t.get("hours")));
                 
                 try
                 {

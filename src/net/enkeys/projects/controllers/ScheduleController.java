@@ -26,13 +26,13 @@ import net.enkeys.projects.views.ScheduleView;
 
 /**
  * TODO LIST
- * Revoir model Macrotask (min && max -> chiffre compris ou non ?)
- * + revoir les models Task && MacrotasksUser (tests uni)
+ * Revoir les différents models et leur validation
  * 
  * EditTaskController ->
- *      Ajout des heures travaillées
+ *      Question de la validation des heures par le model (Integer.parseInt ne fonctionnant pas préalablement)
+ *      -> Task model à éditer
  * Macrotâche -> 
- *      Ajouter boolean terminé ou non
+ *      Ajouter boolean terminé ou non (voir webservice function listMacrotasks
  */
 public class ScheduleController extends EController
 {
