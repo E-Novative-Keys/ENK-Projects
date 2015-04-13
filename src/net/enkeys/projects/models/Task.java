@@ -16,7 +16,6 @@ public class Task extends EModel
     protected void initRules(Map<String, Rule[]> rules) 
     {
         rules.put("!SELECT", null);
-        rules.put("!UPDATE", null);
         rules.put("!DELETE", null);
         
         rules.put("name", new Rule[]{
@@ -24,12 +23,17 @@ public class Task extends EModel
             new BetweenRule(2, 100, "Nom de tâche mauvais format (2 à 100 caractères)"),
             new RegexRule("([a-zA-Z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom de tâche non valide") 
         });
-    /*    
+        
+        rules.put("progress", new Rule[]{
+            new NotEmptyRule("Veuillez saisir une progression pour la tâche"),
+            new RegexRule("[0-1]", "Progression invalide (0 ou 1 attendu)") 
+        });
+        
         rules.put("priority", new Rule[]{
             new MinRule(1, "Priorité inférieure à 1 impossible"),
-            new MaxRule(101, "Priorité supérieure à 100 impossible")
+            new MaxRule(100, "Priorité supérieure à 100 impossible")
         });
-    */}
+    }
     
     @Override
     protected void initActions(Map<String, String> actions)

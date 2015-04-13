@@ -29,20 +29,15 @@ import net.enkeys.projects.views.ScheduleView;
  * Revoir model Macrotask (min && max -> chiffre compris ou non ?)
  * + revoir les models Task && MacrotasksUser (tests uni)
  * 
- * /!\ Set json error dans newMacrotaskController & editMacrotaskController à revoir
- * 
  * Delete macrotask -> contraintes sur clé étrangères à regarder
  * 
- * EditMacrotaskController ->
- *  Empêcher la modification de plusieurs tâches en même temps ok ?
- *  Deadline ok ?
- *  Améliorer le front (colonnes ok, taille de la liste des devs associés a la macrotask)
- * 
  * EditTaskController ->
- *  Revoir model task/taskTable pour les modifications directes
- *  Ajuster le front (nom)
- *  Exception sur double click sur colonne id
  *  Ajout des tasks ajoutées en plus sur bdd (et pas seulement des modifications)
+ *      -> ajout dynamique des nouvelles tasks en bdd
+ *      -> suppression dynamique des tasks en général
+ * 
+ * EditMacrotaskController ->
+ *  Ajout des développeurs déjà selectionnés
  */
 public class ScheduleController extends EController
 {

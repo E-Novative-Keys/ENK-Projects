@@ -3,10 +3,7 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -101,6 +98,7 @@ public class EditTasksController extends EController
                 saveUpdatedTasks();
                 app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
             }
+            
         };
     }
     

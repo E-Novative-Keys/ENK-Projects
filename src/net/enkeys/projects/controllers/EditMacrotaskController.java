@@ -129,7 +129,7 @@ class EditMacrotaskController extends EController
             macrotask.addData("data[Macrotask][project_id]", this.project.get("id"));
             macrotask.addData("data[Macrotask][name]", view.getMacrotaskName().getText());
             macrotask.addData("data[Macrotask][deadline]", df.format(view.getDeadline().getDate()));
-            macrotask.addData("data[Macrotask][priority]", view.getPriority().getValue());
+            macrotask.addData("data[Macrotask][priority]", (Integer)view.getPriority().getValue());
             macrotask.addData("data[Macrotask][hour]", view.getHours().getValue());
             macrotask.addData("data[Macrotask][minute]", view.getMinutes().getValue());
             macrotask.addData("data[Macrotask][id]", data.get("id"));

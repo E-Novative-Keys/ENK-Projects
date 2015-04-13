@@ -92,10 +92,13 @@ public class EditMacrotaskView extends EView
         table.add(minutesLabel,             constraints, 2, 2);
         table.add(minutes,                  constraints, 3, 2);
         table.add(selectedDevLabel,         constraints, 2, 3);
-        table.add(selectedDevScroller,      constraints, 3, 3, 1, 1, 5);
+        
+        constraints.fill    = GridBagConstraints.BOTH;
+        
+        table.add(selectedDevScroller,      constraints, 3, 3, 1, 3, 5);
         
         constraints         = panel.getConstraints();
-        constraints.fill    = GridBagConstraints.BOTH;
+        
         panel.add(table, constraints, 0, 0);
         
         return panel;
