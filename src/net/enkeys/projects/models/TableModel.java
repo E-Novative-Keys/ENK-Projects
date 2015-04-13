@@ -10,7 +10,7 @@ public abstract class TableModel extends AbstractTableModel
     protected final String[] keys;
     protected final String[] columns;
     protected final ArrayList<HashMap<String, String>> origin = new ArrayList<>();
-    protected final ArrayList<HashMap<String, String>> values = new ArrayList<>();
+    public final ArrayList<HashMap<String, String>> values = new ArrayList<>();
     
     public TableModel() throws EDataException
     {

@@ -27,6 +27,4 @@ public class Cloud extends EModel
         actions.put("DOWNLOAD", "files/download");
         actions.put("COMMENT", "comment");
     }
-    
-    
 }

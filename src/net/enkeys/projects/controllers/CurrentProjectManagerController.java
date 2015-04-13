@@ -12,6 +12,7 @@ import net.enkeys.projects.views.CloudView;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.DeveloppersView;
 import net.enkeys.projects.views.NewProjectView;
+import net.enkeys.projects.views.ReceivedMailsView;
 import net.enkeys.projects.views.ScheduleView;
 
 public class CurrentProjectManagerController extends EController
@@ -28,6 +29,7 @@ public class CurrentProjectManagerController extends EController
         this.view.getEditProjectButton().addActionListener(editProjectListener());
         this.view.getDeveloppersButton().addActionListener(developpersListener());
         this.view.getScheduleButton().addActionListener(scheduleListener());
+        this.view.getMessengerButton().addActionListener(mailListener());
         this.view.getCloudButton().addActionListener(cloudListener());
     }
     
@@ -48,6 +50,12 @@ public class CurrentProjectManagerController extends EController
     private ActionListener scheduleListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
+        };
+    }
+    
+    private ActionListener mailListener() {
+        return (ActionEvent e) -> {
+            app.getFrame(0).setContent(new ReceivedMailsController(app, new ReceivedMailsView(), this.project));
         };
     }
     
