@@ -26,7 +26,6 @@ import net.enkeys.framework.utils.ESystem;
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
-    
     private final JLabel macrotaskNameLabel             = new JLabel("Nom de la macrotâche : ");
     private final JTextField macrotaskName              = new JTextField(20);
     private final JLabel hoursLabel                     = new JLabel("Heures : ");

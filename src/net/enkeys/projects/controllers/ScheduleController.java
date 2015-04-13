@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,10 +16,11 @@ import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
-import net.enkeys.projects.models.Cloud;
 import net.enkeys.projects.models.Macrotask;
+import net.enkeys.projects.models.Task;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.EditMacrotaskView;
+import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
@@ -37,10 +31,13 @@ import net.enkeys.projects.views.ScheduleView;
  * 
  * Delete macrotask -> contraintes sur clé étrangères à regarder
  * 
+ * EditTaskController ->
+ *  Ajout des tasks ajoutées en plus sur bdd (et pas seulement des modifications)
+ *      -> ajout dynamique des nouvelles tasks en bdd
+ *      -> suppression dynamique des tasks en général
+ * 
  * EditMacrotaskController ->
- *  Empêcher la modification de plusieurs tâches en même temps
- *  Régler le souci sur la deadline (setter + bdd)
- *  Améliorer le front
+ *  Ajout des développeurs déjà selectionnés
  */
 public class ScheduleController extends EController
 {
@@ -51,15 +48,15 @@ public class ScheduleController extends EController
     public ScheduleController(EApplication app, EView view, HashMap<String, String> project) {
         super(app, view);
         addModel(new Macrotask());
+        addModel(new Task());
         
         this.project = project;
         
         this.view.getAddButton().addActionListener(addButtonListener());
         this.view.getEditButton().addActionListener(editButtonListener());
+        this.view.getEditTaskButton().addActionListener(editTaskButtonListener());
         this.view.getDeleteButton().addActionListener(deleteButtonListener());
         this.view.getBackButton().addActionListener(backButtonListener());
-        
-        this.view.getListMacrotasks().addMouseListener(taskMouseListener());
         
         initView();
     }
@@ -123,6 +120,19 @@ public class ScheduleController extends EController
             }
         };
     }
+    
+    private ActionListener editTaskButtonListener()
+    {
+        return (ActionEvent e) -> {
+            if(view.getListMacrotasks().getSelectedRow() > -1) 
+            {
+                int modelID = view.getListMacrotasks().convertRowIndexToModel(view.getListMacrotasks().getSelectedRow());
+                int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                
+                app.getFrame(0).setContent(new EditTasksController(app, new EditTasksView(), this.project, view.getDataTable().getMacrotaskByID(id)));
+            }
+        };    
+    }
 
     private ActionListener deleteButtonListener() 
     {
@@ -166,35 +176,6 @@ public class ScheduleController extends EController
                     }
                     else
                         app.message("Vous n'êtes pas autorisé à supprimer la macrotâche " + dataMacrotask.get("name"), JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        };
-    }
-    
-    private MouseListener taskMouseListener()
-    {
-        return new MouseAdapter() {
-            //Cloud cloud = (Cloud)getModel("Cloud");
-            
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                //cloud.clearData();
-                
-                //cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                //cloud.addData("data[Token][fields]", app.getUser().get("token"));
-                
-                // Si double click gauche de la souris
-                if(e.getButton() == 1 && e.getClickCount() == 2)
-                {
-                    // Si l'élément sélectionné est un répertoire
-                    if(/*directories.get(0).get(view.getDevList().getSelectedIndex())*/true)
-                    {
-                        //path[0].append(view.getDevList().getSelectedValue() + "/");
-                        //listFiles(cloud, 0);
-                    }
-                    else return;
-                        //downloadFile(cloud, 0);
                 }
             }
         };

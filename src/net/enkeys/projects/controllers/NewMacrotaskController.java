@@ -96,6 +96,9 @@ public class NewMacrotaskController extends EController
             else
                 System.err.println(errors);
         }
+        
+        //Reste le chargement des devs actuels, récupérer depuis le web service
+        //à partir de la table macrotasks_users
     }
 
     private ActionListener backButtonListener() 
@@ -166,9 +169,9 @@ public class NewMacrotaskController extends EController
                             {
                                 String jsonTask = task.execute("INSERT");
                                 
-                                if(json.contains("error"))
+                                if(jsonTask.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newValues = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newValues = new Gson().fromJson(jsonTask, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
 
                                     if((errors = newValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -176,7 +179,7 @@ public class NewMacrotaskController extends EController
                                         setError("Une erreur inattendue est survenue");
                                 }
                                 else
-                                    setError(json);
+                                    setError(jsonTask);
                             }
                             else 
                                 setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -197,9 +200,9 @@ public class NewMacrotaskController extends EController
                             {
                                 String jsonUser = macrotaskUser.execute("INSERT");
                                 
-                                if(json.contains("error"))
+                                if(jsonUser.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
 
                                     if((errors = newDevValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -207,7 +210,7 @@ public class NewMacrotaskController extends EController
                                         setError("Une erreur inattendue est survenue");
                                 }
                                 else
-                                    setError(json);
+                                    setError(jsonUser);
                             }
                             else
                                 setError(errors.get(errors.keySet().toArray()[0].toString()));

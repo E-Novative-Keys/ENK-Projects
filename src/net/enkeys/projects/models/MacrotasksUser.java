@@ -22,5 +22,6 @@ public class MacrotasksUser extends EModel
     protected void initActions(Map<String, String> actions)
     {
         actions.put("INSERT", "new");
+        actions.put("UPDATE", "edit");
     }
 }

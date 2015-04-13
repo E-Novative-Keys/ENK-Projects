@@ -7,14 +7,18 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import net.enkeys.framework.components.EComboBox;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -30,14 +34,23 @@ public class EditMacrotaskView extends EView
     private final JSpinner hours                        = new JSpinner(hoursSpinner);
     private final JLabel priorityLabel                  = new JLabel("Priorité : ");
     private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
-    private final JSpinner priority                     = new JSpinner(prioritySpinner);
+    private final JSpinner priority                     = new JSpinner(prioritySpinner); 
+    private final JLabel developersLabel                = new JLabel("Développeur ->");
+    private final EComboBox developers                  = new EComboBox(); 
+    private final JButton addDeveloperButton            = new JButton("Ajouter un développeur");
+    private final JButton supprDeveloperButton          = new JButton("Supprimer la sélection");
     
     //Colonne droite
-    private final JLabel minutesLabel                       = new JLabel("Minutes : ");
-    private final SpinnerNumberModel minutesSpinner         = new SpinnerNumberModel(42, 0, 59, 1);
-    private final JSpinner minutes                          = new JSpinner(minutesSpinner);
-    private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
-    private final JDateChooser deadline                     = new JDateChooser();
+    private final JLabel minutesLabel                   = new JLabel("Minutes : ");
+    private final SpinnerNumberModel minutesSpinner     = new SpinnerNumberModel(42, 0, 59, 1);
+    private final JSpinner minutes                      = new JSpinner(minutesSpinner);
+    private final JLabel deadlineLabel                  = new JLabel("Deadline : ");
+    private final JDateChooser deadline                 = new JDateChooser();
+    private final JLabel selectedDevLabel               = new JLabel("Développeurs sélectionnés");
+    private final DefaultListModel selectedDevData      = new DefaultListModel();
+    private final JList selectedDevList                 = new JList(selectedDevData);
+    private final JScrollPane selectedDevScroller       = new JScrollPane(selectedDevList);
+   
     
     private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
@@ -68,15 +81,24 @@ public class EditMacrotaskView extends EView
         table.add(priority,                 constraints, 1, 1);
         table.add(hoursLabel,               constraints, 0, 2);
         table.add(hours,                    constraints, 1, 2);
+        table.add(developersLabel,          constraints, 0, 3);
+        table.add(developers,               constraints, 1, 3);
+        table.add(addDeveloperButton,       constraints, 1, 4);
+        table.add(supprDeveloperButton,     constraints, 1, 5);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 1);
         table.add(deadline,                 constraints, 3, 1);
         table.add(minutesLabel,             constraints, 2, 2);
         table.add(minutes,                  constraints, 3, 2);
+        table.add(selectedDevLabel,         constraints, 2, 3);
+        
+        constraints.fill    = GridBagConstraints.BOTH;
+        
+        table.add(selectedDevScroller,      constraints, 3, 3, 1, 3, 5);
         
         constraints         = panel.getConstraints();
-        constraints.fill    = GridBagConstraints.HORIZONTAL;
+        
         panel.add(table, constraints, 0, 0);
         
         return panel;
@@ -188,6 +210,46 @@ public class EditMacrotaskView extends EView
     public JLabel getErrorLabel()
     {
         return errorLabel;
+    }
+
+    public JLabel getDevelopersLabel()
+    {
+        return developersLabel;
+    }
+
+    public EComboBox getDevelopers()
+    {
+        return developers;
+    }
+
+    public JButton getAddDeveloperButton()
+    {
+        return addDeveloperButton;
+    }
+
+    public JButton getSupprDeveloperButton()
+    {
+        return supprDeveloperButton;
+    }
+
+    public JLabel getSelectedDevLabel()
+    {
+        return selectedDevLabel;
+    }
+
+    public DefaultListModel getSelectedDevData()
+    {
+        return selectedDevData;
+    }
+
+    public JList getSelectedDevList()
+    {
+        return selectedDevList;
+    }
+
+    public JScrollPane getSelectedDevScroller()
+    {
+        return selectedDevScroller;
     }
     
     public void setMacrotaskName(String str)
