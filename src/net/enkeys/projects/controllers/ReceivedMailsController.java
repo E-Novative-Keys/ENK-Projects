@@ -50,17 +50,20 @@ public class ReceivedMailsController extends EController
         Mailbox mail = (Mailbox)getModel("Mailbox");
         Map<String, String> errors = new HashMap<>();
         
-        mailMenu            = new JMenu("Mail");
-        JMenuItem received  = new JMenuItem("Boite de réception");
-        JMenuItem sent      = new JMenuItem("Eléments envoyés");
-        JMenuItem newMail   = new JMenuItem("Nouveau Message");
-        received.addActionListener(receivedListener());
-        sent.addActionListener(sentListener());
-        newMail.addActionListener(newMailListener());
-        mailMenu.add(received);
-        mailMenu.add(sent);
-        mailMenu.add(newMail);
-        app.getFrame(0).getJMenuBar().add(mailMenu);
+        if(app.getFrame(0).getJMenuBar().getMenuCount() == 1)
+        {
+            mailMenu            = new JMenu("Mail");
+            JMenuItem received  = new JMenuItem("Boite de Réception");
+            JMenuItem sent      = new JMenuItem("Eléments Envoyés");
+            JMenuItem newMail   = new JMenuItem("Nouveau Message");
+            received.addActionListener(receivedListener());
+            sent.addActionListener(sentListener());
+            newMail.addActionListener(newMailListener());
+            mailMenu.add(received);
+            mailMenu.add(sent);
+            mailMenu.add(newMail);
+            app.getFrame(0).getJMenuBar().add(mailMenu);
+        }
         
         mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
         mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));

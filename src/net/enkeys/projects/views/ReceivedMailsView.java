@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -17,7 +16,7 @@ import net.enkeys.projects.models.MailTable;
 
 public class ReceivedMailsView extends EView
 {
-    private final MailTable dataTable       = new MailTable();
+    private final MailTable dataTable       = new MailTable(true);
     private final JTable listMails          = new JTable(dataTable);
     private final JScrollPane listScroller  = new JScrollPane(listMails);
     private final JLabel objectLabel        = new JLabel("");

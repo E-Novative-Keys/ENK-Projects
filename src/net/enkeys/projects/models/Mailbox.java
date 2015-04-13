@@ -10,6 +10,7 @@ public class Mailbox extends EModel
     protected void initRules(Map<String, Rule[]> rules)
     {
         rules.put("!SELECT", null);
+        rules.put("!SENT", null);
         rules.put("!DELETE", null);
     }
 
