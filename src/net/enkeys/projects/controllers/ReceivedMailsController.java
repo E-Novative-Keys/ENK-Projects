@@ -120,10 +120,7 @@ public class ReceivedMailsController extends EController
                 Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                 
                 if(values != null && values.get("email") != null)
-                {
-                    System.out.println(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("id"));
                     view.getDataTable().removeValue(view.getListMails().getSelectedRow());
-                }
                 else
                     System.err.println(json);
             }

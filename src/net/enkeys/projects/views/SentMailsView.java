@@ -12,12 +12,12 @@ import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
-import net.enkeys.projects.models.MailTable;
+import net.enkeys.projects.models.SentTable;
 
 
 public class SentMailsView extends EView
 {
-    private final MailTable dataTable       = new MailTable(false);
+    private final SentTable dataTable       = new SentTable();
     private final JTable listMails          = new JTable(dataTable);
     private final JScrollPane listScroller  = new JScrollPane(listMails);
     private final JLabel objectLabel        = new JLabel("");
@@ -68,7 +68,7 @@ public class SentMailsView extends EView
         return panel; 
     }
 
-    public MailTable getDataTable()
+    public SentTable getDataTable()
     {
         return dataTable;
     }
