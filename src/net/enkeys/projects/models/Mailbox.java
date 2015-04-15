@@ -2,6 +2,7 @@ package net.enkeys.projects.models;
 
 import java.util.Map;
 import net.enkeys.framework.components.EModel;
+import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.Rule;
 
 public class Mailbox extends EModel
@@ -11,6 +12,7 @@ public class Mailbox extends EModel
     {
         rules.put("!SELECT", null);
         rules.put("!SENT", null);
+        rules.put("!SEND", null);
         rules.put("!DELETE", null);
     }
 
@@ -18,6 +20,7 @@ public class Mailbox extends EModel
     protected void initActions(Map<String, String> actions) {
         actions.put("SELECT", "");
         actions.put("SENT", "sent");
+        actions.put("SEND", "new");
         actions.put("DELETE", "delete");
     }
     

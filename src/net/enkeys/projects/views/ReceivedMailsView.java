@@ -16,7 +16,7 @@ import net.enkeys.projects.models.MailTable;
 
 public class ReceivedMailsView extends EView
 {
-    private final MailTable dataTable       = new MailTable(true);
+    private final MailTable dataTable       = new MailTable();
     private final JTable listMails          = new JTable(dataTable);
     private final JScrollPane listScroller  = new JScrollPane(listMails);
     private final JLabel objectLabel        = new JLabel("");

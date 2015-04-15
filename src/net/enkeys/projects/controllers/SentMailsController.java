@@ -100,10 +100,7 @@ public class SentMailsController extends EController
                 Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                 
                 if(values != null && values.get("email") != null)
-                {
-                    System.out.println(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("id"));
                     view.getDataTable().removeValue(view.getListMails().getSelectedRow());
-                }
                 else
                     System.err.println(json);
             }
@@ -113,6 +110,8 @@ public class SentMailsController extends EController
     private ActionListener backListener()
     {
         return (ActionEvent e) -> {
+            app.getFrame(0).getJMenuBar().remove(1);
+            app.getFrame(0).setJMenuBar(app.getFrame(0).getJMenuBar());
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
     }
