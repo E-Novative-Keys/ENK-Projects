@@ -90,12 +90,15 @@ public class NewMacrotaskView extends EView
         table.add(priorityLabel,            constraints, 0, 2);
         table.add(priority,                 constraints, 1, 2);
         table.add(selectedDevLabel,         constraints, 0, 3);
-        table.add(selectedDevScroller,      constraints, 1, 3, 1, 1, 1);
-        table.add(developersLabel,          constraints, 0, 4);
+        table.add(selectedDevScroller,      constraints, 1, 3, 1, 4);
+        table.addEmpty(                     constraints, 1, 4);
+        table.addEmpty(                     constraints, 1, 5);
+        table.addEmpty(                     constraints, 1, 6);
+        table.add(developersLabel,          constraints, 0, 7);
         developers.setEditable(true);
-        table.add(developers,               constraints, 1, 4);
-        table.add(addDeveloperButton,       constraints, 1, 5);
-        table.add(supprDeveloperButton,     constraints, 1, 6);
+        table.add(developers,               constraints, 1, 7);
+        table.add(addDeveloperButton,       constraints, 1, 8);
+        table.add(supprDeveloperButton,     constraints, 1, 9);
         
         //Droite
         table.add(deadlineLabel,            constraints, 2, 0);
@@ -105,11 +108,14 @@ public class NewMacrotaskView extends EView
         table.add(taskLabel,                constraints, 2, 2);
         table.add(microtaskName,            constraints, 3, 2);
         table.add(selectedTaskLabel,        constraints, 2, 3);
-        table.add(selectedTaskScroller,     constraints, 3, 3, 1, 1, 1);
-        table.add(priorityTaskLabel,        constraints, 2, 4);
-        table.add(priorityTask,             constraints, 3, 4);
-        table.add(addMicrotaskButton,       constraints, 3, 5);
-        table.add(supprMicrotaskButton,     constraints, 3, 6);
+        table.add(selectedTaskScroller,     constraints, 3, 3, 1, 4);
+        table.addEmpty(                     constraints, 3, 4);
+        table.addEmpty(                     constraints, 3, 5);
+        table.addEmpty(                     constraints, 3, 6);
+        table.add(priorityTaskLabel,        constraints, 2, 7);
+        table.add(priorityTask,             constraints, 3, 7);
+        table.add(addMicrotaskButton,       constraints, 3, 8);
+        table.add(supprMicrotaskButton,     constraints, 3, 9);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;

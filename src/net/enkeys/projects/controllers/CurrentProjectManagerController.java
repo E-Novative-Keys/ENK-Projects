@@ -12,6 +12,7 @@ import net.enkeys.projects.views.CloudView;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.DeveloppersView;
 import net.enkeys.projects.views.NewProjectView;
+import net.enkeys.projects.views.QuotationView;
 import net.enkeys.projects.views.ScheduleView;
 
 public class CurrentProjectManagerController extends EController
@@ -29,6 +30,7 @@ public class CurrentProjectManagerController extends EController
         this.view.getDeveloppersButton().addActionListener(developpersListener());
         this.view.getScheduleButton().addActionListener(scheduleListener());
         this.view.getCloudButton().addActionListener(cloudListener());
+        this.view.getQuotationButton().addActionListener(quotationListener());
     }
     
     private ActionListener editProjectListener()
@@ -55,6 +57,13 @@ public class CurrentProjectManagerController extends EController
     {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new CloudController(app, new CloudView(), this.project));
+        };
+    }
+    
+    private ActionListener quotationListener()
+    {
+        return (ActionEvent e) -> {
+            app.getFrame(0).setContent(new QuotationController(app, new QuotationView(), this.project));
         };
     }
 }

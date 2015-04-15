@@ -264,7 +264,8 @@ public class NewMacrotaskController extends EController
     private ActionListener addTaskListener() 
     {
         return (ActionEvent e) -> {
-            if(!this.view.getSelectedTaskData().contains(this.view.getMicrotaskName().getText()))
+            if(!this.view.getMicrotaskName().getText().isEmpty()
+            && !this.view.getSelectedTaskData().contains(this.view.getMicrotaskName().getText()))
                 this.view.getSelectedTaskData().addElement(this.view.getMicrotaskName().getText()+" // ("+this.view.getPriorityTask().getValue()+")");
         };
     }
