@@ -28,11 +28,19 @@ public class Task extends EModel
             new NotEmptyRule("Veuillez saisir une progression pour la tâche"),
             new RegexRule("[0-1]", "Progression invalide (0 ou 1 attendu)") 
         });
-        
+    
         rules.put("priority", new Rule[]{
-            new MinRule(1, "Priorité inférieure à 1 impossible"),
-            new MaxRule(100, "Priorité supérieure à 100 impossible")
+            new MinRule(1, "Priorité inférieure à 1 impossible (tâche)"),
+            new MaxRule(100, "Priorité supérieure à 100 impossible (tâche)")
         });
+        /*
+        rules.put("!INSERT", null);
+        
+        rules.put("hours", new Rule[]{
+            new MinRule(0, "Heures travaillées négatives impossible"),
+            new RegexRule("[0-9]+", "Seuls des chiffres sont attendus pour les heures") 
+        });
+        */
     }
     
     @Override

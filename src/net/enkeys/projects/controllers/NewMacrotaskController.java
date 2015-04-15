@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
@@ -96,9 +92,6 @@ public class NewMacrotaskController extends EController
             else
                 System.err.println(errors);
         }
-        
-        //Reste le chargement des devs actuels, récupérer depuis le web service
-        //à partir de la table macrotasks_users
     }
 
     private ActionListener backButtonListener() 
@@ -162,12 +155,14 @@ public class NewMacrotaskController extends EController
                             task.addData("data[Task][macrotask_id]", macrotask_id);
                             task.addData("data[Task][name]", taskName);
                             task.addData("data[Task][priority]", taskPriority);
+                            task.addData("data[Task][progress]", "0");
                             task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                             task.addData("data[Token][fields]", app.getUser().get("token"));
                         
                             if(task.validate("INSERT", task.getData(), errors))
                             {
                                 String jsonTask = task.execute("INSERT");
+                                System.out.println("task json : "+jsonTask);
                                 
                                 if(jsonTask.contains("error"))
                                 {
@@ -199,6 +194,7 @@ public class NewMacrotaskController extends EController
                             if(macrotaskUser.validate("INSERT", macrotaskUser.getData(), errors))
                             {
                                 String jsonUser = macrotaskUser.execute("INSERT");
+                                System.out.println("user json : "+jsonUser);
                                 
                                 if(jsonUser.contains("error"))
                                 {

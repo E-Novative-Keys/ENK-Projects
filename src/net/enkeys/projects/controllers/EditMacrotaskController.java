@@ -39,6 +39,7 @@ class EditMacrotaskController extends EController
         super(app, view);
         addModel(new Macrotask());
         addModel(new User());
+        addModel(new MacrotasksUser());
         
         this.project = project;
         this.data = data;
@@ -104,6 +105,37 @@ class EditMacrotaskController extends EController
             else
                 System.err.println(errors);
         }
+        
+        //Reste le chargement des devs actuels, récupérer depuis le web service
+        //à partir de la table macrotasks_users
+        MacrotasksUser macrotasksUser = (MacrotasksUser)getModel("MacrotasksUser");
+        
+        macrotasksUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        macrotasksUser.addData("data[Token][fields]", app.getUser().get("token"));
+        macrotasksUser.addData("data[Macrotask][id]", data.get("id"));
+        
+        if(macrotasksUser.validate("SELECT", macrotasksUser.getData(), errors))
+        {
+            String jsonMacroUser = macrotasksUser.execute("SELECT", errors);
+            //System.out.println("jsonMacroUser : "+jsonMacroUser);
+            
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(jsonMacroUser, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            //System.out.println("Values : "+values);
+            if(values != null && values.get("users") != null)
+            {
+                ArrayList<HashMap<String, String>> macrotasksUsers = values.get("users");
+                
+                System.out.println("users : "+macrotasksUsers);
+                for(HashMap<String, String> u : macrotasksUsers)
+                {
+                    view.getSelectedDevData().addElement(u.get("firstname")+" "+u.get("lastname"));
+                }
+            }
+            else
+                System.err.println(jsonMacroUser);
+        }
+        else
+            System.err.println(errors);
     }
     
     private ActionListener backButtonListener() 
@@ -144,9 +176,9 @@ class EditMacrotaskController extends EController
                     
                     if(json.contains("macrotask"))
                     {
-                        Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
+                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                         MacrotasksUser macrotaskUser    = (MacrotasksUser)getModel("MacrotasksUser");
-                        String macrotask_id             = values.get("macrotask_id").get(0).get("id");
+                        String macrotask_id             = values.get("macrotask_id");
                         
                         //Ajouter les développeurs ajoutés a la macrotache
                         int numDevelopers = view.getSelectedDevData().getSize();
@@ -158,17 +190,21 @@ class EditMacrotaskController extends EController
                             
                             macrotaskUser.clearData();
                             macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
+                            System.out.println("id macro : "+macrotask_id);
                             macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
                             macrotaskUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                             macrotaskUser.addData("data[Token][fields]", app.getUser().get("token"));
+                            //Indication de suppresion de liste en début d'insert
+                            macrotaskUser.addData("data[MacrotasksUser][purge]", i==0 ? "true" : "false");
                             
                             if(macrotaskUser.validate("UPDATE", macrotaskUser.getData(), errors))
                             {
                                 String jsonUser = macrotaskUser.execute("UPDATE");
+                                System.out.println("jsonUser : "+jsonUser);
                                 
-                                if(json.contains("error"))
+                                if(jsonUser.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
 
                                     if((errors = newDevValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -176,7 +212,7 @@ class EditMacrotaskController extends EController
                                         setError("Une erreur inattendue est survenue");
                                 }
                                 else
-                                    setError(json);
+                                    setError(jsonUser);
                             }
                             else
                                 setError(errors.get(errors.keySet().toArray()[0].toString()));
