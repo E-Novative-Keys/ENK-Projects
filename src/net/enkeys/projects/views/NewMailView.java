@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,15 +35,22 @@ public class NewMailView extends EView
     
     private ETable newMailPanel()
     {
+        ETable panel                    = new ETable();
         ETable newMail                  = new ETable();
         GridBagConstraints constraints  = newMail.getConstraints();
+        
+        constraints.fill    = GridBagConstraints.BOTH;
+        constraints.insets  = new Insets(10, 10, 10, 10);
         
         newMail.add(objectLabel, constraints, 0, 0);
         newMail.add(object, constraints, 1, 0);
         newMail.add(mailLabel, constraints, 0, 1);
         newMail.add(mail, constraints, 1, 1);
-        constraints.fill = GridBagConstraints.CENTER;
-        newMail.add(sendButton, constraints, 0, 2, 0);
+        newMail.add(sendButton, constraints, 1, 2, 1, 2, 2);
+        
+        constraints         = panel.getConstraints();
+        constraints.fill    = GridBagConstraints.CENTER;
+        panel.add(newMail, constraints, 0, 0);
         
         return newMail;
     }
