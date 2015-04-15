@@ -32,7 +32,7 @@ import net.enkeys.projects.views.ScheduleView;
  *      Question de la validation des heures par le model (Integer.parseInt ne fonctionnant pas préalablement)
  *      -> Task model à éditer
  * Macrotâche -> 
- *      Ajouter boolean terminé ou non (voir webservice function listMacrotasks
+ *      Ajouter boolean terminé ou non (voir webservice function listMacrotasks)
  */
 public class ScheduleController extends EController
 {
