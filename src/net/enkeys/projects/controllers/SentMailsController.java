@@ -110,6 +110,8 @@ public class SentMailsController extends EController
     private ActionListener backListener()
     {
         return (ActionEvent e) -> {
+            app.getFrame(0).getJMenuBar().remove(1);
+            app.getFrame(0).setJMenuBar(app.getFrame(0).getJMenuBar());
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
     }
