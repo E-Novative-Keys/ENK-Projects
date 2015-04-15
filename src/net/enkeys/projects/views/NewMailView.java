@@ -46,7 +46,8 @@ public class NewMailView extends EView
         newMail.add(object, constraints, 1, 0);
         newMail.add(mailLabel, constraints, 0, 1);
         newMail.add(mail, constraints, 1, 1);
-        newMail.add(sendButton, constraints, 1, 2, 1, 2, 2);
+        constraints.fill    = GridBagConstraints.CENTER;
+        newMail.add(sendButton, constraints, 0, 2, 0);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
