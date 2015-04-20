@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
