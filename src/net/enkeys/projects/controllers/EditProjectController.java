@@ -141,7 +141,7 @@ class EditProjectController extends EController
             app.getLogger().warning(ex.getMessage());
         }
         view.getEstimation().setText(this.data.get("estimation"));
-        view.getDiscount().setText(this.data.get("discount"));
+        view.getDiscount().setValue(Double.parseDouble(this.data.get("discount")));
     }
 
     private ActionListener backButtonListener()
@@ -160,6 +160,8 @@ class EditProjectController extends EController
             Project project     = (Project) getModel("Project");
             DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors = new HashMap<>();
+            
+            String discount = new String(Float.parseFloat(view.getDiscount().getValue().toString()) + "");
                       
             project.addData("data[Project][id]", this.data.get("id"));
             project.addData("data[Project][client_name]", view.getClient().getSelectedItem());
@@ -169,7 +171,7 @@ class EditProjectController extends EController
             project.addData("data[Project][deadline]", df.format(view.getDeadline().getDate()));
             project.addData("data[Project][estimation]", view.getEstimation().getText());
             project.addData("data[Project][budget]", view.getBudget().getText());
-            project.addData("data[Project][discount]", view.getDiscount().getText());
+            project.addData("data[Project][discount]", discount);
             
             project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
             project.addData("data[Token][fields]", app.getUser().get("token"));

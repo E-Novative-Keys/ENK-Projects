@@ -8,13 +8,13 @@ public class ProjectTable extends TableModel
     @Override
     protected String[] setKeys() 
     {
-        return new String[] {"id", "client_id", "name", "deadline", "estimation", "budget", "discount", "created"};
+        return new String[] {"name", "client_name", "deadline", "estimation", "budget", "discount", "created"};
     }
 
     @Override
     protected String[] setColumns() 
     {
-        return new String[] {"#", "#Client", "Nom", "Deadline", "Estimation", "Budget", "Remise (%)", "Créé le"};
+        return new String[] {"Nom", "Client", "Deadline", "Estimation", "Budget", "Remise (%)", "Créé le"};
     }
     
     @Override
