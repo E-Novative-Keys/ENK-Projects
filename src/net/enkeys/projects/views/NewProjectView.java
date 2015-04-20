@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.enkeys.projects.views;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,12 +9,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.EComboBox;
@@ -40,16 +36,17 @@ public class NewProjectView extends EView
     private final JScrollPane descriptionPane   = new JScrollPane(description);
     
     //Colonne droite
-    private final JLabel leadLabel              = new JLabel("Référent : ");
-    private final EComboBox lead                = new EComboBox();
-    private final JLabel deadlineLabel          = new JLabel("Deadline : ");
-    private final JDateChooser deadline         = new JDateChooser();
-    private final JLabel estimationLabel        = new JLabel("Estimation : "); 
-    private final JTextField estimation         = new JTextField(20);
-    private final JLabel budgetLabel            = new JLabel("Budget :");
-    private final JTextField budget             = new JTextField(20);
-    private final JLabel discountLabel          = new JLabel("Remise : ");
-    private final JTextField discount           = new JTextField(20);
+    private final JLabel leadLabel                          = new JLabel("Référent : ");
+    private final EComboBox lead                            = new EComboBox();
+    private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
+    private final JDateChooser deadline                     = new JDateChooser();
+    private final JLabel estimationLabel                    = new JLabel("Estimation (€) : "); 
+    private final JTextField estimation                     = new JTextField(20);
+    private final JLabel budgetLabel                        = new JLabel("Budget (€) :");
+    private final JTextField budget                         = new JTextField(20);
+    private final JLabel discountLabel                      = new JLabel("Remise (%) : ");
+    private final SpinnerNumberModel discountSpinner        = new SpinnerNumberModel(0, 0, 100, 0.2);
+    private final JSpinner discount                         = new JSpinner(discountSpinner);
     
     private final JButton save                  = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
     private final JButton back                  = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
@@ -207,7 +204,7 @@ public class NewProjectView extends EView
         return discountLabel;
     }
  
-    public JTextField getDiscount() 
+    public JSpinner getDiscount() 
     {
         return discount;
     }
@@ -221,4 +218,8 @@ public class NewProjectView extends EView
     {
         return errorLabel;
     }
+
+    public SpinnerNumberModel getDiscountSpinner() {
+        return discountSpinner;
+    } 
 }

@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -62,7 +61,6 @@ public class SentMailsController extends EController
                 view.getDataTable().addOrigin(m);
             }
             view.getListMails().setAutoCreateRowSorter(true);
-            view.getListMails().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
         else
             System.err.println(json);
@@ -106,7 +104,12 @@ public class SentMailsController extends EController
                     Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
                     if(values != null && values.get("email") != null)
+                    {
                         view.getDataTable().removeValue(modelID);
+                        view.getObjectLabel().setText("");
+                        view.getDateLabel().setText("");
+                        view.getMailLabel().setText("");
+                    }    
                     else
                         System.err.println(json);
                 }

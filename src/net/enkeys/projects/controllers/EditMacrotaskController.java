@@ -116,11 +116,9 @@ class EditMacrotaskController extends EController
         
         if(macrotasksUser.validate("SELECT", macrotasksUser.getData(), errors))
         {
-            String jsonMacroUser = macrotasksUser.execute("SELECT", errors);
-            //System.out.println("jsonMacroUser : "+jsonMacroUser);
-            
+            String jsonMacroUser = macrotasksUser.execute("SELECT", errors); 
             Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(jsonMacroUser, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
-            //System.out.println("Values : "+values);
+            
             if(values != null && values.get("users") != null)
             {
                 ArrayList<HashMap<String, String>> macrotasksUsers = values.get("users");
@@ -152,7 +150,12 @@ class EditMacrotaskController extends EController
             DateFormat df               = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors  = new HashMap<>();
             
-            if(view.getDeadline() != null && view.getDeadline().getDate().getTime() <= new Date().getTime())
+            if(view.getDeadline().getDate() == null)
+            {
+                setError("Veuillez préciser une deadline");
+                return;
+            }
+            if(view.getDeadline().getDate().getTime() <= new Date().getTime())
             {
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
@@ -200,7 +203,6 @@ class EditMacrotaskController extends EController
                             if(macrotaskUser.validate("UPDATE", macrotaskUser.getData(), errors))
                             {
                                 String jsonUser = macrotaskUser.execute("UPDATE");
-                                System.out.println("jsonUser : "+jsonUser);
                                 
                                 if(jsonUser.contains("error"))
                                 {

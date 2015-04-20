@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -125,7 +124,12 @@ public class ReceivedMailsController extends EController
                     Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
                     if(values != null && values.get("email") != null)
+                    {
                         view.getDataTable().removeValue(modelID);
+                        view.getObjectLabel().setText("");
+                        view.getDateLabel().setText("");
+                        view.getMailLabel().setText("");
+                    }
                     else
                         System.err.println(json);
                 }

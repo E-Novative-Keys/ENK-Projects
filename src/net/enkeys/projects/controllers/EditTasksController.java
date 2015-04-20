@@ -61,7 +61,6 @@ public class EditTasksController extends EController
         if(task.validate("SELECT", task.getData(), errors))
         {
             String json = task.execute("SELECT", errors);
-            System.out.println("jsontask : "+json);
             Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
             
             if(values != null && values.get("tasks") != null)

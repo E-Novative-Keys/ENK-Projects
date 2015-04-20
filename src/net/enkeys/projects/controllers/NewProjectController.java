@@ -132,6 +132,13 @@ public class NewProjectController extends EController
             DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors = new HashMap<>();
             
+            String discount = new String(Float.parseFloat(view.getDiscount().getValue().toString()) + "");
+            
+            if(view.getDeadline().getDate() == null)
+            {
+                setError("Veuillez préciser une deadline");
+                return;
+            }
             if(view.getDeadline().getDate().getTime() <= new Date().getTime())
             {
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
@@ -144,7 +151,7 @@ public class NewProjectController extends EController
             project.addData("data[Project][lead_name]", view.getLead().getSelectedItem());
             project.addData("data[Project][estimation]", view.getEstimation().getText());
             project.addData("data[Project][budget]", view.getBudget().getText());
-            project.addData("data[Project][discount]", view.getDiscount().getText());
+            project.addData("data[Project][discount]", discount);
             project.addData("data[Project][deadline]", df.format(view.getDeadline().getDate()));
      
             project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));

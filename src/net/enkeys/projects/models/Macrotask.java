@@ -25,18 +25,18 @@ public class Macrotask extends EModel
         });
         
         rules.put("priority", new Rule[]{
-            new MinRule(1, "Priorité inférieure à 1 impossible"),
-            new MaxRule(100, "Priorité supérieure à 100 impossible")
+            new MinRule(0, "Priorité inférieure à 1 impossible"),
+            new MaxRule(101, "Priorité supérieure à 100 impossible")
         });
         
         rules.put("hour", new Rule[]{
-            new MinRule(0, "Heures inférieures à 0 impossible"),
-            new MaxRule(23, "Heures supérieures à 23 impossible")
+            new MinRule(-1, "Heures inférieures à 0 impossible"),
+            new MaxRule(24, "Heures supérieures à 23 impossible")
         });
         
         rules.put("minute", new Rule[]{
-            new MinRule(0, "Minutes inférieures à 0 impossible"),
-            new MaxRule(59, "Minutes supérieures à 59 impossible")
+            new MinRule(-1, "Minutes inférieures à 0 impossible"),
+            new MaxRule(60, "Minutes supérieures à 59 impossible")
         });
     }
     

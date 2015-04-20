@@ -30,8 +30,8 @@ public class Task extends EModel
         });
     
         rules.put("priority", new Rule[]{
-            new MinRule(1, "Priorité inférieure à 1 impossible (tâche)"),
-            new MaxRule(100, "Priorité supérieure à 100 impossible (tâche)")
+            new MinRule(0, "Priorité inférieure à 1 impossible (tâche)"),
+            new MaxRule(101, "Priorité supérieure à 100 impossible (tâche)")
         });
         /*
         rules.put("!INSERT", null);

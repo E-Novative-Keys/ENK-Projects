@@ -108,20 +108,25 @@ public class NewMacrotaskController extends EController
             DateFormat df               = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, String> errors  = new HashMap<>();
             
-            if(view.getDeadline() != null && view.getDeadline().getDate().getTime() <= new Date().getTime())
+            if(view.getDeadline().getDate() == null)
+            {
+                setError("Veuillez préciser une deadline");
+                return;
+            }
+            if(view.getDeadline().getDate().getTime() <= new Date().getTime())
             {
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
             }
           
-            macrotask.addData("data[Macrotask][project_id]", this.project.get("id"));
-            macrotask.addData("data[Macrotask][name]", view.getMacrotaskName().getText());
-            macrotask.addData("data[Macrotask][deadline]", df.format(view.getDeadline().getDate()));
-            macrotask.addData("data[Macrotask][priority]", view.getPriority().getValue());
-            macrotask.addData("data[Macrotask][hour]", view.getHours().getValue());
-            macrotask.addData("data[Macrotask][minute]", view.getMinutes().getValue());
-            macrotask.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            macrotask.addData("data[Token][fields]", app.getUser().get("token"));
+            macrotask.addData("data[Macrotask][project_id]",    this.project.get("id"));
+            macrotask.addData("data[Macrotask][name]",          view.getMacrotaskName().getText());
+            macrotask.addData("data[Macrotask][deadline]",      df.format(view.getDeadline().getDate()));
+            macrotask.addData("data[Macrotask][priority]",      view.getPriority().getValue());
+            macrotask.addData("data[Macrotask][hour]",          view.getHours().getValue());
+            macrotask.addData("data[Macrotask][minute]",        view.getMinutes().getValue());
+            macrotask.addData("data[Token][link]",              ECrypto.base64(app.getUser().get("email")));
+            macrotask.addData("data[Token][fields]",            app.getUser().get("token"));
            
             try
             {
