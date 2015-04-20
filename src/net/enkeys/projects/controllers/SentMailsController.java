@@ -62,7 +62,6 @@ public class SentMailsController extends EController
                 view.getDataTable().addOrigin(m);
             }
             view.getListMails().setAutoCreateRowSorter(true);
-            view.getListMails().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
         else
             System.err.println(json);
@@ -106,7 +105,12 @@ public class SentMailsController extends EController
                     Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
                     if(values != null && values.get("email") != null)
+                    {
                         view.getDataTable().removeValue(modelID);
+                        view.getObjectLabel().setText("");
+                        view.getDateLabel().setText("");
+                        view.getMailLabel().setText("");
+                    }    
                     else
                         System.err.println(json);
                 }
