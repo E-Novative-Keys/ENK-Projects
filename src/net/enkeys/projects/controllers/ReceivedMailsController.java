@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -82,7 +81,6 @@ public class ReceivedMailsController extends EController
                 view.getDataTable().addOrigin(m);
             }
             view.getListMails().setAutoCreateRowSorter(true);
-            view.getListMails().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
         else
             System.err.println(json);
@@ -104,25 +102,37 @@ public class ReceivedMailsController extends EController
     private ActionListener deleteListener()
     {
         return (ActionEvent e) -> {
+            int[] rows = view.getListMails().getSelectedRows();
             
-            if(view.getListMails().getSelectedRow() != -1
+            if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer cet email ?") == ENKProjects.YES)
             {
                 Mailbox mail = (Mailbox)getModel("Mailbox");
                 Map<String, String> errors = new HashMap<>();
                 
                 mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-                mail.addData("data[Mail][id]", ECrypto.base64(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("id")));
                 mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                 mail.addData("data[Token][fields]", app.getUser().get("token"));
                 
-                String json = mail.execute("DELETE", errors, true);
-                Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
-                
-                if(values != null && values.get("email") != null)
-                    view.getDataTable().removeValue(view.getListMails().getSelectedRow());
-                else
-                    System.err.println(json);
+                for(int i = 0 ; i < rows.length ; i++)
+                {
+                    int modelID = view.getListMails().convertRowIndexToModel(rows[i]-i);
+                    
+                    mail.addData("data[Mail][id]", ECrypto.base64(view.getDataTable().values.get(modelID).get("id")));
+                    
+                    String json = mail.execute("DELETE", errors, true);
+                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+
+                    if(values != null && values.get("email") != null)
+                    {
+                        view.getDataTable().removeValue(modelID);
+                        view.getObjectLabel().setText("");
+                        view.getDateLabel().setText("");
+                        view.getMailLabel().setText("");
+                    }
+                    else
+                        System.err.println(json);
+                }
             }
         };
     }
@@ -130,7 +140,7 @@ public class ReceivedMailsController extends EController
     private ActionListener backListener()
     {
         return (ActionEvent e) -> {
-            app.getFrame(0).getJMenuBar().remove(mailMenu);
+            app.getFrame(0).getJMenuBar().remove(1);
             app.getFrame(0).setJMenuBar(app.getFrame(0).getJMenuBar());
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };

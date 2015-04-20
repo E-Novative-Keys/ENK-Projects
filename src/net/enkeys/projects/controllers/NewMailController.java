@@ -50,7 +50,6 @@ public class NewMailController extends EController
                 mail.addData("data[Token][fields]", app.getUser().get("token"));
                 
                     String json = mail.execute("SEND", errors, true);
-                    System.out.println(json);
                     values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                 
                     if(values != null && values.get("email") != null)
