@@ -425,7 +425,7 @@ public class CloudController extends EController
 
             try
             {
-                request.download(System.getProperty("user.home") + File.separator + "Téléchargements");
+                request.download("GET", System.getProperty("user.home") + File.separator + "Téléchargements");
             }
             catch(ESystemException ex)
             {

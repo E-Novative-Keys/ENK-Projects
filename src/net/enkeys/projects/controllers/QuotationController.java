@@ -2,14 +2,23 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
+import net.enkeys.framework.exceptions.EException;
+import net.enkeys.framework.exceptions.EHttpRequestException;
+import net.enkeys.framework.exceptions.ESystemException;
 import net.enkeys.framework.utils.ECrypto;
+import net.enkeys.framework.utils.EHttpRequest;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.models.Project;
 import net.enkeys.projects.views.CurrentProjectManagerView;
@@ -44,7 +53,7 @@ public class QuotationController extends EController
             
             if(dev_salary != -1.f && dev_percent != -1.f && leaddev_salary != -1.f && leaddev_percent != -1.f)
             {
-                String json;
+                EHttpRequest request;
                 Project model = (Project)getModel("Project");
 
                 model.addData("data[Project][id]", ECrypto.base64(this.project.get("id")));
@@ -55,9 +64,22 @@ public class QuotationController extends EController
 
                 model.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                 model.addData("data[Token][fields]", app.getUser().get("token"));
-
-                json = model.execute("QUOTATION");
-                System.out.println("JSON: " + json);
+                
+                try
+                {
+                    request = new EHttpRequest(new URL("http://enkwebservice.com/projects/quotation"), "data=" + model.getJsonData(), true);
+                    
+                    if(!request.download("POST", System.getProperty("user.home") + File.separator + "Téléchargements"))
+                        setError("Une erreur est survenue lors de la génération du devis");
+                }
+                catch(MalformedURLException ex)
+                {
+                    setError(ex.getMessage());
+                }
+                catch(EHttpRequestException | ESystemException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
             }
             else
                 setError("Veuillez saisir des valeurs correctes");
