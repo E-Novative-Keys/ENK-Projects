@@ -3,6 +3,7 @@ package net.enkeys.projects.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
@@ -17,9 +18,12 @@ import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
+import net.enkeys.projects.models.FileRenderer;
 
 public class CloudView extends EView
 {
+    private final FileRenderer clientRenderer      = new FileRenderer();
+    private final FileRenderer devRenderer         = new FileRenderer();
     private final DefaultListModel clientsData  = new DefaultListModel();
     private final DefaultListModel devData      = new DefaultListModel();
     private final JList clientsList             = new JList(clientsData);
@@ -55,10 +59,14 @@ public class CloudView extends EView
         
         clientsList.setLayoutOrientation(JList.VERTICAL);
         clientsList.setVisibleRowCount(-1);
+        clientsList.setCellRenderer(clientRenderer);
         
         devList.setLayoutOrientation(JList.VERTICAL);
         devList.setVisibleRowCount(-1);
+        devList.setCellRenderer(devRenderer);
         
+        devScroller.setPreferredSize(new Dimension(1, 1));
+        clientsScroller.setPreferredSize(new Dimension(1, 1));
         table.add(devScroller,          constraints, 0, 0, 1, 1, 1);
         table.add(clientsScroller,      constraints, 1, 0, 1, 1, 1);
         panel.add(table, "Center");
@@ -160,5 +168,14 @@ public class CloudView extends EView
     {
         return errorLabel;
     }
-    
+
+    public FileRenderer getClientRenderer()
+    {
+        return clientRenderer;
+    }
+
+    public FileRenderer getDevRenderer()
+    {
+        return devRenderer;
+    }    
 }
