@@ -89,7 +89,8 @@ public class ListUsersController extends EController
                     break;
                     
                 case TableModelEvent.UPDATE:
-                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(e.getFirstRow(), 0));
+                    int modelID = view.getListUsers().convertRowIndexToModel(view.getListUsers().getSelectedRow());
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                         updated.add(id);
@@ -141,7 +142,7 @@ public class ListUsersController extends EController
                 for(int i = 0 ; i < rows.length ; i++)
                 {
                     int modelID = view.getListUsers().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     user.addData("data[User][id]", id);
                     

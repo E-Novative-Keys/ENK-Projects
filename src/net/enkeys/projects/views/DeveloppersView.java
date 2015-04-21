@@ -2,6 +2,7 @@ package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
@@ -53,7 +54,9 @@ public class DeveloppersView extends EView
         devList.setLayoutOrientation(JList.VERTICAL);
         devList.setVisibleRowCount(-1);
         
+        userScroller.setPreferredSize(new Dimension(1, 1));
         table.add(userScroller, constraints, 0, 0, 1, 1, 1);
+        devScroller.setPreferredSize(new Dimension(1, 1));
         table.add(devScroller, constraints, 1, 0, 1, 1, 1);
         panel.add(table, "Center");
         
