@@ -39,12 +39,27 @@ public class CurrentProjectsView extends EView
         constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(12, 15, 12, 15);
         
-        for(int i = 0; i < listCurrentProjectsButton.size(); i++)
+        if(listCurrentProjectsButton.size() > 2)
+        {   
+            for(int i = 0; i < listCurrentProjectsButton.size(); i++)
+            {
+                if(i % 3 == 0 && i != 0)
+                    j++;
+                listCurrentProjectsButton.get(i).setPreferredSize(new Dimension(250, 200));
+                panel.add(listCurrentProjectsButton.get(i), constraints, i % 3, j, 1, 1, 1, GridBagConstraints.FIRST_LINE_START);
+            }
+        }
+        else if(listCurrentProjectsButton.size() == 2)
         {
-            if(i % 3 == 0 && i != 0)
-                j++;
-            listCurrentProjectsButton.get(i).setPreferredSize(new Dimension(250, 200));
-            panel.add(listCurrentProjectsButton.get(i), constraints, i % 3, j, 1, 1, 1, GridBagConstraints.FIRST_LINE_START);
+            listCurrentProjectsButton.get(0).setPreferredSize(new Dimension(250, 200));
+            listCurrentProjectsButton.get(1).setPreferredSize(new Dimension(250, 200));
+            panel.add(listCurrentProjectsButton.get(0), constraints, 0, 0, 1, 1, 1, GridBagConstraints.CENTER);
+            panel.add(listCurrentProjectsButton.get(1), constraints, 1, 0, 1, 1, 1, GridBagConstraints.CENTER);
+        }
+        else if(listCurrentProjectsButton.size() == 1)
+        {
+            listCurrentProjectsButton.get(0).setPreferredSize(new Dimension(250, 200));
+            panel.add(listCurrentProjectsButton.get(0), constraints, 0, 0, 1, 1, 1, GridBagConstraints.CENTER);
         }
     }
     

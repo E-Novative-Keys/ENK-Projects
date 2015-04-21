@@ -94,8 +94,9 @@ public class ListProjectsController extends EController
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
-                    int id = Integer.parseInt((String)view.getDataTable().values.get(view.getListProjects().getSelectedRow()).get("id"));
-                
+                    int modelID = view.getListProjects().convertRowIndexToModel(rows[i]-i);
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    
                     Map<String, String> dataProject = view.getDataTable().getProjectByID(id);
                     
                     if(app.getUser().get("role").equalsIgnoreCase("admin") ||
@@ -110,7 +111,7 @@ public class ListProjectsController extends EController
                                 String json = project.execute("DELETE");
 
                                 if(json.contains("projects"))
-                                    view.getDataTable().removeValue(id);
+                                    view.getDataTable().removeValue(modelID);
                                 else
                                     app.getLogger().warning("Error: " + json);
                             }
@@ -132,8 +133,9 @@ public class ListProjectsController extends EController
         return (ActionEvent e) -> {
             if(view.getListProjects().getSelectedRow() > -1) 
             {
-                int id = Integer.parseInt((String)view.getDataTable().values.get(view.getListProjects().getSelectedRow()).get("id"));
-                
+                int modelID = view.getListProjects().convertRowIndexToModel(view.getListProjects().getSelectedRow());
+                int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    
                 app.getFrame(0).setContent(new EditProjectController(app, new NewProjectView(), view.getDataTable().getProjectByID(id)));
             }
         };

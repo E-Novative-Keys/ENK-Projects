@@ -87,7 +87,8 @@ public class ListClientsController extends EController
                     break;
                     
                 case TableModelEvent.UPDATE:
-                    int id = Integer.parseInt((String)view.getDataTable().values.get(view.getListClients().getSelectedRow()).get("id"));
+                    int modelID = view.getListClients().convertRowIndexToModel(view.getListClients().getSelectedRow());
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                     {
@@ -140,7 +141,9 @@ public class ListClientsController extends EController
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
-                    int id = Integer.parseInt((String)view.getDataTable().values.get(view.getListClients().getSelectedRow()).get("id"));
+                    int modelID = view.getListClients().convertRowIndexToModel(view.getListClients().getSelectedRow());
+                    int id = Integer.parseInt((String)view.getDataTable().values.get(modelID).get("id"));
+                    
                     client.addData("data[Client][id]", id);
                 
                     try
@@ -150,7 +153,7 @@ public class ListClientsController extends EController
                             String json = client.execute("DELETE");
 
                             if(json.contains("clients"))
-                                view.getDataTable().removeValue(view.getListClients().getSelectedRow());
+                                view.getDataTable().removeValue(modelID);
                             else
                                 app.getLogger().warning("Error: " + json);
                         }

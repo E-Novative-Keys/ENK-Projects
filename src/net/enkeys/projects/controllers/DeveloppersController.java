@@ -149,8 +149,13 @@ public class DeveloppersController extends EController
                 
                 if(values != null && values.get("disaffect") != null)
                 {
-                    view.getUsersData().addElement(selection.get(i));
-                    view.getDevData().remove(view.getDevData().indexOf(selection.get(i)));
+                    if(values.get("disaffect") == "true")
+                    {
+                        view.getUsersData().addElement(selection.get(i));
+                        view.getDevData().remove(view.getDevData().indexOf(selection.get(i)));
+                    }
+                    else
+                        setError("La personne que vous souhaitez retirer est un référent sur ce projet. Il ne peut donc pas etre retirer.");
                 }
             }
         };
@@ -161,5 +166,13 @@ public class DeveloppersController extends EController
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
+    }
+    
+    private void setError(String err) 
+    {
+        view.getErrorLabel().setText(err);
+        
+        if(!err.isEmpty())
+            app.getLogger().warning(err);
     }
 }
