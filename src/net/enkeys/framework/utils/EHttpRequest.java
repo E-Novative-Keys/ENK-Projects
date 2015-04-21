@@ -263,12 +263,13 @@ public class EHttpRequest
     
     /**
      * Téléchargement d'un fichier dans le dossier de destination path
+     * @param method
      * @param path
      * @return
      * @throws EHttpRequestException
      * @throws ESystemException 
      */
-    public boolean download(String path) throws EHttpRequestException, ESystemException
+    public boolean download(String method, String path) throws EHttpRequestException, ESystemException
     {
         String line;
         File file;
@@ -292,7 +293,28 @@ public class EHttpRequest
             else
                 connection = (proxy == null) ? (HttpURLConnection)getURL.openConnection() : (HttpURLConnection)getURL.openConnection(proxy);
             
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod(method);
+            
+            if(method.equalsIgnoreCase("POST"))
+            {
+                DataOutputStream writer;
+                byte[] byteParams = data.getBytes(ECharsets.UTF_8.toCharset());;
+                
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
+                connection.setRequestProperty("Content-Type", contentType + "; charset=utf-8");
+                connection.setFixedLengthStreamingMode(byteParams.length);
+                connection.setRequestProperty("Content-Language", "en-US");
+
+                connection.setUseCaches(false);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                writer = new DataOutputStream(connection.getOutputStream());
+                writer.write(byteParams);
+                writer.flush();
+                writer.close();
+            }
 
             if(connection.getResponseCode()/100 == 2)
             {
