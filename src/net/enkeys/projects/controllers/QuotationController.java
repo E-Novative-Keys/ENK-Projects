@@ -9,7 +9,9 @@ import javax.swing.event.ChangeListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
+import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
+import net.enkeys.projects.models.Project;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.QuotationView;
 
@@ -22,11 +24,43 @@ public class QuotationController extends EController
     public QuotationController(EApplication app, EView view, HashMap<String, String> project)
     {
         super(app, view);
+        addModel(new Project());
         
         this.project = project;
         
         this.view.getBackButton().addActionListener(backButtonListener());
         this.view.getDevPercentSpinner().addChangeListener(spinnerListener());
+        this.view.getGenerateButton().addActionListener(generateButtonListener());
+    }
+    
+    private ActionListener generateButtonListener()
+    {
+        return (ActionEvent e) -> {
+            float dev_salary = view.getDevSpinner().getValue() != null ? Float.parseFloat(view.getDevSpinner().getValue().toString()) : -1.f;
+            float dev_percent = view.getDevPercentSpinner().getValue() != null ? Float.parseFloat(view.getDevPercentSpinner().getValue().toString()) : -1.f;
+            float leaddev_salary = view.getLeaddevSpinner().getValue() != null ? Float.parseFloat(view.getLeaddevSpinner().getValue().toString()) : -1.f;
+            float leaddev_percent = view.getLeaddevPercentSpinner().getValue() != null ? Float.parseFloat(view.getLeaddevPercentSpinner().getValue().toString()) : -1.f;
+            
+            if(dev_salary != -1.f && dev_percent != -1.f && leaddev_salary != -1.f && leaddev_percent != -1.f)
+            {
+                String json;
+                Project model = (Project)getModel("Project");
+
+                model.addData("data[Project][id]", ECrypto.base64(this.project.get("id")));
+                model.addData("data[Project][dev_salary]", dev_salary);
+                model.addData("data[Project][dev_percent]", view.getDevPercentSpinner().getValue());
+                model.addData("data[Project][leaddev_salary]", view.getLeaddevSpinner().getValue());
+                model.addData("data[Project][leaddev_percent]", view.getLeaddevPercentSpinner().getValue());
+
+                model.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                model.addData("data[Token][fields]", app.getUser().get("token"));
+
+                json = model.execute("QUOTATION");
+                System.out.println("JSON: " + json);
+            }
+            else
+                setError("Veuillez saisir des valeurs correctes");
+        };
     }
     
     private ChangeListener spinnerListener()
@@ -52,5 +86,13 @@ public class QuotationController extends EController
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new CurrentProjectManagerController(app, new CurrentProjectManagerView(), this.project));
         };
+    }
+    
+    private void setError(String err)
+    {
+        if(!err.isEmpty())
+            app.getLogger().warning(err);
+        
+        view.getErrorLabel().setText(err);
     }
 }
