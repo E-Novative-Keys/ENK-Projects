@@ -1,12 +1,14 @@
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public class DeveloppersView extends EView
     private final JButton adddev                = new JButton("Ajouter");
     private final JButton deldev                = new JButton("Retirer");
     private final JButton backButton            = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JLabel errorLabel             = new JLabel("");
     
     public DeveloppersView()
     {
@@ -71,6 +74,8 @@ public class DeveloppersView extends EView
     private JPanel bottomPanel()
     {
         JPanel panel = new JPanel(new BorderLayout());
+        ETable table = new ETable();
+        GridBagConstraints constraints = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -78,6 +83,11 @@ public class DeveloppersView extends EView
         backButton.setOpaque(false);
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
+        
+        constraints.fill = GridBagConstraints.CENTER;
+        errorLabel.setForeground(Color.red);
+        table.add(errorLabel, constraints, 0, 0, 0);
+        panel.add(table, "Center");
         
         return panel;
     }
@@ -125,4 +135,9 @@ public class DeveloppersView extends EView
     {
         return backButton;
     }
+
+    public JLabel getErrorLabel()
+    {
+        return errorLabel;
+    } 
 }

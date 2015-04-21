@@ -76,35 +76,26 @@ class EditMacrotaskController extends EController
         }
         
         //Remplissage ComboBox référent
-        for(int i = 0; i < 3; i++) 
+        if(user.validate("SELECT", user.getData(), errors))
         {
-            if(i == 0)
-                user.addData("data[User][role]", "leaddev");
-            else if(i == 1)
-                user.addData("data[User][role]", "admin");
-            else 
-                user.addData("data[User][role]", "developer");
-            
-            if(user.validate("SELECT", user.getData(), errors))
+            String json = user.execute("SELECT", errors);
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+
+            if(values != null && values.get("users") != null)
             {
-                String json = user.execute("SELECT", errors);
-                Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+                ArrayList<HashMap<String, String>> users = values.get("users");
 
-                if(values != null && values.get("users") != null)
+                for(HashMap<String, String> u : users)
                 {
-                    ArrayList<HashMap<String, String>> users = values.get("users");
-
-                    for(HashMap<String, String> u : users)
-                    {
-                        view.getDevelopers().addItem(u.get("firstname") + " " + u.get("lastname"));
-                    }
+                    view.getDevelopers().addItem(u.get("firstname") + " " + u.get("lastname"));
                 }
-                else
-                    System.err.println(json);
             }
             else
-                System.err.println(errors);
+                System.err.println(json);
         }
+        else
+            System.err.println(errors);
+        
         
         //Reste le chargement des devs actuels, récupérer depuis le web service
         //à partir de la table macrotasks_users
