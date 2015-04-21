@@ -19,6 +19,7 @@ public class User extends EModel
         rules.put("!INSERT", null);
         rules.put("!SELECT", null);
         rules.put("!UPDATE", null);
+        rules.put("!LOGOUT", null);
         
         rules.put("email", new Rule[] {
             new EscapeRule("DELETE"),
@@ -36,6 +37,7 @@ public class User extends EModel
     protected void initActions(Map<String, String> actions)
     {
         actions.put("LOGIN",    "login");
+        actions.put("LOGOUT",   "logout");
         actions.put("VERIFY",   "verify");
         actions.put("VALIDATE", "validate");
         
