@@ -3,6 +3,7 @@ package net.enkeys.projects.views;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +20,9 @@ public class ReceivedMailsView extends EView
     private final MailTable dataTable       = new MailTable();
     private final JTable listMails          = new JTable(dataTable);
     private final JScrollPane listScroller  = new JScrollPane(listMails);
+    private final JLabel object             = new JLabel("");
     private final JLabel objectLabel        = new JLabel("");
+    private final JLabel date               = new JLabel("");
     private final JLabel dateLabel          = new JLabel("");
     private final JLabel mailLabel          = new JLabel("");
     private final JButton deleteButton      = new JButton("Supprimer la sélection");
@@ -40,9 +43,13 @@ public class ReceivedMailsView extends EView
         JPanel panel    = new JPanel(new BorderLayout());
         GridBagConstraints constraints = mail.getConstraints();
         
-        mail.add(objectLabel, constraints, 0, 0);
-        mail.add(dateLabel, constraints, 0, 1);
-        mail.add(mailLabel, constraints, 0, 2);
+        constraints.insets = new Insets(10, 10, 10, 10);
+        
+        mail.add(object, constraints, 0, 0);
+        mail.add(objectLabel, constraints, 1, 0, 1, 1, GridBagConstraints.FIRST_LINE_START);
+        mail.add(date, constraints, 0, 1);
+        mail.add(dateLabel, constraints, 1, 1, 1, 1, GridBagConstraints.FIRST_LINE_START);
+        mail.add(mailLabel, constraints, 0, 2, 0);
         panel.add(mail, "North");
         
         return panel;
@@ -103,5 +110,14 @@ public class ReceivedMailsView extends EView
     {
         return backButton;
     }
-    
+
+    public JLabel getObject()
+    {
+        return object;
+    }
+
+    public JLabel getDate()
+    {
+        return date;
+    }
 }

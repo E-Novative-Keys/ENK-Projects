@@ -144,6 +144,13 @@ public class ListUsersController extends EController
                     int modelID = view.getListUsers().convertRowIndexToModel(rows[i]-i);
                     int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
+                    //Si on delete l'utilisateur courant, erreur et continue
+                    if(id == Integer.parseInt(app.getUser().get("id")))
+                    {
+                        app.message("Vous n'êtes pas autorisé à supprimer vos propres données", JOptionPane.WARNING_MESSAGE);
+                        continue;
+                    }
+                    
                     user.addData("data[User][id]", id);
                     
                     try

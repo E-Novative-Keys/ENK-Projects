@@ -20,9 +20,9 @@ public class NewMailView extends EView
 {
     private final JLabel newMailLabel       = new JLabel("Nouveau Message :");
     private final JLabel objectLabel        = new JLabel("Objet");
-    private final JTextField object         = new JTextField(20);
+    private final JTextField object         = new JTextField(50);
     private final JLabel mailLabel          = new JLabel("Message");
-    private final JTextArea mail            = new JTextArea(10, 20);
+    private final JTextArea mail            = new JTextArea(20, 50);
     private JScrollPane scrollPane          = null;
     private final JButton sendButton        = new JButton("Envoyer");
     private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));

@@ -92,7 +92,9 @@ public class ReceivedMailsController extends EController
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                view.getObject().setText("Sujet : ");
                 view.getObjectLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("object"));
+                view.getDate().setText("Reçu le : ");
                 view.getDateLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("created"));
                 view.getMailLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("content"));
             }
@@ -125,7 +127,9 @@ public class ReceivedMailsController extends EController
 
                     if(values != null && values.get("email") != null)
                     {
+                        view.getObject().setText("");
                         view.getDataTable().removeValue(modelID);
+                        view.getDate().setText("");
                         view.getObjectLabel().setText("");
                         view.getDateLabel().setText("");
                         view.getMailLabel().setText("");

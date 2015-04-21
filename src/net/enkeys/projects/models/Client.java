@@ -20,13 +20,13 @@ public class Client extends EModel
         
         rules.put("firstname", new Rule[]{
             new NotEmptyRule("Veuillez saisir un prénom"),
-            new BetweenRule(3, 30, "Prénom mauvais format (3 à 30 caractères)"),
+            new BetweenRule(2, 31, "Prénom mauvais format (3 à 30 caractères)"),
             new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Prénom non valide") 
         });
         
         rules.put("lastname", new Rule[]{
             new NotEmptyRule("Veuillez saisir un nom"),
-            new BetweenRule(2, 30, "Nom mauvais format (2 à 30 caractères)"),
+            new BetweenRule(1, 31, "Nom mauvais format (2 à 30 caractères)"),
             new RegexRule("([a-zA-Zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+)", "Nom non valide") 
         });
         
