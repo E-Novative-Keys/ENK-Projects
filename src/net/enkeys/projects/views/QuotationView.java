@@ -21,21 +21,18 @@ public class QuotationView extends EView
 {
     private final JLabel devLabel                           = new JLabel("Salaire horaire développeurs (€) : ");
     private final JLabel leaddevLabel                       = new JLabel("Salaire horaire Lead développeurs (€) : ");
-    private final JLabel devPercentLabel                    = new JLabel("Charge de travail développeurs (%) : ");
-    private final JLabel leaddevPercentLabel                = new JLabel("Charge de travail Lead développeurs (%) : ");
+    private final JLabel tvaLabel                           = new JLabel("Taux TVA (%) : ");
     
     private final SpinnerNumberModel devModel               = new SpinnerNumberModel(0.0, 0.0, 100.0, 0.5);
     private final SpinnerNumberModel leaddevModel           = new SpinnerNumberModel(0.0, 0.0, 100.0, 0.5);
-    private final SpinnerNumberModel devPercentModel        = new SpinnerNumberModel(0.0, 0.0, 100.0, 0.5);
-    private final SpinnerNumberModel leaddevPercentModel    = new SpinnerNumberModel(0.0, 0.0, 100.0, 0.5);
+    private final SpinnerNumberModel tvaModel               = new SpinnerNumberModel(20.0, 0.0, 100.0, 0.5);
     
     private final JSpinner devSpinner                       = new JSpinner(devModel);
     private final JSpinner leaddevSpinner                   = new JSpinner(leaddevModel);
-    private final JSpinner devPercentSpinner                = new JSpinner(devPercentModel);
-    private final JSpinner leaddevPercentSpinner            = new JSpinner(leaddevPercentModel);
+    private final JSpinner tvaSpinner                       = new JSpinner(tvaModel);
     
     private final JButton backButton                        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JButton generateButton                    = new JButton("Générer");
+    private final JButton generateButton                    = new JButton("Générer le devis");
     private final JLabel errorLabel                         = new JLabel("");
     
     public QuotationView()
@@ -56,21 +53,14 @@ public class QuotationView extends EView
         constraints.fill = GridBagConstraints.CENTER;
         constraints.insets = new Insets(15, 15, 15, 15);
         
-        devSpinner.setName("dev_spinner");
         table.add(devLabel, constraints, 0, 0);
         table.add(devSpinner, constraints, 1, 0);
         
-        devSpinner.setName("dev_percent_spinner");
-        table.add(devPercentLabel, constraints, 2, 0);
-        table.add(devPercentSpinner, constraints, 3, 0);
-        
-        devSpinner.setName("leaddev_spinner");
         table.add(leaddevLabel, constraints, 0, 1);
         table.add(leaddevSpinner, constraints, 1, 1);
         
-        devSpinner.setName("leaddev_percent_spinner");
-        table.add(leaddevPercentLabel, constraints, 2, 1);
-        table.add(leaddevPercentSpinner, constraints, 3, 1);
+        table.add(tvaLabel, constraints, 0, 2);
+        table.add(tvaSpinner, constraints, 1, 2);
         
         constraints = panel.getConstraints();
         constraints.fill = GridBagConstraints.CENTER;
@@ -117,14 +107,9 @@ public class QuotationView extends EView
         return leaddevSpinner;
     }
 
-    public JSpinner getDevPercentSpinner()
+    public JSpinner getTVASpinner()
     {
-        return devPercentSpinner;
-    }
-
-    public JSpinner getLeaddevPercentSpinner()
-    {
-        return leaddevPercentSpinner;
+        return tvaSpinner;
     }
 
     public JButton getGenerateButton()
