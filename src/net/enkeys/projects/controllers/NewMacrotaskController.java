@@ -60,37 +60,29 @@ public class NewMacrotaskController extends EController
         
         user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
+        user.addData("data[User][project_id]", project.get("id"));
+        user.addData("data[User][getdev]", true);
         
         //Remplissage ComboBox référent
-        for(int i = 0; i < 3; i++) 
+        if(user.validate("SELECT", user.getData(), errors))
         {
-            if(i == 0)
-                user.addData("data[User][role]", "leaddev");
-            else if(i == 1)
-                user.addData("data[User][role]", "admin");
-            else 
-                user.addData("data[User][role]", "developer");
-            
-            if(user.validate("SELECT", user.getData(), errors))
+            String json = user.execute("SELECT", errors);
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+
+            if(values != null && values.get("users") != null)
             {
-                String json = user.execute("SELECT", errors);
-                Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+                ArrayList<HashMap<String, String>> users = values.get("users");
 
-                if(values != null && values.get("users") != null)
+                for(HashMap<String, String> u : users)
                 {
-                    ArrayList<HashMap<String, String>> users = values.get("users");
-
-                    for(HashMap<String, String> u : users)
-                    {
-                        view.getDevelopers().addItem(u.get("firstname") + " " + u.get("lastname"));
-                    }
+                    view.getDevelopers().addItem(u.get("firstname") + " " + u.get("lastname"));
                 }
-                else
-                    System.err.println(json);
             }
             else
-                System.err.println(errors);
+                System.err.println(json);
         }
+        else
+            System.err.println(errors);
     }
 
     private ActionListener backButtonListener() 
