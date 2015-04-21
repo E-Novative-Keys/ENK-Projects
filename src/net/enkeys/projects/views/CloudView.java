@@ -1,31 +1,30 @@
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
+import net.enkeys.projects.models.FileModel;
 import net.enkeys.projects.models.FileRenderer;
 
 public class CloudView extends EView
 {
-    private final FileRenderer clientRenderer      = new FileRenderer();
-    private final FileRenderer devRenderer         = new FileRenderer();
-    private final DefaultListModel clientsData  = new DefaultListModel();
-    private final DefaultListModel devData      = new DefaultListModel();
+    private final FileRenderer clientRenderer   = new FileRenderer();
+    private final FileRenderer devRenderer      = new FileRenderer();
+    private final FileModel devData             = new FileModel();
+    private final FileModel clientsData         = new FileModel();
     private final JList clientsList             = new JList(clientsData);
     private final JList devList                 = new JList(devData);
     private final JScrollPane clientsScroller   = new JScrollPane(clientsList);
@@ -37,7 +36,9 @@ public class CloudView extends EView
     private final JButton folderClientButton    = new JButton("Nouveau dossier");
     private final JButton prevDevButton         = new JButton("Précédent");
     private final JButton prevClientButton      = new JButton("Précédent");
-    private final JLabel errorLabel             = new JLabel("");
+    private final JTextField commentField       = new JTextField(65);
+    private final JButton commentButton         = new JButton("Enregistrer");
+   
     
     public CloudView()
     {
@@ -84,7 +85,9 @@ public class CloudView extends EView
     
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel    = new JPanel(new BorderLayout());
+        ETable table    = new ETable();
+        GridBagConstraints constraints = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -93,18 +96,21 @@ public class CloudView extends EView
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
         
-        errorLabel.setForeground(Color.red);
-        panel.add(errorLabel, "Center");
+        constraints.fill = GridBagConstraints.CENTER;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        table.add(commentField, constraints, 0, 0);
+        table.add(commentButton, constraints, 1, 0);
         
+        panel.add(table, "Center");
         return panel;
     }
 
-    public DefaultListModel getClientsData()
+    public FileModel getClientsData()
     {
         return clientsData;
     }
 
-    public DefaultListModel getDevData()
+    public FileModel getDevData()
     {
         return devData;
     }
@@ -125,7 +131,7 @@ public class CloudView extends EView
     }
 
     public JScrollPane getDevScroller()
-    {
+    {   
         return devScroller;
     }
 
@@ -164,11 +170,6 @@ public class CloudView extends EView
         return prevClientButton;
     }
     
-    public JLabel getErrorLabel()
-    {
-        return errorLabel;
-    }
-
     public FileRenderer getClientRenderer()
     {
         return clientRenderer;
@@ -178,4 +179,14 @@ public class CloudView extends EView
     {
         return devRenderer;
     }    
+
+    public JTextField getCommentField()
+    {
+        return commentField;
+    }
+
+    public JButton getCommentButton()
+    {
+        return commentButton;
+    }
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -69,6 +70,8 @@ public class CloudController extends EController
         this.view.getPrevClientButton().addActionListener(PrevClientListener());
         this.view.getBackButton().addActionListener(backListener());
         
+        this.view.getCommentButton().addActionListener(commentListener());
+        
         initView();
     }
     
@@ -91,6 +94,8 @@ public class CloudController extends EController
         cloudMenu.add(refresh);
         app.getFrame(0).getJMenuBar().add(cloudMenu);
         
+        view.getCommentField().setVisible(false);
+        view.getCommentButton().setVisible(false);
         cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
         cloud.addData("data[Token][fields]", app.getUser().get("token"));
         
@@ -111,8 +116,6 @@ public class CloudController extends EController
             
             listFiles(cloud, 0);
             listFiles(cloud, 1);
-            
-            
         };
     }
     
@@ -174,16 +177,26 @@ public class CloudController extends EController
                 cloud.addData("data[Token][fields]", app.getUser().get("token"));
                 
                 // Si double click gauche de la souris
-                if(e.getButton() == 1 && e.getClickCount() == 2)
+                if(e.getButton() == 1)
                 {
-                    // Si l'élément sélectionné est un répertoire
-                    if(directories.get(0).get(view.getDevList().getSelectedIndex()))
-                    {
-                        path[0].append(view.getDevList().getSelectedValue() + "/");
-                        listFiles(cloud, 0);
+                    if(e.getClickCount() == 2)
+                    {                    
+                        // Si l'élément sélectionné est un répertoire
+                        if(directories.get(0).get(view.getDevList().getSelectedIndex()))
+                        {
+                            path[0].append(view.getDevList().getSelectedValue() + "/");
+                            listFiles(cloud, 0);
+                        }
+                        else
+                            downloadFile(cloud, 0);
                     }
                     else
-                        downloadFile(cloud, 0);
+                    {
+                        view.getCommentField().setText(view.getDevData().getValue(view.getDevList().getSelectedIndex()).get("comment"));
+                        view.getCommentField().setVisible(true);
+                        view.getCommentButton().setVisible(true);
+                        view.getCommentButton().setName("dev");
+                    }
                 }
             }
         };
@@ -203,16 +216,26 @@ public class CloudController extends EController
                 cloud.addData("data[Token][fields]", app.getUser().get("token"));
                                
                 // Si double click gauche de la souris
-                if(e.getButton() == 1 && e.getClickCount() == 2)
+                if(e.getButton() == 1)
                 {
-                    // Si l'élément sélectionné est un répertoire
-                    if(directories.get(1).get(view.getClientsList().getSelectedIndex()))
+                    if(e.getClickCount() == 2)
                     {
-                        path[1].append(view.getClientsList().getSelectedValue() + "/");
-                        listFiles(cloud, 1);
+                        // Si l'élément sélectionné est un répertoire
+                        if(directories.get(1).get(view.getClientsList().getSelectedIndex()))
+                        {
+                            path[1].append(view.getClientsList().getSelectedValue() + "/");
+                            listFiles(cloud, 1);
+                        }
+                        else
+                            downloadFile(cloud, 1);
                     }
                     else
-                        downloadFile(cloud, 1);                
+                    {
+                        view.getCommentField().setText(view.getClientsData().getValue(view.getClientsList().getSelectedIndex()).get("comment"));
+                        view.getCommentField().setVisible(true);
+                        view.getCommentButton().setVisible(true);
+                        view.getCommentButton().setName("client");
+                    }
                 }
             } 
         };
@@ -301,6 +324,44 @@ public class CloudController extends EController
             listFiles(cloud, 1);
         };
     }
+    
+    private ActionListener commentListener()
+    {
+        return (ActionEvent e) -> {
+            Cloud cloud  = (Cloud)getModel("Cloud");
+            HashMap<String, String> file = null;
+            Map<String, String> errors = new HashMap<>();
+            
+            if(view.getCommentButton().getName().equals("dev"))
+            {
+                cloud.addData("data[Cloud][user]", "dev");
+                cloud.addData("data[Cloud][file]", ECrypto.base64(path[0].toString() + view.getDevList().getSelectedValue()));
+                
+                file = view.getDevData().getValue(view.getDevList().getSelectedIndex());
+            }
+            else if(view.getCommentButton().getName().equals("client"))
+            {
+                cloud.addData("data[Cloud][user]", "client");
+                cloud.addData("data[Cloud][file]", ECrypto.base64(path[1].toString() + view.getClientsList().getSelectedValue()));
+                
+                file = view.getClientsData().getValue(view.getClientsList().getSelectedIndex());
+            }
+            
+            if(file != null)
+            {
+                cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
+                cloud.addData("data[Cloud][comment]", view.getCommentField().getText());
+                cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            
+                String json = cloud.execute("COMMENT", errors, true);
+                
+                if(json.contains("comment"))
+                    file.put("comment", view.getCommentField().getText());
+            }
+        };
+    }
+    
     private void listFiles(Cloud cloud, int index)
     {
         Map<String, String> errors  = new HashMap<>();
@@ -324,11 +385,13 @@ public class CloudController extends EController
                 {
                     view.getDevRenderer().directories.clear();
                     view.getDevData().clear();
+                    view.getDevData().setValues(files);
                 }
                 else
                 {
                     view.getClientRenderer().directories.clear();
                     view.getClientsData().clear();
+                    view.getClientsData().setValues(files);
                 }
 
                 for(Map<String, String> f : files)
@@ -528,7 +591,7 @@ public class CloudController extends EController
     
     private void setError(String err) 
     {
-        view.getErrorLabel().setText(err);
+        app.message(err, JOptionPane.ERROR_MESSAGE);
         
         if(!err.isEmpty())
             app.getLogger().warning(err);
