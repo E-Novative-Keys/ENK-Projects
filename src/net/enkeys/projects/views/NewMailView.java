@@ -8,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import net.enkeys.framework.components.ETable;
@@ -17,13 +18,15 @@ import net.enkeys.framework.utils.ESystem;
 
 public class NewMailView extends EView
 {
-    private final JLabel objectLabel    = new JLabel("Objet");
-    private final JTextField object     = new JTextField();
-    private final JLabel mailLabel      = new JLabel("Message");
-    private final JTextArea mail        = new JTextArea(10, 5);
-    private final JButton sendButton    = new JButton("Envoyer");
-    private final JButton backButton    = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JLabel errorLabel     = new JLabel("");
+    private final JLabel newMailLabel       = new JLabel("Nouveau Message :");
+    private final JLabel objectLabel        = new JLabel("Objet");
+    private final JTextField object         = new JTextField(20);
+    private final JLabel mailLabel          = new JLabel("Message");
+    private final JTextArea mail            = new JTextArea(10, 20);
+    private JScrollPane scrollPane          = null;
+    private final JButton sendButton        = new JButton("Envoyer");
+    private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JLabel errorLabel         = new JLabel("");
     
     public NewMailView()
     {
@@ -39,26 +42,31 @@ public class NewMailView extends EView
         ETable newMail                  = new ETable();
         GridBagConstraints constraints  = newMail.getConstraints();
         
-        constraints.fill    = GridBagConstraints.BOTH;
+        constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(10, 10, 10, 10);
         
-        newMail.add(objectLabel, constraints, 0, 0);
-        newMail.add(object, constraints, 1, 0);
-        newMail.add(mailLabel, constraints, 0, 1);
-        newMail.add(mail, constraints, 1, 1);
-        constraints.fill    = GridBagConstraints.CENTER;
-        newMail.add(sendButton, constraints, 0, 2, 0);
+        newMail.add(newMailLabel, constraints, 0, 0, 0);
+        newMail.add(objectLabel, constraints, 0, 1);
+        newMail.add(object, constraints, 1, 1);
+        newMail.add(mailLabel, constraints, 0, 2);
+        
+        mail.setLineWrap(true);
+        scrollPane  = new JScrollPane(mail); 
+        newMail.add(scrollPane, constraints, 1, 2);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
         panel.add(newMail, constraints, 0, 0);
         
-        return newMail;
+        return panel;
     }
     
     private JPanel bottomPanel()
     {
         JPanel panel = new JPanel(new BorderLayout());
+        ETable table = new ETable();
+        ETable buttons = new ETable();
+        GridBagConstraints constraints = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -67,10 +75,18 @@ public class NewMailView extends EView
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
         
+        constraints.fill = GridBagConstraints.CENTER;
         errorLabel.setForeground(Color.red);
-        panel.add(errorLabel, "Center");
+        table.add(errorLabel, constraints, 0, 0, 0);
+        panel.add(table, "Center");
+        
+        constraints = buttons.getConstraints();
+        constraints.insets = new Insets(0, 10, 0, 10);
+        constraints.fill = GridBagConstraints.CENTER;
+        buttons.add(sendButton, constraints, 0, 0);
+        panel.add(buttons, "East");
        
-        return panel; 
+        return panel;
     }
 
     public JLabel getObjectLabel()

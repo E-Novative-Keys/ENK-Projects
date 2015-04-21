@@ -64,7 +64,7 @@ public class NewMailController extends EController
                 
             }
             else
-                app.message("Tous les champs doivent etre remplis", JOptionPane.WARNING_MESSAGE);
+                setError("Tous les champs doivent etre remplis");
         };
     }
     
