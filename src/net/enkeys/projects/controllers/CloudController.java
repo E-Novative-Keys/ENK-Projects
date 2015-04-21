@@ -111,6 +111,8 @@ public class CloudController extends EController
             
             listFiles(cloud, 0);
             listFiles(cloud, 1);
+            
+            
         };
     }
     
@@ -264,6 +266,7 @@ public class CloudController extends EController
                     str.append("/");
                     str.append(explode[i]);
                 }
+                str.append("/");
                 
                 path[0].replace(0, path[0].length(), str.toString());
             }
@@ -291,6 +294,7 @@ public class CloudController extends EController
                     str.append("/");
                     str.append(explode[i]);
                 }
+                str.append("/");
                 
                 path[1].replace(0, path[1].length(), str.toString());
             }
@@ -318,16 +322,28 @@ public class CloudController extends EController
                 directories.get(index).clear();
 
                 if(index == 0)
+                {
+                    view.getDevRenderer().directories.clear();
                     view.getDevData().clear();
+                }
                 else
+                {
+                    view.getClientRenderer().directories.clear();
                     view.getClientsData().clear();
+                }
 
                 for(Map<String, String> f : files)
                 { 
                     if(index == 0)
+                    {
+                        view.getDevRenderer().directories.add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
                         view.getDevData().addElement(f.get("filename"));
+                    }                        
                     else
+                    {
+                        view.getClientRenderer().directories.add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
                         view.getClientsData().addElement(f.get("filename"));
+                    }
                     directories.get(index).add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
                 }
             }

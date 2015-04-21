@@ -29,7 +29,7 @@ public class CurrentProjectManagerView extends EView
         ETable table = new ETable();
         GridBagConstraints constraints = table.getConstraints();
         
-        table.setBorder(new TitledBorder(new EtchedBorder(), "Home"));
+        table.setBorder(new TitledBorder(new EtchedBorder(), "Projet"));
         
         constraints.fill    = GridBagConstraints.BOTH;
         constraints.insets  = new Insets(15, 15, 15, 15);
