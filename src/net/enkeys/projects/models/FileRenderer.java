@@ -10,6 +10,8 @@ import net.enkeys.framework.utils.EResources;
 public class FileRenderer extends DefaultListCellRenderer
 {
     public ArrayList<Boolean> directories = new ArrayList<>();
+    private final int width     = 25;
+    private final int height    = 30;
     
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus)
@@ -18,16 +20,16 @@ public class FileRenderer extends DefaultListCellRenderer
         if(index < directories.size())
         {
             if(directories.get(index))
-                label.setIcon(EResources.loadImageIcon("icons/directory.png", 25, 30));
+                label.setIcon(EResources.loadImageIcon("icons/directory.png", width, height));
             else
             {
                 String name = label.getText();
                 int dot = name.lastIndexOf(".");
                 if(dot > 0 && (name = name.substring(dot + 1)) != null
                 && EResources.resourceExists("icons/" + name + ".png"))
-                    label.setIcon(EResources.loadImageIcon("icons/" + name + ".png", 25, 30));
+                    label.setIcon(EResources.loadImageIcon("icons/" + name + ".png", width, height));
                 else
-                    label.setIcon(EResources.loadImageIcon("icons/file.png", 25, 30));
+                    label.setIcon(EResources.loadImageIcon("icons/file.png", width, height));
             }
                 
         }

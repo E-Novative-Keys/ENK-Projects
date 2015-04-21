@@ -266,6 +266,7 @@ public class CloudController extends EController
                     str.append("/");
                     str.append(explode[i]);
                 }
+                str.append("/");
                 
                 path[0].replace(0, path[0].length(), str.toString());
             }
@@ -293,6 +294,7 @@ public class CloudController extends EController
                     str.append("/");
                     str.append(explode[i]);
                 }
+                str.append("/");
                 
                 path[1].replace(0, path[1].length(), str.toString());
             }
