@@ -8,21 +8,12 @@ import net.enkeys.framework.exceptions.EHttpRequestException;
 import net.enkeys.framework.exceptions.ERuleException;
 import net.enkeys.framework.gson.Gson;
 import net.enkeys.framework.gson.reflect.TypeToken;
+import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.projects.controllers.LoginController;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.LoginView;
 
-/**
- * @todo
- * Planification : tâches...
- * Si un utilisateur modifie ses propres données, mettre à jour les data dans ENKProjects
- * Si token invalide, déconnexion de l'utilisateur
- * ForgotPassword : EmailField pété
- * Graphique revoir
- * ListProjectsController : editProject -> si non adminn ou référent, ne peut pas modifier les données d'un projet (voir deleteProject)
- * Débuguer deadline pour pouvoir rentrer vide et affichage erreur newproject && newmacrotask)
- */
 public class ENKProjects extends EApplication
 {
     public static final String SALT = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
@@ -48,9 +39,35 @@ public class ENKProjects extends EApplication
     
     public void resetUser()
     {
-        user = null;
-        ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
-        ((MainFrame)getFrame(0)).getHomeItem().setVisible(false);
+        if(this.user != null)
+        {
+            User user = new User();
+
+            user.addData("data[Token][link]", ECrypto.base64(getUser().get("email")));
+            user.addData("data[Token][fields]", getUser().get("token"));
+
+            try
+            {
+                String json = user.execute("LOGOUT");
+
+                if(json != null && json.contains("error"))
+                {
+                    Map<String, String> value = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                    message(value.get("error"), JOptionPane.WARNING_MESSAGE);
+                }
+            }
+            catch(ERuleException | EHttpRequestException ex)
+            {
+                getLogger().warning(ex.getMessage());
+                message("Une erreur survenue lors de la connexion au serveur.", JOptionPane.ERROR_MESSAGE);
+            }
+            finally
+            {
+                this.user = null;
+                ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
+                ((MainFrame)getFrame(0)).getHomeItem().setVisible(false);
+            }
+        }
     }
     
     public Map<String, String> getUser()
@@ -70,7 +87,7 @@ public class ENKProjects extends EApplication
         
         try
         {
-            user.addData("data[User][link]", "test");
+            user.addData("data[Token][link]", "test");
             String json = user.execute("VERIFY");
             
             if(json != null && json.contains("error"))
@@ -89,6 +106,6 @@ public class ENKProjects extends EApplication
     
     public static void main(String[] args)
     {
-        new ENKProjects("ENK-Projects", "0.1", "E-Novative Keys", "contact@enkeys.net", args).run();
+        new ENKProjects("ENK-Projects", "0.1", "E-Novative Keys", "contact@enkeys.com", args).run();
     }
 }
