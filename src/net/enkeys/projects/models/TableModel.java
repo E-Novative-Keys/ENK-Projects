@@ -85,6 +85,11 @@ public abstract class TableModel extends AbstractTableModel
         return flag;
     }
     
+    public boolean removeOrigin(HashMap<String, String> o)
+    {
+        return this.origin.remove(o);
+    }
+    
     public void clear()
     {
         fireTableRowsDeleted(0, this.values.size()-1);

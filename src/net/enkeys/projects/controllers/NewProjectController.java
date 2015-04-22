@@ -134,6 +134,12 @@ public class NewProjectController extends EController
             
             String discount = new String(Float.parseFloat(view.getDiscount().getValue().toString()) + "");
             
+            if(view.getClient().getSelectedItem() == null)
+            {
+                setError("Veuillez sélectionner un client");
+                return;
+            }
+                
             if(view.getDeadline().getDate() == null)
             {
                 setError("Veuillez préciser une deadline");

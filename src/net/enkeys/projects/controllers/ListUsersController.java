@@ -160,7 +160,10 @@ public class ListUsersController extends EController
                             String json = user.execute("DELETE");
                             
                             if(json.contains("users"))
+                            {
+                                view.getDataTable().removeOrigin(view.getDataTable().getValue(modelID));
                                 view.getDataTable().removeValue(modelID);
+                            }
                             else
                                 app.getLogger().warning("Error: " + json);
                         }

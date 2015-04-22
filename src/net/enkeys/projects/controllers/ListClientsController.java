@@ -141,7 +141,7 @@ public class ListClientsController extends EController
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
-                    int modelID = view.getListClients().convertRowIndexToModel(view.getListClients().getSelectedRow());
+                    int modelID = view.getListClients().convertRowIndexToModel(rows[i]-i);
                     int id = Integer.parseInt((String)view.getDataTable().values.get(modelID).get("id"));
                     
                     client.addData("data[Client][id]", id);
@@ -153,7 +153,10 @@ public class ListClientsController extends EController
                             String json = client.execute("DELETE");
 
                             if(json.contains("clients"))
+                            {
+                                view.getDataTable().removeOrigin(view.getDataTable().getValue(modelID));
                                 view.getDataTable().removeValue(modelID);
+                            }
                             else
                                 app.getLogger().warning("Error: " + json);
                         }

@@ -109,9 +109,12 @@ public class ListProjectsController extends EController
                             if(project.validate("DELETE"))
                             {
                                 String json = project.execute("DELETE");
-                                System.out.println("JSON SUPPR: "+json);
+                                
                                 if(json.contains("projects"))
+                                {
+                                    view.getDataTable().removeOrigin(view.getDataTable().getValue(modelID));
                                     view.getDataTable().removeValue(modelID);
+                                }
                                 else
                                     app.getLogger().warning("Error: " + json);
                             }
