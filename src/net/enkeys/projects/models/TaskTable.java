@@ -8,13 +8,13 @@ public class TaskTable extends TableModel
     @Override
     protected String[] setKeys()
     {
-        return new String[] {"id", "name", "priority", "progress", "hours"};
+        return new String[] {"priority", "name", "priority", "progress", "hours"};
     }
     
     @Override
     protected String[] setColumns()
     {
-        return new String[] {"#", "Nom", "Priorité", "Terminé" , "Heures effectuées"};
+        return new String[] {"Priorité", "Nom", "Priorité", "Terminé" , "Heures effectuées"};
     }
 
     @Override

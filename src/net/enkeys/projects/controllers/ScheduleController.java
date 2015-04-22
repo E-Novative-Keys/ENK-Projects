@@ -24,16 +24,6 @@ import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
-/**
- * TODO LIST
- * Revoir les différents models et leur validation
- * 
- * EditTaskController ->
- *      Question de la validation des heures par le model (Integer.parseInt ne fonctionnant pas préalablement)
- *      -> Task model à éditer
- * Macrotâche -> 
- *      Ajouter boolean terminé ou non (voir webservice function listMacrotasks)
- */
 public class ScheduleController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -109,7 +99,7 @@ public class ScheduleController extends EController
             if(view.getListMacrotasks().getSelectedRow() > -1) 
             {
                 int modelID = view.getListMacrotasks().convertRowIndexToModel(view.getListMacrotasks().getSelectedRow());
-                int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                 
                 app.getFrame(0).setContent(new EditMacrotaskController(app, new EditMacrotaskView(), this.project, view.getDataTable().getMacrotaskByID(id)));
             }
@@ -122,7 +112,7 @@ public class ScheduleController extends EController
             if(view.getListMacrotasks().getSelectedRow() > -1) 
             {
                 int modelID = view.getListMacrotasks().convertRowIndexToModel(view.getListMacrotasks().getSelectedRow());
-                int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                 
                 app.getFrame(0).setContent(new EditTasksController(app, new EditTasksView(), this.project, view.getDataTable().getMacrotaskByID(id)));
             }
@@ -144,7 +134,7 @@ public class ScheduleController extends EController
                 for(int i = 0 ; i < rows.length ; i++)
                 {
                     int modelID = view.getListMacrotasks().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     Map<String, String> dataMacrotask = view.getDataTable().getMacrotaskByID(id);
                     
                     if(app.getUser().get("role").equalsIgnoreCase("admin") ||

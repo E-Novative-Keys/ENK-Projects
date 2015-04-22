@@ -188,7 +188,7 @@ public class EditTasksController extends EController
                 for(int i = 0 ; i < rows.length ; i++)
                 {
                     int modelID = view.getListTasks().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(modelID, 0));
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     task.addData("data[Task][id]", id);
                     
@@ -222,7 +222,8 @@ public class EditTasksController extends EController
                     break;
                     
                 case TableModelEvent.UPDATE:
-                    int id = Integer.parseInt((String)view.getDataTable().getValueAt(e.getFirstRow(), 0));
+                    int modelID = view.getListTasks().convertRowIndexToModel(view.getListTasks().getSelectedRow());
+                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                         updated.add(id);

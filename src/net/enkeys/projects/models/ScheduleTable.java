@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.enkeys.projects.models;
 
 import java.util.HashMap;
@@ -12,13 +7,13 @@ public class ScheduleTable extends TableModel
     @Override
     protected String[] setKeys() 
     {
-        return new String[] {"id", "name", "progress"};
+        return new String[] {"priority", "name", "progress"};
     }
 
     @Override
     protected String[] setColumns() 
     {
-        return new String[] {"#", "Nom macrotâche", "Avancement (%)"};
+        return new String[] {"Priorité", "Nom macrotâche", "Avancement (%)"};
     }
     
     @Override
