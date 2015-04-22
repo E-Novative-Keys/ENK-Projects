@@ -11,13 +11,16 @@ import javax.swing.JMenuItem;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EFrame;
 import net.enkeys.projects.controllers.HomeController;
+import net.enkeys.projects.controllers.ProfileController;
 import net.enkeys.projects.views.HomeView;
+import net.enkeys.projects.views.ProfileView;
 
 public class MainFrame extends EFrame
 {
     private final ENKProjects app = (ENKProjects)super.app;
     private JMenuItem disconnect;
     private JMenuItem home;
+    private JMenuItem profile;
     
     public MainFrame(EApplication app, String title, int width, int height)
     {
@@ -28,19 +31,23 @@ public class MainFrame extends EFrame
     @Override
     protected void initMenu(JMenuBar menuBar)
     {
-        JMenu file = new JMenu("Fichier");
-        disconnect = new JMenuItem("Déconnexion");
-        home = new JMenuItem("Accueil");
-        JMenuItem exit = new JMenuItem("Quitter");
+        JMenu file      = new JMenu("Fichier");
+        disconnect      = new JMenuItem("Déconnexion");
+        home            = new JMenuItem("Accueil");
+        profile         = new JMenuItem("Profil");
+        JMenuItem exit  = new JMenuItem("Quitter");
         
         home.addActionListener(fileHomeListener());
         home.setVisible(false);
         disconnect.addActionListener(fileDisconnectListener());
         disconnect.setVisible(false);
+        profile.addActionListener(profileListener());
+        profile.setVisible(false);
         exit.addActionListener(fileExitListener());
         
         file.add(home);
         file.add(disconnect);
+        file.add(profile);
         file.add(exit);
         
         menuBar.add(file);
@@ -75,6 +82,13 @@ public class MainFrame extends EFrame
                 setContent(new HomeController(app, new HomeView()));
         };
     }
+    
+    private ActionListener profileListener()
+    {
+        return (ActionEvent e) -> {
+            setContent(new ProfileController(app, new ProfileView()));
+        };
+    }
 
     @Override
     public void onWindowClosing(WindowEvent we)
@@ -96,5 +110,10 @@ public class MainFrame extends EFrame
     public JMenuItem getHomeItem()
     {
         return home;
+    }
+
+    public JMenuItem getProfileItem()
+    {
+        return profile;
     }
 }

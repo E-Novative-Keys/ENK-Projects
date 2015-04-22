@@ -35,6 +35,7 @@ public class ENKProjects extends EApplication
         this.user = user;
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(true);
         ((MainFrame)getFrame(0)).getHomeItem().setVisible(true);
+        ((MainFrame)getFrame(0)).getProfileItem().setVisible(true);
     }
     
     public void resetUser()
