@@ -109,13 +109,16 @@ public class NewMacrotaskController extends EController
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
             }
-          
+            
+            String hours = new String(Float.parseFloat(view.getHours().getValue().toString()) + "");
+            String minutes = new String(Float.parseFloat(view.getMinutes().getValue().toString()) + "");    
+            
             macrotask.addData("data[Macrotask][project_id]",    this.project.get("id"));
             macrotask.addData("data[Macrotask][name]",          view.getMacrotaskName().getText());
             macrotask.addData("data[Macrotask][deadline]",      df.format(view.getDeadline().getDate()));
             macrotask.addData("data[Macrotask][priority]",      view.getPriority().getValue());
-            macrotask.addData("data[Macrotask][hour]",          view.getHours().getValue());
-            macrotask.addData("data[Macrotask][minute]",        view.getMinutes().getValue());
+            macrotask.addData("data[Macrotask][hour]",          hours);
+            macrotask.addData("data[Macrotask][minute]",        minutes);
             macrotask.addData("data[Token][link]",              ECrypto.base64(app.getUser().get("email")));
             macrotask.addData("data[Token][fields]",            app.getUser().get("token"));
            

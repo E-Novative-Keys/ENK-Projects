@@ -8,19 +8,19 @@ public class TaskTable extends TableModel
     @Override
     protected String[] setKeys()
     {
-        return new String[] {"priority", "name", "priority", "progress", "hours"};
+        return new String[] {"name", "priority", "progress", "hours"};
     }
     
     @Override
     protected String[] setColumns()
     {
-        return new String[] {"Priorité", "Nom", "Priorité", "Terminé" , "Heures effectuées"};
+        return new String[] {"Nom", "Priorité", "Terminé" , "Heures effectuées"};
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
-        return (columnIndex > 0);
+        return true;
     }
     
     public HashMap<String, String> getTaskByID(int id)

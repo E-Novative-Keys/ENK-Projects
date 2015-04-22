@@ -60,8 +60,9 @@ class EditMacrotaskController extends EController
         
         user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
+        user.addData("data[User][project_id]", project.get("id"));
+        user.addData("data[User][getdev]", true);
         
-        System.out.println(data.toString());
         this.view.setMacrotaskName(this.data.get("name"));
         this.view.setMacrotaskHour(this.data.get("hour"));
         this.view.setMacrotaskMinute(this.data.get("minute"));
@@ -151,16 +152,19 @@ class EditMacrotaskController extends EController
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
             }
-          
-            macrotask.addData("data[Macrotask][project_id]", this.project.get("id"));
-            macrotask.addData("data[Macrotask][name]", view.getMacrotaskName().getText());
-            macrotask.addData("data[Macrotask][deadline]", df.format(view.getDeadline().getDate()));
-            macrotask.addData("data[Macrotask][priority]", (Integer)view.getPriority().getValue());
-            macrotask.addData("data[Macrotask][hour]", view.getHours().getValue());
-            macrotask.addData("data[Macrotask][minute]", view.getMinutes().getValue());
-            macrotask.addData("data[Macrotask][id]", data.get("id"));
-            macrotask.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            macrotask.addData("data[Token][fields]", app.getUser().get("token"));
+            
+            String hours = new String(Float.parseFloat(view.getHours().getValue().toString()) + "");
+            String minutes = new String(Float.parseFloat(view.getMinutes().getValue().toString()) + "");    
+            
+            macrotask.addData("data[Macrotask][project_id]",    this.project.get("id"));
+            macrotask.addData("data[Macrotask][name]",          view.getMacrotaskName().getText());
+            macrotask.addData("data[Macrotask][deadline]",      df.format(view.getDeadline().getDate()));
+            macrotask.addData("data[Macrotask][priority]",      (Integer)view.getPriority().getValue());
+            macrotask.addData("data[Macrotask][hour]",          hours);
+            macrotask.addData("data[Macrotask][minute]",        minutes);
+            macrotask.addData("data[Macrotask][id]",            data.get("id"));
+            macrotask.addData("data[Token][link]",              ECrypto.base64(app.getUser().get("email")));
+            macrotask.addData("data[Token][fields]",            app.getUser().get("token"));
            
             try
             {
