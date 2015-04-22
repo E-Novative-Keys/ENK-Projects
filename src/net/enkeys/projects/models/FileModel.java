@@ -13,6 +13,11 @@ public class FileModel extends DefaultListModel<Object>
         return values;
     }
     
+    public boolean addValue(HashMap<String, String> value)
+    {
+        return values.add(value);
+    }
+    
     public HashMap<String, String> getValue(int index)
     {
         return values.get(index);

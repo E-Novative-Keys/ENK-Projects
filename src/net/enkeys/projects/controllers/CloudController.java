@@ -521,7 +521,8 @@ public class CloudController extends EController
 
         if(returnVal == JFileChooser.APPROVE_OPTION)
         {
-            try {
+            try
+            {
                 EHttpRequest request = new EHttpRequest(new URL("http://enkwebservice.com/cloud/files/add"));
                 HashMap<String, String> data = new HashMap<>();
 
@@ -532,17 +533,36 @@ public class CloudController extends EController
                 data.put("data[Cloud][user]", users[index]);
 
                 String json = request.upload(data, filechooser.getSelectedFile());
-                HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
-
-                if(values != null && values.get("upload") != null)
+                
+                if(json.contains("upload"))
                 {
-                    if(index == 0)
-                        view.getDevData().addElement(filechooser.getSelectedFile().getName());
-                    else
-                        view.getClientsData().addElement(filechooser.getSelectedFile().getName());
-                    directories.get(index).add(Boolean.FALSE);
-                    app.message("Votre fichier a bien été uploadé");
+                    HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+
+                    if(values != null && values.get("upload") != null)
+                    {
+                        values.remove("upload");
+                        values.put("comment", "");
+                        values.put("isDir", "false");
+                        values.put("filename", filechooser.getSelectedFile().getName());
+                        
+                        if(index == 0)
+                        {
+                            view.getDevData().addElement(filechooser.getSelectedFile().getName());
+                            view.getDevData().addValue(values);
+                            view.getDevRenderer().directories.add(Boolean.FALSE);
+                        }
+                        else
+                        {
+                            view.getClientsData().addElement(filechooser.getSelectedFile().getName());
+                            view.getClientsData().addValue(values);
+                            view.getClientRenderer().directories.add(Boolean.FALSE);
+                        }
+                        directories.get(index).add(Boolean.FALSE);
+                        app.message("Votre fichier a bien été uploadé");
+                    }
                 }
+                else
+                    setError("Ce fichier n'a pas pu être mis en ligne");
             }
             catch(MalformedURLException ex)
             {
@@ -571,20 +591,39 @@ public class CloudController extends EController
             if(cloud.validate("ADD_FOLDER", cloud.getData(), errors))
             {
                 String json = cloud.execute("ADD_FOLDER", errors, true);
-                HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
-
-                if(values != null && values.get("addFolder") != null)
+                
+                if(json.contains("addFolder"))
                 {
-                    if(index == 0)
-                        view.getDevData().addElement(dir);
+                    HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+
+                    if(values != null && values.get("addFolder") != null)
+                    {
+                        values.remove("addFolder");
+                        values.put("comment", "");
+                        values.put("isDir", "true");
+                        values.put("filename", dir);
+                        
+                        if(index == 0)
+                        {
+                            view.getDevData().addElement(dir);
+                            view.getDevData().addValue(values);
+                            view.getDevRenderer().directories.add(Boolean.TRUE);
+                        }
+                        else
+                        {
+                            view.getClientsData().addElement(dir);
+                            view.getClientsData().addValue(values);
+                            view.getClientRenderer().directories.add(Boolean.TRUE);
+                        }
+                        directories.get(index).add(Boolean.TRUE);
+                    }
+                    else if(values != null && values.get("error") != null)
+                        setError(values.get("error"));
                     else
-                        view.getClientsData().addElement(dir);
-                    directories.get(index).add(Boolean.TRUE);
+                        System.err.println(json);
                 }
-                else if(values != null && values.get("error") != null)
-                    setError(values.get("error"));
                 else
-                    System.err.println(json);
+                    setError("Ce dossier n'a pas pu être créé");
             }
         }
     }
