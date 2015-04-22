@@ -20,6 +20,7 @@ public class User extends EModel
         rules.put("!SELECT", null);
         rules.put("!UPDATE", null);
         rules.put("!LOGOUT", null);
+        rules.put("!CHANGEPASS", null);
         
         rules.put("email", new Rule[] {
             new EscapeRule("DELETE"),
@@ -45,7 +46,8 @@ public class User extends EModel
         actions.put("INSERT",   "new");
         actions.put("UPDATE",   "edit");
         actions.put("DELETE",   "delete");
-        actions.put("TOKEN",    "token");      
+        actions.put("TOKEN",    "token");
+        actions.put("CHANGEPASS", "update");
     }
     
     public String password(String pass) throws ECryptoException
