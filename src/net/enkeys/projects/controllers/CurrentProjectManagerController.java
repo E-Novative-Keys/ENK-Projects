@@ -16,6 +16,12 @@ import net.enkeys.projects.views.QuotationView;
 import net.enkeys.projects.views.ReceivedMailsView;
 import net.enkeys.projects.views.ScheduleView;
 
+/**
+ * Controller CurrentProjectManagerController
+ * Gestion des actions du menu de gestion d'un projet
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class CurrentProjectManagerController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -35,6 +41,7 @@ public class CurrentProjectManagerController extends EController
         this.view.getQuotationButton().addActionListener(quotationListener());
     }
     
+    //Aller sur la vue d'édition de projet
     private ActionListener editProjectListener()
     {
         return (ActionEvent e) -> {
@@ -42,6 +49,7 @@ public class CurrentProjectManagerController extends EController
         };
     }
     
+    //Aller sur la vue d'assignation des développeurs
     private ActionListener developpersListener()
     {
         return (ActionEvent e) -> {
@@ -49,18 +57,21 @@ public class CurrentProjectManagerController extends EController
         };
     } 
 
+    //Aller sur la vue de gestion des macrotâches associées au projet
     private ActionListener scheduleListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ScheduleController(app, new ScheduleView(), this.project));
         };
     }
     
+    //Aller sur la vue mail
     private ActionListener mailListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ReceivedMailsController(app, new ReceivedMailsView(), this.project));
         };
     }
     
+    //Aller sur la vue cloud
     private ActionListener cloudListener()
     {
         return (ActionEvent e) -> {
@@ -68,6 +79,7 @@ public class CurrentProjectManagerController extends EController
         };
     }
     
+    //Aller sur la création de devis
     private ActionListener quotationListener()
     {
         return (ActionEvent e) -> {

@@ -25,6 +25,12 @@ import net.enkeys.projects.models.Client;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
 
+/**
+ * Controller ForgotController
+ * Gestion de l'oublie de credentials
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ListClientsController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;

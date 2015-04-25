@@ -24,6 +24,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.EditMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
+/**
+ * Controller EditMacrotaskController
+ * Gestion de l'édtion d'une macrotâche
+ * @extends EController
+ * @author E-Novative Keys
+ */
 class EditMacrotaskController extends EController 
 {
     private final ENKProjects app = (ENKProjects) super.app;
@@ -47,6 +53,7 @@ class EditMacrotaskController extends EController
         this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
         
+        //Ajout / Suppression de développeurs
         this.view.getAddDeveloperButton().addActionListener(addDeveloperListener());
         this.view.getSupprDeveloperButton().addActionListener(supprDeveloperListener());
         
@@ -135,6 +142,8 @@ class EditMacrotaskController extends EController
         };
     }
 
+    //Sauvegarde des données via le webservice
+    //Validation des models associés
     private ActionListener saveButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -240,6 +249,7 @@ class EditMacrotaskController extends EController
         };
     }
     
+    //Ajout d'un développeur à la liste scrollable
     private ActionListener addDeveloperListener() 
     {
         return (ActionEvent e) -> {
@@ -248,6 +258,7 @@ class EditMacrotaskController extends EController
         };
     }
     
+    //SUppresion d'un développeur à la liste scrollable
     private ActionListener supprDeveloperListener() 
     {
         return (ActionEvent e) -> {

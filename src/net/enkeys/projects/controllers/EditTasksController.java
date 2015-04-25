@@ -22,6 +22,12 @@ import net.enkeys.projects.models.Task;
 import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.ScheduleView;
 
+/**
+ * Controller EditTasksController
+ * Gestion de l'édition des tâches reliées à une macrotâche
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class EditTasksController extends EController
 {
     private final ENKProjects app = (ENKProjects) super.app;
@@ -88,6 +94,7 @@ public class EditTasksController extends EController
         };
     }
 
+    //Action de sauvegarde des données modifiées
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
@@ -99,6 +106,7 @@ public class EditTasksController extends EController
         };
     }
     
+    //Fonction de sauvegarde des données via le webservice
     private boolean saveUpdatedTasks()
     {
         boolean success = false;
@@ -174,6 +182,7 @@ public class EditTasksController extends EController
         return success;
     }
 
+    //Suppresion d'une tâche via le webservice
     private ActionListener deleteButtonListener() {
         return (ActionEvent e) -> {
             Task task = (Task)getModel("Task");
@@ -213,6 +222,7 @@ public class EditTasksController extends EController
         };
     }
 
+    //Listener des actions de la table / Update via clic
     private TableModelListener dataTableListener()
     {
         return (TableModelEvent e) -> {            
@@ -235,6 +245,7 @@ public class EditTasksController extends EController
         };
     }
 
+    //Ajout d'une tâche à la table actuellle
     private ActionListener addTaskButtonListener()
     {
         return (ActionEvent e) -> {

@@ -16,6 +16,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.ForgotView;
 import net.enkeys.projects.views.LoginView;
 
+/**
+ * Controller ForgotController
+ * Gestion de l'oublie de credentials
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ForgotController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;

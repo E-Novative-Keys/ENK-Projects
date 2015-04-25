@@ -18,6 +18,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.DeveloppersView;
 
+/**
+ * Controller DevelopersControllers
+ * Gestion de l'assignation des développeurs
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class DeveloppersController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -79,6 +85,7 @@ public class DeveloppersController extends EController
         }
     }
     
+    //Ajout d'un developpeurs via le webservice
     private ActionListener addDevListener()
     {
         return (ActionEvent e) -> {
@@ -117,6 +124,7 @@ public class DeveloppersController extends EController
         };
     }
     
+    //Suppression d'un développeur via le webservice
     private ActionListener delDevListener()
     {
         return (ActionEvent e) -> {

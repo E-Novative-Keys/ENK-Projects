@@ -1,12 +1,10 @@
 package net.enkeys.projects.controllers;
 
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
-import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.ENKProjects;
 import net.enkeys.projects.views.CurrentProjectsView;
 import net.enkeys.projects.views.HomeView;
@@ -16,6 +14,13 @@ import net.enkeys.projects.views.NewClientView;
 import net.enkeys.projects.views.NewProjectView;
 import net.enkeys.projects.views.UsersManagerView;
 
+/**
+ * Controller HomeController
+ * Gestion du panel d'acceuil 
+ * et redirection vers les vues adaptées
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class HomeController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -37,6 +42,7 @@ public class HomeController extends EController
             this.view.getUsersManagerButton().setEnabled(false);
     }
     
+    //Vue d'ajout de client
     private ActionListener newClientListener()
     {
         return (ActionEvent e) -> {
@@ -44,6 +50,7 @@ public class HomeController extends EController
         };
     }
 
+    //Vue de liste des clients
     private ActionListener listClientsListener()
     {
         return (ActionEvent e) -> {
@@ -51,6 +58,7 @@ public class HomeController extends EController
         };
     }
 
+    //Vue de gestion des utilisateurs
     private ActionListener UsersManagerListener()
     {
         return (ActionEvent e) -> {
@@ -58,6 +66,7 @@ public class HomeController extends EController
         };
     }
     
+    //Vue d'ajout de projet
     private ActionListener newProjectListener()
     {
         return (ActionEvent e) -> {
@@ -65,12 +74,14 @@ public class HomeController extends EController
         };
     }
 
+    //Vue de liste des projets
     private ActionListener listProjectsListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new ListProjectsController(app, new ListProjectsView()));
         };
     }
     
+    //Vue de selection d'un projet à gérer
     private ActionListener currentProjectsListener() {
         return (ActionEvent e) -> {
             app.getFrame(0).setContent(new CurrentProjectsController(app, new CurrentProjectsView()));

@@ -31,6 +31,12 @@ import net.enkeys.projects.models.Cloud;
 import net.enkeys.projects.views.CloudView;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 
+/**
+ * Controller CloudController
+ * Gestion des actions du Cloud
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class CloudController extends EController
 {
     private final ENKProjects app   = (ENKProjects)super.app;
@@ -54,15 +60,19 @@ public class CloudController extends EController
         this.directories.add(new ArrayList<>());
         this.directories.add(new ArrayList<>());
         
+        //Liste des développeurs
         this.view.getDevList().addKeyListener(devKeyListener());
         this.view.getDevList().addMouseListener(devMouseListener());
         
+        //Liste des clients
         this.view.getClientsList().addKeyListener(clientsKeyListener());
         this.view.getClientsList().addMouseListener(clientsMouseListener());
         
+        //Upload
         this.view.getUploadDevButton().addActionListener(UploadDevListener());
         this.view.getUploadClientButton().addActionListener(UploadClientListener());
         
+        //Circulation dans les fichiers
         this.view.getFolderDevButton().addActionListener(FolderDevListener());
         this.view.getFolderClientButton().addActionListener(FolderClientListener());
         
@@ -70,6 +80,7 @@ public class CloudController extends EController
         this.view.getPrevClientButton().addActionListener(PrevClientListener());
         this.view.getBackButton().addActionListener(backListener());
         
+        //Obtention du commentaire
         this.view.getCommentButton().addActionListener(commentListener());
         
         initView();

@@ -26,6 +26,12 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
+/**
+ * Controller EditProjectController
+ * Gestion de l'édition d'un projet
+ * @extends EController
+ * @author E-Novative Keys
+ */
 class EditProjectController extends EController
 {
     private final ENKProjects app = (ENKProjects) super.app;
@@ -154,6 +160,7 @@ class EditProjectController extends EController
         };
     }
 
+    //Sauvegarde des données entrées en vue via le webservice
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {

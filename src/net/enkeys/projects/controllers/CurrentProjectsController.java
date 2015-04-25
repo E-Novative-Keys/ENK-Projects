@@ -20,6 +20,12 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.CurrentProjectsView;
 import net.enkeys.projects.views.HomeView;
 
+/**
+ * Controller CurrentProjectsController
+ * Redirige vers la gestion d'un projet selectionné
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class CurrentProjectsController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
