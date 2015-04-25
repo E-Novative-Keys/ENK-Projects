@@ -19,6 +19,12 @@ import net.enkeys.projects.models.Mailbox;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.SentMailsView;
 
+/**
+ * Controller SentMailsController
+ * Gestion de la liste des emails envoyés
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class SentMailsController extends EController
 {
     private final ENKProjects app       = (ENKProjects)super.app;

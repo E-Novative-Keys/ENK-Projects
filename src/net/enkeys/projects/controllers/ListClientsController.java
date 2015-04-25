@@ -26,8 +26,8 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
 
 /**
- * Controller ForgotController
- * Gestion de l'oublie de credentials
+ * Controller ListClientsController
+ * Gestion de la liste des clients
  * @extends EController
  * @author E-Novative Keys
  */
@@ -84,6 +84,7 @@ public class ListClientsController extends EController
             System.err.println(errors);       
     }
     
+    //Evénement d'édition de client sur la table de datas
     private TableModelListener dataTableListener()
     {
         return (TableModelEvent e) -> {            
@@ -133,6 +134,7 @@ public class ListClientsController extends EController
         };
     }
     
+    //Suppression d'un client (ou plusieurs) selectionné(s)
     private ActionListener deleteButtonListener()
     {
         return (ActionEvent e) -> {
@@ -176,6 +178,7 @@ public class ListClientsController extends EController
         };
     }
     
+    //Sauvegarde des clients updatés
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
@@ -184,6 +187,7 @@ public class ListClientsController extends EController
         };
     }
     
+    //Sauvegarde via le webservice
     private boolean saveUpdatedClients()
     {
         boolean success = false;
@@ -262,6 +266,7 @@ public class ListClientsController extends EController
         return success;
     }
     
+    //Fonction de recherche dans la table des clients
     private KeyListener searchFieldListener()
     {
         return new KeyAdapter()

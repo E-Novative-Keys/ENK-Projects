@@ -25,6 +25,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.ForgotView;
 import net.enkeys.projects.views.HomeView;
 
+/**
+ * Controller LoginController
+ * Gestion des évenements a la connexion d'un utilisateur
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class LoginController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;

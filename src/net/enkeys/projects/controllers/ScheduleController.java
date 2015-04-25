@@ -24,6 +24,12 @@ import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
+/**
+ * Controller ScheduleController
+ * Gestion de la liste des macrotâches
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ScheduleController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -79,6 +85,7 @@ public class ScheduleController extends EController
             System.err.println(errors);
     }
 
+    //Retour sur la vue de gestion projet
     private ActionListener backButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -86,6 +93,7 @@ public class ScheduleController extends EController
         };
     }
     
+    //Aller à la vue d'ajout de macrotache
     private ActionListener addButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -93,6 +101,7 @@ public class ScheduleController extends EController
         };
     }
 
+    //Aller sur la vue d'edition de la macrotâche selectionnée
     private ActionListener editButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -106,6 +115,7 @@ public class ScheduleController extends EController
         };
     }
     
+    //Aller sur la vue d'édition des tâches associées à la macrotâche selectionnée
     private ActionListener editTaskButtonListener()
     {
         return (ActionEvent e) -> {
@@ -119,6 +129,7 @@ public class ScheduleController extends EController
         };    
     }
 
+    //Suppression d'une ou plusieurs macrotâche(s)
     private ActionListener deleteButtonListener() 
     {
         return (ActionEvent e) -> {

@@ -20,6 +20,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.NewUserView;
 import net.enkeys.projects.views.UsersManagerView;
 
+/**
+ * Controller NewUserController
+ * Gestion de la création d'un utilisateur
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class NewUserController extends EController
 {
     private final ENKProjects app   = (ENKProjects)super.app;
@@ -41,6 +47,7 @@ public class NewUserController extends EController
         };
     }
     
+    //Sauvegarde de l'utilisateur entré en vue, via le webservice
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {

@@ -23,6 +23,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewProjectView;
 
+/**
+ * Controller NewProjectController
+ * Gestion de la création d'un projet
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class NewProjectController extends EController 
 {
     private final ENKProjects app = (ENKProjects) super.app;
@@ -125,6 +131,7 @@ public class NewProjectController extends EController
         };
     }
     
+    //Sauvegarde du projet entré en vue, via le webservice
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
@@ -150,7 +157,8 @@ public class NewProjectController extends EController
                 setError("Veuillez saisir une deadline ne précédant pas la date actuelle");
                 return;
             }
-                      
+                    
+            //Ajout des données entrées en vue à valider par le modèle
             project.addData("data[Project][client_name]", view.getClient().getSelectedItem());
             project.addData("data[Project][name]", view.getProjectName().getText());
             project.addData("data[Project][description]", view.getDescription().getText());

@@ -23,6 +23,12 @@ import net.enkeys.projects.views.NewMailView;
 import net.enkeys.projects.views.ReceivedMailsView;
 import net.enkeys.projects.views.SentMailsView;
 
+/**
+ * Controller ReceivedMailsController
+ * Gestion de la liste des mails reçus
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ReceivedMailsController extends EController
 {
     private final ENKProjects app           = (ENKProjects)super.app;

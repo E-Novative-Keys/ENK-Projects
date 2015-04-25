@@ -25,6 +25,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
+/**
+ * Controller NewMacrotaskController
+ * Gestion de la création d'une macrotâche
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class NewMacrotaskController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -92,6 +98,7 @@ public class NewMacrotaskController extends EController
         };
     }
     
+    //Sauvegarde d'une macrotâche entrée en vue via le webservice
     private ActionListener saveButtonListener() 
     {
         return (ActionEvent e) -> {       
@@ -236,6 +243,7 @@ public class NewMacrotaskController extends EController
         };
     }
 
+    //Ajout de développeur à la liste scrollable
     private ActionListener addDeveloperListener() 
     {
         return (ActionEvent e) -> {
@@ -244,6 +252,7 @@ public class NewMacrotaskController extends EController
         };
     }
     
+    //Suppression de développeur(s) à la liste scrollable
     private ActionListener supprDeveloperListener() 
     {
         return (ActionEvent e) -> {
@@ -256,6 +265,7 @@ public class NewMacrotaskController extends EController
         };
     }
 
+    //Ajout de tâche à la liste scrollable
     private ActionListener addTaskListener() 
     {
         return (ActionEvent e) -> {
@@ -265,6 +275,7 @@ public class NewMacrotaskController extends EController
         };
     }
 
+    //Suppression de tâche à la liste scrollable
     private ActionListener supprTaskListener() 
     {
         return (ActionEvent e) -> {

@@ -17,6 +17,12 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.NewMailView;
 import net.enkeys.projects.views.ReceivedMailsView;
 
+/**
+ * Controller NewMailController
+ * Gestion de la création d'un mail à envoyer
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class NewMailController extends EController
 {
     private final ENKProjects app     = (ENKProjects)super.app;
@@ -33,6 +39,7 @@ public class NewMailController extends EController
         this.view.getBackButton().addActionListener(backListener());
     }
     
+    //Envoi de mail après validation par le modèle
     private ActionListener sendListener()
     {
         return (ActionEvent e) -> {

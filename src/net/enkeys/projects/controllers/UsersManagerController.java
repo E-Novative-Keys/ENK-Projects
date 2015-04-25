@@ -11,7 +11,12 @@ import net.enkeys.projects.views.UsersManagerView;
 import net.enkeys.projects.views.ListUsersView;
 import net.enkeys.projects.views.NewUserView;
 
-
+/**
+ * Controller UsersManagerController
+ * Evenements de la gestion utilisateur
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class UsersManagerController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -26,6 +31,7 @@ public class UsersManagerController extends EController
         this.view.getBackButton().addActionListener(backButtonListener());
     }
     
+    //Aller à la vue d'ajout d'utilisateur
     private ActionListener newUserListener()
     {
         return (ActionEvent e) -> {
@@ -33,6 +39,7 @@ public class UsersManagerController extends EController
         };
     }
 
+    //Aller à la vue de liste d'utilisateurs
     private ActionListener listUsersListener()
     {
         return (ActionEvent e) -> {
@@ -40,6 +47,7 @@ public class UsersManagerController extends EController
         };
     }
     
+    //Revenir à la vue du menu principal
     private ActionListener backButtonListener()
     {
         return (ActionEvent e) -> {

@@ -24,6 +24,12 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
+/**
+ * Controller ListProjectsController
+ * Gestion de la liste des projets
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ListProjectsController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -80,6 +86,7 @@ public class ListProjectsController extends EController
         };
     }
     
+    //Suppression d'un projet en base de données via le webservice
     private ActionListener deleteButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -131,6 +138,7 @@ public class ListProjectsController extends EController
         };
     }
     
+    //Edition d'un projet selectionné
     private ActionListener editButtonListener() 
     {
         return (ActionEvent e) -> {

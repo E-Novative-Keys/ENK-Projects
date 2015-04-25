@@ -19,6 +19,12 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewClientView;
 import net.enkeys.projects.views.NewProjectView;
 
+/**
+ * Controller NewClientController
+ * Gestion de la création d'un client
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class NewClientController extends EController
 {
     private final ENKProjects app = (ENKProjects) super.app;
@@ -40,6 +46,7 @@ public class NewClientController extends EController
         };
     }
     
+    //Sauvegarde du client entré en vue via le webservice
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {

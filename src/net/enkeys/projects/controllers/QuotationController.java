@@ -6,9 +6,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -21,6 +18,12 @@ import net.enkeys.projects.models.Project;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.QuotationView;
 
+/**
+ * Controller QuotationController
+ * Gestion de la création d'un devis
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class QuotationController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -38,6 +41,7 @@ public class QuotationController extends EController
         this.view.getGenerateButton().addActionListener(generateButtonListener());
     }
     
+    //Génération du pdf à partir du devis et du projet selectionnés
     private ActionListener generateButtonListener()
     {
         return (ActionEvent e) -> {

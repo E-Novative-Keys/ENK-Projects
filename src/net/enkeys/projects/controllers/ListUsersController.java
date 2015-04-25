@@ -27,6 +27,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.ListUsersView;
 import net.enkeys.projects.views.UsersManagerView;
 
+/**
+ * Controller ListUsersController
+ * Gestion de la liste des utilisateurs
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ListUsersController extends EController
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -80,6 +86,7 @@ public class ListUsersController extends EController
             System.err.println(errors);
     }
     
+    //Evenement d'edtion d'un utilisateur
     private TableModelListener dataTableListener()
     {
         return (TableModelEvent e) -> {            
@@ -127,6 +134,7 @@ public class ListUsersController extends EController
         };
     }
     
+    //Suppression d'un utilisateur via le webservice
     private ActionListener deleteButtonListener() 
     {
         return (ActionEvent e) -> {
@@ -177,6 +185,7 @@ public class ListUsersController extends EController
         };
     }
     
+    //Evénement de sauvegarde d'un utilisateur
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
@@ -185,6 +194,7 @@ public class ListUsersController extends EController
         };
     }
     
+    //Sauvegarde d'un utilisateur via le webservice
     private boolean saveUpdatedUsers()
     {
         boolean success = false;

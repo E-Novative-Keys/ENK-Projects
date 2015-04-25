@@ -15,6 +15,12 @@ import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ProfileView;
 
+/**
+ * Controller ProfileController
+ * Gestion du profil
+ * @extends EController
+ * @author E-Novative Keys
+ */
 public class ProfileController extends EController
 {
     private final ENKProjects app   = (ENKProjects) super.app;
@@ -46,6 +52,7 @@ public class ProfileController extends EController
         };
     }
     
+    //Mise à jour du profil via le webservice
     private ActionListener majListener()
     {
         return (ActionEvent e) -> {
