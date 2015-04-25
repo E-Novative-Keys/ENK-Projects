@@ -168,7 +168,6 @@ public class NewMacrotaskController extends EController
                             if(task.validate("INSERT", task.getData(), errors))
                             {
                                 String jsonTask = task.execute("INSERT");
-                                System.out.println("task json : "+jsonTask);
                                 
                                 if(jsonTask.contains("error"))
                                 {
@@ -200,7 +199,6 @@ public class NewMacrotaskController extends EController
                             if(macrotaskUser.validate("INSERT", macrotaskUser.getData(), errors))
                             {
                                 String jsonUser = macrotaskUser.execute("INSERT");
-                                System.out.println("user json : "+jsonUser);
                                 
                                 if(jsonUser.contains("error"))
                                 {
