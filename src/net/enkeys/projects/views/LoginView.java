@@ -14,6 +14,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue LoginView
+ * Vue de login
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class LoginView extends EView
 {
     private final ImageIcon logo                = EResources.loadImageIcon("logo.png", 340, 100);

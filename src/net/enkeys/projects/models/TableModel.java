@@ -5,6 +5,12 @@ import java.util.HashMap;
 import javax.swing.table.AbstractTableModel;
 import net.enkeys.framework.exceptions.EDataException;
 
+/**
+ * Modele TableModel
+ * Modèle pour les table de données (user, client ...)
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public abstract class TableModel extends AbstractTableModel
 {
     protected final String[] keys;

@@ -10,6 +10,12 @@ import net.enkeys.framework.exceptions.ECryptoException;
 import net.enkeys.framework.utils.ECrypto;
 import net.enkeys.projects.ENKProjects;
 
+/**
+ * Modele User
+ * Validation des données User envoyées
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class User extends EModel
 {    
     @Override

@@ -5,6 +5,12 @@ import net.enkeys.framework.components.EModel;
 import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele Cloud
+ * Validation des données Cloud
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Cloud extends EModel
 {
     @Override

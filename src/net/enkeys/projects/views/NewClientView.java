@@ -3,7 +3,6 @@ package net.enkeys.projects.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
@@ -18,6 +17,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue NewClientView
+ * Vue d'ajout de client
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class NewClientView extends EView
 {
     private final JButton back              = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));

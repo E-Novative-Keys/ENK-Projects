@@ -24,6 +24,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue EditMacrotaskView
+ * Vue d'édition d'une macrotâche
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class EditMacrotaskView extends EView
 {
     //Colonne gauche
@@ -271,10 +277,4 @@ public class EditMacrotaskView extends EView
     {
         this.priority.setValue(Integer.parseInt(str));
     }
-    /*
-    public void setMacrotaskDeadline(String str)
-    {
-        this.deadline.setDateFormatString(str);
-    }
-    */
 }

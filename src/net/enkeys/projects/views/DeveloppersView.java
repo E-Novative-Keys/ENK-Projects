@@ -20,6 +20,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue DevelopersView
+ * Vue affectation de développeurs
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class DeveloppersView extends EView
 {
     private final DefaultListModel usersData    = new DefaultListModel();

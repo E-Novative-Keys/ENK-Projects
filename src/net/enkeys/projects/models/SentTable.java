@@ -1,5 +1,11 @@
 package net.enkeys.projects.models;
 
+/**
+ * Modele SentTable
+ * Table message envoyés non éditable
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class SentTable extends TableModel
 {         
     @Override
@@ -12,6 +18,12 @@ public class SentTable extends TableModel
         return new String[] {"Pour", "Objet", "Date"};
     }
     
+    /**
+     * Edition de la table
+     * @param rowIndex
+     * @param columnIndex
+     * @return false
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {

@@ -20,6 +20,12 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.TaskTable;
 
+/**
+ * Vue EditTasksView
+ * Vue d'édition des tâches
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class EditTasksView extends EView
 {
     private final TaskTable dataTable                       = new TaskTable();
@@ -85,43 +91,53 @@ public class EditTasksView extends EView
         return errorLabel;
     } 
 
-    public TaskTable getDataTable() {
+    public TaskTable getDataTable()
+    {
         return dataTable;
     }
 
-    public JTable getListTasks() {
+    public JTable getListTasks()
+    {
         return listTasks;
     }
 
-    public JScrollPane getListScroller() {
+    public JScrollPane getListScroller()
+    {
         return listScroller;
     }
 
-    public JLabel getNameLabel() {
+    public JLabel getNameLabel()
+    {
         return nameLabel;
     }
 
-    public JTextField getNameField() {
+    public JTextField getNameField()
+    {
         return nameField;
     }
 
-    public JButton getDeleteButton() {
+    public JButton getDeleteButton()
+    {
         return deleteButton;
     }
 
-    public JLabel getPriorityTaskLabel() {
+    public JLabel getPriorityTaskLabel()
+    {
         return priorityTaskLabel;
     }
 
-    public SpinnerNumberModel getPriorityTaskSpinner() {
+    public SpinnerNumberModel getPriorityTaskSpinner()
+    {
         return priorityTaskSpinner;
     }
 
-    public JSpinner getPriorityTask() {
+    public JSpinner getPriorityTask()
+    {
         return priorityTask;
     }
 
-    public JButton getAddButton() {
+    public JButton getAddButton()
+    {
         return addButton;
     }
 }

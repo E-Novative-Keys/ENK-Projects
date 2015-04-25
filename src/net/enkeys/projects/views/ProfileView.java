@@ -14,6 +14,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue ProfileView
+ * Vue du profil utilisateur
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ProfileView extends EView
 {
     private final JLabel userLabel          = new JLabel("Nom d'utilisateur :");

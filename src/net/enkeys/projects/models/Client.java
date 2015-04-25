@@ -10,6 +10,12 @@ import net.enkeys.framework.components.rules.PhoneNumberRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele Client
+ * Validation des données Client envoyées
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Client extends EModel
 {
     @Override

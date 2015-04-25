@@ -9,6 +9,12 @@ import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 
+/**
+ * Vue CurrentProjectManagerView
+ * Vue d'acceuil de gestion d'un projet
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class CurrentProjectManagerView extends EView
 {
     private final JButton scheduleButton = new JButton(EResources.loadImageIcon("planification.png"));

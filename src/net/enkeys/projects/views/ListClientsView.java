@@ -15,6 +15,12 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ClientTable;
 
+/**
+ * Vue ListClientsView
+ * Vue liste des clients
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ListClientsView extends EView
 {
     private final ClientTable dataTable     = new ClientTable();

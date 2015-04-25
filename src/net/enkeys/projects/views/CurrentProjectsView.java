@@ -16,6 +16,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue CurrentProjectsView
+ * Vue choix projet d'un utilisateur
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class CurrentProjectsView extends EView
 {
     private final ArrayList<JButton> listCurrentProjectsButton = new ArrayList<>();

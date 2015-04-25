@@ -1,5 +1,11 @@
 package net.enkeys.projects.models;
 
+/**
+ * Modele MailTable
+ * Table mail non éditable
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class MailTable extends TableModel
 {         
     @Override
@@ -12,6 +18,12 @@ public class MailTable extends TableModel
         return new String[] {"De", "Objet", "Date"};
     }
     
+    /**
+     * Edition de la table
+     * @param rowIndex
+     * @param columnIndex
+     * @return false
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {

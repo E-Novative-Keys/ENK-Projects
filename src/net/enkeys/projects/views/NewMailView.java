@@ -16,6 +16,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue NewMailView
+ * Vue d'envoi de mail
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class NewMailView extends EView
 {
     private final JLabel newMailLabel       = new JLabel("Nouveau Message :");

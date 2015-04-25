@@ -19,6 +19,12 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.FileModel;
 import net.enkeys.projects.models.FileRenderer;
 
+/**
+ * Vue CloudView
+ * Vue principale du Cloud
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class CloudView extends EView
 {
     private final FileRenderer clientRenderer   = new FileRenderer();

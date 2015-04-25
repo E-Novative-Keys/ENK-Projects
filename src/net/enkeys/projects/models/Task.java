@@ -10,6 +10,12 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele Task
+ * Validation des données Task envoyées
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Task extends EModel
 {
     @Override

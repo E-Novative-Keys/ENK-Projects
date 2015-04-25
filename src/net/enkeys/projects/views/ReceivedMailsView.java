@@ -15,6 +15,12 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.MailTable;
 
+/**
+ * Vue ReceivedMailsView
+ * Vue de réception de mail
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ReceivedMailsView extends EView
 {
     private final MailTable dataTable       = new MailTable();
@@ -45,6 +51,7 @@ public class ReceivedMailsView extends EView
         
         constraints.insets = new Insets(10, 10, 10, 10);
         
+        //Contraintes de positionnement pour les objets
         mail.add(object, constraints, 0, 0);
         mail.add(objectLabel, constraints, 1, 0, 1, 1, GridBagConstraints.FIRST_LINE_START);
         mail.add(date, constraints, 0, 1);

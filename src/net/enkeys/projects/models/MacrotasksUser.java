@@ -6,6 +6,13 @@ import net.enkeys.framework.components.EModel;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele MacrotaskUser
+ * Validation des données pour l'ajout
+ * d'association User/Macrotask
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class MacrotasksUser extends EModel
 {
     @Override

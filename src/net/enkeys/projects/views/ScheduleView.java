@@ -9,13 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ScheduleTable;
 
+/**
+ * Vue ScheduleView
+ * Vue liste des macrotâches
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ScheduleView extends EView
 {
     private final ScheduleTable dataTable   = new ScheduleTable();

@@ -13,6 +13,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue UsersManagerView
+ * Vue de gestion des utilisateurs
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class UsersManagerView extends EView
 {
     private final JButton newUserButton     = new JButton(EResources.loadImageIcon("nouvelUtilisateur.png"));

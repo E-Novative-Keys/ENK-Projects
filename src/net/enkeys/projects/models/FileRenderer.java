@@ -7,6 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import net.enkeys.framework.utils.EResources;
 
+/**
+ * Modele FileRenderer
+ * Validation de ???
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class FileRenderer extends DefaultListCellRenderer
 {
     public ArrayList<Boolean> directories = new ArrayList<>();

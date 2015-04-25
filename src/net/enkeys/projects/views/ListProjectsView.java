@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.enkeys.projects.views;
 
 import java.awt.BorderLayout;
@@ -21,8 +17,10 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ProjectTable;
 
 /**
- *
- * @author Worker
+ * Vue ListProjectsView
+ * Vue liste des projets
+ * @extends EView
+ * @author E-Novative Keys
  */
 public class ListProjectsView extends EView
 {

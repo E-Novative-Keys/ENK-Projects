@@ -23,6 +23,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue CloudView
+ * Vue d'ajout de macrotâche
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche

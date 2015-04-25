@@ -10,6 +10,12 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele Macrotask
+ * Validation des données macrotâche envoyées
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Macrotask extends EModel 
 {
     @Override

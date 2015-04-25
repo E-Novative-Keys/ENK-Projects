@@ -3,13 +3,18 @@ package net.enkeys.projects.views;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 
+/**
+ * Vue HomeView
+ * Vue principale - Acceuil
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class HomeView extends EView
 {
     private final JButton newClientButton = new JButton(EResources.loadImageIcon("newClient.png"));

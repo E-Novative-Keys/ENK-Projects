@@ -14,7 +14,12 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.SentTable;
 
-
+/**
+ * Vue SentMailsView
+ * Vue des messages envoyés
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class SentMailsView extends EView
 {
     private final SentTable dataTable       = new SentTable();

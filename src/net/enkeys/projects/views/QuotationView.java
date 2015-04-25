@@ -17,6 +17,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue QuotationView
+ * Vue de création de devis
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class QuotationView extends EView
 {
     private final JLabel devLabel                           = new JLabel("Salaire horaire développeurs (€) : ");

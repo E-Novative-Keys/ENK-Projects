@@ -15,6 +15,12 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.UserTable;
 
+/**
+ * Vue ListUsersView
+ * Vue liste des utilisateurs
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ListUsersView extends EView
 {
     private final UserTable dataTable       = new UserTable();

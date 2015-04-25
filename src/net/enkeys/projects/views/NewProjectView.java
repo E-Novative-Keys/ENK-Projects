@@ -24,6 +24,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue NewProjectView
+ * Vue d'ajout de projet
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class NewProjectView extends EView
 {
     //Colonne gauche

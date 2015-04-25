@@ -2,6 +2,12 @@ package net.enkeys.projects.models;
 
 import java.util.HashMap;
 
+/**
+ * Modele UserTable
+ * Tables utilisateurs éditables
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class UserTable extends TableModel
 {
     @Override
@@ -16,12 +22,24 @@ public class UserTable extends TableModel
         return new String[] {"Nom", "Prénom", "Email", "Rôle", "Validé", "Dernière connexion", "Dernière IP"};
     }
 
+    /**
+     * Récupération d'une ligne projet par id
+     * @param id
+     * @return boolean
+     * 
+     * Pas d'edit sur lastlogin & lastip
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
         return (columnIndex != 6 && columnIndex != 7);
     }
     
+    /**
+     * Récupération d'une ligne projet par id
+     * @param id
+     * @return User
+     */
     public HashMap<String, String> getUserByID(int id)
     {
         for(HashMap<String, String> v : values)

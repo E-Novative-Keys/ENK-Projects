@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 
+/**
+ * Modele FileModel
+ * Validation des fichiers Cloud
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class FileModel extends DefaultListModel<Object>
 {
     private ArrayList<HashMap<String, String>> values;

@@ -7,6 +7,12 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele Project
+ * Validation des données Project envoyées
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Project extends EModel
 {
     @Override
@@ -37,11 +43,6 @@ public class Project extends EModel
             new NotEmptyRule("Veuillez saisir une remise (0 si aucune)"),
             new RegexRule("([0-9]?[0-9][\\.]?[0-9]{0,2})", "Remise non valide (valeur entre 0 et 99 nécessaire)")
         });
-        /*
-        rules.put("deadline", new Rule[]{
-            new NotEmptyRule("Veuillez saisir une deadline")
-        });
-        */
     }
     
     @Override

@@ -3,6 +3,12 @@ package net.enkeys.projects.models;
 
 import java.util.HashMap;
 
+/**
+ * Modele ProjectTable
+ * Table projet non éditable
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class ProjectTable extends TableModel
 {
     @Override
@@ -17,12 +23,23 @@ public class ProjectTable extends TableModel
         return new String[] {"Nom", "Client", "Deadline", "Estimation", "Budget", "Remise (%)", "Créé le"};
     }
     
+    /**
+     * Edition de la table
+     * @param rowIndex
+     * @param columnIndex
+     * @return false
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
         return false;
     }
     
+    /**
+     * Récupération d'une ligne projet par id
+     * @param id
+     * @return 
+     */
     public HashMap<String, String> getProjectByID(int id)
     {
         for(HashMap<String, String> p : values)

@@ -16,6 +16,12 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Vue ForgotView
+ * Vue d'oublie des credentials
+ * @extends EView
+ * @author E-Novative Keys
+ */
 public class ForgotView extends EView
 {
     private final ImageIcon logo                = EResources.loadImageIcon("logo.png", 340, 100);

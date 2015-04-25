@@ -4,6 +4,12 @@ import java.util.Map;
 import net.enkeys.framework.components.EModel;
 import net.enkeys.framework.components.rules.Rule;
 
+/**
+ * Modele MailBox
+ * Validation des données mail envoyées (/none)
+ * @extends EModel
+ * @author E-Novative Keys
+ */
 public class Mailbox extends EModel
 {
     @Override
