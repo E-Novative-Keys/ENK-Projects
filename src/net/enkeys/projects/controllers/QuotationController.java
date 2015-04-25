@@ -45,39 +45,34 @@ public class QuotationController extends EController
     private ActionListener generateButtonListener()
     {
         return (ActionEvent e) -> {
-            float dev_salary = view.getDevSpinner().getValue() != null ? Float.parseFloat(view.getDevSpinner().getValue().toString()) : -1.f;
-            float leaddev_salary = view.getLeaddevSpinner().getValue() != null ? Float.parseFloat(view.getLeaddevSpinner().getValue().toString()) : -1.f;
-            float tva = view.getTVASpinner().getValue() != null ? Float.parseFloat(view.getTVASpinner().getValue().toString()) : -1.f;
+            String dev_salary = new String(Float.parseFloat(view.getDevSpinner().getValue().toString()) + "");
+            String leaddev_salary = new String(Float.parseFloat(view.getLeaddevSpinner().getValue().toString()) + "");
+            String tva = new String(Float.parseFloat(view.getTVASpinner().getValue().toString()) + "");
             
-            if(dev_salary != -1.f && leaddev_salary != -1.f && tva != -1.f)
+            EHttpRequest request;
+            Project model = (Project)getModel("Project");
+
+            model.addData("data[Project][id]", ECrypto.base64(this.project.get("id")));
+            model.addData("data[Project][dev_salary]", dev_salary);
+            model.addData("data[Project][leaddev_salary]", leaddev_salary);
+            model.addData("data[Project][tva]", tva);
+
+            model.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+            model.addData("data[Token][fields]", app.getUser().get("token"));
+
+            try
             {
-                EHttpRequest request;
-                Project model = (Project)getModel("Project");
+                request = new EHttpRequest(new URL("http://enkwebservice.com/projects/quotation"), "data=" + model.getJsonData(), true);
 
-                model.addData("data[Project][id]", ECrypto.base64(this.project.get("id")));
-                model.addData("data[Project][dev_salary]", dev_salary);
-                model.addData("data[Project][leaddev_salary]", leaddev_salary);
-                model.addData("data[Project][tva]", tva);
-
-                model.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                model.addData("data[Token][fields]", app.getUser().get("token"));
-                
-                try
-                {
-                    request = new EHttpRequest(new URL("http://enkwebservice.com/projects/quotation"), "data=" + model.getJsonData(), true);
-                    
-                    if(!request.download("POST", System.getProperty("user.home") + File.separator + "Téléchargements"))
-                        setError("Une erreur est survenue lors de la génération du devis");
-                    else
-                        setError("");
-                }
-                catch(MalformedURLException | EHttpRequestException | ESystemException ex)
-                {
-                    setError(ex.getMessage());
-                }
+                if(!request.download("POST", System.getProperty("user.home") + File.separator + "Téléchargements"))
+                    setError("Une erreur est survenue lors de la génération du devis");
+                else
+                    setError("");
             }
-            else
-                setError("Veuillez saisir des valeurs correctes");
+            catch(MalformedURLException | EHttpRequestException | ESystemException ex)
+            {
+                setError(ex.getMessage());
+            }
         };
     }
     

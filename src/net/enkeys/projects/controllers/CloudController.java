@@ -487,15 +487,17 @@ public class CloudController extends EController
         EHttpRequest request        = null;
         String[] users              = new String[]{"dev", "client"};
         
+        
+        
         if(index == 0)
             cloud.addData("data[Cloud][path]", ECrypto.base64(
-                path[index].toString() + File.separator + view.getDevList().getSelectedValue())
+                path[index].toString() + view.getDevList().getSelectedValue())
             );
         else
             cloud.addData("data[Cloud][path]", ECrypto.base64(
-                path[index].toString() + File.separator + view.getClientsList().getSelectedValue())
+                path[index].toString() + view.getClientsList().getSelectedValue())
             );
-        
+
         cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id"))); 
         cloud.addData("data[Cloud][user]", users[index]);
 
@@ -504,6 +506,7 @@ public class CloudController extends EController
 
         if(values != null && values.get("token") != null)
         {                      
+            System.out.println(values.get("token"));
             try
             {
                 request = new EHttpRequest(new URL("http://enkwebservice.com/cloud/files/download/" + values.get("token")));

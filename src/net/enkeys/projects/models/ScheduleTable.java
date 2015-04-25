@@ -15,13 +15,13 @@ public class ScheduleTable extends TableModel
     @Override
     protected String[] setKeys() 
     {
-        return new String[] {"priority", "name", "progress"};
+        return new String[] {"name","priority", "progress"};
     }
 
     @Override
     protected String[] setColumns() 
     {
-        return new String[] {"Priorité", "Nom macrotâche", "Avancement (%)"};
+        return new String[] {"Nom macrotâche", "Priorité", "Avancement (%)"};
     }
     
     /**
