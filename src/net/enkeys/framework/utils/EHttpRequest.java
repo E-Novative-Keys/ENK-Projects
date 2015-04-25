@@ -298,7 +298,7 @@ public class EHttpRequest
             if(method.equalsIgnoreCase("POST"))
             {
                 DataOutputStream writer;
-                byte[] byteParams = data.getBytes(ECharsets.UTF_8.toCharset());;
+                byte[] byteParams = data.getBytes(ECharsets.UTF_8.toCharset());
                 
                 connection.setConnectTimeout(15000);
                 connection.setReadTimeout(15000);
