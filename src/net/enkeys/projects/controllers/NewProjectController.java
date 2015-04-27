@@ -24,10 +24,11 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.NewProjectView;
 
 /**
- * Controller NewProjectController
- * Gestion de la création d'un projet
+ * Contrôlleur NewProjectController.
+ * Gestion de la création d'un projet.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewProjectController extends EController 
 {
@@ -88,10 +89,10 @@ public class NewProjectController extends EController
                 }
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
         
         //Remplissage ComboBox référent
         for(int i = 0; i < 2; i++) 

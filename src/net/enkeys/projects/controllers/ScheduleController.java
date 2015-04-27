@@ -25,10 +25,11 @@ import net.enkeys.projects.views.NewMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
 /**
- * Controller ScheduleController
- * Gestion de la liste des macrotâches
+ * Contrôlleur ScheduleController.
+ * Gestion de la liste des macrotâches.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ScheduleController extends EController
 {
@@ -79,10 +80,10 @@ public class ScheduleController extends EController
                 view.getListMacrotasks().setAutoCreateRowSorter(true);
             }
             else
-                System.err.println(json);
+                app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
         }
         else
-            System.err.println(errors);
+            app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
     }
 
     //Retour sur la vue de gestion projet

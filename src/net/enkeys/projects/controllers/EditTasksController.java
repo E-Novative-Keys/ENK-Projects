@@ -23,10 +23,11 @@ import net.enkeys.projects.views.EditTasksView;
 import net.enkeys.projects.views.ScheduleView;
 
 /**
- * Controller EditTasksController
- * Gestion de l'édition des tâches reliées à une macrotâche
+ * Contrôlleur EditTasksController.
+ * Gestion de l'édition des tâches reliées à une macrotâche.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class EditTasksController extends EController
 {
@@ -81,10 +82,10 @@ public class EditTasksController extends EController
                 view.getListTasks().setAutoCreateRowSorter(true);
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
     }
 
     private ActionListener backButtonListener()
@@ -275,10 +276,10 @@ public class EditTasksController extends EController
                         view.getDataTable().addOrigin(t);
                     }
                     else
-                        System.err.println(json);
+                        setError("Une erreur inattendue est survenue");
                 }
                 else
-                    System.err.println(errors);
+                    setError("Une erreur inattendue est survenue");
             }
             catch(ERuleException | EHttpRequestException ex)
             {

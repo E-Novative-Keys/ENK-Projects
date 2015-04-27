@@ -11,10 +11,10 @@ import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele Task
- * Validation des données Task envoyées
+ * Modèle Task.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class Task extends EModel
 {
@@ -39,14 +39,6 @@ public class Task extends EModel
             new MinRule(0, "Priorité inférieure à 1 impossible (tâche)"),
             new MaxRule(101, "Priorité supérieure à 100 impossible (tâche)")
         });
-        /*
-        rules.put("!INSERT", null);
-        
-        rules.put("hours", new Rule[]{
-            new MinRule(0, "Heures travaillées négatives impossible"),
-            new RegexRule("[0-9]+", "Seuls des chiffres sont attendus pour les heures") 
-        });
-        */
     }
     
     @Override

@@ -21,10 +21,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue DevelopersView
- * Vue affectation de développeurs
+ * Vue DevelopersView.
+ * Vue affectation de développeurs.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class DeveloppersView extends EView
 {

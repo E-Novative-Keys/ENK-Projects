@@ -17,10 +17,11 @@ import net.enkeys.projects.views.ForgotView;
 import net.enkeys.projects.views.LoginView;
 
 /**
- * Controller ForgotController
- * Gestion de l'oublie de credentials
+ * Contrôlleur ForgotController.
+ * Gestion de l'oublie de credentials.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ForgotController extends EController
 {

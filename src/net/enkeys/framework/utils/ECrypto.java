@@ -6,10 +6,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import net.enkeys.framework.exceptions.ECryptoException;
 
+/**
+ * Classe statique utilitaire implémentant divers algorithmes de chiffrement,
+ * hashage et encodage.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class ECrypto
 {
+    /**
+     * Classe Constructeur privé empêchant l'instanciation de la classe.
+     * Classe purement statique.
+     */
     private ECrypto(){};
     
+    /**
+     * Encode la chaîne de caractères passée en paramètre en base64.
+     * @param str
+     * @return
+     * @throws ECryptoException 
+     */
     public static String base64(String str) throws ECryptoException
     {
         try
@@ -22,6 +38,12 @@ public class ECrypto
         }
     }
     
+    /**
+     * Renvoie le hash md5 de la chaîne de caractères passée en paramètre.
+     * @param str
+     * @return
+     * @throws ECryptoException 
+     */
     public static String md5(String str) throws ECryptoException
     {
         try
@@ -34,6 +56,12 @@ public class ECrypto
         }
     }
     
+    /**
+     * Renvoie le hash sh1 de la chaîne de caractères passée en paramètre.
+     * @param str
+     * @return
+     * @throws ECryptoException 
+     */
     public static String sha1(String str) throws ECryptoException
     {
         try
@@ -46,6 +74,12 @@ public class ECrypto
         }
     }
     
+    /**
+     * Renvoie une chaîne de caractères à partir du tableau de bytes passé en
+     * paramètre.
+     * @param bytes
+     * @return 
+     */
     public static String bytesToString(byte[] bytes)
     {
         String result = "";

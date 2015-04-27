@@ -1,5 +1,10 @@
 package net.enkeys.framework.exceptions;
 
+/**
+ * Classe d'exception relative au Logger.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class ELoggerException extends EException
 {
     public ELoggerException(String str)

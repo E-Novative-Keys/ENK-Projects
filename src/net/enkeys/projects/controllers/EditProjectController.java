@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,10 +26,11 @@ import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
 /**
- * Controller EditProjectController
- * Gestion de l'édition d'un projet
+ * Contrôlleur EditProjectController.
+ * Gestion de l'édition d'un projet.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 class EditProjectController extends EController
 {
@@ -93,10 +93,10 @@ class EditProjectController extends EController
                 }
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
         
         //Remplissage ComboBox référent
         for(int i = 0; i < 2; i++) 
@@ -128,10 +128,10 @@ class EditProjectController extends EController
                     }
                 }
                 else
-                    System.err.println(json);
+                    setError("Une erreur inattendue est survenue");
             }
             else
-                System.err.println(errors);
+                setError("Une erreur inattendue est survenue");
         }
         
         //Remplissage informations récupérées

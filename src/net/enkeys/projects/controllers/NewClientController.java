@@ -20,10 +20,11 @@ import net.enkeys.projects.views.NewClientView;
 import net.enkeys.projects.views.NewProjectView;
 
 /**
- * Controller NewClientController
- * Gestion de la création d'un client
+ * Contrôlleur NewClientController.
+ * Gestion de la création d'un client.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewClientController extends EController
 {

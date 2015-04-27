@@ -3,10 +3,10 @@ package net.enkeys.projects.models;
 import java.util.HashMap;
 
 /**
- * Modele UserTable
- * Tables utilisateurs éditables
- * @extends EModel
+ * Modèle de données UserTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class UserTable extends TableModel
 {
@@ -23,7 +23,7 @@ public class UserTable extends TableModel
     }
 
     /**
-     * Récupération d'une ligne projet par id
+     * Récupération d'une ligne projet par id.
      * @param id
      * @return boolean
      * 
@@ -36,7 +36,7 @@ public class UserTable extends TableModel
     }
     
     /**
-     * Récupération d'une ligne projet par id
+     * Récupération d'une ligne utilisateur par id.
      * @param id
      * @return User
      */

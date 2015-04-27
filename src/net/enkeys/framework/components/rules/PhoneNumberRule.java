@@ -3,6 +3,11 @@ package net.enkeys.framework.components.rules;
 import java.util.regex.Pattern;
 import net.enkeys.framework.exceptions.ERuleException;
 
+/**
+ * Règle de validation : la donnée validée doit être un numéro de téléphone.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class PhoneNumberRule extends Rule
 {
     protected String PHONENUMBER_REGEX = "^(?:(?:\\(?(?:00|\\+)([1-4]\\d\\d|[1-9]\\d?)\\)?)?[\\-\\.\\ \\\\\\/]?)?((?:\\(?\\d{1,}\\)?[\\-\\.\\ \\\\\\/]?){0,})(?:[\\-\\.\\ \\\\\\/]?(?:#|ext\\.?|extension|x)[\\-\\.\\ \\\\\\/]?(\\d+))?$";

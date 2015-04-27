@@ -25,10 +25,11 @@ import net.enkeys.projects.views.ListProjectsView;
 import net.enkeys.projects.views.NewProjectView;
 
 /**
- * Controller ListProjectsController
- * Gestion de la liste des projets
+ * Contrôlleur ListProjectsController.
+ * Gestion de la liste des projets.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListProjectsController extends EController
 {
@@ -73,10 +74,10 @@ public class ListProjectsController extends EController
                 view.getListProjects().setAutoCreateRowSorter(true);
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
     }
 
     private ActionListener backButtonListener() 

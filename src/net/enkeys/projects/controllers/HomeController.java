@@ -15,11 +15,12 @@ import net.enkeys.projects.views.NewProjectView;
 import net.enkeys.projects.views.UsersManagerView;
 
 /**
- * Controller HomeController
- * Gestion du panel d'acceuil 
+ * Contrôlleur HomeController.
+ * Gestion du panel d'acceuil.
  * et redirection vers les vues adaptées
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class HomeController extends EController
 {

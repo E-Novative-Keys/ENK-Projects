@@ -10,10 +10,11 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 
 /**
- * Vue CurrentProjectManagerView
- * Vue d'acceuil de gestion d'un projet
+ * Vue CurrentProjectManagerView.
+ * Vue d'acceuil de gestion d'un projet.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CurrentProjectManagerView extends EView
 {

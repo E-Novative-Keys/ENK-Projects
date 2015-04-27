@@ -12,10 +12,11 @@ import net.enkeys.projects.views.ListUsersView;
 import net.enkeys.projects.views.NewUserView;
 
 /**
- * Controller UsersManagerController
- * Evenements de la gestion utilisateur
+ * Contrôlleur UsersManagerController.
+ * Evenements de la gestion utilisateur.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class UsersManagerController extends EController
 {

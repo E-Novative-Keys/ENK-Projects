@@ -4,10 +4,10 @@ package net.enkeys.projects.models;
 import java.util.HashMap;
 
 /**
- * Modele TaskTable
- * Table tâches éditables
- * @extends EModel
+ * Modèle de données TaskTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class TaskTable extends TableModel
 {
@@ -24,7 +24,7 @@ public class TaskTable extends TableModel
     }
 
     /**
-     * Edition de la table
+     * Edition de la table.
      * @param rowIndex
      * @param columnIndex
      * @return true
@@ -36,7 +36,7 @@ public class TaskTable extends TableModel
     }
     
     /**
-     * Récupération d'une ligne projet par id
+     * Récupération d'une ligne tâche par id.
      * @param id
      * @return Task
      */

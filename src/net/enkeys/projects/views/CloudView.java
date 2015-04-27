@@ -20,10 +20,11 @@ import net.enkeys.projects.models.FileModel;
 import net.enkeys.projects.models.FileRenderer;
 
 /**
- * Vue CloudView
- * Vue principale du Cloud
+ * Vue CloudView.
+ * Vue principale du Cloud.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CloudView extends EView
 {

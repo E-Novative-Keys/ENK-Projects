@@ -6,23 +6,27 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Main application class.
+ * Classe abstraite mère de toutes les applications ENK.
+ * Permet la gestion aisé de fenêtres, des arguments, d'un logger d'application,
+ * ainsi que de divers outils standards.
  * @author E-Novative Keys
- * @version 0.0.0.1
+ * @version 1.0
  */
 public abstract class EApplication implements Runnable
 {
+    //Redéfinition des constantes de fenêtres confirm & message
     public static final int YES = JOptionPane.YES_OPTION;
     public static final int NO = JOptionPane.NO_OPTION;
     public static final int CANCEL = JOptionPane.CANCEL_OPTION;
     public static final int YES_NO = JOptionPane.YES_NO_OPTION;
     public static final int YES_NO_CANCEL = JOptionPane.YES_NO_CANCEL_OPTION;
     
-    protected final String name; //Le nom de l'application
+    //Attributs principaux de l'application
+    protected final String name;    //Le nom de l'application
     protected final String version; //La version actuelle de l'application
-    protected final String dev; //Les noms des développeurs de l'application
+    protected final String dev;     //Les noms des développeurs de l'application
     protected final String contact; //Une adresse de contact
-    protected final String[] args; //La liste d'arguments passées au démarrage de l'application
+    protected final String[] args;  //La liste d'arguments passées au démarrage de l'application
     
     protected ELogger logger = null;
     protected ArrayList<EFrame> frames = null;
@@ -44,12 +48,17 @@ public abstract class EApplication implements Runnable
         this.dev = dev;
         this.contact = contact;
         this.args = args;
-             
+            
         setDefaultLogger();
         setEncoding("UTF-8");
         setSystemUI(true);   
     }
     
+    /**
+     * Méthode abstraite symbolisant le démarrage de l'application.
+     * Les initialisations se font dans le constructeurs, les appels se font
+     * dans le run().
+     */
     @Override
     public abstract void run();
     
@@ -324,11 +333,13 @@ public abstract class EApplication implements Runnable
     }
     
     /**
-     * Affichage d'une fenêtre de dialogue contenant un message simple.
+     * Affichage d'une fenêtre de dialogue permettant à l'utilisateur d'effectuer
+     * un choix.
      * @param frame
      * @param msg
      * @param title
      * @param options 
+     * @return  
      */
     public final int confirm(EFrame frame, String msg, String title, int options)
     {
@@ -366,6 +377,7 @@ public abstract class EApplication implements Runnable
      * @param msg
      * @param title
      * @param type
+     * @return 
      */
     public final String input(EFrame frame, String msg, String title, int type)
     {

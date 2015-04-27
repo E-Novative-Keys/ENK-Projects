@@ -24,10 +24,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue CloudView
- * Vue d'ajout de macrotâche
+ * Vue CloudView.
+ * Vue d'ajout de macrotâche.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewMacrotaskView extends EView
 {

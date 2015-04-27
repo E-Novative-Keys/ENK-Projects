@@ -4,10 +4,10 @@ package net.enkeys.projects.models;
 import java.util.HashMap;
 
 /**
- * Modele ProjectTable
- * Table projet non éditable
- * @extends EModel
+ * Modèle de données ProjectTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ProjectTable extends TableModel
 {
@@ -24,7 +24,7 @@ public class ProjectTable extends TableModel
     }
     
     /**
-     * Edition de la table
+     * Edition de la table.
      * @param rowIndex
      * @param columnIndex
      * @return false
@@ -36,7 +36,7 @@ public class ProjectTable extends TableModel
     }
     
     /**
-     * Récupération d'une ligne projet par id
+     * Récupération d'une ligne projet par id.
      * @param id
      * @return 
      */

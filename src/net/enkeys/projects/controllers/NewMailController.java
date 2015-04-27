@@ -18,10 +18,11 @@ import net.enkeys.projects.views.NewMailView;
 import net.enkeys.projects.views.ReceivedMailsView;
 
 /**
- * Controller NewMailController
- * Gestion de la création d'un mail à envoyer
+ * Contrôlleur NewMailController.
+ * Gestion de la création d'un mail à envoyer.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewMailController extends EController
 {
@@ -67,7 +68,7 @@ public class NewMailController extends EController
                     else if(values != null && values.get("error") != null)
                         setError(values.get("error"));
                     else
-                        System.err.println(json);
+                        setError("Une erreur inattendue est survenue");
                 
             }
             else

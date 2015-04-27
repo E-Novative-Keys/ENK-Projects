@@ -15,6 +15,11 @@ import net.enkeys.projects.controllers.ProfileController;
 import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ProfileView;
 
+/**
+ * Fenêtre de l'application.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class MainFrame extends EFrame
 {
     private final ENKProjects app = (ENKProjects)super.app;
@@ -22,12 +27,23 @@ public class MainFrame extends EFrame
     private JMenuItem home;
     private JMenuItem profile;
     
+    /**
+     * Crée une nouvelle istance de type MainFrame.
+     * @param app
+     * @param title
+     * @param width
+     * @param height 
+     */
     public MainFrame(EApplication app, String title, int width, int height)
     {
         super(app, title, width, height);
         setResizable(false);
     }
 
+    /**
+     * Initialisation des objets composant le menu de la fenêtre.
+     * @param menuBar 
+     */
     @Override
     protected void initMenu(JMenuBar menuBar)
     {
@@ -53,9 +69,13 @@ public class MainFrame extends EFrame
         menuBar.add(file);
     }
     
-   private ActionListener fileDisconnectListener()
-   {
-       return (ActionEvent e) -> {
+    /**
+     * Menu de déconnexion.
+     * @return 
+     */
+    private ActionListener fileDisconnectListener()
+    {
+        return (ActionEvent e) -> {
             if(app.getUser() != null)
             {
                 app.resetUser();
@@ -63,9 +83,13 @@ public class MainFrame extends EFrame
                 setLocationRelativeTo(null);
                 setContent(new LoginController(app, new LoginView()));
             }
-       };
-   }
+        };
+    }
     
+    /**
+     * Menu de fermeture.
+     * @return 
+     */
     private ActionListener fileExitListener()
     {
         return (ActionEvent e) -> {
@@ -73,6 +97,10 @@ public class MainFrame extends EFrame
         };
     }
     
+    /**
+     * Menu accueil.
+     * @return 
+     */
     private ActionListener fileHomeListener()
     {
         return (ActionEvent e) -> {
@@ -83,6 +111,10 @@ public class MainFrame extends EFrame
         };
     }
     
+    /**
+     * Menu profil.
+     * @return 
+     */
     private ActionListener profileListener()
     {
         return (ActionEvent e) -> {
@@ -90,28 +122,49 @@ public class MainFrame extends EFrame
         };
     }
 
+    /**
+     * Événement de fermeture de la fenêtre.
+     * @param we 
+     */
     @Override
     public void onWindowClosing(WindowEvent we)
     {
+        //Si on essaie de fermer la fenêtre (crois, alt+F4...), on appel close()
         close();
     }
 
+    /**
+     * Quand la fenêtre est fermée, on déconnecte l'utilisateur.
+     * @param we 
+     */
     @Override
     public void onWindowClosed(WindowEvent we)
     {
         ((ENKProjects)app).resetUser();
     }
     
+    /**
+     * Renvoie l'objet de menu Déconnexion.
+     * @return 
+     */
     public JMenuItem getDisconnectItem()
     {
         return disconnect;
     }
     
+    /**
+     * Renvoie l'objet de menu Accueil.
+     * @return 
+     */
     public JMenuItem getHomeItem()
     {
         return home;
     }
 
+    /**
+     * Renvoie l'objet de menu Profil.
+     * @return 
+     */
     public JMenuItem getProfileItem()
     {
         return profile;

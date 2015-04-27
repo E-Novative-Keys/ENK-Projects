@@ -1,10 +1,10 @@
 package net.enkeys.projects.models;
 
 /**
- * Modele SentTable
- * Table message envoyés non éditable
- * @extends EModel
+ * Modèle de données SentTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class SentTable extends TableModel
 {         
@@ -19,7 +19,7 @@ public class SentTable extends TableModel
     }
     
     /**
-     * Edition de la table
+     * Edition de la table.
      * @param rowIndex
      * @param columnIndex
      * @return false

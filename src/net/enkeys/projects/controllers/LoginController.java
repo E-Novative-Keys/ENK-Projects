@@ -26,10 +26,11 @@ import net.enkeys.projects.views.ForgotView;
 import net.enkeys.projects.views.HomeView;
 
 /**
- * Controller LoginController
- * Gestion des évenements a la connexion d'un utilisateur
+ * Contrôlleur LoginController.
+ * Gestion des évenements a la connexion d'un utilisateur.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class LoginController extends EController
 {

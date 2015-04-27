@@ -17,10 +17,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue CurrentProjectsView
- * Vue choix projet d'un utilisateur
+ * Vue CurrentProjectsView.
+ * Vue choix projet d'un utilisateur.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CurrentProjectsView extends EView
 {

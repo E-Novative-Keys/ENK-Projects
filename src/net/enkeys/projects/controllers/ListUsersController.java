@@ -28,10 +28,11 @@ import net.enkeys.projects.views.ListUsersView;
 import net.enkeys.projects.views.UsersManagerView;
 
 /**
- * Controller ListUsersController
- * Gestion de la liste des utilisateurs
+ * Contrôlleur ListUsersController.
+ * Gestion de la liste des utilisateurs.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListUsersController extends EController
 {
@@ -80,10 +81,10 @@ public class ListUsersController extends EController
                 view.getListUsers().setAutoCreateRowSorter(true);
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
     }
     
     //Evenement d'edtion d'un utilisateur

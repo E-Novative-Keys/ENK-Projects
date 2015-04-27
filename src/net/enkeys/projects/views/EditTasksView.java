@@ -21,10 +21,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.TaskTable;
 
 /**
- * Vue EditTasksView
- * Vue d'édition des tâches
+ * Vue EditTasksView.
+ * Vue d'édition des tâches.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class EditTasksView extends EView
 {

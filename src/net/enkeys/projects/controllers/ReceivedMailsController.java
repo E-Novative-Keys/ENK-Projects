@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -24,10 +25,11 @@ import net.enkeys.projects.views.ReceivedMailsView;
 import net.enkeys.projects.views.SentMailsView;
 
 /**
- * Controller ReceivedMailsController
- * Gestion de la liste des mails reçus
+ * Contrôlleur ReceivedMailsController.
+ * Gestion de la liste des mails reçus.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ReceivedMailsController extends EController
 {
@@ -89,7 +91,7 @@ public class ReceivedMailsController extends EController
             view.getListMails().setAutoCreateRowSorter(true);
         }
         else
-            System.err.println(json);
+            app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
     }
     
     private MouseListener mailListener()
@@ -141,7 +143,7 @@ public class ReceivedMailsController extends EController
                         view.getMailLabel().setText("");
                     }
                     else
-                        System.err.println(json);
+                        app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };

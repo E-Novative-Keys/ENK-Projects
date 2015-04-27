@@ -6,10 +6,10 @@ import net.enkeys.framework.components.rules.NotEmptyRule;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele Cloud
- * Validation des données Cloud
+ * Modèle Cloud.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class Cloud extends EModel
 {

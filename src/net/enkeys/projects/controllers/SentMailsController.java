@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -20,10 +21,11 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.SentMailsView;
 
 /**
- * Controller SentMailsController
- * Gestion de la liste des emails envoyés
+ * Contrôlleur SentMailsController.
+ * Gestion de la liste des emails envoyés.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class SentMailsController extends EController
 {
@@ -69,7 +71,7 @@ public class SentMailsController extends EController
             view.getListMails().setAutoCreateRowSorter(true);
         }
         else
-            System.err.println(json);
+            app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
     }
     
     private MouseListener mailListener()
@@ -117,7 +119,7 @@ public class SentMailsController extends EController
                         view.getMailLabel().setText("");
                     }    
                     else
-                        System.err.println(json);
+                        app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };

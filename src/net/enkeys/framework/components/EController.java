@@ -2,6 +2,13 @@ package net.enkeys.framework.components;
 
 import java.util.ArrayList;
 
+/**
+ * Classe abstraite mère de tous les Contrôleurs de l'application.
+ * Permet la gestion des événements de la Vue contrôlée et l'interaction avec 
+ * des Modèles.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public abstract class EController
 {
     protected final EApplication app;
@@ -9,6 +16,13 @@ public abstract class EController
     
     protected ArrayList<EModel> models;
     
+    /**
+     * Crée une nouvelle instance de type EController.
+     * Permet la définition de l'application courante et de la vue contrôlée.
+     * Initialisation de la liste de modèles.
+     * @param app
+     * @param view 
+     */
     public EController(EApplication app, EView view)
     {
         this.app = app;

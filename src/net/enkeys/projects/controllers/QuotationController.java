@@ -19,10 +19,11 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.QuotationView;
 
 /**
- * Controller QuotationController
- * Gestion de la création d'un devis
+ * Contrôlleur QuotationController.
+ * Gestion de la création d'un devis.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class QuotationController extends EController
 {

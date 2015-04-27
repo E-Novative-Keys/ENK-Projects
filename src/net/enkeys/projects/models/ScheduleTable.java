@@ -3,12 +3,10 @@ package net.enkeys.projects.models;
 import java.util.HashMap;
 
 /**
- * Modele ScheduleTable
- * Table schedule non éditable
- * -> vue des macrotâches associées
- *    au projet
- * @extends EModel
+ * Modèle de données ScheduleTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ScheduleTable extends TableModel 
 {
@@ -25,7 +23,7 @@ public class ScheduleTable extends TableModel
     }
     
     /**
-     * Edition de la table
+     * Edition de la table.
      * @param rowIndex
      * @param columnIndex
      * @return false 
@@ -37,7 +35,7 @@ public class ScheduleTable extends TableModel
     }
     
     /**
-     * Récupération d'une ligne macrotâche par id
+     * Récupération d'une ligne macrotâche par id.
      * @param id
      * @return Macrotask 
      */

@@ -20,10 +20,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue NewUserView
- * Vue d'ajout d'utilisateur
+ * Vue NewUserView.
+ * Vue d'ajout d'utilisateur.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewUserView extends EView
 {

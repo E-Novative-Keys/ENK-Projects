@@ -14,21 +14,41 @@ import net.enkeys.projects.controllers.LoginController;
 import net.enkeys.projects.models.User;
 import net.enkeys.projects.views.LoginView;
 
+/**
+ * Application ENK-Projects.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class ENKProjects extends EApplication
 {
+    //SALT et PEPPER utilisés pour transmettre des données au WebService
     public static final String SALT = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
     public static final String PEPPER = "kwl:mxn+>Du2g}mXH$Yq|V{G-uo5yAY-:!%3G.38vR-Z<Rq@K/H-73SV>T RWFQK";
     
+    //Données de l'utilisateur
     private Map<String, String> user = null;
     
+    /**
+     * Crée une nouvelle instance de type ENKProjects.
+     * @param name
+     * @param version
+     * @param dev
+     * @param contact
+     * @param args 
+     */
     public ENKProjects(String name, String version, String dev, String contact, String[] args)
     {
         super(name, version, dev, contact, args);
         
-        EResources.setPackage("net.enkeys.projects.resources");
-        addFrame(new MainFrame(this, getName(), 440, 380));
+        EResources.setPackage("net.enkeys.projects.resources"); //On définit le package dans lequel se trouvent les ressources de l'application
+        addFrame(new MainFrame(this, getName(), 440, 380));     //On crée une nouvelle fenêtre
     }
     
+    /**
+     * Définition des données de l'utilisateur.
+     * Activation des menus Accueil, Profil & Déconnexion.
+     * @param user 
+     */
     public void setUser(Map<String, String> user)
     {
         resetUser();
@@ -38,6 +58,10 @@ public class ENKProjects extends EApplication
         ((MainFrame)getFrame(0)).getProfileItem().setVisible(true);
     }
     
+    /**
+     * Déconnexion de l'utilisateur.
+     * Envoie d'une requête au WebService effaçant son token en base de données.
+     */
     public void resetUser()
     {
         if(this.user != null)
@@ -71,6 +95,10 @@ public class ENKProjects extends EApplication
         }
     }
     
+    /**
+     * Renvoie les données de l'utilisateur authentifié.
+     * @return 
+     */
     public Map<String, String> getUser()
     {
         return user;
@@ -83,9 +111,11 @@ public class ENKProjects extends EApplication
         User user = new User();
         MainFrame frame = (MainFrame)getFrame(0);
         
+        //On définit le contenu de la fenêtre et on l'affiche
         frame.setContent(new LoginController(this, new LoginView()));
         frame.setVisible(true);
         
+        //Si le WebService est injoignable, on clos l'application
         try
         {
             user.addData("data[Token][link]", "test");
@@ -105,8 +135,12 @@ public class ENKProjects extends EApplication
         }
     }
     
+    /**
+     * Main.
+     * @param args 
+     */
     public static void main(String[] args)
     {
-        new ENKProjects("ENK-Projects", "0.1", "E-Novative Keys", "contact@enkeys.com", args).run();
+        new ENKProjects("ENK-Projects", "1.0", "E-Novative Keys", "contact@enkeys.com", args).run();
     }
 }

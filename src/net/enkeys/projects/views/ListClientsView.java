@@ -16,10 +16,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ClientTable;
 
 /**
- * Vue ListClientsView
- * Vue liste des clients
+ * Vue ListClientsView.
+ * Vue liste des clients.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListClientsView extends EView
 {

@@ -14,10 +14,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue UsersManagerView
- * Vue de gestion des utilisateurs
+ * Vue UsersManagerView.
+ * Vue de gestion des utilisateurs.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class UsersManagerView extends EView
 {

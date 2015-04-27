@@ -3,6 +3,11 @@ package net.enkeys.framework.components.rules;
 import java.util.regex.Pattern;
 import net.enkeys.framework.exceptions.ERuleException;
 
+/**
+ * Règle de validation : la donnée validée doit correspondre à la regex donnée.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class RegexRule extends Rule
 {
     protected final Pattern regex;

@@ -16,10 +16,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.UserTable;
 
 /**
- * Vue ListUsersView
- * Vue liste des utilisateurs
+ * Vue ListUsersView.
+ * Vue liste des utilisateurs.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListUsersView extends EView
 {

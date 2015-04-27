@@ -5,10 +5,10 @@ import java.util.HashMap;
 import javax.swing.DefaultListModel;
 
 /**
- * Modele FileModel
- * Validation des fichiers Cloud
- * @extends EModel
+ * Modèle de données FileModel.
+ * @extends DefaultListModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class FileModel extends DefaultListModel<Object>
 {

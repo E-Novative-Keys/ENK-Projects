@@ -21,10 +21,11 @@ import net.enkeys.projects.views.NewUserView;
 import net.enkeys.projects.views.UsersManagerView;
 
 /**
- * Controller NewUserController
- * Gestion de la création d'un utilisateur
+ * Contrôlleur NewUserController.
+ * Gestion de la création d'un utilisateur.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewUserController extends EController
 {

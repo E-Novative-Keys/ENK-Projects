@@ -16,10 +16,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.MailTable;
 
 /**
- * Vue ReceivedMailsView
- * Vue de réception de mail
+ * Vue ReceivedMailsView.
+ * Vue de réception de mail.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ReceivedMailsView extends EView
 {

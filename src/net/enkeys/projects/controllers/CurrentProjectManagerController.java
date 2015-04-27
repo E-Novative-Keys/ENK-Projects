@@ -17,10 +17,11 @@ import net.enkeys.projects.views.ReceivedMailsView;
 import net.enkeys.projects.views.ScheduleView;
 
 /**
- * Controller CurrentProjectManagerController
- * Gestion des actions du menu de gestion d'un projet
+ * Contrôlleur CurrentProjectManagerController.
+ * Gestion des actions du menu de gestion d'un projet.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CurrentProjectManagerController extends EController
 {

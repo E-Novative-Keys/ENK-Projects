@@ -1,10 +1,10 @@
 package net.enkeys.projects.models;
 
 /**
- * Modele MailTable
- * Table mail non éditable
- * @extends EModel
+ * Modèle de données MailTable.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class MailTable extends TableModel
 {         

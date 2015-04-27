@@ -17,10 +17,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ProjectTable;
 
 /**
- * Vue ListProjectsView
- * Vue liste des projets
+ * Vue ListProjectsView.
+ * Vue liste des projets.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListProjectsView extends EView
 {

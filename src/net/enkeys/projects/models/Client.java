@@ -11,10 +11,10 @@ import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele Client
- * Validation des données Client envoyées
+ * Modèle Client.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class Client extends EModel
 {

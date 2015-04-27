@@ -2,6 +2,11 @@ package net.enkeys.framework.events;
 
 import java.awt.event.WindowEvent;
 
+/**
+ * Inteface définissant les événements de fenêtre.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public interface EWindowEvent
 {
     public default void onWindowOpened(WindowEvent we){}

@@ -26,10 +26,11 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ListClientsView;
 
 /**
- * Controller ListClientsController
- * Gestion de la liste des clients
+ * Contrôlleur ListClientsController.
+ * Gestion de la liste des clients.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ListClientsController extends EController
 {
@@ -78,10 +79,10 @@ public class ListClientsController extends EController
                 view.getListClients().setAutoCreateRowSorter(true);
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);       
+            setError("Une erreur inattendue est survenue");
     }
     
     //Evénement d'édition de client sur la table de datas

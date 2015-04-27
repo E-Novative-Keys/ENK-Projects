@@ -3,10 +3,10 @@ package net.enkeys.projects.models;
 import java.util.HashMap;
 
 /**
- * Modele ClientTable
- * Table client editable
- * @extends EModel
+ * Modèle de données pour tables de Clients.
+ * @extends TableModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ClientTable extends TableModel
 {
@@ -23,7 +23,7 @@ public class ClientTable extends TableModel
     }
 
     /**
-     * Edition de la table
+     * Edition de la table.
      * @param rowIndex
      * @param columnIndex
      * @return true
@@ -35,7 +35,7 @@ public class ClientTable extends TableModel
     }
     
     /**
-     * Récupération d'une ligne client par id
+     * Récupération d'une ligne client par id.
      * @param id
      * @return Client
      */

@@ -18,10 +18,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue NewClientView
- * Vue d'ajout de client
+ * Vue NewClientView.
+ * Vue d'ajout de client.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewClientView extends EView
 {

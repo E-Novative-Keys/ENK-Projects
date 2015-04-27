@@ -8,10 +8,10 @@ import javax.swing.JList;
 import net.enkeys.framework.utils.EResources;
 
 /**
- * Modele FileRenderer
- * Validation de ???
- * @extends EModel
+ * Classe permettant le rendu d'icônes dans les listes de fichiers du Cloud.
+ * @extends DefaultListCellRenderer
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class FileRenderer extends DefaultListCellRenderer
 {

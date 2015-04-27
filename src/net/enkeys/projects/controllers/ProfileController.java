@@ -16,10 +16,11 @@ import net.enkeys.projects.views.HomeView;
 import net.enkeys.projects.views.ProfileView;
 
 /**
- * Controller ProfileController
- * Gestion du profil
+ * Contrôlleur ProfileController.
+ * Gestion du profil.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ProfileController extends EController
 {

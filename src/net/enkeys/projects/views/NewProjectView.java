@@ -25,10 +25,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue NewProjectView
- * Vue d'ajout de projet
+ * Vue NewProjectView.
+ * Vue d'ajout de projet.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class NewProjectView extends EView
 {

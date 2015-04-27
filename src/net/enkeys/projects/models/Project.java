@@ -8,10 +8,10 @@ import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele Project
- * Validation des données Project envoyées
+ * Modèle Project.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class Project extends EModel
 {

@@ -15,10 +15,11 @@ import net.enkeys.framework.utils.EResources;
 import net.enkeys.framework.utils.ESystem;
 
 /**
- * Vue ProfileView
- * Vue du profil utilisateur
+ * Vue ProfileView.
+ * Vue du profil utilisateur.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ProfileView extends EView
 {

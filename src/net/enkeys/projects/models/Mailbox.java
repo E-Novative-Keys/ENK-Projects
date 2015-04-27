@@ -5,10 +5,10 @@ import net.enkeys.framework.components.EModel;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele MailBox
- * Validation des données mail envoyées (/none)
+ * Modèle MailBox.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class Mailbox extends EModel
 {

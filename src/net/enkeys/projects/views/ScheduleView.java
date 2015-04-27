@@ -16,10 +16,11 @@ import net.enkeys.framework.utils.ESystem;
 import net.enkeys.projects.models.ScheduleTable;
 
 /**
- * Vue ScheduleView
- * Vue liste des macrotâches
+ * Vue ScheduleView.
+ * Vue liste des macrotâches.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class ScheduleView extends EView
 {

@@ -32,10 +32,11 @@ import net.enkeys.projects.views.CloudView;
 import net.enkeys.projects.views.CurrentProjectManagerView;
 
 /**
- * Controller CloudController
- * Gestion des actions du Cloud
+ * Contrôlleur CloudController.
+ * Gestion des actions du Cloud.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CloudController extends EController
 {
@@ -409,19 +410,19 @@ public class CloudController extends EController
                 { 
                     if(index == 0)
                     {
-                        view.getDevRenderer().directories.add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
+                        view.getDevRenderer().directories.add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
                         view.getDevData().addElement(f.get("filename"));
                     }                        
                     else
                     {
-                        view.getClientRenderer().directories.add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
+                        view.getClientRenderer().directories.add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
                         view.getClientsData().addElement(f.get("filename"));
                     }
-                    directories.get(index).add((f.get("isDir") == "true") ? Boolean.TRUE : Boolean.FALSE);
+                    directories.get(index).add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
                 }
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
     }
     
@@ -487,8 +488,6 @@ public class CloudController extends EController
         EHttpRequest request        = null;
         String[] users              = new String[]{"dev", "client"};
         
-        
-        
         if(index == 0)
             cloud.addData("data[Cloud][path]", ECrypto.base64(
                 path[index].toString() + view.getDevList().getSelectedValue())
@@ -505,8 +504,7 @@ public class CloudController extends EController
         HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
 
         if(values != null && values.get("token") != null)
-        {                      
-            System.out.println(values.get("token"));
+        {
             try
             {
                 request = new EHttpRequest(new URL("http://enkwebservice.com/cloud/files/download/" + values.get("token")));
@@ -634,7 +632,7 @@ public class CloudController extends EController
                     else if(values != null && values.get("error") != null)
                         setError(values.get("error"));
                     else
-                        System.err.println(json);
+                        setError("Une erreur inattendue est survenue");
                 }
                 else
                     setError("Ce dossier n'a pas pu être créé");

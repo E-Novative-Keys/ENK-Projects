@@ -10,10 +10,11 @@ import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
 
 /**
- * Vue HomeView
- * Vue principale - Acceuil
+ * Vue HomeView.
+ * Vue principale - Acceuil.
  * @extends EView
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class HomeView extends EView
 {

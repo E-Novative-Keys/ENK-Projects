@@ -2,6 +2,11 @@ package net.enkeys.framework.components.rules;
 
 import net.enkeys.framework.exceptions.ERuleException;
 
+/**
+ * Règle de validation : la donnée validée doit être inférieure à la borne max.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class MaxRule extends Rule
 {
     protected final int max;

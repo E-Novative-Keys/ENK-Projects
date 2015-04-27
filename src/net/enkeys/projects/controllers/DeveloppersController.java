@@ -19,10 +19,11 @@ import net.enkeys.projects.views.CurrentProjectManagerView;
 import net.enkeys.projects.views.DeveloppersView;
 
 /**
- * Controller DevelopersControllers
- * Gestion de l'assignation des développeurs
+ * Contrôlleur DevelopersControllers.
+ * Gestion de l'assignation des développeurs.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class DeveloppersController extends EController
 {

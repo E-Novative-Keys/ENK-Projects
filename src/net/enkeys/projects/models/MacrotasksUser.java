@@ -7,11 +7,10 @@ import net.enkeys.framework.components.rules.RegexRule;
 import net.enkeys.framework.components.rules.Rule;
 
 /**
- * Modele MacrotaskUser
- * Validation des données pour l'ajout
- * d'association User/Macrotask
+ * Modèle MacrotaskUser.
  * @extends EModel
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class MacrotasksUser extends EModel
 {

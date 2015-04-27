@@ -25,10 +25,11 @@ import net.enkeys.projects.views.EditMacrotaskView;
 import net.enkeys.projects.views.ScheduleView;
 
 /**
- * Controller EditMacrotaskController
- * Gestion de l'édtion d'une macrotâche
+ * Contrôlleur EditMacrotaskController.
+ * Gestion de l'édtion d'une macrotâche.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 class EditMacrotaskController extends EController 
 {
@@ -99,10 +100,10 @@ class EditMacrotaskController extends EController
                 }
             }
             else
-                System.err.println(json);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
         
         
         //Reste le chargement des devs actuels, récupérer depuis le web service
@@ -122,17 +123,14 @@ class EditMacrotaskController extends EController
             {
                 ArrayList<HashMap<String, String>> macrotasksUsers = values.get("users");
                 
-                System.out.println("users : "+macrotasksUsers);
                 for(HashMap<String, String> u : macrotasksUsers)
-                {
                     view.getSelectedDevData().addElement(u.get("firstname")+" "+u.get("lastname"));
-                }
             }
             else
-                System.err.println(jsonMacroUser);
+                setError("Une erreur inattendue est survenue");
         }
         else
-            System.err.println(errors);
+            setError("Une erreur inattendue est survenue");
     }
     
     private ActionListener backButtonListener() 
@@ -197,7 +195,6 @@ class EditMacrotaskController extends EController
                             
                             macrotaskUser.clearData();
                             macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
-                            System.out.println("id macro : "+macrotask_id);
                             macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
                             macrotaskUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                             macrotaskUser.addData("data[Token][fields]", app.getUser().get("token"));

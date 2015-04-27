@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
@@ -21,10 +22,11 @@ import net.enkeys.projects.views.CurrentProjectsView;
 import net.enkeys.projects.views.HomeView;
 
 /**
- * Controller CurrentProjectsController
- * Redirige vers la gestion d'un projet selectionné
+ * Contrôlleur CurrentProjectsController.
+ * Redirige vers la gestion d'un projet selectionné.
  * @extends EController
  * @author E-Novative Keys
+ * @version 1.0
  */
 public class CurrentProjectsController extends EController
 {
@@ -69,7 +71,7 @@ public class CurrentProjectsController extends EController
             view.buildlistProjectsPanel();
         }
         else
-            System.err.println(json);
+            app.message("Une erreur inattendue est survenue", JOptionPane.ERROR_MESSAGE);
     }
     
     private ActionListener projectsButtonListener()
