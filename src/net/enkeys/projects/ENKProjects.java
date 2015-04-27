@@ -91,6 +91,7 @@ public class ENKProjects extends EApplication
                 this.user = null;
                 ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
                 ((MainFrame)getFrame(0)).getHomeItem().setVisible(false);
+                ((MainFrame)getFrame(0)).getProfileItem().setVisible(false);
             }
         }
     }
