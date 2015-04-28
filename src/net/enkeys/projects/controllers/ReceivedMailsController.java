@@ -104,6 +104,7 @@ public class ReceivedMailsController extends EController
                 view.getObjectLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("object"));
                 view.getDate().setText("Reçu le : ");
                 view.getDateLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("created"));
+                view.getMailLabel().setVisible(true);
                 view.getMailLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("content"));
             }
         };

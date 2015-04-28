@@ -61,6 +61,7 @@ public class ReceivedMailsView extends EView
         mailLabel.setWrapStyleWord(true);
         mailLabel.setLineWrap(true);
         mailLabel.setEditable(false);
+        mailLabel.setVisible(false);
         mail.add(mailLabel, constraints, 0, 2, 0);
         panel.add(mail, "North");
         

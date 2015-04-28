@@ -53,6 +53,7 @@ public class SentMailsView extends EView
         mailLabel.setWrapStyleWord(true);
         mailLabel.setLineWrap(true);
         mailLabel.setEditable(false);
+        mailLabel.setVisible(false);
         mail.add(mailLabel, constraints, 0, 2);
         panel.add(mail, "North");
         
