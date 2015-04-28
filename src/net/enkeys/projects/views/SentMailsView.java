@@ -37,24 +37,26 @@ public class SentMailsView extends EView
     {
         super();
         
-        add(listScroller, "West");
-        add(mailPanel(), "Center");
-        add(bottomPanel(), "South");
+        add(listScroller,   "West");
+        add(mailPanel(),    "Center");
+        add(bottomPanel(),  "South");
     }
     
     private JPanel mailPanel()
     {
-        ETable mail     = new ETable();
-        JPanel panel    = new JPanel(new BorderLayout());
-        GridBagConstraints constraints = mail.getConstraints();
+        ETable mail                     = new ETable();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        GridBagConstraints constraints  = mail.getConstraints();
         
-        mail.add(objectLabel, constraints, 0, 0);
-        mail.add(dateLabel, constraints, 0, 1);
+        mail.add(objectLabel,   constraints, 0, 0);
+        mail.add(dateLabel,     constraints, 0, 1);
+        
         mailLabel.setWrapStyleWord(true);
         mailLabel.setLineWrap(true);
         mailLabel.setEditable(false);
         mailLabel.setVisible(false);
-        mail.add(mailLabel, constraints, 0, 2);
+        mail.add(mailLabel,     constraints, 0, 2);
+        
         panel.add(mail, "North");
         
         return panel;
@@ -62,9 +64,9 @@ public class SentMailsView extends EView
    
     private JPanel bottomPanel()
     {
-        JPanel panel    = new JPanel(new BorderLayout());
-        ETable buttons  = new ETable();
-        GridBagConstraints constraints = buttons.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);

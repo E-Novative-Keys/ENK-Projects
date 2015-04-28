@@ -37,15 +37,15 @@ public class ScheduleView extends EView
     {
         super();
         
-        add(listScroller, "Center");
-        add(bottomPanel(), "South");
+        add(listScroller,   "Center");
+        add(bottomPanel(),  "South");
     }
 
     private Component bottomPanel() 
     {
-        JPanel panel    = new JPanel(new BorderLayout());
-        ETable buttons  = new ETable();
-        GridBagConstraints constraints = buttons.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -54,10 +54,10 @@ public class ScheduleView extends EView
         backButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         panel.add(backButton, "West");
         
-        buttons.add(addButton, constraints, 0, 0);
-        buttons.add(editButton, constraints, 1, 0);
+        buttons.add(addButton,      constraints, 0, 0);
+        buttons.add(editButton,     constraints, 1, 0);
         buttons.add(editTaskButton, constraints, 2, 0);
-        buttons.add(deleteButton, constraints, 3, 0);
+        buttons.add(deleteButton,   constraints, 3, 0);
         panel.add(buttons, "East");
        
         return panel;

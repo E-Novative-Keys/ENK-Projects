@@ -51,17 +51,18 @@ public class NewUserView extends EView
         
         add(newUserTable(), "Center");
         add(backPanel(),    "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Nouvel Utilisateur"));
     }
     
     private ETable newUserTable()
     {
-        ETable panel = new ETable();
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable panel                    = new ETable();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
-        constraints.fill = GridBagConstraints.CENTER;
-        constraints.insets = new Insets(15, 15, 15, 15);
+        constraints.fill    = GridBagConstraints.CENTER;
+        constraints.insets  = new Insets(15, 15, 15, 15);
         
         table.add(lastnameLabel,    constraints, 0, 0);
         table.add(lastname,         constraints, 1, 0);
@@ -82,16 +83,16 @@ public class NewUserView extends EView
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
-        panel.add(table, constraints, 0, 0);
+        panel.add(table,            constraints, 0, 0);
         
         return panel;
     }
     
     private JPanel backPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         back.setBorderPainted(false);
         back.setContentAreaFilled(false);

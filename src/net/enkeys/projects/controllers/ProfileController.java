@@ -60,26 +60,28 @@ public class ProfileController extends EController
             User user                   = (User)getModel("User");
             Map<String, String> errors  = new HashMap<>();
             
-            String oldpass  = new String(view.getOldPass().getPassword());
-            String password = new String(view.getNewPass().getPassword());
-            String confirm  = new String(view.getConfirm().getPassword());
+            String oldpass              = new String(view.getOldPass().getPassword());
+            String password             = new String(view.getNewPass().getPassword());
+            String confirm              = new String(view.getConfirm().getPassword());
             
             if(!oldpass.isEmpty() && !password.isEmpty() && !confirm.isEmpty())
             {
                 if(password.equals(confirm))
                 {
-                    user.addData("data[User][id]", app.getUser().get("id"));
-                    user.addData("data[User][oldpass]", user.password(oldpass));
-                    user.addData("data[User][password]", user.password(password));
+                    user.addData("data[User][id]",          app.getUser().get("id"));
+                    user.addData("data[User][oldpass]",     user.password(oldpass));
+                    user.addData("data[User][password]",    user.password(password));
                     
-                    user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                    user.addData("data[Token][fields]", app.getUser().get("token"));
+                    user.addData("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+                    user.addData("data[Token][fields]",     app.getUser().get("token"));
                     
                     String json = user.execute("CHANGEPASS", errors);
                     
                     if(json.contains("error"))
                     {
-                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                        Map<String, String> values = new Gson().fromJson(
+                            json, new TypeToken<Map<String, String>>(){}.getType()
+                        );
                         
                         if(values != null)
                         {

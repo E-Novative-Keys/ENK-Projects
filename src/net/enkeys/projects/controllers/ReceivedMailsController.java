@@ -63,17 +63,20 @@ public class ReceivedMailsController extends EController
             JMenuItem received  = new JMenuItem("Boite de Réception");
             JMenuItem sent      = new JMenuItem("Eléments Envoyés");
             JMenuItem newMail   = new JMenuItem("Nouveau Message");
+            
             received.addActionListener(receivedListener());
             sent.addActionListener(sentListener());
             newMail.addActionListener(newMailListener());
+            
             mailMenu.add(received);
             mailMenu.add(sent);
             mailMenu.add(newMail);
+            
             app.getFrame(0).getJMenuBar().add(mailMenu);
         }
         
         mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-        mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        mail.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         mail.addData("data[Token][fields]", app.getUser().get("token"));
         
         String json = mail.execute("SELECT", errors, true);
@@ -118,21 +121,21 @@ public class ReceivedMailsController extends EController
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer cet email ?") == ENKProjects.YES)
             {
-                Mailbox mail = (Mailbox)getModel("Mailbox");
-                Map<String, String> errors = new HashMap<>();
+                Mailbox mail                = (Mailbox)getModel("Mailbox");
+                Map<String, String> errors  = new HashMap<>();
                 
                 mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-                mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                mail.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
                 mail.addData("data[Token][fields]", app.getUser().get("token"));
                 
-                for(int i = 0 ; i < rows.length ; i++)
+                for(int i = 0; i < rows.length; i++)
                 {
                     int modelID = view.getListMails().convertRowIndexToModel(rows[i]-i);
                     
                     mail.addData("data[Mail][id]", ECrypto.base64(view.getDataTable().values.get(modelID).get("id")));
                     
-                    String json = mail.execute("DELETE", errors, true);
-                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                    String json                 = mail.execute("DELETE", errors, true);
+                    Map<String, String> values  = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
                     if(values != null && values.get("email") != null)
                     {

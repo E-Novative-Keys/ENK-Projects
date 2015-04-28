@@ -33,22 +33,22 @@ import net.enkeys.framework.utils.ESystem;
 public class NewMacrotaskView extends EView
 {
     //Colonne gauche
-    private final JLabel macrotaskNameLabel             = new JLabel("Nom de la macrotâche : ");
-    private final JTextField macrotaskName              = new JTextField(20);
-    private final JLabel hoursLabel                     = new JLabel("Heures : ");
-    private final SpinnerNumberModel hoursSpinner       = new SpinnerNumberModel(10, 0, 23, 1);
-    private final JSpinner hours                        = new JSpinner(hoursSpinner);
-    private final JLabel priorityLabel                  = new JLabel("Priorité : ");
-    private final SpinnerNumberModel prioritySpinner    = new SpinnerNumberModel(10, 1, 100, 1);
-    private final JSpinner priority                     = new JSpinner(prioritySpinner);
-    private final JLabel selectedDevLabel               = new JLabel("Développeurs sélectionnés");
-    private final DefaultListModel selectedDevData      = new DefaultListModel();
-    private final JList selectedDevList                 = new JList(selectedDevData);
-    private final JScrollPane selectedDevScroller       = new JScrollPane(selectedDevList);
-    private final EComboBox developers                  = new EComboBox();  
-    private final JLabel developersLabel                = new JLabel("Développeur ->");
-    private final JButton addDeveloperButton            = new JButton("Ajouter un développeur");
-    private final JButton supprDeveloperButton          = new JButton("Supprimer la sélection");
+    private final JLabel macrotaskNameLabel                 = new JLabel("Nom de la macrotâche : ");
+    private final JTextField macrotaskName                  = new JTextField(20);
+    private final JLabel hoursLabel                         = new JLabel("Heures : ");
+    private final SpinnerNumberModel hoursSpinner           = new SpinnerNumberModel(10, 0, 23, 1);
+    private final JSpinner hours                            = new JSpinner(hoursSpinner);
+    private final JLabel priorityLabel                      = new JLabel("Priorité : ");
+    private final SpinnerNumberModel prioritySpinner        = new SpinnerNumberModel(10, 1, 100, 1);
+    private final JSpinner priority                         = new JSpinner(prioritySpinner);
+    private final JLabel selectedDevLabel                   = new JLabel("Développeurs sélectionnés");
+    private final DefaultListModel selectedDevData          = new DefaultListModel();
+    private final JList selectedDevList                     = new JList(selectedDevData);
+    private final JScrollPane selectedDevScroller           = new JScrollPane(selectedDevList);
+    private final EComboBox developers                      = new EComboBox();  
+    private final JLabel developersLabel                    = new JLabel("Développeur ->");
+    private final JButton addDeveloperButton                = new JButton("Ajouter un développeur");
+    private final JButton supprDeveloperButton              = new JButton("Supprimer la sélection");
     
     //Colonne droite
     private final JLabel deadlineLabel                      = new JLabel("Deadline : ");
@@ -68,23 +68,25 @@ public class NewMacrotaskView extends EView
     private final JButton addMicrotaskButton                = new JButton("Ajouter une tâche");
     private final JButton supprMicrotaskButton              = new JButton("Supprimer la selection");
     
-    private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
-    private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JLabel errorLabel                 = new JLabel("");
+    private final JButton save                              = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
+    private final JButton back                              = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JLabel errorLabel                         = new JLabel("");
     
     public NewMacrotaskView() 
     {
         super();
         
-        add(newMacrotaskTable(), "Center");
-        add(buttonsPanel(), "South");
+        add(newMacrotaskTable(),    "Center");
+        add(buttonsPanel(),         "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Nouvelle Macrotâche"));
     }
 
-    private ETable newMacrotaskTable() {
-        ETable panel = new ETable();
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+    private ETable newMacrotaskTable()
+    {
+        ETable panel                    = new ETable();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
        
         constraints.fill    = GridBagConstraints.BOTH;
         constraints.insets  = new Insets(10, 10, 10, 10);
@@ -126,15 +128,17 @@ public class NewMacrotaskView extends EView
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
+        
         panel.add(table, constraints, 0, 0);
         
         return panel;
     }
 
-    private JPanel buttonsPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+    private JPanel buttonsPanel()
+    {
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         back.setBorderPainted(false);
         back.setContentAreaFilled(false);
@@ -223,95 +227,118 @@ public class NewMacrotaskView extends EView
         return errorLabel;
     }
 
-    public DefaultListModel getSelectedDevData() {
+    public DefaultListModel getSelectedDevData()
+    {
         return selectedDevData;
     }
 
-    public JList getSelectedDevList() {
+    public JList getSelectedDevList()
+    {
         return selectedDevList;
     }
 
-    public JScrollPane getSelectedDevScroller() {
+    public JScrollPane getSelectedDevScroller()
+    {
         return selectedDevScroller;
     }
 
-    public JLabel getSelectedTaskLabel() {
+    public JLabel getSelectedTaskLabel()
+    {
         return selectedTaskLabel;
     }
 
-    public DefaultListModel getSelectedTaskData() {
+    public DefaultListModel getSelectedTaskData()
+    {
         return selectedTaskData;
     }
 
-    public JList getSelectedTaskList() {
+    public JList getSelectedTaskList()
+    {
         return selectedTaskList;
     }
 
-    public JScrollPane getSelectedTaskScroller() {
+    public JScrollPane getSelectedTaskScroller()
+    {
         return selectedTaskScroller;
     }
 
-    public JButton getSupprDeveloperButton() {
+    public JButton getSupprDeveloperButton()
+    {
         return supprDeveloperButton;
     }
 
-    public JButton getSupprMicrotaskButton() {
+    public JButton getSupprMicrotaskButton()
+    {
         return supprMicrotaskButton;
     }
 
-    public JLabel getDevelopersLabel() {
+    public JLabel getDevelopersLabel()
+    {
         return developersLabel;
     }
 
-    public JLabel getPriorityLabel() {
+    public JLabel getPriorityLabel()
+    {
         return priorityLabel;
     }
 
-    public JSpinner getPriority() {
+    public JSpinner getPriority()
+    {
         return priority;
     }
 
-    public JLabel getTaskLabel() {
+    public JLabel getTaskLabel()
+    {
         return taskLabel;
     }
 
-    public SpinnerNumberModel getPrioritySpinner() {
+    public SpinnerNumberModel getPrioritySpinner()
+    {
         return prioritySpinner;
     }
 
-    public JLabel getPriorityTaskLabel() {
+    public JLabel getPriorityTaskLabel()
+    {
         return priorityTaskLabel;
     }
 
-    public SpinnerNumberModel getPriorityTaskSpinner() {
+    public SpinnerNumberModel getPriorityTaskSpinner()
+    {
         return priorityTaskSpinner;
     }
 
-    public JSpinner getPriorityTask() {
+    public JSpinner getPriorityTask()
+    {
         return priorityTask;
     }
 
-    public JLabel getHoursLabel() {
+    public JLabel getHoursLabel()
+    {
         return hoursLabel;
     }
 
-    public JLabel getMinutesLabel() {
+    public JLabel getMinutesLabel()
+    {
         return minutesLabel;
     }
 
-    public SpinnerNumberModel getHoursSpinner() {
+    public SpinnerNumberModel getHoursSpinner()
+    {
         return hoursSpinner;
     }
 
-    public JSpinner getHours() {
+    public JSpinner getHours()
+    {
         return hours;
     }
 
-    public SpinnerNumberModel getMinutesSpinner() {
+    public SpinnerNumberModel getMinutesSpinner()
+    {
         return minutesSpinner;
     }
 
-    public JSpinner getMinutes() {
+    public JSpinner getMinutes()
+    {
         return minutes;
     }
     

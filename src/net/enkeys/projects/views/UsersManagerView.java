@@ -30,22 +30,22 @@ public class UsersManagerView extends EView
     {
         super();
         
-        add(UsersManagerPanel(), "Center");
-        add(backPanel(), "South");
+        add(UsersManagerPanel(),    "Center");
+        add(backPanel(),            "South");
     }
     
     private JPanel UsersManagerPanel()
     {
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         table.setBorder(new TitledBorder(new EtchedBorder(), "Users Manager"));
         
         constraints.fill    = GridBagConstraints.BOTH;
         constraints.insets  = new Insets(15, 15, 15, 15);
  
-        table.add(newUserButton, constraints, 0, 0);
-        table.add(listUsersButton, constraints, 1, 0);
+        table.add(newUserButton,    constraints, 0, 0);
+        table.add(listUsersButton,  constraints, 1, 0);
         
         return table; 
     }

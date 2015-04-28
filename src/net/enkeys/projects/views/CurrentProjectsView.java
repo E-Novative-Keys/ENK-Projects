@@ -33,9 +33,11 @@ public class CurrentProjectsView extends EView
     public CurrentProjectsView()
     {
         super();
+        
         scroller.setBorder(new TitledBorder(new EtchedBorder(), "Liste des Projets"));
-        add(scroller, "Center");
-        add(bottomPanel(), "South");
+        
+        add(scroller,       "Center");
+        add(bottomPanel(),  "South");
     }
     
     public void buildlistProjectsPanel()

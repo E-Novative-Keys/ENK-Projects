@@ -34,16 +34,17 @@ import net.enkeys.projects.views.ListClientsView;
  */
 public class ListClientsController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final ListClientsView view = (ListClientsView)super.view;
+    private final ENKProjects app       = (ENKProjects)super.app;
+    private final ListClientsView view  = (ListClientsView)super.view;
     
     private final ArrayList<Integer> updated;
     
     public ListClientsController(EApplication app, EView view)
     {
         super(app, view);
-        this.updated = new ArrayList<>();
         addModel(new Client());
+        
+        this.updated = new ArrayList<>();
         
         this.view.getDataTable().addTableModelListener(dataTableListener());
         this.view.getBackButton().addActionListener(backButtonListener());
@@ -56,16 +57,18 @@ public class ListClientsController extends EController
     
     private void initView()
     {
-        Client client = (Client)getModel("Client");
-        Map<String, String> errors = new HashMap<>();
+        Client client               = (Client)getModel("Client");
+        Map<String, String> errors  = new HashMap<>();
         
-        client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        client.addData("data[Token][fields]", app.getUser().get("token"));
+        client.addData("data[Token][link]",     ECrypto.base64(app.getUser().get("email")));
+        client.addData("data[Token][fields]",   app.getUser().get("token"));
         
         if(client.validate("SELECT", client.getData(), errors))
         {
             String json = client.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("clients") != null)
             {
@@ -96,7 +99,7 @@ public class ListClientsController extends EController
                     
                 case TableModelEvent.UPDATE:
                     int modelID = view.getListClients().convertRowIndexToModel(view.getListClients().getSelectedRow());
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                     {
@@ -139,19 +142,19 @@ public class ListClientsController extends EController
     private ActionListener deleteButtonListener()
     {
         return (ActionEvent e) -> {
-            Client client = (Client)getModel("Client");
-            int[] rows = view.getListClients().getSelectedRows();
+            Client client   = (Client)getModel("Client");
+            int[] rows      = view.getListClients().getSelectedRows();
             
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer les clients sélectionnés ? Vous allez supprimer les projets associés.") == ENKProjects.YES)
             {                
-                client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                client.addData("data[Token][fields]", app.getUser().get("token"));
+                client.addData("data[Token][link]",     ECrypto.base64(app.getUser().get("email")));
+                client.addData("data[Token][fields]",   app.getUser().get("token"));
                         
                 for(int i = 0 ; i < rows.length ; i++)
                 {
                     int modelID = view.getListClients().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().values.get(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().values.get(modelID).get("id"));
                     
                     client.addData("data[Client][id]", id);
                 
@@ -192,26 +195,26 @@ public class ListClientsController extends EController
     private boolean saveUpdatedClients()
     {
         boolean success = false;
-        Client client = (Client)getModel("Client");
+        Client client   = (Client)getModel("Client");
 
-        client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        client.addData("data[Token][fields]", app.getUser().get("token"));
+        client.addData("data[Token][link]",     ECrypto.base64(app.getUser().get("email")));
+        client.addData("data[Token][fields]",   app.getUser().get("token"));
                 
         for(int i : updated)
         {
-            Map<String, String> c = view.getDataTable().getClientByID(i);
-            Map<String, String> errors = new HashMap<>();
+            Map<String, String> c       = view.getDataTable().getClientByID(i);
+            Map<String, String> errors  = new HashMap<>();
 
             if(c != null)
             {
-                client.addData("data[Client][id]", c.get("id"));
-                client.addData("data[Client][firstname]", c.get("firstname"));
-                client.addData("data[Client][lastname]", c.get("lastname"));
+                client.addData("data[Client][id]",          c.get("id"));
+                client.addData("data[Client][firstname]",   c.get("firstname"));
+                client.addData("data[Client][lastname]",    c.get("lastname"));
                 client.addData("data[Client][phonenumber]", c.get("phonenumber"));
-                client.addData("data[Client][email]", c.get("email"));
-                client.addData("data[Client][enterprise]", c.get("enterprise"));
-                client.addData("data[Client][siret]", c.get("siret"));
-                client.addData("data[Client][address]", c.get("address"));
+                client.addData("data[Client][email]",       c.get("email"));
+                client.addData("data[Client][enterprise]",  c.get("enterprise"));
+                client.addData("data[Client][siret]",       c.get("siret"));
+                client.addData("data[Client][address]",     c.get("address"));
 
                 try
                 {
@@ -225,7 +228,9 @@ public class ListClientsController extends EController
                                 success = true;
                             else if(json.contains("error"))
                             {
-                                Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                Map<String, Map<String, String>> values = new Gson().fromJson(
+                                    json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                );
 
                                 if((errors = values.get("error")) != null)
                                     setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));

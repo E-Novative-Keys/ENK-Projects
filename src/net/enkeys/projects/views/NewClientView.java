@@ -49,48 +49,50 @@ public class NewClientView extends EView
     {
         super();
         
-        add(newClientTable(), "Center");
-        add(buttonsPanel(), "South");
+        add(newClientTable(),   "Center");
+        add(buttonsPanel(),     "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Nouveau Client"));
     }
     
     private ETable newClientTable()
     {
-        ETable panel = new ETable();
-        ETable table = new ETable();
+        ETable panel                    = new ETable();
+        ETable table                    = new ETable();
         GridBagConstraints constraints = table.getConstraints();
        
         constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(15, 15, 15, 15);
         
-        table.add(lastnameLabel, constraints, 0, 0);
-        table.add(lastname, constraints, 1, 0);
-        table.add(firstnameLabel, constraints, 0, 1);
-        table.add(firstname, constraints, 1, 1);
-        table.add(phonenumberLabel, constraints, 0, 2);
-        table.add(phonenumber, constraints, 1, 2);
-        table.add(emailLabel, constraints, 0, 3);
-        table.add(email, constraints, 1, 3);
-        table.add(enterpriseLabel, constraints, 2, 0);
-        table.add(enterprise, constraints, 3, 0);
-        table.add(addressLabel, constraints, 2, 1);
-        table.add(address, constraints, 3, 1);
-        table.add(siretLabel, constraints, 2, 2);
-        table.add(siret, constraints, 3, 2);
-        table.add(newProject, constraints, 2, 3, 0);
+        table.add(lastnameLabel,        constraints, 0, 0);
+        table.add(lastname,             constraints, 1, 0);
+        table.add(firstnameLabel,       constraints, 0, 1);
+        table.add(firstname,            constraints, 1, 1);
+        table.add(phonenumberLabel,     constraints, 0, 2);
+        table.add(phonenumber,          constraints, 1, 2);
+        table.add(emailLabel,           constraints, 0, 3);
+        table.add(email,                constraints, 1, 3);
+        table.add(enterpriseLabel,      constraints, 2, 0);
+        table.add(enterprise,           constraints, 3, 0);
+        table.add(addressLabel,         constraints, 2, 1);
+        table.add(address,              constraints, 3, 1);
+        table.add(siretLabel,           constraints, 2, 2);
+        table.add(siret,                constraints, 3, 2);
+        table.add(newProject,           constraints, 2, 3, 0);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
-        panel.add(table, constraints, 0, 0);
+        
+        panel.add(table,                constraints, 0, 0);
         
         return panel;
     }
     
     private JPanel buttonsPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         back.setBorderPainted(false);
         back.setContentAreaFilled(false);

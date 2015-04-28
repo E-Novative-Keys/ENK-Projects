@@ -24,8 +24,8 @@ import net.enkeys.projects.views.UsersManagerView;
  */
 public class HomeController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final HomeView view = (HomeView)super.view;
+    private final ENKProjects app   = (ENKProjects)super.app;
+    private final HomeView view     = (HomeView)super.view;
     
     public HomeController(EApplication app, EView view)
     {

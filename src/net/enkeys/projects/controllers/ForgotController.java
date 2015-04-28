@@ -93,19 +93,18 @@ public class ForgotController extends EController
     {
         return (ActionEvent e) -> {
             String password = new String(view.getPasswordField().getPassword());
-            String confirm = new String(view.getConfirmField().getPassword());
-            String token = view.getTokenField().getText();
+            String confirm  = new String(view.getConfirmField().getPassword());
+            String token    = view.getTokenField().getText();
             
             if(!password.isEmpty() && !confirm.isEmpty() && !token.isEmpty())
             {
                 if(password.equals(confirm))
                 {
-                    User user = (User)getModel("User");
-                    Map<String, String> errors = new HashMap<>();
+                    User user                   = (User)getModel("User");
+                    Map<String, String> errors  = new HashMap<>();
                     
-                    //user.addData("data[User][email]", view.getEmailField().getText());
-                    user.addData("data[User][password]", user.password(password));
-                    user.addData("data[User][token]", token);
+                    user.addData("data[User][password]",    user.password(password));
+                    user.addData("data[User][token]",       token);
                     
                     if(user.validate("VALIDATE", user.getData(), errors))
                     {
@@ -113,22 +112,24 @@ public class ForgotController extends EController
                         
                         if(json != null && json.contains("user"))
                         {
-                            Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                            Map<String, Map<String, String>> values = new Gson().fromJson(
+                                json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                            );
                             
                             if(values != null && values.get("user") != null)
                             {
                                 Map<String, String> dataUser = values.get("user");
                                 user.clearData();
-                                user.addData("data[User][id]", dataUser.get("id"));
-                                user.addData("data[User][firstname]", dataUser.get("firstname"));
-                                user.addData("data[User][lastname]", dataUser.get("lastname"));
-                                user.addData("data[User][email]", dataUser.get("email"));
-                                user.addData("data[User][role]", dataUser.get("role"));
-                                user.addData("data[User][password]", user.password(password));
+                                user.addData("data[User][id]",          dataUser.get("id"));
+                                user.addData("data[User][firstname]",   dataUser.get("firstname"));
+                                user.addData("data[User][lastname]",    dataUser.get("lastname"));
+                                user.addData("data[User][email]",       dataUser.get("email"));
+                                user.addData("data[User][role]",        dataUser.get("role"));
+                                user.addData("data[User][password]",    user.password(password));
                                 user.addData("data[User][token_email]", "");
                                 
-                                user.addData("data[Token][link]", ECrypto.base64(dataUser.get("email")));
-                                user.addData("data[Token][fields]", dataUser.get("token"));
+                                user.addData("data[Token][link]",       ECrypto.base64(dataUser.get("email")));
+                                user.addData("data[Token][fields]",     dataUser.get("token"));
                                 
                                 if(user.validate("UPDATE", user.getData(), errors))
                                 {

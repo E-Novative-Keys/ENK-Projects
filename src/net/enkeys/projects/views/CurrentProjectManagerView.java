@@ -18,23 +18,24 @@ import net.enkeys.framework.utils.EResources;
  */
 public class CurrentProjectManagerView extends EView
 {
-    private final JButton scheduleButton = new JButton(EResources.loadImageIcon("planification.png"));
-    private final JButton messengerButton = new JButton(EResources.loadImageIcon("messagerie.png"));
-    private final JButton cloudButton = new JButton(EResources.loadImageIcon("cloud.png"));
+    private final JButton scheduleButton    = new JButton(EResources.loadImageIcon("planification.png"));
+    private final JButton messengerButton   = new JButton(EResources.loadImageIcon("messagerie.png"));
+    private final JButton cloudButton       = new JButton(EResources.loadImageIcon("cloud.png"));
     private final JButton developpersButton = new JButton(EResources.loadImageIcon("affectation_dvlp.png"));
-    private final JButton quotationButton = new JButton(EResources.loadImageIcon("devis.png"));
+    private final JButton quotationButton   = new JButton(EResources.loadImageIcon("devis.png"));
     private final JButton editProjectButton = new JButton(EResources.loadImageIcon("editer_projet.png"));
 
     public CurrentProjectManagerView()
     {
         super();
+        
         add(projectPanel());
     }
     
     private ETable projectPanel()
     {
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         table.setBorder(new TitledBorder(new EtchedBorder(), "Projet"));
         

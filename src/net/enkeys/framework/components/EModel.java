@@ -37,8 +37,8 @@ public abstract class EModel
     public EModel()
     {
         actions = new HashMap<>();
-        data = new HashMap<>();
-        rules = new HashMap<>();
+        data    = new HashMap<>();
+        rules   = new HashMap<>();
         
         initRules(rules);
         initActions(actions);

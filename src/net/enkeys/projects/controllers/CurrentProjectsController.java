@@ -30,9 +30,9 @@ import net.enkeys.projects.views.HomeView;
  */
 public class CurrentProjectsController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final CurrentProjectsView view = (CurrentProjectsView)super.view;
-    private ArrayList<HashMap<String, String>> projectData = new ArrayList<>();
+    private final ENKProjects app                           = (ENKProjects)super.app;
+    private final CurrentProjectsView view                  = (CurrentProjectsView)super.view;
+    private ArrayList<HashMap<String, String>> projectData  = new ArrayList<>();
     
     public CurrentProjectsController(EApplication app, EView view)
     {
@@ -40,19 +40,22 @@ public class CurrentProjectsController extends EController
         addModel(new Project());
         
         this.view.getBackButton().addActionListener(backButtonListener());
+        
         initView();    
     }
     
     private void initView()
     {
-        Project project = (Project)getModel("Project");
-        Map<String, String> errors = new HashMap<>();
+        Project project             = (Project)getModel("Project");
+        Map<String, String> errors  = new HashMap<>();
         
-        project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        project.addData("data[Token][fields]", app.getUser().get("token"));
+        project.addData("data[Token][link]",    ECrypto.base64(app.getUser().get("email")));
+        project.addData("data[Token][fields]",  app.getUser().get("token"));
         
         String json = project.execute("CURRENT");
-        Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+        Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+            json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+        );
 
         if(values != null && values.get("projects") != null)
         {
@@ -60,12 +63,17 @@ public class CurrentProjectsController extends EController
 
             for(HashMap<String, String> p : projects)
             {
-                JButton projectButton = new JButton(p.get("name"), EResources.loadImageIcon("project.png", 75, 75));
+                JButton projectButton = new JButton(
+                    p.get("name"), EResources.loadImageIcon("project.png", 75, 75)
+                );
+                
                 projectButton.setVerticalTextPosition(SwingConstants.BOTTOM);
                 projectButton.setHorizontalTextPosition(SwingConstants.CENTER);
                 projectButton.setIconTextGap(15);
                 projectButton.addActionListener(projectsButtonListener());
+                
                 view.getListCurrentProjectsButton().add(projectButton);
+                
                 projectData.add(p);
             }
             view.buildlistProjectsPanel();

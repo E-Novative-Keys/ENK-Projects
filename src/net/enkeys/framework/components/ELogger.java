@@ -47,14 +47,14 @@ public class ELogger extends Logger
     
     private final ConsoleHandler handler;        //Gestionnaire permettant la redéfinition du Formatter de log
     private String folder = "log/", name = null; //Le nom du dossier et du fichier de log en cas de définition behavior = FILE
-    private File file = null;                    //Le fichier contenant les messages loggés
-    private Behavior behavior = null;            //Le comportement adopté par le Logger
+    private File file           = null;          //Le fichier contenant les messages loggés
+    private Behavior behavior   = null;          //Le comportement adopté par le Logger
     
     protected ELogger(String name, Behavior behavior)
     {
         super(name, null);
-        this.handler = new ConsoleHandler();
-        this.name = name;
+        this.handler    = new ConsoleHandler();
+        this.name       = name;
         
         setUseParentHandlers(false);
         setBehavior(behavior);

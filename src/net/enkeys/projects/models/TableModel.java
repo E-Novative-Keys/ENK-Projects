@@ -16,8 +16,8 @@ public abstract class TableModel extends AbstractTableModel
 {
     protected final String[] keys;
     protected final String[] columns;
-    protected final ArrayList<HashMap<String, String>> origin = new ArrayList<>();
-    public final ArrayList<HashMap<String, String>> values = new ArrayList<>();
+    protected final ArrayList<HashMap<String, String>> origin   = new ArrayList<>();
+    public final ArrayList<HashMap<String, String>> values      = new ArrayList<>();
     
     /**
      * Crée une nouvelle instance de type TableModel.
@@ -26,8 +26,8 @@ public abstract class TableModel extends AbstractTableModel
      */
     public TableModel() throws EDataException
     {
-        this.keys = setKeys();
-        this.columns = setColumns();
+        this.keys       = setKeys();
+        this.columns    = setColumns();
         
         if(keys == null || columns == null || keys.length != columns.length)
             throw new EDataException("Incompatible set of Keys/Columns");

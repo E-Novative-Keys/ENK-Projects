@@ -43,16 +43,17 @@ public class DeveloppersView extends EView
     public DeveloppersView()
     {
         super();
-        add(devPanel(), "Center");
-        add(bottomPanel(), "South");
+        
+        add(devPanel(),     "Center");
+        add(bottomPanel(),  "South");
     }
     
     private JPanel devPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        ETable buttons = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         table.setBorder(new TitledBorder(new EtchedBorder(), "Affectation des développeurs"));
         constraints.fill    = GridBagConstraints.BOTH;
@@ -66,8 +67,10 @@ public class DeveloppersView extends EView
         
         userScroller.setPreferredSize(new Dimension(1, 1));
         table.add(userScroller, constraints, 0, 0, 1, 1, 1);
+        
         devScroller.setPreferredSize(new Dimension(1, 1));
         table.add(devScroller, constraints, 1, 0, 1, 1, 1);
+        
         panel.add(table, "Center");
         
         buttons.add(adddev, constraints, 0, 0);
@@ -80,9 +83,9 @@ public class DeveloppersView extends EView
     
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -92,6 +95,7 @@ public class DeveloppersView extends EView
         panel.add(backButton, "West");
         
         constraints.fill = GridBagConstraints.CENTER;
+        
         errorLabel.setForeground(Color.red);
         table.add(errorLabel, constraints, 0, 0, 0);
         panel.add(table, "Center");
@@ -124,7 +128,8 @@ public class DeveloppersView extends EView
         return userScroller;
     }
 
-    public JScrollPane getDevScroller() {
+    public JScrollPane getDevScroller()
+    {
         return devScroller;
     }
 

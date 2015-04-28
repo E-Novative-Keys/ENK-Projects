@@ -36,16 +36,17 @@ import net.enkeys.projects.views.UsersManagerView;
  */
 public class ListUsersController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final ListUsersView view = (ListUsersView)super.view;
+    private final ENKProjects app       = (ENKProjects)super.app;
+    private final ListUsersView view    = (ListUsersView)super.view;
     
     private final ArrayList<Integer> updated;
     
     public ListUsersController(EApplication app, EView view)
     {
         super(app, view);
-        this.updated = new ArrayList<>();
         addModel(new User());
+        
+        this.updated = new ArrayList<>();
         
         this.view.getDataTable().addTableModelListener(dataTableListener());
         this.view.getBackButton().addActionListener(backButtonListener());
@@ -58,16 +59,18 @@ public class ListUsersController extends EController
     
     private void initView() 
     {
-        User user = (User)getModel("User");
-        Map<String, String> errors = new HashMap<>();
+        User user                   = (User)getModel("User");
+        Map<String, String> errors  = new HashMap<>();
         
-        user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        user.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
         
         if(user.validate("SELECT", user.getData(), errors))
         {
             String json = user.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("users") != null)
             {
@@ -98,7 +101,7 @@ public class ListUsersController extends EController
                     
                 case TableModelEvent.UPDATE:
                     int modelID = view.getListUsers().convertRowIndexToModel(view.getListUsers().getSelectedRow());
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                         updated.add(id);
@@ -139,19 +142,19 @@ public class ListUsersController extends EController
     private ActionListener deleteButtonListener() 
     {
         return (ActionEvent e) -> {
-            User user = (User)getModel("User");
-            int[] rows = view.getListUsers().getSelectedRows();
+            User user   = (User)getModel("User");
+            int[] rows  = view.getListUsers().getSelectedRows();
             
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer les utilisateurs sélectionnés ?") == ENKProjects.YES)
             {                
-                user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                user.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
                 user.addData("data[Token][fields]", app.getUser().get("token"));
                         
-                for(int i = 0 ; i < rows.length ; i++)
+                for(int i = 0; i < rows.length; i++)
                 {
                     int modelID = view.getListUsers().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     //Si on delete l'utilisateur courant, erreur et continue
                     if(id == Integer.parseInt(app.getUser().get("id")))
@@ -201,25 +204,25 @@ public class ListUsersController extends EController
         boolean success = false;
         User user = (User)getModel("User");
 
-        user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        user.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
                 
         for(int i : updated)
         {
-            Map<String, String> u = view.getDataTable().getUserByID(i);
-            Map<String, String> errors = new HashMap<>();
+            Map<String, String> u       = view.getDataTable().getUserByID(i);
+            Map<String, String> errors  = new HashMap<>();
 
             if(u != null)
             {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 
-                user.addData("data[User][id]", u.get("id"));
-                user.addData("data[User][firstname]", u.get("firstname"));
-                user.addData("data[User][lastname]", u.get("lastname"));
-                user.addData("data[User][email]", u.get("email"));
-                user.addData("data[User][role]", u.get("role"));
-                user.addData("data[User][validated]", u.get("validated"));
-                user.addData("data[User][updated]", df.format(new Date()));
+                user.addData("data[User][id]",          u.get("id"));
+                user.addData("data[User][firstname]",   u.get("firstname"));
+                user.addData("data[User][lastname]",    u.get("lastname"));
+                user.addData("data[User][email]",       u.get("email"));
+                user.addData("data[User][role]",        u.get("role"));
+                user.addData("data[User][validated]",   u.get("validated"));
+                user.addData("data[User][updated]",     df.format(new Date()));
 
                 try
                 {
@@ -233,7 +236,9 @@ public class ListUsersController extends EController
                                 success = true;
                             else if(json.contains("error"))
                             {
-                                Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                Map<String, Map<String, String>> values = new Gson().fromJson(
+                                    json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                );
 
                                 if((errors = values.get("error")) != null)
                                     setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));

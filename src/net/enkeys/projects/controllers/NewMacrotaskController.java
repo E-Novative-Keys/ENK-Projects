@@ -34,7 +34,7 @@ import net.enkeys.projects.views.ScheduleView;
  */
 public class NewMacrotaskController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
+    private final ENKProjects app       = (ENKProjects)super.app;
     private final NewMacrotaskView view = (NewMacrotaskView)super.view;
     private final HashMap<String, String> project;
 
@@ -62,19 +62,21 @@ public class NewMacrotaskController extends EController
     
     private void initView()
     {
-        Map<String, String> errors = new HashMap<>();
-        User user = (User)getModel("User");
+        User user                   = (User)getModel("User");
+        Map<String, String> errors  = new HashMap<>();
         
-        user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        user.addData("data[Token][fields]", app.getUser().get("token"));
-        user.addData("data[User][project_id]", project.get("id"));
-        user.addData("data[User][getdev]", true);
+        user.addData("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+        user.addData("data[Token][fields]",     app.getUser().get("token"));
+        user.addData("data[User][project_id]",  project.get("id"));
+        user.addData("data[User][getdev]",      true);
         
         //Remplissage ComboBox référent
         if(user.validate("SELECT", user.getData(), errors))
         {
             String json = user.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
 
             if(values != null && values.get("users") != null)
             {
@@ -140,7 +142,9 @@ public class NewMacrotaskController extends EController
                     {
                         //La macrotache est bien crée, il faut récupérer son id et 
                         // hydrater le reste en fonction de l'id trouvée
-                        Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
+                        Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(
+                                json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType()
+                        );
                         Task task                       = (Task)getModel("Task");
                         MacrotasksUser macrotaskUser    = (MacrotasksUser)getModel("MacrotasksUser");
                         String macrotask_id             = values.get("macrotask_id").get(0).get("id");
@@ -154,17 +158,17 @@ public class NewMacrotaskController extends EController
                         for(int i = 0; i < numTasks; i++)
                         {
                             //Ajouter les taches ajoutées a la macrotache
-                            String tasksSelection = view.getSelectedTaskData().get(i).toString();
-                            String taskName = tasksSelection.split(" // ")[0];
-                            String taskPriority = tasksSelection.split(" // ")[1].substring(1, tasksSelection.split(" // ")[1].length() - 1);
+                            String tasksSelection   = view.getSelectedTaskData().get(i).toString();
+                            String taskName         = tasksSelection.split(" // ")[0];
+                            String taskPriority     = tasksSelection.split(" // ")[1].substring(1, tasksSelection.split(" // ")[1].length() - 1);
                      
                             task.clearData();
-                            task.addData("data[Task][macrotask_id]", macrotask_id);
-                            task.addData("data[Task][name]", taskName);
-                            task.addData("data[Task][priority]", taskPriority);
-                            task.addData("data[Task][progress]", "0");
-                            task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                            task.addData("data[Token][fields]", app.getUser().get("token"));
+                            task.addData("data[Task][macrotask_id]",    macrotask_id);
+                            task.addData("data[Task][name]",            taskName);
+                            task.addData("data[Task][priority]",        taskPriority);
+                            task.addData("data[Task][progress]",        "0");
+                            task.addData("data[Token][link]",           ECrypto.base64(app.getUser().get("email")));
+                            task.addData("data[Token][fields]",         app.getUser().get("token"));
                         
                             if(task.validate("INSERT", task.getData(), errors))
                             {
@@ -172,7 +176,9 @@ public class NewMacrotaskController extends EController
                                 
                                 if(jsonTask.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newValues = new Gson().fromJson(jsonTask, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newValues = new Gson().fromJson(
+                                        jsonTask, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                    );
 
                                     if((errors = newValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -193,9 +199,9 @@ public class NewMacrotaskController extends EController
                             
                             macrotaskUser.clearData();
                             macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
-                            macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
-                            macrotaskUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                            macrotaskUser.addData("data[Token][fields]", app.getUser().get("token"));
+                            macrotaskUser.addData("data[MacrotasksUser][user_name]",    developersSelection);
+                            macrotaskUser.addData("data[Token][link]",                  ECrypto.base64(app.getUser().get("email")));
+                            macrotaskUser.addData("data[Token][fields]",                app.getUser().get("token"));
                             
                             if(macrotaskUser.validate("INSERT", macrotaskUser.getData(), errors))
                             {
@@ -203,7 +209,9 @@ public class NewMacrotaskController extends EController
                                 
                                 if(jsonUser.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(
+                                        jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                    );
 
                                     if((errors = newDevValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -222,7 +230,9 @@ public class NewMacrotaskController extends EController
                     } //End if(json.contains("macrotask"))
                     else if(json.contains("error"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        Map<String, Map<String, String>> values = new Gson().fromJson(
+                            json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                        );
 
                         if((errors = values.get("error")) != null)
                             setError(errors.get(errors.keySet().toArray()[0].toString()));

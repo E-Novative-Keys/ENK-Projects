@@ -40,7 +40,7 @@ public class NewMailView extends EView
         super();
         
         add(newMailPanel(), "Center");
-        add(bottomPanel(), "South");
+        add(bottomPanel(),  "South");
     }
     
     private ETable newMailPanel()
@@ -52,28 +52,29 @@ public class NewMailView extends EView
         constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(10, 10, 10, 10);
         
-        newMail.add(newMailLabel, constraints, 0, 0, 0);
-        newMail.add(objectLabel, constraints, 0, 1);
-        newMail.add(object, constraints, 1, 1);
-        newMail.add(mailLabel, constraints, 0, 2);
+        newMail.add(newMailLabel,   constraints, 0, 0, 0);
+        newMail.add(objectLabel,    constraints, 0, 1);
+        newMail.add(object,         constraints, 1, 1);
+        newMail.add(mailLabel,      constraints, 0, 2);
         
         mail.setLineWrap(true);
         scrollPane  = new JScrollPane(mail); 
-        newMail.add(scrollPane, constraints, 1, 2);
+        newMail.add(scrollPane,     constraints, 1, 2);
         
         constraints         = panel.getConstraints();
         constraints.fill    = GridBagConstraints.CENTER;
-        panel.add(newMail, constraints, 0, 0);
+        
+        panel.add(newMail,          constraints, 0, 0);
         
         return panel;
     }
     
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        ETable buttons = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -84,7 +85,7 @@ public class NewMailView extends EView
         
         constraints.fill = GridBagConstraints.CENTER;
         errorLabel.setForeground(Color.red);
-        table.add(errorLabel, constraints, 0, 0, 0);
+        table.add(errorLabel,   constraints, 0, 0, 0);
         panel.add(table, "Center");
         
         constraints = buttons.getConstraints();

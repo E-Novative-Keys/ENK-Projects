@@ -20,7 +20,7 @@ import net.enkeys.projects.views.NewUserView;
  */
 public class UsersManagerController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
+    private final ENKProjects app       = (ENKProjects)super.app;
     private final UsersManagerView view = (UsersManagerView)super.view;
     
     public UsersManagerController(EApplication app, EView view)

@@ -22,11 +22,11 @@ import net.enkeys.projects.views.LoginView;
 public class ENKProjects extends EApplication
 {
     //SALT et PEPPER utilisés pour transmettre des données au WebService
-    public static final String SALT = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
-    public static final String PEPPER = "kwl:mxn+>Du2g}mXH$Yq|V{G-uo5yAY-:!%3G.38vR-Z<Rq@K/H-73SV>T RWFQK";
+    public static final String SALT     = "$$-;-GQ^ TdD/-)7;_Kls+Q/Z<w+RI^],f6/bL 8=>ou!Hx~N/T-I| ~n@lOp6+t";
+    public static final String PEPPER   = "kwl:mxn+>Du2g}mXH$Yq|V{G-uo5yAY-:!%3G.38vR-Z<Rq@K/H-73SV>T RWFQK";
     
     //Données de l'utilisateur
-    private Map<String, String> user = null;
+    private Map<String, String> user    = null;
     
     /**
      * Crée une nouvelle instance de type ENKProjects.
@@ -52,7 +52,9 @@ public class ENKProjects extends EApplication
     public void setUser(Map<String, String> user)
     {
         resetUser();
+        
         this.user = user;
+        
         ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(true);
         ((MainFrame)getFrame(0)).getHomeItem().setVisible(true);
         ((MainFrame)getFrame(0)).getProfileItem().setVisible(true);
@@ -89,6 +91,7 @@ public class ENKProjects extends EApplication
             finally
             {
                 this.user = null;
+                
                 ((MainFrame)getFrame(0)).getDisconnectItem().setVisible(false);
                 ((MainFrame)getFrame(0)).getHomeItem().setVisible(false);
                 ((MainFrame)getFrame(0)).getProfileItem().setVisible(false);
@@ -109,7 +112,7 @@ public class ENKProjects extends EApplication
     public void run()
     {
         logger.log(getName() + " v" + getVersion());
-        User user = new User();
+        User user       = new User();
         MainFrame frame = (MainFrame)getFrame(0);
         
         //On définit le contenu de la fenêtre et on l'affiche

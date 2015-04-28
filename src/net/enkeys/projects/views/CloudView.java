@@ -50,16 +50,17 @@ public class CloudView extends EView
     public CloudView()
     {
         super();
-        add(cloudPanel(), "Center");
-        add(bottomPanel(), "South");
+        
+        add(cloudPanel(),   "Center");
+        add(bottomPanel(),  "South");
     }
     
     private JPanel cloudPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        ETable buttons = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         panel.setBorder(new TitledBorder(new EtchedBorder(), "Cloud"));
         constraints.fill    = GridBagConstraints.BOTH;
@@ -75,6 +76,7 @@ public class CloudView extends EView
         
         devScroller.setPreferredSize(new Dimension(1, 1));
         clientsScroller.setPreferredSize(new Dimension(1, 1));
+        
         table.add(devScroller,          constraints, 0, 0, 1, 1, 1);
         table.add(clientsScroller,      constraints, 1, 0, 1, 1, 1);
         panel.add(table, "Center");
@@ -92,9 +94,9 @@ public class CloudView extends EView
     
     private JPanel bottomPanel()
     {
-        JPanel panel    = new JPanel(new BorderLayout());
-        ETable table    = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -105,6 +107,7 @@ public class CloudView extends EView
         
         constraints.fill = GridBagConstraints.CENTER;
         constraints.insets = new Insets(5, 5, 5, 5);
+        
         table.add(commentField, constraints, 0, 0);
         table.add(commentButton, constraints, 1, 0);
         

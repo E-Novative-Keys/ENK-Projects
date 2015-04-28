@@ -28,7 +28,7 @@ public class ForgotView extends EView
     private final ImageIcon logo                = EResources.loadImageIcon("logo.png", 340, 100);
     private final JLabel emailLabel             = new JLabel("E-Mail :");
     private final JTextField emailField         = new JTextField(20);
-    private final JButton tokenButton            = new JButton("Générer");
+    private final JButton tokenButton           = new JButton("Générer");
     private final JLabel passwordLabel          = new JLabel("Mot de passe :");
     private final JPasswordField passwordField  = new JPasswordField(20);
     private final JLabel confirmLabel           = new JLabel("Confirmation :");
@@ -42,13 +42,14 @@ public class ForgotView extends EView
     public ForgotView()
     {
         super();
+        
         add(forgotPanel(), "Center");
         add(bottomPanel(), "South");
     }
     
     private ETable forgotPanel()
     {
-        ETable panel = new ETable();
+        ETable panel        = new ETable();
         GridBagConstraints constraints;
         
         constraints         = panel.getConstraints();
@@ -57,30 +58,40 @@ public class ForgotView extends EView
         
         errorLabel.setForeground(Color.red);
         
-        panel.add(new JLabel(logo), constraints, 0, 0, 0);
-        panel.add(emailLabel, constraints, 0, 1);
-        panel.add(emailField, constraints, 1, 1);
-        panel.add(tokenButton, constraints, 2, 1);
-        panel.add(passwordLabel, constraints, 0, 2);
+        panel.add(new JLabel(logo),     constraints, 0, 0, 0);
+        panel.add(emailLabel,           constraints, 0, 1);
+        panel.add(emailField,           constraints, 1, 1);
+        panel.add(tokenButton,          constraints, 2, 1);
+        panel.add(passwordLabel,        constraints, 0, 2);
+        
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(passwordField, constraints, 1, 2, 0);
+        
+        panel.add(passwordField,        constraints, 1, 2, 0);
+        
         constraints.fill = GridBagConstraints.CENTER;
-        panel.add(confirmLabel, constraints, 0, 3);
+        
+        panel.add(confirmLabel,         constraints, 0, 3);
+        
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(confirmField, constraints, 1, 3, 0);
+        
+        panel.add(confirmField,         constraints, 1, 3, 0);
+        
         constraints.fill = GridBagConstraints.CENTER;
-        panel.add(tokenLabel, constraints, 0, 4);
+        
+        panel.add(tokenLabel,           constraints, 0, 4);
+        
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(tokenField, constraints, 1, 4, 0);
+        
+        panel.add(tokenField,           constraints, 1, 4, 0);
         
         return panel;
     }
     
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable buttons = new ETable();
-        GridBagConstraints constraints = buttons.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);

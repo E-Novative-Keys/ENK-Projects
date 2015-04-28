@@ -34,8 +34,8 @@ import net.enkeys.projects.views.HomeView;
  */
 public class LoginController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final LoginView view = (LoginView)super.view;
+    private final ENKProjects app   = (ENKProjects)super.app;
+    private final LoginView view    = (LoginView)super.view;
     
     public LoginController(EApplication app, EView view)
     {

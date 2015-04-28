@@ -46,42 +46,44 @@ public class QuotationView extends EView
     {
         super();
         
-        add(quotationTable(), "Center");
-        add(bottomPanel(), "South");
+        add(quotationTable(),   "Center");
+        add(bottomPanel(),      "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Estimation de devis"));
     }
     
     private ETable quotationTable()
     {
-        ETable panel = new ETable();
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable panel                    = new ETable();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
-        constraints.fill = GridBagConstraints.CENTER;
-        constraints.insets = new Insets(15, 15, 15, 15);
+        constraints.fill    = GridBagConstraints.CENTER;
+        constraints.insets  = new Insets(15, 15, 15, 15);
         
-        table.add(devLabel, constraints, 0, 0);
-        table.add(devSpinner, constraints, 1, 0);
+        table.add(devLabel,         constraints, 0, 0);
+        table.add(devSpinner,       constraints, 1, 0);
         
-        table.add(leaddevLabel, constraints, 0, 1);
-        table.add(leaddevSpinner, constraints, 1, 1);
+        table.add(leaddevLabel,     constraints, 0, 1);
+        table.add(leaddevSpinner,   constraints, 1, 1);
         
-        table.add(tvaLabel, constraints, 0, 2);
-        table.add(tvaSpinner, constraints, 1, 2);
+        table.add(tvaLabel,         constraints, 0, 2);
+        table.add(tvaSpinner,       constraints, 1, 2);
         
-        constraints = panel.getConstraints();
-        constraints.fill = GridBagConstraints.CENTER;
-        panel.add(table, constraints, 0, 0);
+        constraints         = panel.getConstraints();
+        constraints.fill    = GridBagConstraints.CENTER;
+        
+        panel.add(table,            constraints, 0, 0);
         
         return panel;
     }
     
     private JPanel bottomPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        ETable buttons = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -95,9 +97,9 @@ public class QuotationView extends EView
         table.add(errorLabel, constraints, 0, 0, 0);
         panel.add(table, "Center");
         
-        constraints = buttons.getConstraints();
-        constraints.insets = new Insets(0, 10, 0, 10);
-        constraints.fill = GridBagConstraints.CENTER;
+        constraints         = buttons.getConstraints();
+        constraints.insets  = new Insets(0, 10, 0, 10);
+        constraints.fill    = GridBagConstraints.CENTER;
         buttons.add(generateButton, constraints, 0, 0);
         panel.add(buttons, "East");
         
