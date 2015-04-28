@@ -62,8 +62,8 @@ public class MainFrame extends EFrame
         exit.addActionListener(fileExitListener());
         
         file.add(home);
-        file.add(disconnect);
         file.add(profile);
+        file.add(disconnect);
         file.add(exit);
         
         menuBar.add(file);
