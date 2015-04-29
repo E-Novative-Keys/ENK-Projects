@@ -164,7 +164,8 @@ public class CloudController extends EController
             @Override
             public void keyReleased(KeyEvent e)
             {
-                if(e.getExtendedKeyCode() == KeyEvent.VK_DELETE)
+                if(e.getExtendedKeyCode() == KeyEvent.VK_DELETE
+                && (app.getUser().get("role").equals("admin") || app.getUser().get("role").equals("leaddev")))
                 {
                     Cloud cloud = (Cloud)getModel("Cloud");
                     
