@@ -2,8 +2,13 @@ package net.enkeys.projects.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.enkeys.framework.components.EApplication;
 import net.enkeys.framework.components.EController;
 import net.enkeys.framework.components.EView;
@@ -39,10 +44,19 @@ public class ProfileController extends EController
     
     private void initView()
     {
-        this.view.getUserValue().setText(app.getUser().get("firstname") + " " + app.getUser().get("lastname"));
-        this.view.getMailValue().setText(app.getUser().get("email"));
-        this.view.getDateValue().setText(app.getUser().get("lastlogin"));
-        this.view.getIpValue().setText(app.getUser().get("lastip"));
+        try
+        {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(app.getUser().get("lastlogin"));
+            
+            this.view.getUserValue().setText(app.getUser().get("firstname") + " " + app.getUser().get("lastname"));
+            this.view.getMailValue().setText(app.getUser().get("email"));
+            this.view.getDateValue().setText(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(date));
+            this.view.getIpValue().setText(app.getUser().get("lastip"));
+        }
+        catch(ParseException ex)
+        {
+            app.getLogger().warning(ex.getMessage());
+        }
         
     }
     
