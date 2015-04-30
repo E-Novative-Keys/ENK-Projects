@@ -146,7 +146,7 @@ class EditProjectController extends EController
         
         try
         {
-            view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
+            view.getDeadline().setDate(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(this.data.get("deadline")));
         }
         catch (ParseException ex)
         {
