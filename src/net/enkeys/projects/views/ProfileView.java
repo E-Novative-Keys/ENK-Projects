@@ -46,56 +46,55 @@ public class ProfileView extends EView
         super();
         
         add(profilePanel(), "Center");
-        add(bottomPanel(), "South");
+        add(bottomPanel(),  "South");
     }
     
     private ETable profilePanel()
     {
-        ETable table        = new ETable();
-        ETable leftTable    = new ETable();
-        ETable rightTable   = new ETable();
-        
-        GridBagConstraints constraints = leftTable.getConstraints();
+        ETable table                    = new ETable();
+        ETable leftTable                = new ETable();
+        ETable rightTable               = new ETable();
+        GridBagConstraints constraints  = leftTable.getConstraints();
         
         constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(15, 15, 15, 15);
         
-        leftTable.add(userLabel, constraints, 0, 0);
-        leftTable.add(userValue, constraints, 1, 0);
-        leftTable.add(mailLabel, constraints, 0, 1);
-        leftTable.add(mailValue, constraints, 1, 1);
-        leftTable.add(dateLabel, constraints, 0, 2);
-        leftTable.add(dateValue, constraints, 1, 2);
-        leftTable.add(ipLabel, constraints, 0, 3);
-        leftTable.add(ipValue, constraints, 1, 3);
+        leftTable.add(userLabel,        constraints, 0, 0);
+        leftTable.add(userValue,        constraints, 1, 0);
+        leftTable.add(mailLabel,        constraints, 0, 1);
+        leftTable.add(mailValue,        constraints, 1, 1);
+        leftTable.add(dateLabel,        constraints, 0, 2);
+        leftTable.add(dateValue,        constraints, 1, 2);
+        leftTable.add(ipLabel,          constraints, 0, 3);
+        leftTable.add(ipValue,          constraints, 1, 3);
         
         constraints         = rightTable.getConstraints();
         
         constraints.fill    = GridBagConstraints.CENTER;
         constraints.insets  = new Insets(15, 15, 15, 15);
         
-        rightTable.add(oldLabel, constraints, 0, 0);
-        rightTable.add(oldPass, constraints, 1, 0);
-        rightTable.add(newLabel, constraints, 0, 1);
-        rightTable.add(newPass, constraints, 1, 1);
-        rightTable.add(confirmLabel, constraints, 0, 2);
-        rightTable.add(confirm, constraints, 1, 2);
+        rightTable.add(oldLabel,        constraints, 0, 0);
+        rightTable.add(oldPass,         constraints, 1, 0);
+        rightTable.add(newLabel,        constraints, 0, 1);
+        rightTable.add(newPass,         constraints, 1, 1);
+        rightTable.add(confirmLabel,    constraints, 0, 2);
+        rightTable.add(confirm,         constraints, 1, 2);
         
         constraints         = table.getConstraints();
         
         constraints.fill    = GridBagConstraints.CENTER;
         
-        table.add(leftTable, constraints, 0, 0);
-        table.add(rightTable, constraints, 1, 0);
+        table.add(leftTable,            constraints, 0, 0);
+        table.add(rightTable,           constraints, 1, 0);
         
         return table;
     }
     
     private JPanel bottomPanel()
     {    
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);

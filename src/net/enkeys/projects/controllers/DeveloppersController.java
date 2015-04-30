@@ -27,8 +27,8 @@ import net.enkeys.projects.views.DeveloppersView;
  */
 public class DeveloppersController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final DeveloppersView view = (DeveloppersView)super.view;
+    private final ENKProjects app       = (ENKProjects)super.app;
+    private final DeveloppersView view  = (DeveloppersView)super.view;
     private final HashMap<String, String> project;
     private final ArrayList<ArrayList<Map<String, String>>> users;
     
@@ -54,7 +54,7 @@ public class DeveloppersController extends EController
         
         user.addData("data[User][project_id]", project.get("id"));
         
-        user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        user.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
         
         for(int i = 0; i < 2; i++)
@@ -66,7 +66,9 @@ public class DeveloppersController extends EController
 
                 if(json != null && json.contains("users"))
                 {
-                    Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType());
+                    Map<String, ArrayList<Map<String, String>>> values = new Gson().fromJson(
+                        json, new TypeToken<HashMap<String, ArrayList<Map<String, String>>>>(){}.getType()
+                    );
 
                     if(values != null && values.get("users") != null)
                     {
@@ -91,12 +93,12 @@ public class DeveloppersController extends EController
     {
         return (ActionEvent e) -> {
             Project project = (Project)getModel("Project");
-            List selection = view.getUsersList().getSelectedValuesList();
+            List selection  = view.getUsersList().getSelectedValuesList();
             
             project.clearData();
             
-            project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            project.addData("data[Token][fields]", app.getUser().get("token"));
+            project.addData("data[Token][link]",    ECrypto.base64(app.getUser().get("email")));
+            project.addData("data[Token][fields]",  app.getUser().get("token"));
             
             for(int i = 0; i < selection.size(); i++)
             {
@@ -107,14 +109,18 @@ public class DeveloppersController extends EController
                     if(new String(u.get("firstname") + " " + u.get("lastname")).contains((String)selection.get(i)))
                     {
                         project.addData("data[UsersProject][user_id]", u.get("id"));
+                        
                         users.get(1).add(u);
                         users.get(0).remove(u);
+                        
                         break;
                     }
                 }
                 
-                String json = project.execute("AFFECT");
-                Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                String json                = project.execute("AFFECT");
+                Map<String, String> values = new Gson().fromJson(
+                    json, new TypeToken<Map<String, String>>(){}.getType()
+                );
                 
                 if(values != null && values.get("affect") != null)
                 {
@@ -130,12 +136,12 @@ public class DeveloppersController extends EController
     {
         return (ActionEvent e) -> {
             Project project = (Project)getModel("Project");
-            List selection = view.getDevList().getSelectedValuesList();
+            List selection  = view.getDevList().getSelectedValuesList();
             
             project.clearData();
             
-            project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            project.addData("data[Token][fields]", app.getUser().get("token"));
+            project.addData("data[Token][link]",    ECrypto.base64(app.getUser().get("email")));
+            project.addData("data[Token][fields]",  app.getUser().get("token"));
             
             for(int i = 0; i < selection.size(); i++)
             {
@@ -154,7 +160,9 @@ public class DeveloppersController extends EController
                 
                 String json = project.execute("DISAFFECT");
                 
-                Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                Map<String, String> values = new Gson().fromJson(
+                    json, new TypeToken<Map<String, String>>(){}.getType()
+                );
                 
                 if(values != null && values.get("disaffect") != null)
                 {

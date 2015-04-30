@@ -58,28 +58,28 @@ public class EditMacrotaskView extends EView
     private final JList selectedDevList                 = new JList(selectedDevData);
     private final JScrollPane selectedDevScroller       = new JScrollPane(selectedDevList);
    
-    
-    private final JButton save                      = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
-    private final JButton back                      = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
-    private final JLabel errorLabel                 = new JLabel("");
+    private final JButton save                          = new JButton(EResources.loadImageIcon("bouton_enregister.png", 180, 50));
+    private final JButton back                          = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
+    private final JLabel errorLabel                     = new JLabel("");
     
     public EditMacrotaskView() 
     {
         super();
         
-        add(newMacrotaskTable(), "Center");
-        add(buttonsPanel(), "South");
+        add(newMacrotaskTable(),    "Center");
+        add(buttonsPanel(),         "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Edition de la Macrotâche"));
     }
 
     private ETable newMacrotaskTable()
     {
-        ETable panel = new ETable();
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        ETable panel                    = new ETable();
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
        
-        constraints.fill    = GridBagConstraints.HORIZONTAL;
-        constraints.insets  = new Insets(15, 15, 15, 15);
+        constraints.fill                = GridBagConstraints.HORIZONTAL;
+        constraints.insets              = new Insets(15, 15, 15, 15);
         
         //Gauche
         table.add(macrotaskNameLabel,       constraints, 0, 0);
@@ -113,9 +113,9 @@ public class EditMacrotaskView extends EView
 
     private JPanel buttonsPanel()
     {
-        JPanel panel = new JPanel(new BorderLayout());
-        ETable table = new ETable();
-        GridBagConstraints constraints = table.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable table                    = new ETable();
+        GridBagConstraints constraints  = table.getConstraints();
         
         back.setBorderPainted(false);
         back.setContentAreaFilled(false);
@@ -125,8 +125,10 @@ public class EditMacrotaskView extends EView
         panel.add(back, "West");
         
         constraints.fill = GridBagConstraints.CENTER;
+        
         errorLabel.setForeground(Color.red);
         table.add(errorLabel, constraints, 0, 0, 0);
+        
         panel.add(table, "Center");
         
         save.setBorderPainted(false);

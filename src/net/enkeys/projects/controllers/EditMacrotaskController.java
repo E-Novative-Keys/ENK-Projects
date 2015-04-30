@@ -33,8 +33,8 @@ import net.enkeys.projects.views.ScheduleView;
  */
 class EditMacrotaskController extends EController 
 {
-    private final ENKProjects app = (ENKProjects) super.app;
-    private final EditMacrotaskView view = (EditMacrotaskView) super.view;
+    private final ENKProjects app           = (ENKProjects) super.app;
+    private final EditMacrotaskView view    = (EditMacrotaskView) super.view;
     private final HashMap<String, String> project;
     private final HashMap<String, String> data;
 
@@ -48,8 +48,8 @@ class EditMacrotaskController extends EController
         addModel(new User());
         addModel(new MacrotasksUser());
         
-        this.project = project;
-        this.data = data;
+        this.project    = project;
+        this.data       = data;
         
         this.view.getBack().addActionListener(backButtonListener());
         this.view.getSave().addActionListener(saveButtonListener());
@@ -63,8 +63,8 @@ class EditMacrotaskController extends EController
     
     private void initView() 
     {
-        Map<String, String> errors = new HashMap<>();
-        User user = (User)getModel("User");
+        User user                   = (User)getModel("User");
+        Map<String, String> errors  = new HashMap<>();
         
         user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
         user.addData("data[Token][fields]", app.getUser().get("token"));
@@ -75,9 +75,12 @@ class EditMacrotaskController extends EController
         this.view.setMacrotaskHour(this.data.get("hour"));
         this.view.setMacrotaskMinute(this.data.get("minute"));
         this.view.setMacrotaskPriority(this.data.get("priority"));
+        
         try
         {
-            view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
+            view.getDeadline().setDate(
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline"))
+            );
         }
         catch (ParseException ex)
         {
@@ -88,7 +91,9 @@ class EditMacrotaskController extends EController
         if(user.validate("SELECT", user.getData(), errors))
         {
             String json = user.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
 
             if(values != null && values.get("users") != null)
             {
@@ -117,14 +122,16 @@ class EditMacrotaskController extends EController
         if(macrotasksUser.validate("SELECT", macrotasksUser.getData(), errors))
         {
             String jsonMacroUser = macrotasksUser.execute("SELECT", errors); 
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(jsonMacroUser, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                jsonMacroUser, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("users") != null)
             {
                 ArrayList<HashMap<String, String>> macrotasksUsers = values.get("users");
                 
                 for(HashMap<String, String> u : macrotasksUsers)
-                    view.getSelectedDevData().addElement(u.get("firstname")+" "+u.get("lastname"));
+                    view.getSelectedDevData().addElement(u.get("firstname") + " " + u.get("lastname"));
             }
             else
                 setError("Une erreur inattendue est survenue");
@@ -160,8 +167,8 @@ class EditMacrotaskController extends EController
                 return;
             }
             
-            String hours = new String(Float.parseFloat(view.getHours().getValue().toString()) + "");
-            String minutes = new String(Float.parseFloat(view.getMinutes().getValue().toString()) + "");    
+            String hours    = new String(Float.parseFloat(view.getHours().getValue().toString()) + "");
+            String minutes  = new String(Float.parseFloat(view.getMinutes().getValue().toString()) + "");    
             
             macrotask.addData("data[Macrotask][project_id]",    this.project.get("id"));
             macrotask.addData("data[Macrotask][name]",          view.getMacrotaskName().getText());
@@ -181,7 +188,7 @@ class EditMacrotaskController extends EController
                     
                     if(json.contains("macrotask"))
                     {
-                        Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                        Map<String, String> values      = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
                         MacrotasksUser macrotaskUser    = (MacrotasksUser)getModel("MacrotasksUser");
                         String macrotask_id             = values.get("macrotask_id");
                         
@@ -195,11 +202,11 @@ class EditMacrotaskController extends EController
                             
                             macrotaskUser.clearData();
                             macrotaskUser.addData("data[MacrotasksUser][macrotask_id]", macrotask_id);
-                            macrotaskUser.addData("data[MacrotasksUser][user_name]", developersSelection);
-                            macrotaskUser.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                            macrotaskUser.addData("data[Token][fields]", app.getUser().get("token"));
+                            macrotaskUser.addData("data[MacrotasksUser][user_name]",    developersSelection);
+                            macrotaskUser.addData("data[Token][link]",                  ECrypto.base64(app.getUser().get("email")));
+                            macrotaskUser.addData("data[Token][fields]",                app.getUser().get("token"));
                             //Indication de suppresion de liste en début d'insert
-                            macrotaskUser.addData("data[MacrotasksUser][purge]", i==0 ? "true" : "false");
+                            macrotaskUser.addData("data[MacrotasksUser][purge]",        i==0 ? "true" : "false");
                             
                             if(macrotaskUser.validate("UPDATE", macrotaskUser.getData(), errors))
                             {
@@ -207,7 +214,9 @@ class EditMacrotaskController extends EController
                                 
                                 if(jsonUser.contains("error"))
                                 {
-                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                    Map<String, Map<String, String>> newDevValues = new Gson().fromJson(
+                                        jsonUser, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                    );
 
                                     if((errors = newDevValues.get("error")) != null)
                                         setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -226,7 +235,9 @@ class EditMacrotaskController extends EController
                     } //End if(json.contains("macrotask"))
                     else if(json.contains("error"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        Map<String, Map<String, String>> values = new Gson().fromJson(
+                            json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                        );
 
                         if((errors = values.get("error")) != null)
                             setError(errors.get(errors.keySet().toArray()[0].toString()));

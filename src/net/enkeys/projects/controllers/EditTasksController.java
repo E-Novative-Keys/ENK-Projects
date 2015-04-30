@@ -31,8 +31,8 @@ import net.enkeys.projects.views.ScheduleView;
  */
 public class EditTasksController extends EController
 {
-    private final ENKProjects app = (ENKProjects) super.app;
-    private final EditTasksView view = (EditTasksView)super.view;
+    private final ENKProjects app       = (ENKProjects) super.app;
+    private final EditTasksView view    = (EditTasksView)super.view;
     private final HashMap<String, String> project;
     private final HashMap<String, String> data;
     
@@ -41,11 +41,11 @@ public class EditTasksController extends EController
     public EditTasksController(EApplication app, EView view, HashMap<String, String>  project, HashMap<String, String>  data) 
     {
         super(app, view);
-        this.updated = new ArrayList<>();
         addModel(new Task());
         
-        this.project = project;
-        this.data = data;
+        this.project    = project;
+        this.data       = data;
+        this.updated    = new ArrayList<>();
         
         this.view.getDataTable().addTableModelListener(dataTableListener());
         this.view.getBackButton().addActionListener(backButtonListener());
@@ -58,17 +58,19 @@ public class EditTasksController extends EController
     
     private void initView()
     {
-        Task task = (Task)getModel("Task");
-        Map<String, String> errors = new HashMap<>();
+        Task task                   = (Task)getModel("Task");
+        Map<String, String> errors  = new HashMap<>();
         
-        task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        task.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         task.addData("data[Token][fields]", app.getUser().get("token"));
         task.addData("data[Macrotask][id]", data.get("id"));
         
         if(task.validate("SELECT", task.getData(), errors))
         {
             String json = task.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("tasks") != null)
             {
@@ -111,15 +113,15 @@ public class EditTasksController extends EController
     private boolean saveUpdatedTasks()
     {
         boolean success = false;
-        Task task = (Task)getModel("Task");
+        Task task       = (Task)getModel("Task");
 
-        task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        task.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         task.addData("data[Token][fields]", app.getUser().get("token"));
                 
         for(int i : updated)
         {
-            Map<String, String> t = view.getDataTable().getTaskByID(i);
-            Map<String, String> errors = new HashMap<>();
+            Map<String, String> t       = view.getDataTable().getTaskByID(i);
+            Map<String, String> errors  = new HashMap<>();
 
             if(t != null)
             {
@@ -141,7 +143,9 @@ public class EditTasksController extends EController
                                 success = true;
                             else if(json.contains("error"))
                             {
-                                Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                                Map<String, Map<String, String>> values = new Gson().fromJson(
+                                    json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                                );
 
                                 if((errors = values.get("error")) != null)
                                     setError("#" + i + " : " + errors.get(errors.keySet().toArray()[0].toString()));
@@ -184,21 +188,22 @@ public class EditTasksController extends EController
     }
 
     //Suppresion d'une tâche via le webservice
-    private ActionListener deleteButtonListener() {
+    private ActionListener deleteButtonListener()
+    {
         return (ActionEvent e) -> {
-            Task task = (Task)getModel("Task");
-            int[] rows = view.getListTasks().getSelectedRows();
+            Task task   = (Task)getModel("Task");
+            int[] rows  = view.getListTasks().getSelectedRows();
             
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer les tâches sélectionnés ?") == ENKProjects.YES)
             {                
-                task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                task.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
                 task.addData("data[Token][fields]", app.getUser().get("token"));
                         
-                for(int i = 0 ; i < rows.length ; i++)
+                for(int i = 0; i < rows.length; i++)
                 {
                     int modelID = view.getListTasks().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     task.addData("data[Task][id]", id);
                     
@@ -234,7 +239,7 @@ public class EditTasksController extends EController
                     
                 case TableModelEvent.UPDATE:
                     int modelID = view.getListTasks().convertRowIndexToModel(view.getListTasks().getSelectedRow());
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     if(!updated.contains(id))
                         updated.add(id);
@@ -250,14 +255,14 @@ public class EditTasksController extends EController
     private ActionListener addTaskButtonListener()
     {
         return (ActionEvent e) -> {
-            Task task = (Task)getModel("Task");
-            Map<String, String> errors = new HashMap<>();
+            Task task                   = (Task)getModel("Task");
+            Map<String, String> errors  = new HashMap<>();
             
-            task.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            task.addData("data[Token][fields]", app.getUser().get("token"));
-            task.addData("data[Task][name]", view.getNameField().getText());
-            task.addData("data[Task][priority]", (Integer)view.getPriorityTask().getValue());
-            task.addData("data[Task][progress]", "0");
+            task.addData("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+            task.addData("data[Token][fields]",     app.getUser().get("token"));
+            task.addData("data[Task][name]",        view.getNameField().getText());
+            task.addData("data[Task][priority]",    (Integer)view.getPriorityTask().getValue());
+            task.addData("data[Task][progress]",    "0");
             task.addData("data[Task][macrotask_id]", data.get("id"));
             
             try
@@ -266,7 +271,9 @@ public class EditTasksController extends EController
                 {
                     String json = task.execute("INSERT", errors);
                    
-                    HashMap<String, HashMap<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType());
+                    HashMap<String, HashMap<String, String>> values = new Gson().fromJson(
+                        json, new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType()
+                    );
 
                     if(values != null && values.get("task") != null)
                     {

@@ -54,12 +54,13 @@ public class MainFrame extends EFrame
         JMenuItem exit  = new JMenuItem("Quitter");
         
         home.addActionListener(fileHomeListener());
-        home.setVisible(false);
         disconnect.addActionListener(fileDisconnectListener());
-        disconnect.setVisible(false);
         profile.addActionListener(profileListener());
-        profile.setVisible(false);
         exit.addActionListener(fileExitListener());
+        
+        home.setVisible(false);
+        disconnect.setVisible(false);
+        profile.setVisible(false);
         
         file.add(home);
         file.add(profile);

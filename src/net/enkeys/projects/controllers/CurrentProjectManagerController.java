@@ -25,8 +25,8 @@ import net.enkeys.projects.views.ScheduleView;
  */
 public class CurrentProjectManagerController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final CurrentProjectManagerView view = (CurrentProjectManagerView)super.view;
+    private final ENKProjects app                   = (ENKProjects)super.app;
+    private final CurrentProjectManagerView view    = (CurrentProjectManagerView)super.view;
     private final HashMap<String, String> project;
     
     public CurrentProjectManagerController(EApplication app, EView view, HashMap<String, String> project)

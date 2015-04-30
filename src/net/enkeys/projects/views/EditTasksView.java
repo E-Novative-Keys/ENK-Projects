@@ -47,16 +47,17 @@ public class EditTasksView extends EView
     {
         super();
         
-        add(listScroller, "Center");
-        add(bottomPanel(), "South");
+        add(listScroller,   "Center");
+        add(bottomPanel(),  "South");
+        
         setBorder(new TitledBorder(new EtchedBorder(), "Edition des tâches"));
     }
 
     private JPanel bottomPanel()
     {
-        JPanel panel    = new JPanel(new BorderLayout());
-        ETable buttons  = new ETable();
-        GridBagConstraints constraints = buttons.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);

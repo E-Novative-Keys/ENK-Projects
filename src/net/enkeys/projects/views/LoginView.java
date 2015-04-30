@@ -57,14 +57,14 @@ public class LoginView extends EView
         loginButton.setOpaque(false);
         loginButton.setCursor(ESystem.getCursor(Cursor.HAND_CURSOR));
         
-        panel.add(new JLabel(logo), constraints, 0, 0, 0);
-        panel.add(emailLabel, constraints, 0, 1);
-        panel.add(emailField, constraints, 1, 1);
-        panel.add(passwordLabel, constraints, 0, 2);
-        panel.add(passwordField, constraints, 1, 2);
-        panel.add(forgotLabel, constraints, 0, 3, 0);
-        panel.add(loginButton, constraints, 0, 4, 0);
-        panel.add(errorLabel, constraints, 0, 5, 0);
+        panel.add(new JLabel(logo),     constraints, 0, 0, 0);
+        panel.add(emailLabel,           constraints, 0, 1);
+        panel.add(emailField,           constraints, 1, 1);
+        panel.add(passwordLabel,        constraints, 0, 2);
+        panel.add(passwordField,        constraints, 1, 2);
+        panel.add(forgotLabel,          constraints, 0, 3, 0);
+        panel.add(loginButton,          constraints, 0, 4, 0);
+        panel.add(errorLabel,           constraints, 0, 5, 0);
         
         return panel;
     }

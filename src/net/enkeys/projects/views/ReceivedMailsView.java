@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import net.enkeys.framework.components.ETable;
 import net.enkeys.framework.components.EView;
 import net.enkeys.framework.utils.EResources;
@@ -31,7 +32,7 @@ public class ReceivedMailsView extends EView
     private final JLabel objectLabel        = new JLabel("");
     private final JLabel date               = new JLabel("");
     private final JLabel dateLabel          = new JLabel("");
-    private final JLabel mailLabel          = new JLabel("");
+    private final JTextArea mailLabel       = new JTextArea("");
     private final JButton deleteButton      = new JButton("Supprimer la sélection");
     private final JButton backButton        = new JButton(" Retour", EResources.loadImageIcon("back_dark.png"));
     
@@ -39,16 +40,16 @@ public class ReceivedMailsView extends EView
     {
         super();
         
-        add(listScroller, "West");
-        add(mailPanel(), "Center");
-        add(bottomPanel(), "South");
+        add(listScroller,   "West");
+        add(mailPanel(),    "Center");
+        add(bottomPanel(),  "South");
     }
     
     private JPanel mailPanel()
     {
-        ETable mail     = new ETable();
-        JPanel panel    = new JPanel(new BorderLayout());
-        GridBagConstraints constraints = mail.getConstraints();
+        ETable mail                     = new ETable();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        GridBagConstraints constraints  = mail.getConstraints();
         
         constraints.insets = new Insets(10, 10, 10, 10);
         
@@ -57,7 +58,13 @@ public class ReceivedMailsView extends EView
         mail.add(objectLabel, constraints, 1, 0, 1, 1, GridBagConstraints.FIRST_LINE_START);
         mail.add(date, constraints, 0, 1);
         mail.add(dateLabel, constraints, 1, 1, 1, 1, GridBagConstraints.FIRST_LINE_START);
+        
+        mailLabel.setWrapStyleWord(true);
+        mailLabel.setLineWrap(true);
+        mailLabel.setEditable(false);
+        mailLabel.setVisible(false);
         mail.add(mailLabel, constraints, 0, 2, 0);
+        
         panel.add(mail, "North");
         
         return panel;
@@ -65,9 +72,9 @@ public class ReceivedMailsView extends EView
    
     private JPanel bottomPanel()
     {
-        JPanel panel    = new JPanel(new BorderLayout());
-        ETable buttons  = new ETable();
-        GridBagConstraints constraints = buttons.getConstraints();
+        JPanel panel                    = new JPanel(new BorderLayout());
+        ETable buttons                  = new ETable();
+        GridBagConstraints constraints  = buttons.getConstraints();
         
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
@@ -97,15 +104,18 @@ public class ReceivedMailsView extends EView
         return listScroller;
     }
 
-    public JLabel getObjectLabel() {
+    public JLabel getObjectLabel()
+    {
         return objectLabel;
     }
 
-    public JLabel getDateLabel() {
+    public JLabel getDateLabel()
+    {
         return dateLabel;
     }
 
-    public JLabel getMailLabel() {
+    public JTextArea getMailLabel()
+    {
         return mailLabel;
     }
     

@@ -28,8 +28,8 @@ import net.enkeys.projects.views.NewProjectView;
  */
 public class NewClientController extends EController
 {
-    private final ENKProjects app = (ENKProjects) super.app;
-    private final NewClientView view = (NewClientView) super.view;
+    private final ENKProjects app       = (ENKProjects) super.app;
+    private final NewClientView view    = (NewClientView) super.view;
     
     public NewClientController(EApplication app, EView view)
     {
@@ -54,16 +54,16 @@ public class NewClientController extends EController
             Client client = (Client) getModel("Client");
             Map<String, String> errors = new HashMap<>();
             
-            client.addData("data[Client][firstname]", view.getFirstname().getText());
-            client.addData("data[Client][lastname]", view.getLastname().getText());
+            client.addData("data[Client][firstname]",   view.getFirstname().getText());
+            client.addData("data[Client][lastname]",    view.getLastname().getText());
             client.addData("data[Client][phonenumber]", view.getPhonenumber().getText());
-            client.addData("data[Client][email]", view.getEmail().getText());
-            client.addData("data[Client][enterprise]", view.getEnterprise().getText());
-            client.addData("data[Client][address]", view.getAddress().getText());
-            client.addData("data[Client][siret]", view.getSiret().getText());
+            client.addData("data[Client][email]",       view.getEmail().getText());
+            client.addData("data[Client][enterprise]",  view.getEnterprise().getText());
+            client.addData("data[Client][address]",     view.getAddress().getText());
+            client.addData("data[Client][siret]",       view.getSiret().getText());
             
-            client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            client.addData("data[Token][fields]", app.getUser().get("token"));
+            client.addData("data[Token][link]",         ECrypto.base64(app.getUser().get("email")));
+            client.addData("data[Token][fields]",       app.getUser().get("token"));
         
             try
             {
@@ -73,7 +73,9 @@ public class NewClientController extends EController
                     
                     if(json.contains("error"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        Map<String, Map<String, String>> values = new Gson().fromJson(
+                            json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                        );
                         
                         if((errors = values.get("error")) != null)
                             setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -85,7 +87,11 @@ public class NewClientController extends EController
                         if(view.getNewProject().isSelected() && json.contains("newClient"))
                         {
                             String newClient = "{" + json.substring(json.indexOf("\"newClient\""));
-                            Map<String, Map<String, String>> values = new Gson().fromJson(newClient, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                            
+                            Map<String, Map<String, String>> values = new Gson().fromJson(
+                                newClient, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                            );
+                            
                             app.getFrame(0).setContent(new NewProjectController(app, new NewProjectView(), Integer.parseInt(values.get("newClient").get("id"))));
                         }
                         else

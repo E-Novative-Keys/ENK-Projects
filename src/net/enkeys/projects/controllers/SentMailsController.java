@@ -49,15 +49,17 @@ public class SentMailsController extends EController
     
     private void initView()
     {
-        Mailbox mail = (Mailbox)getModel("Mailbox");
-        Map<String, String> errors = new HashMap<>();
+        Mailbox mail                = (Mailbox)getModel("Mailbox");
+        Map<String, String> errors  = new HashMap<>();
         
         mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-        mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+        mail.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
         mail.addData("data[Token][fields]", app.getUser().get("token"));
         
         String json = mail.execute("SENT", errors, true);
-        Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+        Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json,
+                new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+        );
 
         if(values != null && values.get("mails") != null)
         {
@@ -80,9 +82,16 @@ public class SentMailsController extends EController
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                view.getObjectLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("object"));
-                view.getDateLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("created"));
-                view.getMailLabel().setText(view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("content"));
+                view.getObjectLabel().setText(
+                    view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("object")
+                );
+                view.getDateLabel().setText(
+                    view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("created")
+                );
+                view.getMailLabel().setVisible(true);
+                view.getMailLabel().setText(
+                    view.getDataTable().values.get(view.getListMails().getSelectedRow()).get("content")
+                );
             }
         };
     }
@@ -95,21 +104,21 @@ public class SentMailsController extends EController
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer cet email ?") == ENKProjects.YES)
             {
-                Mailbox mail = (Mailbox)getModel("Mailbox");
-                Map<String, String> errors = new HashMap<>();
+                Mailbox mail                = (Mailbox)getModel("Mailbox");
+                Map<String, String> errors  = new HashMap<>();
                 
                 mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-                mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                mail.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
                 mail.addData("data[Token][fields]", app.getUser().get("token"));
                 
-                for(int i = 0 ; i < rows.length ; i++)
+                for(int i = 0; i < rows.length; i++)
                 {
                     int modelID = view.getListMails().convertRowIndexToModel(rows[i]-i);
                     
                     mail.addData("data[Mail][id]", ECrypto.base64(view.getDataTable().values.get(modelID).get("id")));
                     
-                    String json = mail.execute("DELETE", errors, true);
-                    Map<String, String> values = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
+                    String json                 = mail.execute("DELETE", errors, true);
+                    Map<String, String> values  = new Gson().fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
                     if(values != null && values.get("email") != null)
                     {

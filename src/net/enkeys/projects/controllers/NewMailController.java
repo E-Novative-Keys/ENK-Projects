@@ -51,10 +51,10 @@ public class NewMailController extends EController
                 Mailbox mail = (Mailbox)getModel("Mailbox");
                 Map<String, String> errors = new HashMap<>();
                 
-                mail.addData("data[Mail][object]", this.view.getObject().getText());
+                mail.addData("data[Mail][object]",  this.view.getObject().getText());
                 mail.addData("data[Mail][content]", this.view.getMail().getText());
                 mail.addData("data[Mail][project]", ECrypto.base64(this.project.get("id")));
-                mail.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
+                mail.addData("data[Token][link]",   ECrypto.base64(app.getUser().get("email")));
                 mail.addData("data[Token][fields]", app.getUser().get("token"));
                 
                     String json = mail.execute("SEND", errors, true);

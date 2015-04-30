@@ -27,8 +27,8 @@ import net.enkeys.projects.views.QuotationView;
  */
 public class QuotationController extends EController
 {
-    private final ENKProjects app = (ENKProjects)super.app;
-    private final QuotationView view = (QuotationView)super.view;
+    private final ENKProjects app       = (ENKProjects)super.app;
+    private final QuotationView view    = (QuotationView)super.view;
     private final HashMap<String, String> project;
     
     public QuotationController(EApplication app, EView view, HashMap<String, String> project)
@@ -46,20 +46,20 @@ public class QuotationController extends EController
     private ActionListener generateButtonListener()
     {
         return (ActionEvent e) -> {
-            String dev_salary = new String(Float.parseFloat(view.getDevSpinner().getValue().toString()) + "");
-            String leaddev_salary = new String(Float.parseFloat(view.getLeaddevSpinner().getValue().toString()) + "");
-            String tva = new String(Float.parseFloat(view.getTVASpinner().getValue().toString()) + "");
+            String dev_salary       = new String(Float.parseFloat(view.getDevSpinner().getValue().toString()) + "");
+            String leaddev_salary   = new String(Float.parseFloat(view.getLeaddevSpinner().getValue().toString()) + "");
+            String tva              = new String(Float.parseFloat(view.getTVASpinner().getValue().toString()) + "");
             
             EHttpRequest request;
             Project model = (Project)getModel("Project");
 
-            model.addData("data[Project][id]", ECrypto.base64(this.project.get("id")));
-            model.addData("data[Project][dev_salary]", dev_salary);
-            model.addData("data[Project][leaddev_salary]", leaddev_salary);
-            model.addData("data[Project][tva]", tva);
+            model.addData("data[Project][id]",              ECrypto.base64(this.project.get("id")));
+            model.addData("data[Project][dev_salary]",      dev_salary);
+            model.addData("data[Project][leaddev_salary]",  leaddev_salary);
+            model.addData("data[Project][tva]",             tva);
 
-            model.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            model.addData("data[Token][fields]", app.getUser().get("token"));
+            model.addData("data[Token][link]",              ECrypto.base64(app.getUser().get("email")));
+            model.addData("data[Token][fields]",            app.getUser().get("token"));
 
             try
             {

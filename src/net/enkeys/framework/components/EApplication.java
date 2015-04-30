@@ -15,11 +15,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 public abstract class EApplication implements Runnable
 {
     //Redéfinition des constantes de fenêtres confirm & message
-    public static final int YES = JOptionPane.YES_OPTION;
-    public static final int NO = JOptionPane.NO_OPTION;
-    public static final int CANCEL = JOptionPane.CANCEL_OPTION;
-    public static final int YES_NO = JOptionPane.YES_NO_OPTION;
-    public static final int YES_NO_CANCEL = JOptionPane.YES_NO_CANCEL_OPTION;
+    public static final int YES             = JOptionPane.YES_OPTION;
+    public static final int NO              = JOptionPane.NO_OPTION;
+    public static final int CANCEL          = JOptionPane.CANCEL_OPTION;
+    public static final int YES_NO          = JOptionPane.YES_NO_OPTION;
+    public static final int YES_NO_CANCEL   = JOptionPane.YES_NO_CANCEL_OPTION;
     
     //Attributs principaux de l'application
     protected final String name;    //Le nom de l'application
@@ -43,11 +43,11 @@ public abstract class EApplication implements Runnable
      */
     public EApplication(String name, String version, String dev, String contact, String[] args)
     {
-        this.name = name;
-        this.version = version;
-        this.dev = dev;
-        this.contact = contact;
-        this.args = args;
+        this.name       = name;
+        this.version    = version;
+        this.dev        = dev;
+        this.contact    = contact;
+        this.args       = args;
             
         setDefaultLogger();
         setEncoding("UTF-8");

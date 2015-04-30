@@ -102,14 +102,18 @@ public class CloudController extends EController
         
         cloudMenu           = new JMenu("Cloud");
         JMenuItem refresh   = new JMenuItem("Rafraichir");
+       
         refresh.addActionListener(refreshListener());
+        
         cloudMenu.add(refresh);
+        
         app.getFrame(0).getJMenuBar().add(cloudMenu);
         
         view.getCommentField().setVisible(false);
         view.getCommentButton().setVisible(false);
-        cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        cloud.addData("data[Token][fields]", app.getUser().get("token"));
+        
+        cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+        cloud.addData("data[Token][fields]",    app.getUser().get("token"));
         
         path[0].append("/");
         path[1].append("/");
@@ -123,8 +127,8 @@ public class CloudController extends EController
         return (ActionEvent e) -> {
             Cloud cloud = (Cloud)getModel("Cloud");
             
-            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]",    app.getUser().get("token"));
             
             listFiles(cloud, 0);
             listFiles(cloud, 1);
@@ -144,8 +148,8 @@ public class CloudController extends EController
                     
                     cloud.clearData();
                     
-                    cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                    cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                    cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+                    cloud.addData("data[Token][fields]",    app.getUser().get("token"));
                     
                     deleteFile(cloud, 0);
                 }
@@ -160,14 +164,15 @@ public class CloudController extends EController
             @Override
             public void keyReleased(KeyEvent e)
             {
-                if(e.getExtendedKeyCode() == KeyEvent.VK_DELETE)
+                if(e.getExtendedKeyCode() == KeyEvent.VK_DELETE
+                && (app.getUser().get("role").equals("admin") || app.getUser().get("role").equals("leaddev")))
                 {
                     Cloud cloud = (Cloud)getModel("Cloud");
                     
                     cloud.clearData();
                     
-                    cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                    cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                    cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+                    cloud.addData("data[Token][fields]",    app.getUser().get("token"));
                     
                     deleteFile(cloud, 1);
                 }
@@ -185,8 +190,8 @@ public class CloudController extends EController
             {
                 cloud.clearData();
                 
-                cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+                cloud.addData("data[Token][fields]",    app.getUser().get("token"));
                 
                 // Si double click gauche de la souris
                 if(e.getButton() == 1)
@@ -204,9 +209,13 @@ public class CloudController extends EController
                     }
                     else
                     {
-                        view.getCommentField().setText(view.getDevData().getValue(view.getDevList().getSelectedIndex()).get("comment"));
+                        view.getCommentField().setText(
+                            view.getDevData().getValue(view.getDevList().getSelectedIndex()).get("comment")
+                        );
+                        
                         view.getCommentField().setVisible(true);
                         view.getCommentButton().setVisible(true);
+                        
                         view.getCommentButton().setName("dev");
                     }
                 }
@@ -224,8 +233,8 @@ public class CloudController extends EController
             {
                 cloud.clearData();
                 
-                cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+                cloud.addData("data[Token][fields]",    app.getUser().get("token"));
                                
                 // Si double click gauche de la souris
                 if(e.getButton() == 1)
@@ -243,9 +252,13 @@ public class CloudController extends EController
                     }
                     else
                     {
-                        view.getCommentField().setText(view.getClientsData().getValue(view.getClientsList().getSelectedIndex()).get("comment"));
+                        view.getCommentField().setText(
+                            view.getClientsData().getValue(view.getClientsList().getSelectedIndex()).get("comment")
+                        );
+                        
                         view.getCommentField().setVisible(true);
                         view.getCommentButton().setVisible(true);
+                        
                         view.getCommentButton().setName("client");
                     }
                 }
@@ -287,8 +300,8 @@ public class CloudController extends EController
             Cloud cloud         = (Cloud)getModel("Cloud");
             String[] explode    = path[0].substring(1).split("/");
             
-            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]",    app.getUser().get("token"));
             
             if(explode.length == 0 || explode.length == 1)
                 path[0].replace(0, path[0].length(), "/");
@@ -315,8 +328,8 @@ public class CloudController extends EController
             Cloud cloud         = (Cloud)getModel("Cloud");
             String[] explode    = path[1].substring(1).split("/");
             
-            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]",    app.getUser().get("token"));
             
             if(explode.length == 0 || explode.length == 1)
                 path[1].replace(0, path[1].length(), "/");
@@ -361,10 +374,10 @@ public class CloudController extends EController
             
             if(file != null)
             {
-                cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
-                cloud.addData("data[Cloud][comment]", view.getCommentField().getText());
-                cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                cloud.addData("data[Token][fields]", app.getUser().get("token"));
+                cloud.addData("data[Cloud][project]",   ECrypto.base64(project.get("id")));
+                cloud.addData("data[Cloud][comment]",   view.getCommentField().getText());
+                cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+                cloud.addData("data[Token][fields]",    app.getUser().get("token"));
             
                 String json = cloud.execute("COMMENT", errors, true);
                 
@@ -379,13 +392,15 @@ public class CloudController extends EController
         Map<String, String> errors  = new HashMap<>();
         String[] actions            = new String[]{"LIST_DEV", "LIST_CLIENT"};
          
-        cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
+        cloud.addData("data[Cloud][project]",   ECrypto.base64(project.get("id")));
         cloud.addData("data[Cloud][directory]", ECrypto.base64(path[index].toString()));
 
         if(cloud.validate(actions[index], cloud.getData(), errors))
         {
             String json = cloud.execute(actions[index], errors, true);
-            Map<String, ArrayList<HashMap<String, String>>> values  = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values  = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
 
             if(values != null && values.get("content") != null)
             {
@@ -410,15 +425,24 @@ public class CloudController extends EController
                 { 
                     if(index == 0)
                     {
-                        view.getDevRenderer().directories.add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
+                        view.getDevRenderer().directories.add(
+                            (f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE
+                        );
+                        
                         view.getDevData().addElement(f.get("filename"));
                     }                        
                     else
                     {
-                        view.getClientRenderer().directories.add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
+                        view.getClientRenderer().directories.add(
+                            (f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE
+                        );
+                        
                         view.getClientsData().addElement(f.get("filename"));
                     }
-                    directories.get(index).add((f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE);
+                    
+                    directories.get(index).add(
+                        (f.get("isDir").equals("true")) ? Boolean.TRUE : Boolean.FALSE
+                    );
                 }
             }
             else
@@ -429,7 +453,7 @@ public class CloudController extends EController
     private void deleteFile(Cloud cloud, int index)
     {
         Map<String, String> errors  = new HashMap<>();
-        String[] users = new String[]{"dev", "client"};
+        String[] users              = new String[]{"dev", "client"};
         
         if(app.confirm("Êtes-vous certain de vouloir supprimer le fichier/dossier ?") == ENKProjects.YES)
         {
@@ -438,9 +462,9 @@ public class CloudController extends EController
             if(index == 0)
             {
                 cloud.addData("data[Cloud][directory]", 
-                        ECrypto.base64(path[index].toString() + 
-                        (directories.get(index).get(view.getDevList().getSelectedIndex())
-                        ? view.getDevList().getSelectedValue() : ""))
+                    ECrypto.base64(path[index].toString() + 
+                    (directories.get(index).get(view.getDevList().getSelectedIndex())
+                    ? view.getDevList().getSelectedValue() : ""))
                 );
                 cloud.addData("data[Cloud][name]", 
                     (directories.get(index).get(view.getDevList().getSelectedIndex())
@@ -463,8 +487,10 @@ public class CloudController extends EController
 
             if(cloud.validate("DEL_FILE", cloud.getData(), errors))
             {
-                String json = cloud.execute("DEL_FILE", errors, true);
-                HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                String json                     = cloud.execute("DEL_FILE", errors, true);
+                HashMap<String, String> values  = new Gson().fromJson(
+                    json, new TypeToken<HashMap<String, String>>(){}.getType()
+                );
 
                 if(values != null)
                 {
@@ -500,8 +526,10 @@ public class CloudController extends EController
         cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id"))); 
         cloud.addData("data[Cloud][user]", users[index]);
 
-        String json = cloud.execute("DOWNLOAD", errors, true);
-        HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+        String json                     = cloud.execute("DOWNLOAD", errors, true);
+        HashMap<String, String> values  = new Gson().fromJson(
+            json, new TypeToken<HashMap<String, String>>(){}.getType()
+        );
 
         if(values != null && values.get("token") != null)
         {
@@ -535,20 +563,22 @@ public class CloudController extends EController
         {
             try
             {
-                EHttpRequest request = new EHttpRequest(new URL("http://enkwebservice.com/cloud/files/add"));
-                HashMap<String, String> data = new HashMap<>();
+                EHttpRequest request            = new EHttpRequest(new URL("http://enkwebservice.com/cloud/files/add"));
+                HashMap<String, String> data    = new HashMap<>();
 
-                data.put("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                data.put("data[Token][fields]", app.getUser().get("token"));
-                data.put("data[Cloud][project]", ECrypto.base64(project.get("id")));
-                data.put("data[Cloud][directory]", ECrypto.base64(path[index].toString()));
-                data.put("data[Cloud][user]", users[index]);
+                data.put("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+                data.put("data[Token][fields]",     app.getUser().get("token"));
+                data.put("data[Cloud][project]",    ECrypto.base64(project.get("id")));
+                data.put("data[Cloud][directory]",  ECrypto.base64(path[index].toString()));
+                data.put("data[Cloud][user]",       users[index]);
 
                 String json = request.upload(data, filechooser.getSelectedFile());
                 
                 if(json.contains("upload"))
                 {
-                    HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                    HashMap<String, String> values = new Gson().fromJson(
+                        json, new TypeToken<HashMap<String, String>>(){}.getType()
+                    );
 
                     if(values != null && values.get("upload") != null)
                     {
@@ -592,13 +622,13 @@ public class CloudController extends EController
         
         if((dir = app.input("Entrez un nom de dossier")) != null)
         {
-            cloud.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            cloud.addData("data[Token][fields]", app.getUser().get("token"));
+            cloud.addData("data[Token][link]",      ECrypto.base64(app.getUser().get("email")));
+            cloud.addData("data[Token][fields]",    app.getUser().get("token"));
 
-            cloud.addData("data[Cloud][project]", ECrypto.base64(project.get("id")));
+            cloud.addData("data[Cloud][project]",   ECrypto.base64(project.get("id")));
             cloud.addData("data[Cloud][directory]", ECrypto.base64(path[index].toString()));
-            cloud.addData("data[Cloud][name]", dir);
-            cloud.addData("data[Cloud][user]", users[index]);
+            cloud.addData("data[Cloud][name]",      dir);
+            cloud.addData("data[Cloud][user]",      users[index]);
 
             if(cloud.validate("ADD_FOLDER", cloud.getData(), errors))
             {
@@ -606,7 +636,9 @@ public class CloudController extends EController
                 
                 if(json.contains("addFolder"))
                 {
-                    HashMap<String, String> values = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>(){}.getType());
+                    HashMap<String, String> values = new Gson().fromJson(
+                        json, new TypeToken<HashMap<String, String>>(){}.getType()
+                    );
 
                     if(values != null && values.get("addFolder") != null)
                     {

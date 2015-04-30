@@ -25,8 +25,8 @@ public abstract class EController
      */
     public EController(EApplication app, EView view)
     {
-        this.app = app;
-        this.view = view;
+        this.app    = app;
+        this.view   = view;
         this.models = new ArrayList<>();
     }
     

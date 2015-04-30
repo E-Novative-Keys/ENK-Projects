@@ -34,8 +34,8 @@ import net.enkeys.projects.views.NewProjectView;
  */
 class EditProjectController extends EController
 {
-    private final ENKProjects app = (ENKProjects) super.app;
-    private final NewProjectView view = (NewProjectView) super.view;
+    private final ENKProjects app       = (ENKProjects) super.app;
+    private final NewProjectView view   = (NewProjectView) super.view;
     private final HashMap<String, String> data;
     private final boolean flag; //False si atteint depuis la liste des projets, true si depuis le Manager du projet
     
@@ -50,6 +50,7 @@ class EditProjectController extends EController
         addModel(new Project());
         addModel(new User());
         addModel(new Client());
+        
         this.data = data;
         this.flag = flag;
         
@@ -60,21 +61,23 @@ class EditProjectController extends EController
     }
 
     private void initView() {
-        Client client = (Client)getModel("Client");
-        User user = (User)getModel("User");
+        Client client   = (Client)getModel("Client");
+        User user       = (User)getModel("User");
         Map<String, String> errors = new HashMap<>();
         
-        client.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        client.addData("data[Token][fields]", app.getUser().get("token"));
+        client.addData("data[Token][link]",     ECrypto.base64(app.getUser().get("email")));
+        client.addData("data[Token][fields]",   app.getUser().get("token"));
         
-        user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        user.addData("data[Token][fields]", app.getUser().get("token"));
+        user.addData("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+        user.addData("data[Token][fields]",     app.getUser().get("token"));
         
         //Remplissage ComboBox client
         if(client.validate("SELECT", client.getData(), errors))
         {
             String json = client.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("clients") != null)
             {
@@ -109,7 +112,9 @@ class EditProjectController extends EController
             if(user.validate("SELECT", user.getData(), errors))
             {
                 String json = user.execute("SELECT", errors);
-                Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+                Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                    json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+                );
 
                 if(values != null && values.get("users") != null)
                 {
@@ -138,14 +143,16 @@ class EditProjectController extends EController
         view.getProjectName().setText(this.data.get("name"));
         view.getDescription().setText(this.data.get("description"));
         view.getBudget().setText(this.data.get("budget"));
+        
         try
         {
-            view.getDeadline().setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.data.get("deadline")));
+            view.getDeadline().setDate(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(this.data.get("deadline")));
         }
         catch (ParseException ex)
         {
             app.getLogger().warning(ex.getMessage());
         }
+        
         view.getEstimation().setText(this.data.get("estimation"));
         view.getDiscount().setValue(Double.parseDouble(this.data.get("discount")));
     }
@@ -164,24 +171,24 @@ class EditProjectController extends EController
     private ActionListener saveButtonListener()
     {
         return (ActionEvent e) -> {
-            Project project     = (Project) getModel("Project");
-            DateFormat df       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Map<String, String> errors = new HashMap<>();
+            Project project                 = (Project) getModel("Project");
+            DateFormat df                   = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Map<String, String> errors      = new HashMap<>();
             
-            String discount = new String(Float.parseFloat(view.getDiscount().getValue().toString()) + "");
+            String discount                 = new String(Float.parseFloat(view.getDiscount().getValue().toString()) + "");
                       
-            project.addData("data[Project][id]", this.data.get("id"));
-            project.addData("data[Project][client_name]", view.getClient().getSelectedItem());
-            project.addData("data[Project][name]", view.getProjectName().getText());
-            project.addData("data[Project][description]", view.getDescription().getText());
-            project.addData("data[Project][lead_name]", view.getLead().getSelectedItem());
-            project.addData("data[Project][deadline]", df.format(view.getDeadline().getDate()));
-            project.addData("data[Project][estimation]", view.getEstimation().getText());
-            project.addData("data[Project][budget]", view.getBudget().getText());
-            project.addData("data[Project][discount]", discount);
+            project.addData("data[Project][id]",            this.data.get("id"));
+            project.addData("data[Project][client_name]",   view.getClient().getSelectedItem());
+            project.addData("data[Project][name]",          view.getProjectName().getText());
+            project.addData("data[Project][description]",   view.getDescription().getText());
+            project.addData("data[Project][lead_name]",     view.getLead().getSelectedItem());
+            project.addData("data[Project][deadline]",      df.format(view.getDeadline().getDate()));
+            project.addData("data[Project][estimation]",    view.getEstimation().getText());
+            project.addData("data[Project][budget]",        view.getBudget().getText());
+            project.addData("data[Project][discount]",      discount);
             
-            project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            project.addData("data[Token][fields]", app.getUser().get("token"));
+            project.addData("data[Token][link]",            ECrypto.base64(app.getUser().get("email")));
+            project.addData("data[Token][fields]",          app.getUser().get("token"));
             
             try
             {
@@ -194,7 +201,9 @@ class EditProjectController extends EController
                         if(this.flag)
                         {
                             //On récupère et on réenregistre les nouvelles données du projet
-                            HashMap<String, ArrayList<HashMap<String, String>>> dataProjects = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+                            HashMap<String, ArrayList<HashMap<String, String>>> dataProjects = new Gson().fromJson(
+                                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+                            );
                             
                             if(dataProjects != null && dataProjects.get("projects") != null)
                             {
@@ -226,7 +235,9 @@ class EditProjectController extends EController
                     }
                     else if(json.contains("error"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        Map<String, Map<String, String>> values = new Gson().fromJson(
+                            json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                        );
                         
                         if((errors = values.get("error")) != null)
                             setError(errors.get(errors.keySet().toArray()[0].toString()));
@@ -246,7 +257,8 @@ class EditProjectController extends EController
         };
     }
 
-    private void setError(String err) {
+    private void setError(String err)
+    {
         view.getErrorLabel().setText(err);
         
         if(!err.isEmpty())

@@ -86,14 +86,14 @@ public class ETable extends JPanel
      */
     public void add(Component component, GridBagConstraints constraints, int x, int y, int width, int height, int weight, int anchor, Insets insets)
     {
-        constraints.gridx = x;
-        constraints.gridy = y;
-        constraints.weightx = weight;
-        constraints.weighty = 1;
-        constraints.gridwidth = width;
-        constraints.gridheight = height;
-        constraints.anchor = anchor;
-        constraints.insets = insets;
+        constraints.gridx       = x;
+        constraints.gridy       = y;
+        constraints.weightx     = weight;
+        constraints.weighty     = 1;
+        constraints.gridwidth   = width;
+        constraints.gridheight  = height;
+        constraints.anchor      = anchor;
+        constraints.insets      = insets;
 
         add(component, constraints);
     }

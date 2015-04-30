@@ -59,18 +59,18 @@ public class NewUserController extends EController
             if(!new String(view.getPassword().getPassword()).equals(new String(view.getConfirm().getPassword())))
                 setError("Mot de passe et confirmation différents"); 
             
-            user.addData("data[User][password]", user.password(new String(view.getPassword().getPassword())));
-            user.addData("data[User][firstname]", view.getFirstname().getText().substring(0, 1).toUpperCase()
-                                                + view.getFirstname().getText().substring(1));
-            user.addData("data[User][lastname]", view.getLastname().getText().toUpperCase());
-            user.addData("data[User][email]", view.getEmail().getText());
-            user.addData("data[User][role]", view.getRole().getSelectedItem());
-            user.addData("data[User][validated]", (view.getValidated().isSelected()) ? 1 : 0);
-            user.addData("data[User][password]", user.password(new String(view.getPassword().getPassword())));
-            user.addData("data[User][created]", df.format(new Date()));
-            user.addData("data[User][updated]", df.format(new Date()));
-            user.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-            user.addData("data[Token][fields]", app.getUser().get("token"));
+            user.addData("data[User][password]",    user.password(new String(view.getPassword().getPassword())));
+            user.addData("data[User][firstname]",   view.getFirstname().getText().substring(0, 1).toUpperCase()
+                                                    + view.getFirstname().getText().substring(1));
+            user.addData("data[User][lastname]",    view.getLastname().getText().toUpperCase());
+            user.addData("data[User][email]",       view.getEmail().getText());
+            user.addData("data[User][role]",        view.getRole().getSelectedItem());
+            user.addData("data[User][validated]",   (view.getValidated().isSelected()) ? 1 : 0);
+            user.addData("data[User][password]",    user.password(new String(view.getPassword().getPassword())));
+            user.addData("data[User][created]",     df.format(new Date()));
+            user.addData("data[User][updated]",     df.format(new Date()));
+            user.addData("data[Token][link]",       ECrypto.base64(app.getUser().get("email")));
+            user.addData("data[Token][fields]",     app.getUser().get("token"));
             
             try
             {
@@ -85,7 +85,9 @@ public class NewUserController extends EController
                     }
                     else if(json.contains("error"))
                     {
-                        Map<String, Map<String, String>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType());
+                        Map<String, Map<String, String>> values = new Gson().fromJson(
+                            json, new TypeToken<HashMap<String, Map<String, String>>>(){}.getType()
+                        );
                         
                         if((errors = values.get("error")) != null)
                             setError(errors.get(errors.keySet().toArray()[0].toString()));

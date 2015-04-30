@@ -51,16 +51,18 @@ public class ListProjectsController extends EController
     
     private void initView() 
     {
-        Project project = (Project)getModel("Project");
-        Map<String, String> errors = new HashMap<>();
+        Project project             = (Project)getModel("Project");
+        Map<String, String> errors  = new HashMap<>();
         
-        project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-        project.addData("data[Token][fields]", app.getUser().get("token"));
+        project.addData("data[Token][link]",    ECrypto.base64(app.getUser().get("email")));
+        project.addData("data[Token][fields]",  app.getUser().get("token"));
         
         if(project.validate("SELECT", project.getData(), errors))
         {
             String json = project.execute("SELECT", errors);
-            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType());
+            Map<String, ArrayList<HashMap<String, String>>> values = new Gson().fromJson(
+                json, new TypeToken<HashMap<String, ArrayList<HashMap<String, String>>>>(){}.getType()
+            );
             
             if(values != null && values.get("projects") != null)
             {
@@ -97,13 +99,13 @@ public class ListProjectsController extends EController
             if(rows.length > 0
             && app.confirm("Êtes-vous certain de vouloir supprimer les projets sélectionnés ?") == ENKProjects.YES)
             {                
-                project.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
-                project.addData("data[Token][fields]", app.getUser().get("token"));
+                project.addData("data[Token][link]",    ECrypto.base64(app.getUser().get("email")));
+                project.addData("data[Token][fields]",  app.getUser().get("token"));
                         
-                for(int i = 0 ; i < rows.length ; i++)
+                for(int i = 0; i < rows.length; i++)
                 {
                     int modelID = view.getListProjects().convertRowIndexToModel(rows[i]-i);
-                    int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                    int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                     Map<String, String> dataProject = view.getDataTable().getProjectByID(id);
                     
@@ -146,7 +148,7 @@ public class ListProjectsController extends EController
             if(view.getListProjects().getSelectedRow() > -1) 
             {
                 int modelID = view.getListProjects().convertRowIndexToModel(view.getListProjects().getSelectedRow());
-                int id = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
+                int id      = Integer.parseInt((String)view.getDataTable().getValue(modelID).get("id"));
                     
                 app.getFrame(0).setContent(new EditProjectController(app, new NewProjectView(), view.getDataTable().getProjectByID(id)));
             }

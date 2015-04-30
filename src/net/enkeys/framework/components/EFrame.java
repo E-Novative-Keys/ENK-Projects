@@ -38,8 +38,8 @@ public abstract class EFrame extends JFrame implements EWindowEvent, EMouseEvent
     protected final String name;
     protected final boolean pack;
     
-    protected JMenuBar menuBar = null;
-    protected EController content = null;
+    protected JMenuBar menuBar      = null;
+    protected EController content   = null;
     
     public EFrame(EApplication app, String title)
     {
@@ -58,8 +58,9 @@ public abstract class EFrame extends JFrame implements EWindowEvent, EMouseEvent
     public EFrame(EApplication app, String title, int width, int height)
     {
         super(title);
-        this.app = app;
-        this.name = title;
+        
+        this.app    = app;
+        this.name   = title;
         
         if(width == 0 || height == 0)
             this.pack = true;
