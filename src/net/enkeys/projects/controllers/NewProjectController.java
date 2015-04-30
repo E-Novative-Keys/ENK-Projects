@@ -88,8 +88,9 @@ public class NewProjectController extends EController
                     }
                 }
             }
+            //Si aucun client
             else
-                setError("Une erreur inattendue est survenue");
+                setError("Aucun client configuré");
         }
         else
             setError("Une erreur inattendue est survenue");
@@ -117,10 +118,10 @@ public class NewProjectController extends EController
                     }
                 }
                 else
-                    System.err.println(json);
+                    setError("Une erreur inattendue est survenue");
             }
             else
-                System.err.println(errors);
+                setError("Une erreur inattendue est survenue");
         }
     }
     

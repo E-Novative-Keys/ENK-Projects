@@ -138,7 +138,7 @@ public class ScheduleController extends EController
             int[] rows = view.getListMacrotasks().getSelectedRows();
             
             if(rows.length > 0
-            && app.confirm("Êtes-vous certain de vouloir supprimer les projets sélectionnés ?") == ENKProjects.YES)
+            && app.confirm("Êtes-vous certain de vouloir supprimer les macrotâches sélectionnées ?") == ENKProjects.YES)
             {                
                 macrotask.addData("data[Token][link]", ECrypto.base64(app.getUser().get("email")));
                 macrotask.addData("data[Token][fields]", app.getUser().get("token"));

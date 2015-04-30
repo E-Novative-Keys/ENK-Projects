@@ -42,7 +42,7 @@ public class MainFrame extends EFrame
 
     /**
      * Initialisation des objets composant le menu de la fenêtre.
-     * @param menuBar 
+     * @param menuBar
      */
     @Override
     protected void initMenu(JMenuBar menuBar)

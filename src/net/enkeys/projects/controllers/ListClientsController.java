@@ -78,8 +78,6 @@ public class ListClientsController extends EController
                 }
                 view.getListClients().setAutoCreateRowSorter(true);
             }
-            else
-                setError("Une erreur inattendue est survenue");
         }
         else
             setError("Une erreur inattendue est survenue");
