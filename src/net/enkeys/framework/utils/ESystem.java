@@ -1,6 +1,7 @@
 package net.enkeys.framework.utils;
 
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -12,12 +13,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import net.enkeys.framework.exceptions.ESystemException;
 
+/**
+ * Classe d'énumération identifiant le système hôte.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public enum ESystem
 {
     LINUX("linux", new String[] {"linux", "unix"}), 
@@ -74,17 +78,15 @@ public enum ESystem
      * @param link
      * @throws ESystemException 
      */
-    public static void open(URI link) throws ESystemException
+    public static void open(String link) throws ESystemException
     {
         try
         {
-            Class<?> desktopClass = Class.forName("java.awt.Desktop");
-            Object o = desktopClass.getMethod("getDesktop", new Class[0]).invoke(null, new Object[0]);
-            desktopClass.getMethod("browse", new Class[] { URI.class }).invoke(o, new Object[] { link });
+            Desktop.getDesktop().open(new File(link));
         }
-        catch(ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+        catch(IOException e)
         {
-            throw new ESystemException("An error occured while opening link: " + link.toString(), e);
+            throw new ESystemException("An error occured while opening link: " + link, e);
         }
     }
     

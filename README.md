@@ -7,6 +7,9 @@
 
 
 ##TO-DO
+1. EModel autogenerate data[Model][...]
+2. EController auto import EView
+
 Pour le 20/02 :
 1. Login
 2. Gestion des utilisateurs

@@ -1,21 +1,32 @@
 package net.enkeys.framework.components;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Main application class.
+ * Classe abstraite mère de toutes les applications ENK.
+ * Permet la gestion aisé de fenêtres, des arguments, d'un logger d'application,
+ * ainsi que de divers outils standards.
  * @author E-Novative Keys
- * @version 0.0.0.1
+ * @version 1.0
  */
 public abstract class EApplication implements Runnable
 {
-    protected final String name; //Le nom de l'application
+    //Redéfinition des constantes de fenêtres confirm & message
+    public static final int YES             = JOptionPane.YES_OPTION;
+    public static final int NO              = JOptionPane.NO_OPTION;
+    public static final int CANCEL          = JOptionPane.CANCEL_OPTION;
+    public static final int YES_NO          = JOptionPane.YES_NO_OPTION;
+    public static final int YES_NO_CANCEL   = JOptionPane.YES_NO_CANCEL_OPTION;
+    
+    //Attributs principaux de l'application
+    protected final String name;    //Le nom de l'application
     protected final String version; //La version actuelle de l'application
-    protected final String dev; //Les noms des développeurs de l'application
+    protected final String dev;     //Les noms des développeurs de l'application
     protected final String contact; //Une adresse de contact
-    protected final String[] args; //La liste d'arguments passées au démarrage de l'application
+    protected final String[] args;  //La liste d'arguments passées au démarrage de l'application
     
     protected ELogger logger = null;
     protected ArrayList<EFrame> frames = null;
@@ -32,17 +43,22 @@ public abstract class EApplication implements Runnable
      */
     public EApplication(String name, String version, String dev, String contact, String[] args)
     {
-        this.name = name;
-        this.version = version;
-        this.dev = dev;
-        this.contact = contact;
-        this.args = args;
-             
+        this.name       = name;
+        this.version    = version;
+        this.dev        = dev;
+        this.contact    = contact;
+        this.args       = args;
+            
         setDefaultLogger();
         setEncoding("UTF-8");
         setSystemUI(true);   
     }
     
+    /**
+     * Méthode abstraite symbolisant le démarrage de l'application.
+     * Les initialisations se font dans le constructeurs, les appels se font
+     * dans le run().
+     */
     @Override
     public abstract void run();
     
@@ -197,7 +213,7 @@ public abstract class EApplication implements Runnable
      * @param frame
      * @return 
      */
-    protected final boolean removeFrame(EFrame frame)
+    public final boolean removeFrame(EFrame frame)
     {
         return frames.remove(frame);
     }
@@ -208,7 +224,7 @@ public abstract class EApplication implements Runnable
      * @param i
      * @return 
      */
-    protected final boolean removeFrame(int i)
+    public final boolean removeFrame(int i)
     {
         EFrame frame = frames.get(i);
         
@@ -223,7 +239,7 @@ public abstract class EApplication implements Runnable
      * @param name
      * @return 
      */
-    protected final EFrame getFrame(String name)
+    public final EFrame getFrame(String name)
     {
         for(EFrame frame : frames)
         {
@@ -239,9 +255,133 @@ public abstract class EApplication implements Runnable
      * @param i
      * @return 
      */
-    protected final EFrame getFrame(int i)
+    public final EFrame getFrame(int i)
     {
         return frames.get(i);
+    }
+    
+    public final void message(EFrame frame, String msg)
+    {
+        this.message(frame, msg, frame.getName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg)
+    {
+        this.message(null, msg, getName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg, int type)
+    {
+        this.message(null, msg, getName(), type);
+    }
+    
+    public final void message(String msg, String title)
+    {
+        this.message(null, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public final void message(String msg, String title, int type)
+    {
+        this.message(null, msg, title, type);
+    }
+    
+    public final void message(EFrame frame, String msg, String title)
+    {
+        this.message(frame, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue contenant un message simple.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param type 
+     */
+    public final void message(EFrame frame, String msg, String title, int type)
+    {
+        JOptionPane.showMessageDialog(frame, msg, title, type);
+    }
+    
+    public final int confirm(EFrame frame, String msg)
+    {
+        return this.confirm(frame, msg, frame.getName(), JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg)
+    {
+        return this.confirm(null, msg, getName(), JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg, int options)
+    {
+        return this.confirm(null, msg, getName(), options);
+    }
+    
+    public final int confirm(String msg, String title)
+    {
+        return this.confirm(null, msg, title, JOptionPane.YES_NO_OPTION);
+    }
+    
+    public final int confirm(String msg, String title, int options)
+    {
+        return this.confirm(null, msg, title, options);
+    }
+    
+    public final int confirm(EFrame frame, String msg, String title)
+    {
+        return this.confirm(frame, msg, title, JOptionPane.YES_NO_OPTION);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue permettant à l'utilisateur d'effectuer
+     * un choix.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param options 
+     * @return  
+     */
+    public final int confirm(EFrame frame, String msg, String title, int options)
+    {
+        return JOptionPane.showConfirmDialog(frame, msg, title, options);
+    }
+    
+    public final String input(EFrame frame, String msg)
+    {
+        return this.input(frame, msg, frame.getName(), JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg)
+    {
+        return this.input(null, msg, getName(), JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg, String title)
+    {
+        return this.input(null, msg, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public final String input(String msg, String title, int options)
+    {
+        return this.input(null, msg, title, options);
+    }
+    
+    public final String input(EFrame frame, String msg, String title)
+    {
+        return this.input(frame, msg, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    /**
+     * Affichage d'une fenêtre de dialogue contenant un champs de texte.
+     * @param frame
+     * @param msg
+     * @param title
+     * @param type
+     * @return 
+     */
+    public final String input(EFrame frame, String msg, String title, int type)
+    {
+        return JOptionPane.showInputDialog(frame, msg, title, type);
     }
     
     /**

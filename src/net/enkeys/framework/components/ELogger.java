@@ -16,6 +16,11 @@ import java.util.logging.Logger;
 import net.enkeys.framework.exceptions.ELoggerException;
 import net.enkeys.framework.utils.ESystem;
 
+/**
+ * Logger personnalisé permettant la gestion console et fichier.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public class ELogger extends Logger
 {
     /**
@@ -32,21 +37,24 @@ public class ELogger extends Logger
         }
     }
     
+    /**
+     * Énumération définissant le comportement du Logger.
+     */
     public static enum Behavior
     {
         ALL, CONSOLE, FILE
     };
     
-    private final ConsoleHandler handler;
-    private String folder = "log/", name = null;
-    private File file = null;
-    private Behavior behavior = null;
+    private final ConsoleHandler handler;        //Gestionnaire permettant la redéfinition du Formatter de log
+    private String folder = "log/", name = null; //Le nom du dossier et du fichier de log en cas de définition behavior = FILE
+    private File file           = null;          //Le fichier contenant les messages loggés
+    private Behavior behavior   = null;          //Le comportement adopté par le Logger
     
     protected ELogger(String name, Behavior behavior)
     {
         super(name, null);
-        this.handler = new ConsoleHandler();
-        this.name = name;
+        this.handler    = new ConsoleHandler();
+        this.name       = name;
         
         setUseParentHandlers(false);
         setBehavior(behavior);
@@ -173,47 +181,79 @@ public class ELogger extends Logger
         }
     }
     
+    /**
+     * Message par défaut, de type Info.
+     * @param message 
+     */
     public final void log(String message)
     {
         log(Level.INFO, message);
     }
     
+    /**
+     * Message de type Config.
+     * @param message 
+     */
     @Override
     public final void config(String message)
     {
         log(Level.CONFIG, message);
     }
     
+    /**
+     * Message de type Fine.
+     * @param message 
+     */
     @Override
     public final void fine(String message)
     {
         log(Level.FINE, message);
     }
     
+    /**
+     * Message de type Finer.
+     * @param message 
+     */
     @Override
     public final void finer(String message)
     {
         log(Level.FINER, message);
     }
     
+    /**
+     * Message de type Finest.
+     * @param message 
+     */
     @Override
     public final void finest(String message)    
     {
         log(Level.FINEST, message);
     }
     
+    /**
+     * Message de type Info.
+     * @param message 
+     */
     @Override
     public final void info(String message)    
     {
         log(Level.INFO, message);
     }
     
+    /**
+     * Message de type Severe.
+     * @param message 
+     */
     @Override
     public final void severe(String message)    
     {
         log(Level.SEVERE, message);
     }
     
+    /**
+     * Message de type Warning.
+     * @param message 
+     */
     @Override
     public final void warning(String message)    
     {

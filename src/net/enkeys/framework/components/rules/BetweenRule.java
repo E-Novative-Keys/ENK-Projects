@@ -2,6 +2,12 @@ package net.enkeys.framework.components.rules;
 
 import net.enkeys.framework.exceptions.ERuleException;
 
+/**
+ * Règle de validation : la donnée validée doit être contenue entre les bornes
+ * min et max.
+ * @author E-Novative Keys.
+ * @version 1.0
+ */
 public class BetweenRule extends Rule
 {
     protected final int min, max;

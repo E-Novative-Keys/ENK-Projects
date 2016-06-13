@@ -21,6 +21,7 @@ public class EResources
 
     public static void setPackage(String pkg)
     {
+        pkg = pkg.replace(".", "/");
         if(!pkg.startsWith("/"))
             pkg = "/".concat(pkg);
         if(!pkg.endsWith("/"))
@@ -59,6 +60,11 @@ public class EResources
     public static ImageIcon loadImageIcon(String name)
     {
         return resourceExists(name) ? new ImageIcon(getResource(name)) : null;
+    }
+    
+    public static ImageIcon loadImageIcon(String name, int width, int height)
+    {
+        return new ImageIcon(EResources.loadImageIcon(name).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
     }
     
     public static AudioClip loadSound(String name) throws EResourceException

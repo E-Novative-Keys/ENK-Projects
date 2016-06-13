@@ -2,6 +2,11 @@ package net.enkeys.framework.utils;
 
 import java.nio.charset.Charset;
 
+/**
+ * Classe d'énumération d'encodages de caractères.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
 public enum ECharsets
 {
     ISO_8859_1("ISO-8859-1"),

@@ -17,33 +17,50 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import net.enkeys.framework.listeners.EComponentListener;
-import net.enkeys.framework.listeners.EContainerListener;
-import net.enkeys.framework.listeners.EFocusListener;
-import net.enkeys.framework.listeners.EKeyListener;
-import net.enkeys.framework.listeners.EMouseListener;
-import net.enkeys.framework.listeners.EWindowListener;
+import net.enkeys.framework.events.EComponentEvent;
+import net.enkeys.framework.events.EContainerEvent;
+import net.enkeys.framework.events.EFocusEvent;
+import net.enkeys.framework.events.EKeyEvent;
+import net.enkeys.framework.events.EMouseEvent;
+import net.enkeys.framework.events.EWindowEvent;
 import net.enkeys.framework.utils.EResources;
 
-public abstract class EFrame extends JFrame implements EWindowListener, EMouseListener, EKeyListener, EComponentListener, EContainerListener, EFocusListener
+/**
+ * Classe abstraite mère de toutes les fenêtre de l'application.
+ * Permet la gestion de contenu via Contrôleur, la gestion de menu, et implémente
+ * une gestion événementielle simplifiée.
+ * @author E-Novative Keys
+ * @version 1.0
+ */
+public abstract class EFrame extends JFrame implements EWindowEvent, EMouseEvent, EKeyEvent, EComponentEvent, EContainerEvent, EFocusEvent
 {
     protected final EApplication app;
     protected final String name;
     protected final boolean pack;
     
-    protected JMenuBar menuBar = null;
-    protected EController content = null;
+    protected JMenuBar menuBar      = null;
+    protected EController content   = null;
     
     public EFrame(EApplication app, String title)
     {
         this(app, title, 0, 0);
     }
     
+    /**
+     * Crée une nouvelle instance de type EFrame.
+     * Instancie les différents éléments par défaut de la fenêtre, et permet
+     * la création d'un menu personnalisé.
+     * @param app
+     * @param title
+     * @param width
+     * @param height 
+     */
     public EFrame(EApplication app, String title, int width, int height)
     {
         super(title);
-        this.app = app;
-        this.name = title;
+        
+        this.app    = app;
+        this.name   = title;
         
         if(width == 0 || height == 0)
             this.pack = true;
@@ -53,7 +70,6 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
             this.pack = false;
         }
         
-        getGlassPane().setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
@@ -64,6 +80,10 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
         eventHandler();
     }
     
+    /**
+     * Méthode abstraite permettant la construction d'un menu personnalisé.
+     * @param menuBar 
+     */
     protected abstract void initMenu(JMenuBar menuBar);
     
     /**
@@ -102,6 +122,7 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
     @Override
     public final void setCursor(Cursor cursor)
     {
+        getGlassPane().setVisible(true);
         getGlassPane().setCursor(cursor);
     }
     
@@ -167,7 +188,7 @@ public abstract class EFrame extends JFrame implements EWindowListener, EMouseLi
      */
     public final EApplication getApp()
     {
-        return app;
+        return this.app;
     }
     
     /**
